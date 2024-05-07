@@ -8,6 +8,7 @@ import (
 	paddle "github.com/PaddleHQ/paddle-go-sdk"
 )
 
+// Demonstrates how to fetch a list and iterate over the provided results.
 func Example_list() {
 	// Create a mock HTTP server for this example - skip over this bit!
 	s := mockServerForExample(mockServerResponse{stub: &stub{paths: []stubPath{transactions}}})
@@ -46,7 +47,8 @@ func Example_list() {
 	//<nil>
 }
 
-func Example_list_paginate() {
+// Demonstrates how to fetch a list and iterate over the provided results, including the automatic pagination.
+func Example_pagination() {
 	// Create a mock HTTP server for this example - skip over this bit!
 	s := mockServerForExample(mockServerResponse{stub: &stub{paths: []stubPath{
 		transactionsPaginatedPg1,

@@ -17,6 +17,7 @@ const (
 	exampleSecretKey = `pdl_ntfset_01hsdn8d43dt7mezr1ef2jtbaw_hKkRiCGyyRhbFwIUuqiTBgI7gnWoV0Gr`
 )
 
+// Demonstrates how to verify a webhook.
 func ExampleWebhookVerifier_Verify() {
 	// Create a WebhookVerifier with your secret key
 	// You should keep your secret outside the src, e.g. as an env variable
@@ -82,6 +83,7 @@ func ExampleWebhookVerifier_Verify() {
 	// Output: {"success": true} <nil>
 }
 
+// Demonstrates how to use the WebhookVerifier as a middleware.
 func ExampleWebhookVerifier_Middleware() {
 	// Create a WebhookVerifier with your secret key
 	// You should keep your secret outside the src, e.g. as an env variable

@@ -8,6 +8,7 @@ import (
 	paddle "github.com/PaddleHQ/paddle-go-sdk"
 )
 
+// Demonstrates how to get an existing entity.
 func Example_get() {
 	// Create a mock HTTP server for this example - skip over this bit!
 	s := mockServerForExample(mockServerResponse{stub: &stub{paths: []stubPath{transaction}}})
