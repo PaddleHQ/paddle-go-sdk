@@ -1,0 +1,30 @@
+{
+	"data": {
+		"id": "pri_01hsdn96k2hxjzsq5yerecdj9j",
+		"name": null,
+		"status": "active",
+		"quantity": {
+			"maximum": 999999,
+			"minimum": 1
+		},
+		"tax_mode": "account_setting",
+		"product_id": "pro_01hsdn8qp7yydry3x1yeg6a9rv",
+		"unit_price": {
+			"amount": "1000",
+			"currency_code": "USD"
+		},
+		"custom_data": null,
+		"description": "testing",
+		"import_meta": null,
+		"trial_period": null,
+		"billing_cycle": {
+			"interval": "month",
+			"frequency": 1
+		},
+		"unit_price_overrides": []
+	},
+	"event_id": "evt_01hsdn97563968dy0szkmgjwh3",
+	"event_type": "price.created",
+	"occurred_at": "2024-03-20T10:07:35.590857Z",
+	"notification_id": "ntf_01hsdn977e920kbgzt6r6c9rqc"
+}

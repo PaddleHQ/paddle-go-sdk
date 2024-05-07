@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: /
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+    labels:
+      - "release:patch"
+    groups:
+      go.mod:
+        patterns:
+          - "*"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+    labels:
+      - "release:none"

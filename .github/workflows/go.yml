@@ -1,0 +1,49 @@
+name: go
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Verify dependencies
+        run: go mod verify
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Go Format
+        run: gofmt -s -w . && git diff --exit-code
+
+      - name: Go Generate
+        run: go generate ./... && git diff --exit-code
+
+      - name: Install `govulncheck`
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+      - name: Run `govulncheck`
+        run: govulncheck ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./... -v -coverprofile=./cover.out -covermode atomic -coverpkg ./... -race
+
+      - name: Check coverage
+        uses: vladopajic/go-test-coverage@v2
+        with:
+          profile: cover.out
+          threshold-total: 30

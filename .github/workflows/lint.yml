@@ -1,0 +1,27 @@
+name: Linting
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: golangci-lint
+        uses: reviewdog/action-golangci-lint@v2
+        with:
+          reporter: github-pr-review
+          fail_on_error: true
+          filter_mode: nofilter
+
+      - name: eclint
+        uses: reviewdog/action-eclint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
