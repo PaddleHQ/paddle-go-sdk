@@ -154,24 +154,24 @@ type ReportsClient struct {
 type ListReportsRequest struct {
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by,omitempty" json:"-"`
+	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
 
 	   Default: `50`; Maximum: `200`.
 	*/
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status,omitempty" json:"-"`
+	Status []string `in:"query=status;omitempty" json:"-"`
 }
 
 // ListReports performs the GET operation on a Reports resource.

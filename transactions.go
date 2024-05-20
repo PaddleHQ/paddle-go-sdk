@@ -703,47 +703,47 @@ type TransactionsClient struct {
 type ListTransactionsRequest struct {
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// BilledAt is a query parameter.
 	// Return entities billed at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `billed_at=2023-04-18T17:03:26` or `billed_at[LT]=2023-04-18T17:03:26`.
-	BilledAt *string `in:"query=billed_at,omitempty" json:"-"`
+	BilledAt *string `in:"query=billed_at;omitempty" json:"-"`
 	// CollectionMode is a query parameter.
 	// Return entities that match the specified collection mode.
-	CollectionMode *string `in:"query=collection_mode,omitempty" json:"-"`
+	CollectionMode *string `in:"query=collection_mode;omitempty" json:"-"`
 	// CreatedAt is a query parameter.
 	// Return entities created at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `created_at=2023-04-18T17:03:26` or `created_at[LT]=2023-04-18T17:03:26`.
-	CreatedAt *string `in:"query=created_at,omitempty" json:"-"`
+	CreatedAt *string `in:"query=created_at;omitempty" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
-	CustomerID []string `in:"query=customer_id,omitempty" json:"-"`
+	CustomerID []string `in:"query=customer_id;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id,omitempty" json:"-"`
+	ID []string `in:"query=id;omitempty" json:"-"`
 	// InvoiceNumber is a query parameter.
 	// Return entities that match the invoice number. Use a comma-separated list to specify multiple invoice numbers.
-	InvoiceNumber []string `in:"query=invoice_number,omitempty" json:"-"`
+	InvoiceNumber []string `in:"query=invoice_number;omitempty" json:"-"`
 	// Origin is a query parameter.
 	// Return entities related to the specified origin. Use a comma-separated list to specify multiple origins.
-	Origin []string `in:"query=origin,omitempty" json:"-"`
+	Origin []string `in:"query=origin;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `billed_at`, `created_at`, `id`, and `updated_at`.
 	*/
-	OrderBy *string `in:"query=order_by,omitempty" json:"-"`
+	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status,omitempty" json:"-"`
+	Status []string `in:"query=status;omitempty" json:"-"`
 	// SubscriptionID is a query parameter.
 	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that are not related to any subscription.
-	SubscriptionID []string `in:"query=subscription_id,omitempty" json:"-"`
+	SubscriptionID []string `in:"query=subscription_id;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	// Set how many entities are returned per page.
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// UpdatedAt is a query parameter.
 	// Return entities updated at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `updated_at=2023-04-18T17:03:26` or `updated_at[LT]=2023-04-18T17:03:26`.
-	UpdatedAt *string `in:"query=updated_at,omitempty" json:"-"`
+	UpdatedAt *string `in:"query=updated_at;omitempty" json:"-"`
 
 	// IncludeAddress allows requesting the address sub-resource as part of this request.
 	// If set to true, will be included on the response.

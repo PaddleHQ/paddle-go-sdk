@@ -838,42 +838,42 @@ func (c *SubscriptionsClient) UpdateSubscription(ctx context.Context, req *Updat
 type ListSubscriptionsRequest struct {
 	// AddressID is a query parameter.
 	// Return entities related to the specified address. Use a comma-separated list to specify multiple address IDs.
-	AddressID []string `in:"query=address_id,omitempty" json:"-"`
+	AddressID []string `in:"query=address_id;omitempty" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// CollectionMode is a query parameter.
 	// Return entities that match the specified collection mode.
-	CollectionMode *string `in:"query=collection_mode,omitempty" json:"-"`
+	CollectionMode *string `in:"query=collection_mode;omitempty" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
-	CustomerID []string `in:"query=customer_id,omitempty" json:"-"`
+	CustomerID []string `in:"query=customer_id;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id,omitempty" json:"-"`
+	ID []string `in:"query=id;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by,omitempty" json:"-"`
+	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
 
 	   Default: `50`; Maximum: `200`.
 	*/
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// PriceID is a query parameter.
 	// Return entities related to the specified price. Use a comma-separated list to specify multiple price IDs.
-	PriceID []string `in:"query=price_id,omitempty" json:"-"`
+	PriceID []string `in:"query=price_id;omitempty" json:"-"`
 	// ScheduledChangeAction is a query parameter.
 	// Return subscriptions that have a scheduled change. Use a comma-separated list to specify multiple scheduled change actions.
-	ScheduledChangeAction []string `in:"query=scheduled_change_action,omitempty" json:"-"`
+	ScheduledChangeAction []string `in:"query=scheduled_change_action;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status,omitempty" json:"-"`
+	Status []string `in:"query=status;omitempty" json:"-"`
 }
 
 // ListSubscriptions performs the GET operation on a Subscriptions resource.
