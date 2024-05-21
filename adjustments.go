@@ -112,6 +112,13 @@ var ErrAdjustmentTransactionItemInvalid = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrAdjustmentCannotAdjustImportedTransaction represents a `adjustment_cannot_adjust_imported_transaction` error.
+// See https://developer.paddle.com/errors/adjustments/adjustment_cannot_adjust_imported_transaction for more information.
+var ErrAdjustmentCannotAdjustImportedTransaction = &paddleerr.Error{
+	Code: "adjustment_cannot_adjust_imported_transaction",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // CustomerBalance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
 type CustomerBalance struct {
 	// Available: Total amount of credit available to use.

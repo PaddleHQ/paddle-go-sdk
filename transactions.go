@@ -5,7 +5,6 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
 )
 
@@ -223,6 +222,13 @@ var ErrTransactionRecurringBalanceLessThanChargeLimit = &paddleerr.Error{
 // See https://developer.paddle.com/errors/transactions/transaction_duplicate_price_ids for more information.
 var ErrTransactionDuplicatePriceIDs = &paddleerr.Error{
 	Code: "transaction_duplicate_price_ids",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionPaymentMethodChangeFieldImmutable represents a `transaction_payment_method_change_field_immutable` error.
+// See https://developer.paddle.com/errors/transactions/transaction_payment_method_change_field_immutable for more information.
+var ErrTransactionPaymentMethodChangeFieldImmutable = &paddleerr.Error{
+	Code: "transaction_payment_method_change_field_immutable",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -637,6 +643,22 @@ type TransactionsTaxRatesUsed struct {
 	TaxRate string `json:"tax_rate,omitempty"`
 	// Totals: Calculated totals for the tax applied to this transaction preview.
 	Totals Totals `json:"totals,omitempty"`
+}
+
+// TransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
+type TransactionLineItemPreview struct {
+	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
+	PriceID string `json:"price_id,omitempty"`
+	// Quantity: Quantity of this transaction line item.
+	Quantity int `json:"quantity,omitempty"`
+	// TaxRate: Rate used to calculate tax for this transaction line item.
+	TaxRate string `json:"tax_rate,omitempty"`
+	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
+	UnitTotals UnitTotals `json:"unit_totals,omitempty"`
+	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
+	Totals Totals `json:"totals,omitempty"`
+	// Product: Related product entity for this transaction line item price.
+	Product Product `json:"product,omitempty"`
 }
 
 // TransactionDetailsPreview: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
