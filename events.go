@@ -25,21 +25,21 @@ type EventsClient struct {
 type ListEventsRequest struct {
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id` (for `event_id`).
 	*/
-	OrderBy *string `in:"query=order_by,omitempty" json:"-"`
+	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
 
 	   Default: `50`; Maximum: `200`.
 	*/
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 }
 
 // ListEvents performs the GET operation on a Events resource.

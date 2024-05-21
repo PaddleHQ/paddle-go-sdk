@@ -1404,22 +1404,6 @@ type AddressPreview struct {
 	CountryCode string `json:"country_code,omitempty"`
 }
 
-// TransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-type TransactionLineItemPreview struct {
-	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
-	PriceID string `json:"price_id,omitempty"`
-	// Quantity: Quantity of this transaction line item.
-	Quantity int `json:"quantity,omitempty"`
-	// TaxRate: Rate used to calculate tax for this transaction line item.
-	TaxRate string `json:"tax_rate,omitempty"`
-	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals UnitTotals `json:"unit_totals,omitempty"`
-	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
-	Totals Totals `json:"totals,omitempty"`
-	// Product: Related product entity for this transaction line item price.
-	Product Product `json:"product,omitempty"`
-}
-
 // BillingDetailsUpdate: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetailsUpdate struct {
 	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout.

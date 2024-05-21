@@ -30,14 +30,14 @@ type ListNotificationLogsRequest struct {
 
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
 
 	   Default: `50`; Maximum: `200`.
 	*/
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 }
 
 // ListNotificationLogs performs the GET operation on a Notification logs resource.

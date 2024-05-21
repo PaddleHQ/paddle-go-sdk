@@ -51,33 +51,33 @@ type ProductsClient struct {
 type ListProductsRequest struct {
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
-	After *string `in:"query=after,omitempty" json:"-"`
+	After *string `in:"query=after;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id,omitempty" json:"-"`
+	ID []string `in:"query=id;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `created_at`, `custom_data`, `description`, `id`, `image_url`, `name`, `status`, `tax_category`, and `updated_at`.
 	*/
-	OrderBy *string `in:"query=order_by,omitempty" json:"-"`
+	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
 
 	   Default: `50`; Maximum: `200`.
 	*/
-	PerPage *int `in:"query=per_page,omitempty" json:"-"`
+	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status,omitempty" json:"-"`
+	Status []string `in:"query=status;omitempty" json:"-"`
 	// TaxCategory is a query parameter.
 	// Return entities that match the specified tax category. Use a comma-separated list to specify multiple tax categories.
-	TaxCategory []string `in:"query=tax_category,omitempty" json:"-"`
+	TaxCategory []string `in:"query=tax_category;omitempty" json:"-"`
 	// Type is a query parameter.
 	// Return items that match the specified type.
-	Type *string `in:"query=type,omitempty" json:"-"`
+	Type *string `in:"query=type;omitempty" json:"-"`
 
 	// IncludePrices allows requesting the prices sub-resource as part of this request.
 	// If set to true, will be included on the response.
