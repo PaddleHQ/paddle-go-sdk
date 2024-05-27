@@ -111,7 +111,7 @@ func TestClient(t *testing.T) {
 
 type Req struct {
 	ID       string  `in:"query=id"`
-	Optional *string `in:"query=optional,omitempty"`
+	Optional *string `in:"query=optional;omitempty"`
 }
 
 type ReqPath struct {
