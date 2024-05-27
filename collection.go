@@ -181,13 +181,15 @@ func (c *Collection[T]) UnmarshalJSON(b []byte) error {
 			if err != nil {
 				return err
 			}
-			c.results = append(c.results, &Res[T]{value: any(e).(T)})
+
+			c.results = append(c.results, &Res[T]{value: any(e).(T)}) //nolint:forcetypeassert // we know the type is correct.
 		default:
 			var t T
 			if err := json.Unmarshal(item, &t); err != nil {
 				return err
 			}
-			c.results = append(c.results, &Res[T]{value: t})
+
+			c.results = append(c.results, &Res[T]{value: t}) //nolint:forcetypeassert // we know the type is correct.
 		}
 	}
 
