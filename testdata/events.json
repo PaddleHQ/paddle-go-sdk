@@ -1,0 +1,481 @@
+{
+	"data": [
+		{
+			"event_id": "evt_01hywqk7y8qfzj69z3pdvz34qt",
+			"event_type": "transaction.completed",
+			"occurred_at": "2024-05-27T09:55:06.825325Z",
+			"data": {
+				"id": "txn_01hywqfe6yxhxcsfb4ays8mqt3",
+				"status": "completed",
+				"customer_id": "ctm_01hszn72m8kqyqm8g1jxwxc3t3",
+				"address_id": "add_01hszn72tmh4f90m0940t0vext",
+				"business_id": null,
+				"custom_data": null,
+				"currency_code": "GBP",
+				"origin": "subscription_recurring",
+				"subscription_id": "sub_01hszn787vc5vkkdah3rtd4nft",
+				"invoice_id": "inv_01hywqfhy0nvwg65mdzvc2c9vt",
+				"invoice_number": "296-173553",
+				"collection_mode": "automatic",
+				"discount_id": null,
+				"billing_details": null,
+				"billing_period": {
+					"ends_at": "2024-06-27T09:52:50.189382Z",
+					"starts_at": "2024-05-27T09:52:50.189382Z"
+				},
+				"items": [
+					{
+						"price": {
+							"id": "pri_01hszn72dfz9mef1n7f9atmt14",
+							"name": null,
+							"type": "standard",
+							"status": "active",
+							"quantity": {
+								"maximum": 100,
+								"minimum": 1
+							},
+							"tax_mode": "external",
+							"created_at": "2024-03-27T09:52:44.975316Z",
+							"product_id": "pro_01hszn726kxbk7y5mt6trc6at6",
+							"unit_price": {
+								"amount": "1000",
+								"currency_code": "USD"
+							},
+							"updated_at": "2024-03-27T09:52:44.975316Z",
+							"custom_data": null,
+							"description": "Monthly price for Product 1",
+							"trial_period": null,
+							"billing_cycle": {
+								"interval": "month",
+								"frequency": 1
+							},
+							"unit_price_overrides": []
+						},
+						"price_id": "pri_01hszn72dfz9mef1n7f9atmt14",
+						"quantity": 1,
+						"proration": {
+							"rate": "1",
+							"billing_period": {
+								"ends_at": "2024-06-27T09:52:50.189382Z",
+								"starts_at": "2024-05-27T09:52:50.189382Z"
+							}
+						}
+					}
+				],
+				"details": {
+					"totals": {
+						"fee": "87",
+						"tax": "158",
+						"total": "950",
+						"credit": "0",
+						"balance": "0",
+						"discount": "0",
+						"earnings": "705",
+						"subtotal": "792",
+						"grand_total": "950",
+						"currency_code": "GBP",
+						"credit_to_balance": "0"
+					},
+					"line_items": [
+						{
+							"id": "txnitm_01hywqfeb1qsrggw6pbg4r8hjt",
+							"totals": {
+								"tax": "158",
+								"total": "950",
+								"discount": "0",
+								"subtotal": "792"
+							},
+							"item_id": null,
+							"product": {
+								"id": "pro_01hszn726kxbk7y5mt6trc6at6",
+								"name": "Luxurious Plastic Tuna",
+								"type": "standard",
+								"status": "active",
+								"image_url": "https://via.placeholder.com/100x100/a5afa3/e3bcfb.webp?text=audacia%20conculco%20cimentarius",
+								"created_at": "2024-03-27T09:52:44.755Z",
+								"updated_at": "2024-03-27T09:52:44.755Z",
+								"custom_data": {
+									"random_key": {
+										"nested_inside": "value"
+									}
+								},
+								"description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+								"tax_category": "standard"
+							},
+							"price_id": "pri_01hszn72dfz9mef1n7f9atmt14",
+							"quantity": 1,
+							"tax_rate": "0.2",
+							"proration": {
+								"rate": "1",
+								"billing_period": {
+									"ends_at": "2024-06-27T09:52:50.189382Z",
+									"starts_at": "2024-05-27T09:52:50.189382Z"
+								}
+							},
+							"unit_totals": {
+								"tax": "158",
+								"total": "950",
+								"discount": "0",
+								"subtotal": "792"
+							}
+						}
+					],
+					"payout_totals": {
+						"fee": "87",
+						"tax": "158",
+						"total": "950",
+						"credit": "0",
+						"balance": "0",
+						"discount": "0",
+						"earnings": "705",
+						"fee_rate": "0.05",
+						"subtotal": "792",
+						"grand_total": "950",
+						"currency_code": "GBP",
+						"exchange_rate": "1",
+						"credit_to_balance": "0"
+					},
+					"tax_rates_used": [
+						{
+							"totals": {
+								"tax": "158",
+								"total": "950",
+								"discount": "0",
+								"subtotal": "792"
+							},
+							"tax_rate": "0.2"
+						}
+					],
+					"adjusted_totals": {
+						"fee": "87",
+						"tax": "158",
+						"total": "950",
+						"earnings": "705",
+						"subtotal": "792",
+						"grand_total": "950",
+						"currency_code": "GBP"
+					}
+				},
+				"payments": [
+					{
+						"amount": "950",
+						"status": "captured",
+						"created_at": "2024-05-27T09:53:02.547745Z",
+						"error_code": null,
+						"captured_at": "2024-05-27T09:53:04.956177Z",
+						"method_details": {
+							"card": {
+								"type": "visa",
+								"last4": "4242",
+								"expiry_year": 2025,
+								"expiry_month": 3,
+								"cardholder_name": "Opal Emmerich I"
+							},
+							"type": "card"
+						},
+						"payment_method_id": "paymtd_01hszn74f707vp9q79zc0sgmqt",
+						"payment_attempt_id": "fa0457ab-71ce-402d-8c3b-417fe5064029",
+						"stored_payment_method_id": "de368e4d-1b24-4d6e-8a9f-235288aea032"
+					}
+				],
+				"checkout": {
+					"url": "https://aeroedit.com/pay?_ptxn=txn_01hywqfe6yxhxcsfb4ays8mqt3"
+				},
+				"created_at": "2024-05-27T09:53:02.392025Z",
+				"updated_at": "2024-05-27T09:55:06.105983101Z",
+				"billed_at": "2024-05-27T09:53:02.174288Z",
+				"receipt_data": null
+			}
+		},
+		{
+			"event_id": "evt_01hywqfn8b1na40vyarxaxqa9t",
+			"event_type": "transaction.updated",
+			"occurred_at": "2024-05-27T09:53:09.387526Z",
+			"data": {
+				"id": "txn_01hywqfervkjg6hkk035wy24gt",
+				"status": "completed",
+				"customer_id": "ctm_01hszn65emk81yejv674418f5t",
+				"address_id": "add_01hszn65ngcse4z4qy3xj9z7at",
+				"business_id": null,
+				"custom_data": null,
+				"currency_code": "GBP",
+				"origin": "subscription_recurring",
+				"subscription_id": "sub_01hszn67g1m6xsmv62fdypf6t3",
+				"invoice_id": "inv_01hywqffqy4bzfs0sdkgxnrbt7",
+				"invoice_number": "296-173550",
+				"collection_mode": "manual",
+				"discount_id": "dsc_01hszn66dvmdaatbhxd7fqbht3",
+				"billing_details": {
+					"payment_terms": {
+						"interval": "day",
+						"frequency": 1
+					},
+					"enable_checkout": false,
+					"purchase_order_number": "ON123",
+					"additional_information": "foobar"
+				},
+				"billing_period": {
+					"ends_at": "2024-06-27T09:52:16.382Z",
+					"starts_at": "2024-05-27T09:52:16.382Z"
+				},
+				"items": [
+					{
+						"price": {
+							"id": "pri_01hszn667p2p24p7a7ha93cz5t",
+							"name": null,
+							"type": "standard",
+							"status": "active",
+							"quantity": {
+								"maximum": 100,
+								"minimum": 1
+							},
+							"tax_mode": "external",
+							"created_at": "2024-03-27T09:52:16.118256Z",
+							"product_id": "pro_01hszn6612hr6k15wq9zvwhgrt",
+							"unit_price": {
+								"amount": "1000",
+								"currency_code": "USD"
+							},
+							"updated_at": "2024-03-27T09:52:16.118256Z",
+							"custom_data": null,
+							"description": "Monthly price for Product 1",
+							"trial_period": null,
+							"billing_cycle": {
+								"interval": "month",
+								"frequency": 1
+							},
+							"unit_price_overrides": []
+						},
+						"price_id": "pri_01hszn667p2p24p7a7ha93cz5t",
+						"quantity": 1,
+						"proration": {
+							"rate": "1",
+							"billing_period": {
+								"ends_at": "2024-06-27T09:52:16.382Z",
+								"starts_at": "2024-05-27T09:52:16.382Z"
+							}
+						}
+					}
+				],
+				"details": {
+					"totals": {
+						"fee": "0",
+						"tax": "0",
+						"total": "0",
+						"credit": "0",
+						"balance": "0",
+						"discount": "792",
+						"earnings": "0",
+						"subtotal": "792",
+						"grand_total": "0",
+						"currency_code": "GBP",
+						"credit_to_balance": "0"
+					},
+					"line_items": [
+						{
+							"id": "txnitm_01hywqff74qe36jtt5cr1q3w83",
+							"totals": {
+								"tax": "0",
+								"total": "0",
+								"discount": "792",
+								"subtotal": "792"
+							},
+							"item_id": null,
+							"product": {
+								"id": "pro_01hszn6612hr6k15wq9zvwhgrt",
+								"name": "Recycled Bronze Bike",
+								"type": "standard",
+								"status": "active",
+								"image_url": "https://via.placeholder.com/100x100/bed28f/f295c0.gif?text=tempus%20cultura%20viriliter",
+								"created_at": "2024-03-27T09:52:15.906Z",
+								"updated_at": "2024-03-27T09:52:15.906Z",
+								"custom_data": null,
+								"description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+								"tax_category": "standard"
+							},
+							"price_id": "pri_01hszn667p2p24p7a7ha93cz5x",
+							"quantity": 1,
+							"tax_rate": "0",
+							"proration": {
+								"rate": "1",
+								"billing_period": {
+									"ends_at": "2024-06-27T09:52:16.382Z",
+									"starts_at": "2024-05-27T09:52:16.382Z"
+								}
+							},
+							"unit_totals": {
+								"tax": "0",
+								"total": "0",
+								"discount": "792",
+								"subtotal": "792"
+							}
+						}
+					],
+					"payout_totals": {
+						"fee": "0",
+						"tax": "0",
+						"total": "0",
+						"credit": "0",
+						"balance": "0",
+						"discount": "792",
+						"earnings": "0",
+						"fee_rate": "0",
+						"subtotal": "792",
+						"grand_total": "0",
+						"currency_code": "GBP",
+						"exchange_rate": "1",
+						"credit_to_balance": "0"
+					},
+					"tax_rates_used": [
+						{
+							"totals": {
+								"tax": "0",
+								"total": "0",
+								"discount": "792",
+								"subtotal": "792"
+							},
+							"tax_rate": "0"
+						}
+					],
+					"adjusted_totals": {
+						"fee": "0",
+						"tax": "0",
+						"total": "0",
+						"earnings": "0",
+						"subtotal": "0",
+						"grand_total": "0",
+						"currency_code": "GBP"
+					}
+				},
+				"payments": [],
+				"checkout": {
+					"url": null
+				},
+				"created_at": "2024-05-27T09:53:03.234999Z",
+				"updated_at": "2024-05-27T09:53:08.230133624Z",
+				"billed_at": "2024-05-27T09:53:02.747946Z",
+				"receipt_data": null
+			}
+		},
+		{
+			"event_id": "evt_01hv9771tccgcm4y810d8zbceh",
+			"event_type": "subscription.created",
+			"occurred_at": "2024-04-12T13:16:10.444253Z",
+			"data": {
+				"id": "sub_01hv9770y40xzc823155s0z4zz",
+				"status": "active",
+				"customer_id": "ctm_01hv976dcgq4wmyrp8yq7asfmj",
+				"address_id": "add_01hv976dczs1h4a7zym0dn7qam",
+				"business_id": null,
+				"currency_code": "USD",
+				"created_at": "2024-04-12T13:16:09.54Z",
+				"updated_at": "2024-04-12T13:16:09.54Z",
+				"started_at": "2024-04-12T13:16:08.821891Z",
+				"first_billed_at": "2024-04-12T13:16:08.821891Z",
+				"next_billed_at": "2024-05-12T13:16:08.821891Z",
+				"paused_at": null,
+				"canceled_at": null,
+				"discount": null,
+				"collection_mode": "automatic",
+				"billing_details": null,
+				"current_billing_period": {
+					"ends_at": "2024-05-12T13:16:08.821891Z",
+					"starts_at": "2024-04-12T13:16:08.821891Z"
+				},
+				"billing_cycle": {
+					"interval": "month",
+					"frequency": 1
+				},
+				"scheduled_change": null,
+				"items": [
+					{
+						"price": {
+							"id": "pri_01gsz8x8sawmvhz1pv30nge1ke",
+							"name": "Monthly (per seat)",
+							"type": "standard",
+							"status": "active",
+							"quantity": {
+								"maximum": 999,
+								"minimum": 1
+							},
+							"tax_mode": "account_setting",
+							"created_at": "2023-02-23T13:55:22.538367Z",
+							"product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+							"unit_price": {
+								"amount": "3000",
+								"currency_code": "USD"
+							},
+							"updated_at": "2024-04-11T13:54:52.254748Z",
+							"custom_data": null,
+							"description": "Monthly",
+							"import_meta": null,
+							"trial_period": null,
+							"billing_cycle": {
+								"interval": "month",
+								"frequency": 1
+							},
+							"unit_price_overrides": []
+						},
+						"status": "active",
+						"quantity": 10,
+						"recurring": true,
+						"created_at": "2024-04-12T13:16:09.54Z",
+						"updated_at": "2024-04-12T13:16:09.54Z",
+						"trial_dates": null,
+						"next_billed_at": "2024-05-12T13:16:08.821891Z",
+						"previously_billed_at": "2024-04-12T13:16:08.821891Z"
+					},
+					{
+						"price": {
+							"id": "pri_01h1vjfevh5etwq3rb416a23h2",
+							"name": "Monthly (recurring addon)",
+							"type": "standard",
+							"status": "active",
+							"quantity": {
+								"maximum": 100,
+								"minimum": 1
+							},
+							"tax_mode": "account_setting",
+							"created_at": "2023-06-01T13:31:12.625056Z",
+							"product_id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+							"unit_price": {
+								"amount": "10000",
+								"currency_code": "USD"
+							},
+							"updated_at": "2024-04-12T10:42:45.476453Z",
+							"custom_data": null,
+							"description": "Monthly",
+							"import_meta": null,
+							"trial_period": null,
+							"billing_cycle": {
+								"interval": "month",
+								"frequency": 1
+							},
+							"unit_price_overrides": []
+						},
+						"status": "active",
+						"quantity": 1,
+						"recurring": true,
+						"created_at": "2024-04-12T13:16:09.54Z",
+						"updated_at": "2024-04-12T13:16:09.54Z",
+						"trial_dates": null,
+						"next_billed_at": "2024-05-12T13:16:08.821891Z",
+						"previously_billed_at": "2024-04-12T13:16:08.821891Z"
+					}
+				],
+				"custom_data": null,
+				"transaction_id": "txn_01hv975mbh902hcyb7mks5kt0n",
+				"import_meta": null
+			}
+		}
+	],
+	"meta": {
+		"request_id": "b93d9c94-c28f-4e5d-af2e-044854d7afe8",
+		"pagination": {
+			"per_page": 30,
+			"next": "https://api.paddle.com/events?after=evt_01hv9771tccgcm4y810d8zbceh",
+			"has_more": false,
+			"estimated_total": 3
+		}
+	}
+}

@@ -163,8 +163,8 @@ func (c *Collection[T]) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
-	// Unmarshal into an intermediary struct that matches the API response.
-	var res response.Response[[]T]
+	// Unmarshal into an intermediary struct with delayed decoding
+	var res response.Response[[]json.RawMessage]
 
 	if err := json.Unmarshal(b, &res); err != nil {
 		return err
@@ -175,7 +175,22 @@ func (c *Collection[T]) UnmarshalJSON(b []byte) error {
 	c.pos = 0
 
 	for _, item := range res.Data {
-		c.results = append(c.results, &Res[T]{value: item})
+		switch any(c).(type) {
+		case *Collection[Event]:
+			e, err := unmarshalEvent(item)
+			if err != nil {
+				return err
+			}
+
+			c.results = append(c.results, &Res[T]{value: any(e).(T)}) //nolint:forcetypeassert // we know the type is correct.
+		default:
+			var t T
+			if err := json.Unmarshal(item, &t); err != nil {
+				return err
+			}
+
+			c.results = append(c.results, &Res[T]{value: t}) //nolint:forcetypeassert // we know the type is correct.
+		}
 	}
 
 	nextURL, err := url.Parse(res.Meta.Pagination.Next)
