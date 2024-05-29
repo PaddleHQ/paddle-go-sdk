@@ -4,7 +4,9 @@ package paddle
 
 import (
 	"context"
+	"encoding/json"
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
 )
 
 // ErrNotificationMaximumActiveSettingsReached represents a `notification_maximum_active_settings_reached` error.
@@ -52,20 +54,6 @@ const (
 	NotificationStatusFailed       = "failed"
 )
 
-// NotificationsEvent: Notification payload. Includes the new or changed event.
-type NotificationsEvent struct {
-	// EventID: Unique Paddle ID for this event, prefixed with `evt_`.
-	EventID string `json:"event_id,omitempty"`
-	// EventType: Type of event sent by Paddle, in the format `entity.event_type`.
-	EventType string `json:"event_type,omitempty"`
-	// OccurredAt: RFC 3339 datetime string of when this event occurred.
-	OccurredAt string `json:"occurred_at,omitempty"`
-	// Data: New or changed entity.
-	Data any `json:"data,omitempty"`
-	// NotificationID: Unique Paddle ID for this notification, prefixed with `ntf_`.
-	NotificationID string `json:"notification_id,omitempty"`
-}
-
 // Origin: Describes how this notification was created..
 type Origin string
 
@@ -83,7 +71,7 @@ type Notification struct {
 	// Status: Status of this notification.
 	Status string `json:"status,omitempty"`
 	// Payload: Notification payload. Includes the new or changed event.
-	Payload NotificationsEvent `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationsEvent `json:"payload,omitempty"`
 	// OccurredAt: RFC 3339 datetime string of when this notification occurred.
 	OccurredAt string `json:"occurred_at,omitempty"`
 	// DeliveredAt: RFC 3339 datetime string of when this notification was delivered. `null` if not yet delivered successfully.
@@ -100,6 +88,117 @@ type Notification struct {
 	TimesAttempted int `json:"times_attempted,omitempty"`
 	// NotificationSettingID: Unique Paddle ID for this notification setting, prefixed with `ntfset_`.
 	NotificationSettingID string `json:"notification_setting_id,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for Notification
+func (n *Notification) UnmarshalJSON(data []byte) error {
+	type alias Notification
+	if err := json.Unmarshal(data, (*alias)(n)); err != nil {
+		return err
+	}
+
+	var t paddlenotification.NotificationsEvent
+	switch n.Type {
+	case "address.created":
+		t = &paddlenotification.AddressCreated{}
+	case "address.imported":
+		t = &paddlenotification.AddressImported{}
+	case "address.updated":
+		t = &paddlenotification.AddressUpdated{}
+	case "adjustment.created":
+		t = &paddlenotification.AdjustmentCreated{}
+	case "adjustment.updated":
+		t = &paddlenotification.AdjustmentUpdated{}
+	case "business.created":
+		t = &paddlenotification.BusinessCreated{}
+	case "business.imported":
+		t = &paddlenotification.BusinessImported{}
+	case "business.updated":
+		t = &paddlenotification.BusinessUpdated{}
+	case "customer.created":
+		t = &paddlenotification.CustomerCreated{}
+	case "customer.imported":
+		t = &paddlenotification.CustomerImported{}
+	case "customer.updated":
+		t = &paddlenotification.CustomerUpdated{}
+	case "discount.created":
+		t = &paddlenotification.DiscountCreated{}
+	case "discount.imported":
+		t = &paddlenotification.DiscountImported{}
+	case "discount.updated":
+		t = &paddlenotification.DiscountUpdated{}
+	case "payout.created":
+		t = &paddlenotification.PayoutCreated{}
+	case "payout.paid":
+		t = &paddlenotification.PayoutPaid{}
+	case "price.created":
+		t = &paddlenotification.PriceCreated{}
+	case "price.imported":
+		t = &paddlenotification.PriceImported{}
+	case "price.updated":
+		t = &paddlenotification.PriceUpdated{}
+	case "product.created":
+		t = &paddlenotification.ProductCreated{}
+	case "product.imported":
+		t = &paddlenotification.ProductImported{}
+	case "product.updated":
+		t = &paddlenotification.ProductUpdated{}
+	case "report.created":
+		t = &paddlenotification.ReportCreated{}
+	case "report.updated":
+		t = &paddlenotification.ReportUpdated{}
+	case "subscription.activated":
+		t = &paddlenotification.SubscriptionActivated{}
+	case "subscription.canceled":
+		t = &paddlenotification.SubscriptionCanceled{}
+	case "subscription.created":
+		t = &paddlenotification.SubscriptionCreated{}
+	case "subscription.past_due":
+		t = &paddlenotification.SubscriptionPastDue{}
+	case "subscription.imported":
+		t = &paddlenotification.SubscriptionImported{}
+	case "subscription.paused":
+		t = &paddlenotification.SubscriptionPaused{}
+	case "subscription.resumed":
+		t = &paddlenotification.SubscriptionResumed{}
+	case "subscription.trialing":
+		t = &paddlenotification.SubscriptionTrialing{}
+	case "subscription.updated":
+		t = &paddlenotification.SubscriptionUpdated{}
+	case "transaction.billed":
+		t = &paddlenotification.TransactionBilled{}
+	case "transaction.canceled":
+		t = &paddlenotification.TransactionCanceled{}
+	case "transaction.completed":
+		t = &paddlenotification.TransactionCompleted{}
+	case "transaction.created":
+		t = &paddlenotification.TransactionCreated{}
+	case "transaction.paid":
+		t = &paddlenotification.TransactionPaid{}
+	case "transaction.past_due":
+		t = &paddlenotification.TransactionPastDue{}
+	case "transaction.payment_failed":
+		t = &paddlenotification.TransactionPaymentFailed{}
+	case "transaction.ready":
+		t = &paddlenotification.TransactionReady{}
+	case "transaction.updated":
+		t = &paddlenotification.TransactionUpdated{}
+	default:
+		t = &paddlenotification.GenericNotificationsEvent{}
+	}
+
+	rawT, err := json.Marshal(n.Payload)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(rawT, t); err != nil {
+		return err
+	}
+
+	n.Payload = t
+
+	return nil
 }
 
 // NotificationsClient is a client for the Notifications resource.

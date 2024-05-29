@@ -168,84 +168,84 @@ While in early access, not all operations in the Paddle API are available in our
 
 This table shows which operations are available as of the latest release.
 
-| Paddle API operation                         |   Support   |
-|----------------------------------------------|:-----------:|
-| **Products**                                 |  **Full**   |
-| List products                                |      ✅      |
-| Create a product                             |      ✅      |
-| Get a product                                |      ✅      |
-| Update a product                             |      ✅      |
-| **Prices**                                   |  **Full**   |
-| List prices                                  |      ✅      |
-| Create a price                               |      ✅      |
-| Get a price                                  |      ✅      |
-| Update a price                               |      ✅      |
-| **Discounts**                                |  **Full**   |
-| List discounts                               |      ✅      |
-| Create a discount                            |      ✅      |
-| Get a discount                               |      ✅      |
-| Update a discount                            |      ✅      |
-| **Customers**                                |  **Full**   |
-| List customers                               |      ✅      |
-| Create a customer                            |      ✅      |
-| Get a customer                               |      ✅      |
-| Update a customer                            |      ✅      |
-| List credit balances for a customer          |      ✅      |
-| **Addresses**                                |  **Full**   |
-| List addresses for a customer                |      ✅      |
-| Create an addresses for a customer           |      ✅      |
-| Get an address for a customer                |      ✅      |
-| Update an address for a customer             |      ✅      |
-| **Businesses**                               |      ✅      |
-| List businesses for a customer               |      ✅      |
-| Create a business for a customer             |      ✅      |
-| Get a business for a customer                |      ✅      |
-| Update a business for a customer             |      ✅      |
-| **Transactions**                             |  **Full**   |
-| List transactions                            |      ✅      |
-| Create a transaction                         |      ✅      |
-| Get a transaction                            |      ✅      |
-| Update a transaction                         |      ✅      |
-| Preview a transaction                        |      ✅      |
-| Get a PDF invoice for a transaction          |      ✅      |
-| **Subscriptions**                            |  **Full**   |
-| List subscriptions                           |      ✅      |
-| Get a subscription                           |      ✅      |
-| Preview an update to a subscription          |      ✅      |
-| Update a subscription                        |      ✅      |
-| Get a transaction to update payment method   |      ✅      |
-| Preview a one-time charge for a subscription |      ✅      |
-| Create a one-time charge for a subscription  |      ✅      |
-| Activate a trialing subscription             |      ✅      |
-| Pause a subscription                         |      ✅      |
-| Resume a paused subscription                 |      ✅      |
-| Cancel a subscription                        |      ✅      |
-| **Adjustments**                              |  **Full**   |
-| List adjustments                             |      ✅      |
-| Create an adjustment                         |      ✅      |
-| **Pricing preview**                          |  **Full**   |
-| Preview prices                               |      ✅      |
-| **Reports**                                  |  **Full**   |
-| List reports                                 |      ✅      |
-| Create a report                              |      ✅      |
-| Get a report                                 |      ✅      |
-| Get a CSV file for a report                   |      ✅      |
-| **Notification settings**                    |  **Full**   |
-| List notification settings                   |      ✅      |
-| Create a notification setting                |      ✅      |
-| Get a notification setting                   |      ✅      |
-| Update a notification setting                |      ✅      |
-| Delete a notification setting                |      ✅      |
-| **Event types**                              |  **Full**   |
-| List event types                             |      ✅      |
-| **Events**                                   |    **-**    |
-| List events                                  |      -      |
-| **Notifications**                            | **Partial** |
-| List notifications                           |      -      |
-| Get a notification                           |      -      |
-| Replay a notification                        |      ✅      |
-| **Notification logs**                        |  **Full**   |
-| List logs for a notification                 |      ✅      |
+| Paddle API operation                         | Support  |
+|----------------------------------------------|:--------:|
+| **Products**                                 | **Full** |
+| List products                                |    ✅     |
+| Create a product                             |    ✅     |
+| Get a product                                |    ✅     |
+| Update a product                             |    ✅     |
+| **Prices**                                   | **Full** |
+| List prices                                  |    ✅     |
+| Create a price                               |    ✅     |
+| Get a price                                  |    ✅     |
+| Update a price                               |    ✅     |
+| **Discounts**                                | **Full** |
+| List discounts                               |    ✅     |
+| Create a discount                            |    ✅     |
+| Get a discount                               |    ✅     |
+| Update a discount                            |    ✅     |
+| **Customers**                                | **Full** |
+| List customers                               |    ✅     |
+| Create a customer                            |    ✅     |
+| Get a customer                               |    ✅     |
+| Update a customer                            |    ✅     |
+| List credit balances for a customer          |    ✅     |
+| **Addresses**                                | **Full** |
+| List addresses for a customer                |    ✅     |
+| Create an addresses for a customer           |    ✅     |
+| Get an address for a customer                |    ✅     |
+| Update an address for a customer             |    ✅     |
+| **Businesses**                               |    ✅     |
+| List businesses for a customer               |    ✅     |
+| Create a business for a customer             |    ✅     |
+| Get a business for a customer                |    ✅     |
+| Update a business for a customer             |    ✅     |
+| **Transactions**                             | **Full** |
+| List transactions                            |    ✅     |
+| Create a transaction                         |    ✅     |
+| Get a transaction                            |    ✅     |
+| Update a transaction                         |    ✅     |
+| Preview a transaction                        |    ✅     |
+| Get a PDF invoice for a transaction          |    ✅     |
+| **Subscriptions**                            | **Full** |
+| List subscriptions                           |    ✅     |
+| Get a subscription                           |    ✅     |
+| Preview an update to a subscription          |    ✅     |
+| Update a subscription                        |    ✅     |
+| Get a transaction to update payment method   |    ✅     |
+| Preview a one-time charge for a subscription |    ✅     |
+| Create a one-time charge for a subscription  |    ✅     |
+| Activate a trialing subscription             |    ✅     |
+| Pause a subscription                         |    ✅     |
+| Resume a paused subscription                 |    ✅     |
+| Cancel a subscription                        |    ✅     |
+| **Adjustments**                              | **Full** |
+| List adjustments                             |    ✅     |
+| Create an adjustment                         |    ✅     |
+| **Pricing preview**                          | **Full** |
+| Preview prices                               |    ✅     |
+| **Reports**                                  | **Full** |
+| List reports                                 |    ✅     |
+| Create a report                              |    ✅     |
+| Get a report                                 |    ✅     |
+| Get a CSV file for a report                   |    ✅     |
+| **Notification settings**                    | **Full** |
+| List notification settings                   |    ✅     |
+| Create a notification setting                |    ✅     |
+| Get a notification setting                   |    ✅     |
+| Update a notification setting                |    ✅     |
+| Delete a notification setting                |    ✅     |
+| **Event types**                              | **Full** |
+| List event types                             |    ✅     |
+| **Events**                                   | **Full** |
+| List events                                  |    ✅     |
+| **Notifications**                            | **Full** |
+| List notifications                           |    ✅     |
+| Get a notification                           |    ✅     |
+| Replay a notification                        |    ✅     |
+| **Notification logs**                        | **Full** |
+| List logs for a notification                 |    ✅     |
 
 ## Learn more
 
