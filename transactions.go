@@ -274,8 +274,8 @@ type AdjustmentsTotals struct {
 	CurrencyCode string `json:"currency_code,omitempty"`
 }
 
-// TransactionIncludes: Represents a transaction entity with included entities.
-type TransactionIncludes struct {
+// Transaction: Represents a transaction entity with included entities.
+type Transaction struct {
 	// ID: Unique Paddle ID for this transaction entity, prefixed with `txn_`.
 	ID string `json:"id,omitempty"`
 	// Status: Status of this transaction. You may set a transaction to `billed` or `canceled`, other statuses are set automatically by Paddle. Automatically-collected transactions may return `completed` if payment is captured successfully, or `past_due` if payment failed.
@@ -835,6 +835,10 @@ type ListTransactionsRequest struct {
 	// If set to true, will be included on the response.
 	IncludeAdjustmentsTotals bool `in:"paddle_include=adjustments_totals" json:"-"`
 
+	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
+
 	// IncludeBusiness allows requesting the business sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeBusiness bool `in:"paddle_include=business" json:"-"`
@@ -846,14 +850,10 @@ type ListTransactionsRequest struct {
 	// IncludeDiscount allows requesting the discount sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeDiscount bool `in:"paddle_include=discount" json:"-"`
-
-	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
-	// If set to true, will be included on the response.
-	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
 }
 
 // ListTransactions performs the GET operation on a Transactions resource.
-func (c *TransactionsClient) ListTransactions(ctx context.Context, req *ListTransactionsRequest) (res *Collection[*TransactionIncludes], err error) {
+func (c *TransactionsClient) ListTransactions(ctx context.Context, req *ListTransactionsRequest) (res *Collection[*Transaction], err error) {
 	if err := c.doer.Do(ctx, "GET", "/transactions", req, &res); err != nil {
 		return nil, err
 	}
@@ -961,6 +961,10 @@ type CreateTransactionRequest struct {
 	// If set to true, will be included on the response.
 	IncludeAdjustmentsTotals bool `in:"paddle_include=adjustments_totals" json:"-"`
 
+	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
+
 	// IncludeBusiness allows requesting the business sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeBusiness bool `in:"paddle_include=business" json:"-"`
@@ -972,14 +976,10 @@ type CreateTransactionRequest struct {
 	// IncludeDiscount allows requesting the discount sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeDiscount bool `in:"paddle_include=discount" json:"-"`
-
-	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
-	// If set to true, will be included on the response.
-	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
 }
 
 // CreateTransaction performs the POST operation on a Transactions resource.
-func (c *TransactionsClient) CreateTransaction(ctx context.Context, req *CreateTransactionRequest) (res *TransactionIncludes, err error) {
+func (c *TransactionsClient) CreateTransaction(ctx context.Context, req *CreateTransactionRequest) (res *Transaction, err error) {
 	if err := c.doer.Do(ctx, "POST", "/transactions", req, &res); err != nil {
 		return nil, err
 	}
@@ -1065,6 +1065,10 @@ type GetTransactionRequest struct {
 	// If set to true, will be included on the response.
 	IncludeAdjustmentsTotals bool `in:"paddle_include=adjustments_totals" json:"-"`
 
+	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
+
 	// IncludeBusiness allows requesting the business sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeBusiness bool `in:"paddle_include=business" json:"-"`
@@ -1076,14 +1080,10 @@ type GetTransactionRequest struct {
 	// IncludeDiscount allows requesting the discount sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeDiscount bool `in:"paddle_include=discount" json:"-"`
-
-	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
-	// If set to true, will be included on the response.
-	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
 }
 
 // GetTransaction performs the GET operation on a Transactions resource.
-func (c *TransactionsClient) GetTransaction(ctx context.Context, req *GetTransactionRequest) (res *TransactionIncludes, err error) {
+func (c *TransactionsClient) GetTransaction(ctx context.Context, req *GetTransactionRequest) (res *Transaction, err error) {
 	if err := c.doer.Do(ctx, "GET", "/transactions/{transaction_id}", req, &res); err != nil {
 		return nil, err
 	}
@@ -1190,6 +1190,10 @@ type UpdateTransactionRequest struct {
 	// If set to true, will be included on the response.
 	IncludeAdjustmentsTotals bool `in:"paddle_include=adjustments_totals" json:"-"`
 
+	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
+
 	// IncludeBusiness allows requesting the business sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeBusiness bool `in:"paddle_include=business" json:"-"`
@@ -1201,14 +1205,10 @@ type UpdateTransactionRequest struct {
 	// IncludeDiscount allows requesting the discount sub-resource as part of this request.
 	// If set to true, will be included on the response.
 	IncludeDiscount bool `in:"paddle_include=discount" json:"-"`
-
-	// IncludeAvailablePaymentMethods allows requesting the available_payment_methods sub-resource as part of this request.
-	// If set to true, will be included on the response.
-	IncludeAvailablePaymentMethods bool `in:"paddle_include=available_payment_methods" json:"-"`
 }
 
 // UpdateTransaction performs the PATCH operation on a Transactions resource.
-func (c *TransactionsClient) UpdateTransaction(ctx context.Context, req *UpdateTransactionRequest) (res *TransactionIncludes, err error) {
+func (c *TransactionsClient) UpdateTransaction(ctx context.Context, req *UpdateTransactionRequest) (res *Transaction, err error) {
 	if err := c.doer.Do(ctx, "PATCH", "/transactions/{transaction_id}", req, &res); err != nil {
 		return nil, err
 	}
