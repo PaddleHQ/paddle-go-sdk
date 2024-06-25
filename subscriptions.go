@@ -5,6 +5,7 @@ package paddle
 import (
 	"context"
 	"encoding/json"
+
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
 )
 
@@ -111,13 +112,6 @@ var ErrSubscriptionMustBePaused = &paddleerr.Error{
 var ErrSubscriptionAllItemsRemoved = &paddleerr.Error{
 	Code: "subscription_all_items_removed",
 	Type: paddleerr.ErrorTypeRequestError,
-}
-
-// ErrSubscriptionUpdateErrorWhenPaused represents a `subscription_update_error_when_paused` error.
-// See https://developer.paddle.com/errors/subscriptions/subscription_update_error_when_paused for more information.
-var ErrSubscriptionUpdateErrorWhenPaused = &paddleerr.Error{
-	Code: "subscription_update_error_when_paused",
-	Type: paddleerr.ErrorTypeAPIError,
 }
 
 // ErrSubscriptionItemsUpdateMissingProrationBillingMode represents a `subscription_items_update_missing_proration_billing_mode` error.
@@ -295,6 +289,20 @@ var ErrSubscriptionCustomerEmailDomainNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionPaymentRetryAttemptsExceeded represents a `subscription_payment_retry_attempts_exceeded` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_payment_retry_attempts_exceeded for more information.
+var ErrSubscriptionPaymentRetryAttemptsExceeded = &paddleerr.Error{
+	Code: "subscription_payment_retry_attempts_exceeded",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionManualRetryPaymentNotAllowed represents a `subscription_manual_retry_payment_not_allowed` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_manual_retry_payment_not_allowed for more information.
+var ErrSubscriptionManualRetryPaymentNotAllowed = &paddleerr.Error{
+	Code: "subscription_manual_retry_payment_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrSubscriptionCurrencyUpdateNotAllowed represents a `subscription_currency_update_not_allowed` error.
 // See https://developer.paddle.com/errors/subscriptions/subscription_currency_update_not_allowed for more information.
 var ErrSubscriptionCurrencyUpdateNotAllowed = &paddleerr.Error{
@@ -334,6 +342,20 @@ var ErrSubscriptionUpdateCausingCustomerMismatchNotAllowed = &paddleerr.Error{
 // See https://developer.paddle.com/errors/subscriptions/subscription_credit_creation_against_processing_transaction for more information.
 var ErrSubscriptionCreditCreationAgainstProcessingTransaction = &paddleerr.Error{
 	Code: "subscription_credit_creation_against_processing_transaction",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionProductTaxCategoryNotApproved represents a `subscription_product_tax_category_not_approved` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_product_tax_category_not_approved for more information.
+var ErrSubscriptionProductTaxCategoryNotApproved = &paddleerr.Error{
+	Code: "subscription_product_tax_category_not_approved",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionManualCollectionModeActivationNotAllowed represents a `subscription_manual_collection_mode_activation_not_allowed` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_manual_collection_mode_activation_not_allowed for more information.
+var ErrSubscriptionManualCollectionModeActivationNotAllowed = &paddleerr.Error{
+	Code: "subscription_manual_collection_mode_activation_not_allowed",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -455,7 +477,7 @@ type SubscriptionIncludes struct {
 	CollectionMode string `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
-	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
 	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
@@ -558,7 +580,7 @@ type Subscription struct {
 	CollectionMode string `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
-	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
 	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
@@ -728,7 +750,7 @@ type SubscriptionPreview struct {
 	CollectionMode string `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
-	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
 	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
@@ -760,20 +782,60 @@ type SubscriptionsSubscriptionsCatalogItem struct {
 	PriceID string `json:"price_id,omitempty"`
 }
 
-// SubscriptionsNonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+// SubscriptionChargeCreateWithPrice: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
+type SubscriptionChargeCreateWithPrice struct {
+	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
+	ProductID string `json:"product_id,omitempty"`
+	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
+	Description string `json:"description,omitempty"`
+	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+	Name *string `json:"name,omitempty"`
+	// TaxMode: How tax is calculated for this price.
+	TaxMode string `json:"tax_mode,omitempty"`
+	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+	UnitPrice Money `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+	Quantity PriceQuantity `json:"quantity,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+}
+
+// SubscriptionsNonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a subscription. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
 type SubscriptionsNonCatalogPriceForAnExistingProduct struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// Price: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
-	Price TransactionSubscriptionPriceCreateWithProductID `json:"price,omitempty"`
+	Price SubscriptionChargeCreateWithPrice `json:"price,omitempty"`
 }
 
-// SubscriptionsNonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+// SubscriptionChargeCreateWithProduct: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
+type SubscriptionChargeCreateWithProduct struct {
+	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
+	Description string `json:"description,omitempty"`
+	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+	Name *string `json:"name,omitempty"`
+	// TaxMode: How tax is calculated for this price.
+	TaxMode string `json:"tax_mode,omitempty"`
+	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+	UnitPrice Money `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+	Quantity PriceQuantity `json:"quantity,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// Product: Product object for a non-catalog item to charge for.
+	Product TransactionSubscriptionProductCreate `json:"product,omitempty"`
+}
+
+// SubscriptionsNonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type SubscriptionsNonCatalogPriceAndProduct struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// Price: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
-	Price TransactionSubscriptionPriceCreateWithProduct `json:"price,omitempty"`
+	Price SubscriptionChargeCreateWithProduct `json:"price,omitempty"`
 }
 
 // SubscriptionsClient is a client for the Subscriptions resource.
@@ -1102,7 +1164,7 @@ func NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *S
 //   - `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
-// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+// Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type CreateSubscriptionChargeItems struct {
 	*SubscriptionsSubscriptionsCatalogItem
 	*SubscriptionsNonCatalogPriceForAnExistingProduct
@@ -1133,7 +1195,7 @@ type CreateSubscriptionChargeRequest struct {
 
 	// EffectiveFrom: When one-time charges should be billed.
 	EffectiveFrom string `json:"effective_from,omitempty"`
-	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+	// Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 	Items []CreateSubscriptionChargeItems `json:"items,omitempty"`
 	// OnPaymentFailure: How Paddle should handle changes made to a subscription or its items if the payment fails during update. If omitted, defaults to `prevent_change`.
 	OnPaymentFailure *string `json:"on_payment_failure,omitempty"`
@@ -1177,7 +1239,7 @@ func NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *
 //   - `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
-// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+// Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type PreviewSubscriptionChargeItems struct {
 	*SubscriptionsSubscriptionsCatalogItem
 	*SubscriptionsNonCatalogPriceForAnExistingProduct
@@ -1208,7 +1270,7 @@ type PreviewSubscriptionChargeRequest struct {
 
 	// EffectiveFrom: When one-time charges should be billed.
 	EffectiveFrom string `json:"effective_from,omitempty"`
-	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+	// Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 	Items []PreviewSubscriptionChargeItems `json:"items,omitempty"`
 	// OnPaymentFailure: How Paddle should handle changes made to a subscription or its items if the payment fails during update. If omitted, defaults to `prevent_change`.
 	OnPaymentFailure *string `json:"on_payment_failure,omitempty"`

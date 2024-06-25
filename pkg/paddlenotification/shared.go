@@ -651,6 +651,8 @@ type TransactionPayoutTotals struct {
 type CurrencyCodeChargebacks string
 
 const (
+	CurrencyCodeChargebacksAUD = "AUD"
+	CurrencyCodeChargebacksCAD = "CAD"
 	CurrencyCodeChargebacksEUR = "EUR"
 	CurrencyCodeChargebacksGBP = "GBP"
 	CurrencyCodeChargebacksUSD = "USD"
@@ -1178,30 +1180,6 @@ type Discount struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// TransactionSubscriptionPriceCreateWithProductID: Price object for a non-catalog item to charge for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
-type TransactionSubscriptionPriceCreateWithProductID struct {
-	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
-	Description string `json:"description,omitempty"`
-	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
-	Name *string `json:"name,omitempty"`
-	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
-	BillingCycle *Duration `json:"billing_cycle,omitempty"`
-	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
-	// TaxMode: How tax is calculated for this price.
-	TaxMode string `json:"tax_mode,omitempty"`
-	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
-	UnitPrice Money `json:"unit_price,omitempty"`
-	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
-	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
-	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
-	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
-	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
-	ProductID string `json:"product_id,omitempty"`
-}
-
 // TransactionSubscriptionProductCreate: Product object for a non-catalog item to charge for.
 type TransactionSubscriptionProductCreate struct {
 	// Name: Name of this product.
@@ -1214,30 +1192,6 @@ type TransactionSubscriptionProductCreate struct {
 	ImageURL *string `json:"image_url,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
-}
-
-// TransactionSubscriptionPriceCreateWithProduct: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
-type TransactionSubscriptionPriceCreateWithProduct struct {
-	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
-	Description string `json:"description,omitempty"`
-	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
-	Name *string `json:"name,omitempty"`
-	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
-	BillingCycle *Duration `json:"billing_cycle,omitempty"`
-	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
-	// TaxMode: How tax is calculated for this price.
-	TaxMode string `json:"tax_mode,omitempty"`
-	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
-	UnitPrice Money `json:"unit_price,omitempty"`
-	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
-	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
-	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
-	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
-	// Product: Product object for a non-catalog item to charge for.
-	Product TransactionSubscriptionProductCreate `json:"product,omitempty"`
 }
 
 // AddressPreview: Address for this preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.

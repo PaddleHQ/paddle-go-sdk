@@ -99,7 +99,7 @@ type SubscriptionNotification struct {
 	CollectionMode string `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
-	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
 	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
@@ -149,7 +149,7 @@ type SubscriptionCreatedNotification struct {
 	CollectionMode string `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
-	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
 	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
