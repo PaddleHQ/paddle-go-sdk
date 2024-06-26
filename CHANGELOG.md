@@ -11,6 +11,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Breaking changes
 
 - Shared types `TransactionSubscriptionPriceCreateWithProduct` and `TransactionSubscriptionPriceCreateWithProductID` have diverged into 2 new types for Transactions and Subscriptions
+- Include entity types are unified with their non-include variant, e.g. `ProductWithIncludes` and `Product` are now just `Product`
 
 ### Added
 

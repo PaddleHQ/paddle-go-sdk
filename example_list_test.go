@@ -34,7 +34,7 @@ func Example_list() {
 	res, err := client.ListTransactions(ctx, &paddle.ListTransactionsRequest{})
 
 	// Iterate the transactions.
-	err = res.Iter(ctx, func(v *paddle.TransactionIncludes) (bool, error) {
+	err = res.Iter(ctx, func(v *paddle.Transaction) (bool, error) {
 		fmt.Println(v.ID)
 		return true, nil
 	})
@@ -76,7 +76,7 @@ func Example_pagination() {
 	res, err := client.ListTransactions(ctx, &paddle.ListTransactionsRequest{})
 
 	// Iterate the transactions which will internally paginate to the next page.
-	err = res.Iter(ctx, func(v *paddle.TransactionIncludes) (bool, error) {
+	err = res.Iter(ctx, func(v *paddle.Transaction) (bool, error) {
 		fmt.Println(v.ID)
 		return true, nil
 	})
