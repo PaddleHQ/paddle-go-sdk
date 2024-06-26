@@ -1094,7 +1094,7 @@ type PreviewSubscriptionRequest struct {
 
 // PreviewSubscription performs the POST operation on a Subscriptions resource.
 func (c *SubscriptionsClient) PreviewSubscription(ctx context.Context, req *PreviewSubscriptionRequest) (res *SubscriptionPreview, err error) {
-	if err := c.doer.Do(ctx, "POST", "/subscriptions/{subscription_id}/preview", req, &res); err != nil {
+	if err := c.doer.Do(ctx, "PATCH", "/subscriptions/{subscription_id}/preview", req, &res); err != nil {
 		return nil, err
 	}
 
