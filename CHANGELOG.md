@@ -17,6 +17,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - `AUD` and `CAD` chargeback currencies are available
 
+### Fixed
+
+- Subscription resume properly accepts the subscription id as a path parameter on `ResumeSubscriptionRequest`
+
 ## 0.3.0 - 2024-05-27
 
 ### Breaking changes

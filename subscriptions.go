@@ -994,6 +994,9 @@ func NewResumeSubscriptionRequestResumeImmediately(r *ResumeImmediately) *Resume
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type ResumeSubscriptionRequest struct {
+	// URL path parameters.
+	SubscriptionID string `in:"path=subscription_id" json:"-"`
+
 	*ResumeOnASpecificDate
 	*ResumeImmediately
 }
