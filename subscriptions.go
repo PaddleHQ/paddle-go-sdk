@@ -1059,27 +1059,27 @@ type PreviewSubscriptionRequest struct {
 	SubscriptionID string `in:"path=subscription_id" json:"-"`
 
 	// CustomerID: Paddle ID of the customer that this subscription is for, prefixed with `ctm_`. Include to change the customer for a subscription.
-	CustomerID *string `json:"customer_id,omitempty"`
+	CustomerID *PatchField[string] `json:"customer_id,omitempty"`
 	// AddressID: Paddle ID of the address that this subscription is for, prefixed with `add_`. Include to change the address for a subscription.
-	AddressID *string `json:"address_id,omitempty"`
+	AddressID *PatchField[string] `json:"address_id,omitempty"`
 	// BusinessID: Paddle ID of the business that this subscription is for, prefixed with `biz_`. Include to change the business for a subscription.
-	BusinessID *string `json:"business_id,omitempty"`
+	BusinessID *PatchField[*string] `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Include to change the currency that a subscription bills in. When changing `collection_mode` to `manual`, you may need to change currency code to `USD`, `EUR`, or `GBP`.
-	CurrencyCode *string `json:"currency_code,omitempty"`
+	CurrencyCode *PatchField[string] `json:"currency_code,omitempty"`
 	// NextBilledAt: RFC 3339 datetime string of when this subscription is next scheduled to be billed. Include to change the next billing date.
-	NextBilledAt *string `json:"next_billed_at,omitempty"`
+	NextBilledAt *PatchField[string] `json:"next_billed_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
-	Discount *SubscriptionsDiscount `json:"discount,omitempty"`
+	Discount *PatchField[*SubscriptionsDiscount] `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
-	CollectionMode *string `json:"collection_mode,omitempty"`
+	CollectionMode *PatchField[string] `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`. `null` if changing `collection_mode` to `automatic`.
-	BillingDetails *BillingDetailsUpdate `json:"billing_details,omitempty"`
+	BillingDetails *PatchField[*BillingDetailsUpdate] `json:"billing_details,omitempty"`
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
-	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change,omitempty"`
+	ScheduledChange *PatchField[*SubscriptionScheduledChange] `json:"scheduled_change,omitempty"`
 	// Items: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-	Items []SubscriptionsCatalogItem `json:"items,omitempty"`
+	Items *PatchField[[]SubscriptionsCatalogItem] `json:"items,omitempty"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	/*
 	   ProrationBillingMode: How Paddle should handle proration calculation for changes made to a subscription or its items. Required when making
 	   changes that impact billing.
@@ -1087,14 +1087,14 @@ type PreviewSubscriptionRequest struct {
 	   For automatically-collected subscriptions, responses may take longer than usual if a proration billing mode that
 	   collects for payment immediately is used.
 	*/
-	ProrationBillingMode *string `json:"proration_billing_mode,omitempty"`
+	ProrationBillingMode *PatchField[string] `json:"proration_billing_mode,omitempty"`
 	// OnPaymentFailure: How Paddle should handle changes made to a subscription or its items if the payment fails during update. If omitted, defaults to `prevent_change`.
-	OnPaymentFailure *string `json:"on_payment_failure,omitempty"`
+	OnPaymentFailure *PatchField[string] `json:"on_payment_failure,omitempty"`
 }
 
-// PreviewSubscription performs the POST operation on a Subscriptions resource.
+// PreviewSubscription performs the PATCH operation on a Subscriptions resource.
 func (c *SubscriptionsClient) PreviewSubscription(ctx context.Context, req *PreviewSubscriptionRequest) (res *SubscriptionPreview, err error) {
-	if err := c.doer.Do(ctx, "POST", "/subscriptions/{subscription_id}/preview", req, &res); err != nil {
+	if err := c.doer.Do(ctx, "PATCH", "/subscriptions/{subscription_id}/preview", req, &res); err != nil {
 		return nil, err
 	}
 
