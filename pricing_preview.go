@@ -89,7 +89,7 @@ type PricePreview struct {
 	// BusinessID: Paddle ID of the business that this preview is for, prefixed with `biz_`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	// Address: Address for this preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
@@ -101,7 +101,7 @@ type PricePreview struct {
 	// Details: Calculated totals for a price preview, including discounts, tax, and currency conversion.
 	Details PricePreviewDetails `json:"details,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for Paddle Checkout given the price and location information passed.
-	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
+	AvailablePaymentMethods PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
 // PricingPreviewClient is a client for the Pricing preview resource.
@@ -118,7 +118,7 @@ type PricePreviewRequest struct {
 	// BusinessID: Paddle ID of the business that this preview is for, prefixed with `biz_`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode *string `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	// Address: Address for this preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.

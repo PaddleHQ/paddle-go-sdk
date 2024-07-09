@@ -125,7 +125,7 @@ type UpdateBusinessRequest struct {
 	// TaxIdentifier: Tax or VAT Number for this business.
 	TaxIdentifier *PatchField[*string] `json:"tax_identifier,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status *PatchField[string] `json:"status,omitempty"`
+	Status *PatchField[Status] `json:"status,omitempty"`
 	// Contacts: List of contacts related to this business, typically used for sending invoices.
 	Contacts *PatchField[[]BusinessesContacts] `json:"contacts,omitempty"`
 	// CustomData: Your own structured key-value data.

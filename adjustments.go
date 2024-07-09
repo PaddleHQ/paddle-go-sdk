@@ -135,7 +135,7 @@ type CreditBalance struct {
 	// CustomerID: Paddle ID of the customer that this credit balance is for, prefixed with `ctm_`.
 	CustomerID string `json:"customer_id,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this credit balance.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 	// Balance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
 	Balance CustomerBalance `json:"balance,omitempty"`
 }
@@ -196,7 +196,7 @@ func (c *AdjustmentsClient) ListAdjustments(ctx context.Context, req *ListAdjust
 // CreateAdjustmentRequest is given as an input to CreateAdjustment.
 type CreateAdjustmentRequest struct {
 	// Action: How this adjustment impacts the related transaction. `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`.
-	Action string `json:"action,omitempty"`
+	Action Action `json:"action,omitempty"`
 	// Items: List of items on this adjustment.
 	Items []AdjustmentItem `json:"items,omitempty"`
 	// Reason: Why this adjustment was created. Appears in the Paddle Dashboard. Retained for record-keeping purposes.

@@ -2,6 +2,20 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
+## v0.5.0
+
+1. This update fixes correctly resolves generated enum types. Prior to this enum types in our spec were using there respective basic type `string`
+
+To upgrade to `0.5.0` from any earlier version you will need to ensure you're correctly utilising the provided constants for these types, e.g.
+
+```go
+// Instead of this
+priceUpdate := &paddle.UpdatePriceRequest{Status: paddle.NewPatchField("archived")}
+
+// paddle.Status can be passed using paddle.StatusArchived
+priceUpdate := &paddle.UpdatePriceRequest{Status: paddle.NewPatchField(paddle.StatusArchived)}
+```
+
 ## v0.4.0
 
 1. This version includes a breaking change to shared types between Transactions and Subscriptions resources which have now been split into their own respective types.   

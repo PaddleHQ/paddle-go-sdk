@@ -27,19 +27,19 @@ type DiscountUpdated struct {
 type DiscountStatus string
 
 const (
-	DiscountStatusActive   = "active"
-	DiscountStatusArchived = "archived"
-	DiscountStatusExpired  = "expired"
-	DiscountStatusUsed     = "used"
+	DiscountStatusActive   DiscountStatus = "active"
+	DiscountStatusArchived DiscountStatus = "archived"
+	DiscountStatusExpired  DiscountStatus = "expired"
+	DiscountStatusUsed     DiscountStatus = "used"
 )
 
 // Type: Type of discount..
 type Type string
 
 const (
-	TypeFlat        = "flat"
-	TypeFlatPerSeat = "flat_per_seat"
-	TypePercentage  = "percentage"
+	TypeFlat        Type = "flat"
+	TypeFlatPerSeat Type = "flat_per_seat"
+	TypePercentage  Type = "percentage"
 )
 
 // DiscountNotification: New or changed entity.
@@ -47,7 +47,7 @@ type DiscountNotification struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
 	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
-	Status string `json:"status,omitempty"`
+	Status DiscountStatus `json:"status,omitempty"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description,omitempty"`
 	// EnabledForCheckout: Whether this discount can be applied by a customer at checkout.
@@ -55,11 +55,11 @@ type DiscountNotification struct {
 	// Code: Unique code that customers can use to apply this discount at checkout. Use letters and numbers only, up to 16 characters. Paddle generates a random 10-character code if a code is not provided and `enabled_for_checkout` is `true`.
 	Code *string `json:"code,omitempty"`
 	// Type: Type of discount.
-	Type string `json:"type,omitempty"`
+	Type Type `json:"type,omitempty"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
-	CurrencyCode *string `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// Recur: Whether this discount applies for multiple billing periods.
 	Recur bool `json:"recur,omitempty"`
 	// MaximumRecurringIntervals: Amount of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.

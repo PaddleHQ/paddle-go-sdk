@@ -69,11 +69,11 @@ type SubscriptionUpdated struct {
 type SubscriptionStatus string
 
 const (
-	SubscriptionStatusActive   = "active"
-	SubscriptionStatusCanceled = "canceled"
-	SubscriptionStatusPastDue  = "past_due"
-	SubscriptionStatusPaused   = "paused"
-	SubscriptionStatusTrialing = "trialing"
+	SubscriptionStatusActive   SubscriptionStatus = "active"
+	SubscriptionStatusCanceled SubscriptionStatus = "canceled"
+	SubscriptionStatusPastDue  SubscriptionStatus = "past_due"
+	SubscriptionStatusPaused   SubscriptionStatus = "paused"
+	SubscriptionStatusTrialing SubscriptionStatus = "trialing"
 )
 
 // SubscriptionDiscount: Details of the discount applied to this subscription.
@@ -90,15 +90,15 @@ type SubscriptionDiscount struct {
 type ScheduledChangeAction string
 
 const (
-	ScheduledChangeActionCancel = "cancel"
-	ScheduledChangeActionPause  = "pause"
-	ScheduledChangeActionResume = "resume"
+	ScheduledChangeActionCancel ScheduledChangeAction = "cancel"
+	ScheduledChangeActionPause  ScheduledChangeAction = "pause"
+	ScheduledChangeActionResume ScheduledChangeAction = "resume"
 )
 
 // SubscriptionScheduledChange: Change that's scheduled to be applied to a subscription. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes. `null` if no scheduled changes.
 type SubscriptionScheduledChange struct {
 	// Action: Kind of change that's scheduled to be applied to this subscription.
-	Action string `json:"action,omitempty"`
+	Action ScheduledChangeAction `json:"action,omitempty"`
 	// EffectiveAt: RFC 3339 datetime string of when this scheduled change takes effect.
 	EffectiveAt string `json:"effective_at,omitempty"`
 	// ResumeAt: RFC 3339 datetime string of when a paused subscription should resume. Only used for `pause` scheduled changes.
@@ -109,15 +109,15 @@ type SubscriptionScheduledChange struct {
 type SubscriptionItemStatus string
 
 const (
-	SubscriptionItemStatusActive   = "active"
-	SubscriptionItemStatusInactive = "inactive"
-	SubscriptionItemStatusTrialing = "trialing"
+	SubscriptionItemStatusActive   SubscriptionItemStatus = "active"
+	SubscriptionItemStatusInactive SubscriptionItemStatus = "inactive"
+	SubscriptionItemStatusTrialing SubscriptionItemStatus = "trialing"
 )
 
 // SubscriptionItem: Represents a subscription item.
 type SubscriptionItem struct {
 	// Status: Status of this subscription item. Set automatically by Paddle.
-	Status string `json:"status,omitempty"`
+	Status SubscriptionItemStatus `json:"status,omitempty"`
 	// Quantity: Quantity of this item on the subscription.
 	Quantity int `json:"quantity,omitempty"`
 	// Recurring: Whether this is a recurring item. `false` if one-time.
@@ -141,7 +141,7 @@ type SubscriptionNotification struct {
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
 	ID string `json:"id,omitempty"`
 	// Status: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change.
-	Status string `json:"status,omitempty"`
+	Status SubscriptionStatus `json:"status,omitempty"`
 	// CustomerID: Paddle ID of the customer that this subscription is for, prefixed with `ctm_`.
 	CustomerID string `json:"customer_id,omitempty"`
 	// AddressID: Paddle ID of the address that this subscription is for, prefixed with `add_`.
@@ -149,7 +149,7 @@ type SubscriptionNotification struct {
 	// BusinessID: Paddle ID of the business that this subscription is for, prefixed with `biz_`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Transactions for this subscription are created in this currency. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
@@ -167,7 +167,7 @@ type SubscriptionNotification struct {
 	// Discount: Details of the discount applied to this subscription.
 	Discount *SubscriptionDiscount `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
-	CollectionMode string `json:"collection_mode,omitempty"`
+	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
 	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
@@ -191,7 +191,7 @@ type SubscriptionCreatedNotification struct {
 	// TransactionID: Paddle ID for the transaction entity that resulted in this subscription being created, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	// Status: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change.
-	Status string `json:"status,omitempty"`
+	Status SubscriptionStatus `json:"status,omitempty"`
 	// CustomerID: Paddle ID of the customer that this subscription is for, prefixed with `ctm_`.
 	CustomerID string `json:"customer_id,omitempty"`
 	// AddressID: Paddle ID of the address that this subscription is for, prefixed with `add_`.
@@ -199,7 +199,7 @@ type SubscriptionCreatedNotification struct {
 	// BusinessID: Paddle ID of the business that this subscription is for, prefixed with `biz_`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Transactions for this subscription are created in this currency. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
@@ -217,7 +217,7 @@ type SubscriptionCreatedNotification struct {
 	// Discount: Details of the discount applied to this subscription.
 	Discount *SubscriptionDiscount `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
-	CollectionMode string `json:"collection_mode,omitempty"`
+	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
 	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
