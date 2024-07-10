@@ -42,11 +42,11 @@ type AddressNotification struct {
 	// Region: State, county, or region of this address.
 	Region *string `json:"region,omitempty"`
 	// CountryCode: Supported two-letter ISO 3166-1 alpha-2 country code for this address.
-	CountryCode string `json:"country_code,omitempty"`
+	CountryCode CountryCode `json:"country_code,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status string `json:"status,omitempty"`
+	Status Status `json:"status,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.

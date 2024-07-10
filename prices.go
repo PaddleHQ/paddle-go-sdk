@@ -52,7 +52,7 @@ type Price struct {
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type string `json:"type,omitempty"`
+	Type CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -60,7 +60,7 @@ type Price struct {
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
 	TrialPeriod *Duration `json:"trial_period,omitempty"`
 	// TaxMode: How tax is calculated for this price.
-	TaxMode string `json:"tax_mode,omitempty"`
+	TaxMode TaxMode `json:"tax_mode,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 	UnitPrice Money `json:"unit_price,omitempty"`
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
@@ -68,7 +68,7 @@ type Price struct {
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns.
 	Quantity PriceQuantity `json:"quantity,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status string `json:"status,omitempty"`
+	Status Status `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
@@ -144,7 +144,7 @@ type CreatePriceRequest struct {
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 	UnitPrice Money `json:"unit_price,omitempty"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type *string `json:"type,omitempty"`
+	Type *CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -152,7 +152,7 @@ type CreatePriceRequest struct {
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
 	TrialPeriod *Duration `json:"trial_period,omitempty"`
 	// TaxMode: How tax is calculated for this price.
-	TaxMode *string `json:"tax_mode,omitempty"`
+	TaxMode *TaxMode `json:"tax_mode,omitempty"`
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
@@ -197,7 +197,7 @@ type UpdatePriceRequest struct {
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description *PatchField[string] `json:"description,omitempty"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type *PatchField[string] `json:"type,omitempty"`
+	Type *PatchField[CatalogType] `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *PatchField[*string] `json:"name,omitempty"`
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -205,7 +205,7 @@ type UpdatePriceRequest struct {
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
 	TrialPeriod *PatchField[*Duration] `json:"trial_period,omitempty"`
 	// TaxMode: How tax is calculated for this price.
-	TaxMode *PatchField[string] `json:"tax_mode,omitempty"`
+	TaxMode *PatchField[TaxMode] `json:"tax_mode,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 	UnitPrice *PatchField[Money] `json:"unit_price,omitempty"`
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
@@ -213,7 +213,7 @@ type UpdatePriceRequest struct {
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns.
 	Quantity *PatchField[PriceQuantity] `json:"quantity,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status *PatchField[string] `json:"status,omitempty"`
+	Status *PatchField[Status] `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 }

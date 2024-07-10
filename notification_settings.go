@@ -8,8 +8,8 @@ import "context"
 type NotificationSettingType string
 
 const (
-	NotificationSettingTypeEmail = "email"
-	NotificationSettingTypeURL   = "url"
+	NotificationSettingTypeEmail NotificationSettingType = "email"
+	NotificationSettingTypeURL   NotificationSettingType = "url"
 )
 
 // NotificationSetting: Represents a notification destination.
@@ -19,7 +19,7 @@ type NotificationSetting struct {
 	// Description: Short description for this notification destination. Shown in the Paddle web app.
 	Description string `json:"description,omitempty"`
 	// Type: Where notifications should be sent for this destination.
-	Type string `json:"type,omitempty"`
+	Type NotificationSettingType `json:"type,omitempty"`
 	// Destination: Webhook endpoint URL or email address.
 	Destination string `json:"destination,omitempty"`
 	// Active: Whether Paddle should try to deliver events to this notification destination.
@@ -78,7 +78,7 @@ type CreateNotificationSettingRequest struct {
 	// SubscribedEvents: Subscribed events for this notification destination. When creating or updating a notification destination, pass an array of event type names only. Paddle returns the complete event type object.
 	SubscribedEvents []Event `json:"subscribed_events,omitempty"`
 	// Type: Where notifications should be sent for this destination.
-	Type string `json:"type,omitempty"`
+	Type NotificationSettingType `json:"type,omitempty"`
 	// APIVersion: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Cannot be a version older than your account default. Defaults to your account default if not included.
 	APIVersion *int `json:"api_version,omitempty"`
 	// IncludeSensitiveFields: Whether potentially sensitive fields should be sent to this notification destination.

@@ -43,7 +43,7 @@ type Customer struct {
 	*/
 	MarketingConsent bool `json:"marketing_consent,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status string `json:"status,omitempty"`
+	Status Status `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// Locale: Valid IETF BCP 47 short form locale tag. If omitted, defaults to `en`.
@@ -149,7 +149,7 @@ type UpdateCustomerRequest struct {
 	// Email: Email address for this customer.
 	Email *PatchField[string] `json:"email,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status *PatchField[string] `json:"status,omitempty"`
+	Status *PatchField[Status] `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	// Locale: Valid IETF BCP 47 short form locale tag. If omitted, defaults to `en`.

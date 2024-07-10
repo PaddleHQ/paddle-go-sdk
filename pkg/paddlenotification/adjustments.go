@@ -20,12 +20,12 @@ type AdjustmentUpdated struct {
 type Action string
 
 const (
-	ActionCredit            = "credit"
-	ActionRefund            = "refund"
-	ActionChargeback        = "chargeback"
-	ActionChargebackReverse = "chargeback_reverse"
-	ActionChargebackWarning = "chargeback_warning"
-	ActionCreditReverse     = "credit_reverse"
+	ActionCredit            Action = "credit"
+	ActionRefund            Action = "refund"
+	ActionChargeback        Action = "chargeback"
+	ActionChargebackReverse Action = "chargeback_reverse"
+	ActionChargebackWarning Action = "chargeback_warning"
+	ActionCreditReverse     Action = "credit_reverse"
 )
 
 /*
@@ -38,10 +38,10 @@ so are created with the status `approved`..
 type AdjustmentStatus string
 
 const (
-	AdjustmentStatusPendingApproval = "pending_approval"
-	AdjustmentStatusApproved        = "approved"
-	AdjustmentStatusRejected        = "rejected"
-	AdjustmentStatusReversed        = "reversed"
+	AdjustmentStatusPendingApproval AdjustmentStatus = "pending_approval"
+	AdjustmentStatusApproved        AdjustmentStatus = "approved"
+	AdjustmentStatusRejected        AdjustmentStatus = "rejected"
+	AdjustmentStatusReversed        AdjustmentStatus = "reversed"
 )
 
 /*
@@ -51,10 +51,10 @@ Include `amount` when creating a `partial` adjustment..
 type AdjustmentType string
 
 const (
-	AdjustmentTypeFull      = "full"
-	AdjustmentTypePartial   = "partial"
-	AdjustmentTypeTax       = "tax"
-	AdjustmentTypeProration = "proration"
+	AdjustmentTypeFull      AdjustmentType = "full"
+	AdjustmentTypePartial   AdjustmentType = "partial"
+	AdjustmentTypeTax       AdjustmentType = "tax"
+	AdjustmentTypeProration AdjustmentType = "proration"
 )
 
 // AdjustmentItemTotals: Breakdown of the total for an adjustment item.
@@ -77,7 +77,7 @@ type AdjustmentItem struct {
 	   Type: Type of adjustment for this transaction item. `tax` and `proration` are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
-	Type string `json:"type,omitempty"`
+	Type AdjustmentType `json:"type,omitempty"`
 	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	/*
@@ -107,7 +107,7 @@ type AdjustmentTotals struct {
 	*/
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for this adjustment.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
 // PayoutTotalsAdjustment: Breakdown of how this adjustment affects your payout balance.
@@ -125,7 +125,7 @@ type PayoutTotalsAdjustment struct {
 	// Earnings: Adjusted payout earnings. This is the adjustment total plus adjusted Paddle fees, excluding chargeback fees.
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
 }
 
 // AdjustmentNotification: New or changed entity.
@@ -133,7 +133,7 @@ type AdjustmentNotification struct {
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
 	ID string `json:"id,omitempty"`
 	// Action: How this adjustment impacts the related transaction. `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`.
-	Action string `json:"action,omitempty"`
+	Action Action `json:"action,omitempty"`
 	// TransactionID: Paddle ID for the transaction related to this adjustment, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	/*
@@ -158,7 +158,7 @@ type AdjustmentNotification struct {
 	*/
 	CreditAppliedToBalance *bool `json:"credit_applied_to_balance,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this adjustment. Set automatically by Paddle based on the `currency_code` of the related transaction.
-	CurrencyCode string `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 	/*
 	   Status: Status of this adjustment. Set automatically by Paddle.
 
@@ -166,7 +166,7 @@ type AdjustmentNotification struct {
 	   until they move to `approved` or `rejected` on review. Other kinds of adjustment do not need approval,
 	   so are created with the status `approved`.
 	*/
-	Status string `json:"status,omitempty"`
+	Status AdjustmentStatus `json:"status,omitempty"`
 	// Items: List of items on this adjustment.
 	Items []AdjustmentItem `json:"items,omitempty"`
 	// Totals: Breakdown of the total for an adjustment.
