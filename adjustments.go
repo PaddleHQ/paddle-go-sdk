@@ -195,16 +195,17 @@ func (c *AdjustmentsClient) ListAdjustments(ctx context.Context, req *ListAdjust
 
 // CreateAdjustmentRequest is given as an input to CreateAdjustment.
 type CreateAdjustmentRequest struct {
-	// Action: How this adjustment impacts the related transaction. `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`.
+	// Action: How this adjustment impacts the related transaction.
 	Action Action `json:"action,omitempty"`
-	// Items: List of items on this adjustment.
+	// Items: List of transaction items to adjust.
 	Items []AdjustmentItem `json:"items,omitempty"`
-	// Reason: Why this adjustment was created. Appears in the Paddle Dashboard. Retained for record-keeping purposes.
+	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
 	Reason string `json:"reason,omitempty"`
 	/*
-	   TransactionID: Paddle ID for the transaction related to this adjustment, prefixed with `txn_`.
-	   Transactions must be `billed` or `completed`. You can't create an adjustment for a transaction
-	   that has an adjustment that's `pending_approval`.
+	   TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
+	   Transactions must be manually-collected, and have a status of `billed` or `completed`.
+
+	   You can't create an adjustment for a transaction that has a refund that's pending approval.
 	*/
 	TransactionID string `json:"transaction_id,omitempty"`
 }

@@ -111,6 +111,8 @@ type PricingPreviewClient struct {
 
 // PricePreviewRequest is given as an input to PricePreview.
 type PricePreviewRequest struct {
+	// Items: List of items to preview price calculations for.
+	Items []PricePreviewItem `json:"items,omitempty"`
 	// CustomerID: Paddle ID of the customer that this preview is for, prefixed with `ctm_`.
 	CustomerID *string `json:"customer_id,omitempty"`
 	// AddressID: Paddle ID of the address that this preview is for, prefixed with `add_`. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
@@ -125,8 +127,6 @@ type PricePreviewRequest struct {
 	Address *AddressPreview `json:"address,omitempty"`
 	// CustomerIPAddress: IP address for this transaction preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
 	CustomerIPAddress *string `json:"customer_ip_address,omitempty"`
-	// Items: List of items to preview price calculations for.
-	Items []PricePreviewItem `json:"items,omitempty"`
 }
 
 // PricePreview performs the POST operation on a Pricing preview resource.

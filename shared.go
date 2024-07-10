@@ -580,7 +580,7 @@ const (
 
 // BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetails struct {
-	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout.
+	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
 	EnableCheckout bool `json:"enable_checkout,omitempty"`
 	// PurchaseOrderNumber: Customer purchase order number. Appears on invoice documents.
 	PurchaseOrderNumber string `json:"purchase_order_number,omitempty"`
@@ -991,7 +991,7 @@ type Address struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// Action: How this adjustment impacts the related transaction. `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`..
+// Action: How this adjustment impacts the related transaction..
 type Action string
 
 const (
@@ -1006,9 +1006,9 @@ const (
 /*
 AdjustmentStatus: Status of this adjustment. Set automatically by Paddle.
 
-`refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`
-until they move to `approved` or `rejected` on review. Other kinds of adjustment do not need approval,
-so are created with the status `approved`..
+Most refunds for live accounts are created with the status of `pending_approval` until reviewed by Paddle, but some are automatically approved. For sandbox accounts, Paddle automatically approves refunds every ten minutes.
+
+Credit adjustments don't require approval from Paddle, so they're created as `approved`..
 */
 type AdjustmentStatus string
 
@@ -1020,7 +1020,7 @@ const (
 )
 
 /*
-AdjustmentType: Type of adjustment for this transaction item. `tax` and `proration` are automatically created by Paddle.
+AdjustmentType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 Include `amount` when creating a `partial` adjustment..
 */
 type AdjustmentType string
@@ -1049,16 +1049,13 @@ type AdjustmentItem struct {
 	// ItemID: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
 	ItemID string `json:"item_id,omitempty"`
 	/*
-	   Type: Type of adjustment for this transaction item. `tax` and `proration` are automatically created by Paddle.
+	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
 	Type AdjustmentType `json:"type,omitempty"`
 	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
 	Amount *string `json:"amount,omitempty"`
-	/*
-	   Proration: How proration was calculated for this adjustment item. Populated when an adjustment type is `proration`.
-	   Set automatically by Paddle.
-	*/
+	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
 	// Totals: Breakdown of the total for an adjustment item.
 	Totals AdjustmentItemTotals `json:"totals,omitempty"`
@@ -1107,9 +1104,9 @@ type PayoutTotalsAdjustment struct {
 type Adjustment struct {
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
 	ID string `json:"id,omitempty"`
-	// Action: How this adjustment impacts the related transaction. `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`.
+	// Action: How this adjustment impacts the related transaction.
 	Action Action `json:"action,omitempty"`
-	// TransactionID: Paddle ID for the transaction related to this adjustment, prefixed with `txn_`.
+	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	/*
 	   SubscriptionID: Paddle ID for the subscription related to this adjustment, prefixed with `sub_`.
@@ -1121,15 +1118,14 @@ type Adjustment struct {
 	   Set automatically by Paddle based on the `customer_id` of the related transaction.
 	*/
 	CustomerID string `json:"customer_id,omitempty"`
-	// Reason: Why this adjustment was created. Appears in the Paddle Dashboard. Retained for record-keeping purposes.
+	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
 	Reason string `json:"reason,omitempty"`
 	/*
 	   CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
 
-	   `false` when the related transaction `collection_mode` is `manual` and its `status` is `billed`. The adjustment is used
-	   to reduce the `balance` due on the transaction.
+	   `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
 
-	   `true` for automatically-collected transactions and `completed` manually-collected transactions.
+	   `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
 	*/
 	CreditAppliedToBalance *bool `json:"credit_applied_to_balance,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this adjustment. Set automatically by Paddle based on the `currency_code` of the related transaction.
@@ -1137,9 +1133,9 @@ type Adjustment struct {
 	/*
 	   Status: Status of this adjustment. Set automatically by Paddle.
 
-	   `refund` adjustments must be approved by Paddle, and are created with the status `pending_approval`
-	   until they move to `approved` or `rejected` on review. Other kinds of adjustment do not need approval,
-	   so are created with the status `approved`.
+	   Most refunds for live accounts are created with the status of `pending_approval` until reviewed by Paddle, but some are automatically approved. For sandbox accounts, Paddle automatically approves refunds every ten minutes.
+
+	   Credit adjustments don't require approval from Paddle, so they're created as `approved`.
 	*/
 	Status AdjustmentStatus `json:"status,omitempty"`
 	// Items: List of items on this adjustment.
@@ -1198,7 +1194,7 @@ const (
 	DiscountStatusUsed     DiscountStatus = "used"
 )
 
-// DiscountType: Type of discount..
+// DiscountType: Type of discount. Determines how this discount impacts the transaction total..
 type DiscountType string
 
 const (
@@ -1215,17 +1211,17 @@ type Discount struct {
 	Status DiscountStatus `json:"status,omitempty"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description,omitempty"`
-	// EnabledForCheckout: Whether this discount can be applied by a customer at checkout.
+	// EnabledForCheckout: Whether this discount can be applied by customers at checkout.
 	EnabledForCheckout bool `json:"enabled_for_checkout,omitempty"`
-	// Code: Unique code that customers can use to apply this discount at checkout. Use letters and numbers only, up to 16 characters. Paddle generates a random 10-character code if a code is not provided and `enabled_for_checkout` is `true`.
+	// Code: Unique code that customers can use to apply this discount at checkout.
 	Code *string `json:"code,omitempty"`
-	// Type: Type of discount.
+	// Type: Type of discount. Determines how this discount impacts the transaction total.
 	Type DiscountType `json:"type,omitempty"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// Recur: Whether this discount applies for multiple billing periods.
+	// Recur: Whether this discount applies for multiple subscription billing periods.
 	Recur bool `json:"recur,omitempty"`
 	// MaximumRecurringIntervals: Amount of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
 	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals,omitempty"`

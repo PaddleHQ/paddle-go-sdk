@@ -436,6 +436,8 @@ type SubscriptionItem struct {
 	TrialDates *TimePeriod `json:"trial_dates,omitempty"`
 	// Price: Related price entity for this item. This reflects the price entity at the time it was added to the subscription.
 	Price Price `json:"price,omitempty"`
+	// Product: Related product entity for this item. This reflects the product entity at the time it was added to the subscription.
+	Product Product `json:"product,omitempty"`
 }
 
 // SubscriptionsTaxRatesUsed: List of tax rates applied to this transaction preview.
@@ -479,16 +481,13 @@ type SubscriptionsAdjustmentItem struct {
 	// ItemID: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
 	ItemID string `json:"item_id,omitempty"`
 	/*
-	   Type: Type of adjustment for this transaction item. `tax` and `proration` are automatically created by Paddle.
+	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
 	Type AdjustmentType `json:"type,omitempty"`
 	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
 	Amount *string `json:"amount,omitempty"`
-	/*
-	   Proration: How proration was calculated for this adjustment item. Populated when an adjustment type is `proration`.
-	   Set automatically by Paddle.
-	*/
+	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
 	// Totals: Breakdown of the total for an adjustment item.
 	Totals AdjustmentItemTotals `json:"totals,omitempty"`

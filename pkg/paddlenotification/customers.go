@@ -32,15 +32,15 @@ type CustomerNotification struct {
 	// Email: Email address for this customer.
 	Email string `json:"email,omitempty"`
 	/*
-	   MarketingConsent: Whether this customer opted into marketing from you.
-	   Set to `true` by Paddle where a customer checks the marketing consent box when using Paddle Checkout; `false` otherwise.
+	   MarketingConsent: Whether this customer opted into marketing from you. `false` unless customers check the marketing consent box
+	   when using Paddle Checkout. Set automatically by Paddle.
 	*/
 	MarketingConsent bool `json:"marketing_consent,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
 	Status Status `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
-	// Locale: Valid IETF BCP 47 short form locale tag. If omitted, defaults to `en`.
+	// Locale: Valid IETF BCP 47 short form locale tag.
 	Locale string `json:"locale,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
