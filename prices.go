@@ -143,15 +143,18 @@ type CreatePriceRequest struct {
 	ProductID string `json:"product_id,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 	UnitPrice Money `json:"unit_price,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app. If omitted, defaults to `standard`.
 	Type *CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
-	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
+	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time). If omitted, defaults to `null`.
 	BillingCycle *Duration `json:"billing_cycle,omitempty"`
-	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
+	/*
+	   TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over.
+	   `null` for no trial period. Requires `billing_cycle`. If omitted, defaults to `null`.
+	*/
 	TrialPeriod *Duration `json:"trial_period,omitempty"`
-	// TaxMode: How tax is calculated for this price.
+	// TaxMode: How tax is calculated for this price. If omitted, defaults to `account_setting`.
 	TaxMode *TaxMode `json:"tax_mode,omitempty"`
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`

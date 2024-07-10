@@ -297,10 +297,7 @@ type TimePeriod struct {
 	EndsAt string `json:"ends_at,omitempty"`
 }
 
-/*
-Proration: How proration was calculated for this adjustment item. Populated when an adjustment type is `proration`.
-Set automatically by Paddle.
-*/
+// Proration: How proration was calculated for this adjustment item.
 type Proration struct {
 	// Rate: Rate used to calculate proration.
 	Rate string `json:"rate,omitempty"`
@@ -438,7 +435,7 @@ const (
 
 // BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetails struct {
-	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout.
+	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
 	EnableCheckout bool `json:"enable_checkout,omitempty"`
 	// PurchaseOrderNumber: Customer purchase order number. Appears on invoice documents.
 	PurchaseOrderNumber string `json:"purchase_order_number,omitempty"`
@@ -476,6 +473,32 @@ type Price struct {
 	Status Status `json:"status,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+}
+
+// Product: Related product entity for this item. This reflects the product entity at the time it was added to the subscription.
+type Product struct {
+	// ID: Unique Paddle ID for this product, prefixed with `pro_`.
+	ID string `json:"id,omitempty"`
+	// Name: Name of this product.
+	Name string `json:"name,omitempty"`
+	// Description: Short description for this product.
+	Description *string `json:"description,omitempty"`
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	Type CatalogType `json:"type,omitempty"`
+	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
+	TaxCategory TaxCategory `json:"tax_category,omitempty"`
+	// ImageURL: Image for this product. Included in the checkout and on some customer documents.
+	ImageURL *string `json:"image_url,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status Status `json:"status,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.

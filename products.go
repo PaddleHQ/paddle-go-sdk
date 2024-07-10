@@ -102,7 +102,7 @@ type CreateProductRequest struct {
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app. If omitted, defaults to `standard`.
 	Type *CatalogType `json:"type,omitempty"`
 	// ImageURL: Image for this product. Included in the checkout and on some customer documents.
 	ImageURL *string `json:"image_url,omitempty"`

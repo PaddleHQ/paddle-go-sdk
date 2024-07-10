@@ -10,8 +10,11 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Breaking changes
 
-- Paddle API enum types are now correctly enforced where applicable 
+- Paddle API enum types are now correctly enforced where applicable
 
+### Added
+
+- `Product` has been added as a property of `SubscriptionItem`
 
 ## 0.4.0 - 2024-06-26
 

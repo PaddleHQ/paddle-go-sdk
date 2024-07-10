@@ -928,17 +928,17 @@ type CreateTransactionRequest struct {
 	   transactions as part of an invoicing workflow. Billed transactions cannot be updated, only canceled.
 	*/
 	Status *TransactionStatus `json:"status,omitempty"`
-	// CustomerID: Paddle ID of the customer that this transaction is for, prefixed with `ctm_`.
+	// CustomerID: Paddle ID of the customer that this transaction is for, prefixed with `ctm_`. If omitted, transaction status is `draft`.
 	CustomerID *string `json:"customer_id,omitempty"`
-	// AddressID: Paddle ID of the address that this transaction is for, prefixed with `add_`.
+	// AddressID: Paddle ID of the address that this transaction is for, prefixed with `add_`. Requires `customer_id`. If omitted, transaction status is `draft`.
 	AddressID *string `json:"address_id,omitempty"`
-	// BusinessID: Paddle ID of the business that this transaction is for, prefixed with `biz_`.
+	// BusinessID: Paddle ID of the business that this transaction is for, prefixed with `biz_`. Requires `customer_id`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
+	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices. If omitted, defaults to `automatic`.
 	CollectionMode *CollectionMode `json:"collection_mode,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`

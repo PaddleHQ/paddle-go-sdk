@@ -134,6 +134,8 @@ type SubscriptionItem struct {
 	TrialDates *TimePeriod `json:"trial_dates,omitempty"`
 	// Price: Related price entity for this item. This reflects the price entity at the time it was added to the subscription.
 	Price Price `json:"price,omitempty"`
+	// Product: Related product entity for this item. This reflects the product entity at the time it was added to the subscription.
+	Product Product `json:"product,omitempty"`
 }
 
 // SubscriptionNotification: New or changed entity.
