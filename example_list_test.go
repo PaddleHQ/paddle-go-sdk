@@ -91,3 +91,76 @@ func Example_pagination() {
 	//txn_01hv8kxg3hxyxs9t471ms9kfsz
 	//<nil>
 }
+
+func Example_listWithoutPagination() {
+	s := mockServerForExample(mockServerResponse{stub: &stub{paths: []stubPath{
+		event_types,
+	}}})
+
+	// Create a new Paddle client.
+	client, err := paddle.New(
+		os.Getenv("PADDLE_API_KEY"),
+		paddle.WithBaseURL(s.URL), // Uses the mock server, you will not need this in your integration.
+	)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	ctx := context.Background()
+	// Get a collection of transactions.
+	res, err := client.ListEventTypes(ctx, &paddle.ListEventTypesRequest{})
+
+	// Iterate the transactions which will internally paginate to the next page.
+	err = res.Iter(ctx, func(v *paddle.EventType) (bool, error) {
+		fmt.Println(v.Name)
+		return true, nil
+	})
+	fmt.Println(err)
+
+	// Output:
+	//transaction.billed
+	//transaction.canceled
+	//transaction.completed
+	//transaction.created
+	//transaction.paid
+	//transaction.past_due
+	//transaction.payment_failed
+	//transaction.ready
+	//transaction.updated
+	//subscription.activated
+	//subscription.canceled
+	//subscription.created
+	//subscription.imported
+	//subscription.past_due
+	//subscription.paused
+	//subscription.resumed
+	//subscription.trialing
+	//subscription.updated
+	//product.created
+	//product.imported
+	//product.updated
+	//price.created
+	//price.imported
+	//price.updated
+	//customer.created
+	//customer.imported
+	//customer.updated
+	//address.created
+	//address.imported
+	//address.updated
+	//business.created
+	//business.imported
+	//business.updated
+	//adjustment.created
+	//adjustment.updated
+	//payout.created
+	//payout.paid
+	//discount.created
+	//discount.imported
+	//discount.updated
+	//report.created
+	//report.updated
+	//<nil>
+}

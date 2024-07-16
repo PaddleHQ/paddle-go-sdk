@@ -9,6 +9,7 @@ import (
 type stubPath string
 
 const (
+	event_types              stubPath = "testdata/event_types.json"
 	events                   stubPath = "testdata/events.json"
 	transaction              stubPath = "testdata/transaction.json"
 	transactions             stubPath = "testdata/transactions.json"
