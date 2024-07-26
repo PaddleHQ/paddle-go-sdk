@@ -70,7 +70,7 @@ type PricePreview struct {
 	// Details: Calculated totals for a price preview, including discounts, tax, and currency conversion.
 	Details PricePreviewDetails `json:"details,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for Paddle Checkout given the price and location information passed.
-	AvailablePaymentMethods PaymentMethodType `json:"available_payment_methods,omitempty"`
+	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
 // PricingPreviewClient is a client for the Pricing preview resource.

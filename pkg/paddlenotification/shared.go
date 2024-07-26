@@ -445,7 +445,7 @@ type Money struct {
 // UnitPriceOverride: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 type UnitPriceOverride struct {
 	// CountryCodes: Supported two-letter ISO 3166-1 alpha-2 country code.
-	CountryCodes CountryCode `json:"country_codes,omitempty"`
+	CountryCodes []CountryCode `json:"country_codes,omitempty"`
 	// UnitPrice: Override price. This price applies to customers located in the countries for this unit price override.
 	UnitPrice Money `json:"unit_price,omitempty"`
 }
