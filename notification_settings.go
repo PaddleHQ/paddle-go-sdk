@@ -75,8 +75,8 @@ type CreateNotificationSettingRequest struct {
 	Description string `json:"description,omitempty"`
 	// Destination: Webhook endpoint URL or email address.
 	Destination string `json:"destination,omitempty"`
-	// SubscribedEvents: Subscribed events for this notification destination. When creating or updating a notification destination, pass an array of event type names only. Paddle returns the complete event type object.
-	SubscribedEvents []Event `json:"subscribed_events,omitempty"`
+	// SubscribedEvents: Type of event sent by Paddle, in the format `entity.event_type`.
+	SubscribedEvents []EventTypeName `json:"subscribed_events,omitempty"`
 	// Type: Where notifications should be sent for this destination.
 	Type NotificationSettingType `json:"type,omitempty"`
 	// APIVersion: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Cannot be a version older than your account default. If omitted, defaults to your account default version.
@@ -124,8 +124,8 @@ type UpdateNotificationSettingRequest struct {
 	APIVersion *PatchField[int] `json:"api_version,omitempty"`
 	// IncludeSensitiveFields: Whether potentially sensitive fields should be sent to this notification destination.
 	IncludeSensitiveFields *PatchField[bool] `json:"include_sensitive_fields,omitempty"`
-	// SubscribedEvents: Subscribed events for this notification destination. When creating or updating a notification destination, pass an array of event type names only. Paddle returns the complete event type object.
-	SubscribedEvents *PatchField[[]Event] `json:"subscribed_events,omitempty"`
+	// SubscribedEvents: Type of event sent by Paddle, in the format `entity.event_type`.
+	SubscribedEvents *PatchField[[]EventTypeName] `json:"subscribed_events,omitempty"`
 }
 
 // UpdateNotificationSetting performs the PATCH operation on a Notification settings resource.

@@ -68,7 +68,7 @@ type Notification struct {
 	// ID: Unique Paddle ID for this notification, prefixed with `ntf_`.
 	ID string `json:"id,omitempty"`
 	// Type: Type of event sent by Paddle, in the format `entity.event_type`.
-	Type string `json:"type,omitempty"`
+	Type EventTypeName `json:"type,omitempty"`
 	// Status: Status of this notification.
 	Status NotificationStatus `json:"status,omitempty"`
 	// Payload: Notification payload. Includes the new or changed event.
