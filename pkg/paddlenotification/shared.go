@@ -2,6 +2,54 @@
 
 package paddlenotification
 
+// EventTypeName: Type of event sent by Paddle, in the format `entity.event_type`..
+type EventTypeName string
+
+const (
+	EventTypeNameAddressCreated           EventTypeName = "address.created"
+	EventTypeNameAddressImported          EventTypeName = "address.imported"
+	EventTypeNameAddressUpdated           EventTypeName = "address.updated"
+	EventTypeNameAdjustmentCreated        EventTypeName = "adjustment.created"
+	EventTypeNameAdjustmentUpdated        EventTypeName = "adjustment.updated"
+	EventTypeNameBusinessCreated          EventTypeName = "business.created"
+	EventTypeNameBusinessImported         EventTypeName = "business.imported"
+	EventTypeNameBusinessUpdated          EventTypeName = "business.updated"
+	EventTypeNameCustomerCreated          EventTypeName = "customer.created"
+	EventTypeNameCustomerImported         EventTypeName = "customer.imported"
+	EventTypeNameCustomerUpdated          EventTypeName = "customer.updated"
+	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
+	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
+	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
+	EventTypeNamePayoutPaid               EventTypeName = "payout.paid"
+	EventTypeNamePriceCreated             EventTypeName = "price.created"
+	EventTypeNamePriceImported            EventTypeName = "price.imported"
+	EventTypeNamePriceUpdated             EventTypeName = "price.updated"
+	EventTypeNameProductCreated           EventTypeName = "product.created"
+	EventTypeNameProductImported          EventTypeName = "product.imported"
+	EventTypeNameProductUpdated           EventTypeName = "product.updated"
+	EventTypeNameReportCreated            EventTypeName = "report.created"
+	EventTypeNameReportUpdated            EventTypeName = "report.updated"
+	EventTypeNameSubscriptionActivated    EventTypeName = "subscription.activated"
+	EventTypeNameSubscriptionCanceled     EventTypeName = "subscription.canceled"
+	EventTypeNameSubscriptionCreated      EventTypeName = "subscription.created"
+	EventTypeNameSubscriptionImported     EventTypeName = "subscription.imported"
+	EventTypeNameSubscriptionPastDue      EventTypeName = "subscription.past_due"
+	EventTypeNameSubscriptionPaused       EventTypeName = "subscription.paused"
+	EventTypeNameSubscriptionResumed      EventTypeName = "subscription.resumed"
+	EventTypeNameSubscriptionTrialing     EventTypeName = "subscription.trialing"
+	EventTypeNameSubscriptionUpdated      EventTypeName = "subscription.updated"
+	EventTypeNameTransactionBilled        EventTypeName = "transaction.billed"
+	EventTypeNameTransactionCanceled      EventTypeName = "transaction.canceled"
+	EventTypeNameTransactionCompleted     EventTypeName = "transaction.completed"
+	EventTypeNameTransactionCreated       EventTypeName = "transaction.created"
+	EventTypeNameTransactionPaid          EventTypeName = "transaction.paid"
+	EventTypeNameTransactionPastDue       EventTypeName = "transaction.past_due"
+	EventTypeNameTransactionPaymentFailed EventTypeName = "transaction.payment_failed"
+	EventTypeNameTransactionReady         EventTypeName = "transaction.ready"
+	EventTypeNameTransactionUpdated       EventTypeName = "transaction.updated"
+)
+
 // CountryCode: Supported two-letter ISO 3166-1 alpha-2 country code for this address..
 type CountryCode string
 
