@@ -786,21 +786,6 @@ type TransactionPayoutTotalsAdjusted struct {
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
 }
 
-// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-type UnitTotals struct {
-	// Subtotal: Unit price.
-	Subtotal string `json:"subtotal,omitempty"`
-	/*
-	   Discount: Total discount as a result of any discounts applied.
-	   Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-	*/
-	Discount string `json:"discount,omitempty"`
-	// Tax: Total tax on the subtotal.
-	Tax string `json:"tax,omitempty"`
-	// Total: Total after discount and tax.
-	Total string `json:"total,omitempty"`
-}
-
 // TransactionLineItem: Information about line items for this transaction. Different from transaction `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
 type TransactionLineItem struct {
 	// ID: Unique Paddle ID for this transaction item, prefixed with `txnitm_`.
@@ -814,7 +799,7 @@ type TransactionLineItem struct {
 	// TaxRate: Rate used to calculate tax for this transaction line item.
 	TaxRate string `json:"tax_rate,omitempty"`
 	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals UnitTotals `json:"unit_totals,omitempty"`
+	UnitTotals Totals `json:"unit_totals,omitempty"`
 	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
 	Totals Totals `json:"totals,omitempty"`
 	// Product: Related product entity for this transaction line item price.

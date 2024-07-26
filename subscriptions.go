@@ -457,7 +457,7 @@ type SubscriptionsTransactionLineItemPreview struct {
 	// TaxRate: Rate used to calculate tax for this transaction line item.
 	TaxRate string `json:"tax_rate,omitempty"`
 	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals UnitTotals `json:"unit_totals,omitempty"`
+	UnitTotals Totals `json:"unit_totals,omitempty"`
 	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
 	Totals Totals `json:"totals,omitempty"`
 	// Product: Related product entity for this transaction line item price.
