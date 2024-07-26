@@ -652,18 +652,18 @@ type Charge struct {
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
-// ResultAction: Whether the subscription change results in a prorated credit or a charge..
-type ResultAction string
+// UpdateSummaryResultAction: Whether the subscription change results in a prorated credit or a charge..
+type UpdateSummaryResultAction string
 
 const (
-	ResultActionCredit ResultAction = "credit"
-	ResultActionCharge ResultAction = "charge"
+	UpdateSummaryResultActionCredit UpdateSummaryResultAction = "credit"
+	UpdateSummaryResultActionCharge UpdateSummaryResultAction = "charge"
 )
 
 // Result: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
 type Result struct {
 	// Action: Whether the subscription change results in a prorated credit or a charge.
-	Action ResultAction `json:"action,omitempty"`
+	Action UpdateSummaryResultAction `json:"action,omitempty"`
 	// Amount: Amount representing the result of this update, either a charge or a credit.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for the transaction or adjustment.
