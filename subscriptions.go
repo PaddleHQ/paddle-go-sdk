@@ -654,10 +654,10 @@ type UpdateSummaryResult struct {
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
-// PreviewSubscriptionUpdateSummary: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
-type PreviewSubscriptionUpdateSummary struct {
 	// Credit: Details of any credit adjustments. Paddle creates adjustments against existing transactions when prorating.
 	Credit Credit `json:"credit,omitempty"`
+// SubscriptionPreviewUpdateSummary: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
+type SubscriptionPreviewUpdateSummary struct {
 	// Charge: Details of the transaction to be created for this update. Paddle creates a transaction to bill for new charges.
 	Charge Charge `json:"charge,omitempty"`
 	// Result: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
@@ -715,7 +715,7 @@ type SubscriptionPreview struct {
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges.
 	RecurringTransactionDetails SubscriptionTransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
 	// UpdateSummary: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
-	UpdateSummary *PreviewSubscriptionUpdateSummary `json:"update_summary,omitempty"`
+	UpdateSummary *SubscriptionPreviewUpdateSummary `json:"update_summary,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
