@@ -654,10 +654,10 @@ type UpdateSummaryResult struct {
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
-	// Credit: Details of any credit adjustments. Paddle creates adjustments against existing transactions when prorating.
-	Credit Credit `json:"credit,omitempty"`
 // SubscriptionPreviewUpdateSummary: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
 type SubscriptionPreviewUpdateSummary struct {
+	// Credit: Details of any credit adjustments created for this update. Paddle creates adjustments against existing transactions when prorating.
+	Credit Money `json:"credit,omitempty"`
 	// Charge: Details of the transaction to be created for this update. Paddle creates a transaction to bill for new charges.
 	Charge Charge `json:"charge,omitempty"`
 	// Result: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
@@ -720,8 +720,8 @@ type SubscriptionPreview struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// SubscriptionsSubscriptionsCatalogItem: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionsSubscriptionsCatalogItem struct {
+// SubscriptionsCatalogItem: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type SubscriptionsCatalogItem struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// PriceID: Paddle ID of an an existing catalog price to bill for.
@@ -1084,10 +1084,10 @@ func (c *SubscriptionsClient) PreviewSubscription(ctx context.Context, req *Prev
 	return res, nil
 }
 
-// NewCreateSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem takes a SubscriptionsSubscriptionsCatalogItem type
+// NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem takes a SubscriptionsCatalogItem type
 // and creates a CreateSubscriptionChargeItems for use in a request.
-func NewCreateSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem(r *SubscriptionsSubscriptionsCatalogItem) *CreateSubscriptionChargeItems {
-	return &CreateSubscriptionChargeItems{SubscriptionsSubscriptionsCatalogItem: r}
+func NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem(r *SubscriptionsCatalogItem) *CreateSubscriptionChargeItems {
+	return &CreateSubscriptionChargeItems{SubscriptionsCatalogItem: r}
 }
 
 // NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct takes a SubscriptionsNonCatalogPriceForAnExistingProduct type
@@ -1103,27 +1103,27 @@ func NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *S
 }
 
 // CreateSubscriptionChargeItems represents a union request type of the following types:
-//   - `SubscriptionsSubscriptionsCatalogItem`
+//   - `SubscriptionsCatalogItem`
 //   - `SubscriptionsNonCatalogPriceForAnExistingProduct`
 //   - `SubscriptionsNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewCreateSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem()`
+//   - `NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem()`
 //   - `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct()`
 //   - `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type CreateSubscriptionChargeItems struct {
-	*SubscriptionsSubscriptionsCatalogItem
+	*SubscriptionsCatalogItem
 	*SubscriptionsNonCatalogPriceForAnExistingProduct
 	*SubscriptionsNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u CreateSubscriptionChargeItems) MarshalJSON() ([]byte, error) {
-	if u.SubscriptionsSubscriptionsCatalogItem != nil {
-		return json.Marshal(u.SubscriptionsSubscriptionsCatalogItem)
+	if u.SubscriptionsCatalogItem != nil {
+		return json.Marshal(u.SubscriptionsCatalogItem)
 	}
 
 	if u.SubscriptionsNonCatalogPriceForAnExistingProduct != nil {
@@ -1159,10 +1159,10 @@ func (c *SubscriptionsClient) CreateSubscriptionCharge(ctx context.Context, req 
 	return res, nil
 }
 
-// NewPreviewSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem takes a SubscriptionsSubscriptionsCatalogItem type
+// NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem takes a SubscriptionsCatalogItem type
 // and creates a PreviewSubscriptionChargeItems for use in a request.
-func NewPreviewSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem(r *SubscriptionsSubscriptionsCatalogItem) *PreviewSubscriptionChargeItems {
-	return &PreviewSubscriptionChargeItems{SubscriptionsSubscriptionsCatalogItem: r}
+func NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem(r *SubscriptionsCatalogItem) *PreviewSubscriptionChargeItems {
+	return &PreviewSubscriptionChargeItems{SubscriptionsCatalogItem: r}
 }
 
 // NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct takes a SubscriptionsNonCatalogPriceForAnExistingProduct type
@@ -1178,27 +1178,27 @@ func NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *
 }
 
 // PreviewSubscriptionChargeItems represents a union request type of the following types:
-//   - `SubscriptionsSubscriptionsCatalogItem`
+//   - `SubscriptionsCatalogItem`
 //   - `SubscriptionsNonCatalogPriceForAnExistingProduct`
 //   - `SubscriptionsNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewPreviewSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem()`
+//   - `NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem()`
 //   - `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct()`
 //   - `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type PreviewSubscriptionChargeItems struct {
-	*SubscriptionsSubscriptionsCatalogItem
+	*SubscriptionsCatalogItem
 	*SubscriptionsNonCatalogPriceForAnExistingProduct
 	*SubscriptionsNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u PreviewSubscriptionChargeItems) MarshalJSON() ([]byte, error) {
-	if u.SubscriptionsSubscriptionsCatalogItem != nil {
-		return json.Marshal(u.SubscriptionsSubscriptionsCatalogItem)
+	if u.SubscriptionsCatalogItem != nil {
+		return json.Marshal(u.SubscriptionsCatalogItem)
 	}
 
 	if u.SubscriptionsNonCatalogPriceForAnExistingProduct != nil {
