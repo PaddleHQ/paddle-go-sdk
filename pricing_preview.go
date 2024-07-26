@@ -12,37 +12,6 @@ type PricePreviewItem struct {
 	Quantity int `json:"quantity,omitempty"`
 }
 
-// UnitTotalsFormatted: Breakdown of the charge for one unit in the format of a given currency.
-type UnitTotalsFormatted struct {
-	// Subtotal: Unit price.
-	Subtotal string `json:"subtotal,omitempty"`
-	/*
-	   Discount: Total discount as a result of any discounts applied.
-	   Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-	*/
-	Discount string `json:"discount,omitempty"`
-	// Tax: Total tax on the subtotal.
-	Tax string `json:"tax,omitempty"`
-	// Total: Total after discount and tax.
-	Total string `json:"total,omitempty"`
-}
-
-// TotalsFormatted: The financial breakdown of a charge in the format of a given currency.
-type TotalsFormatted struct {
-	// Subtotal: The amount times the quantity.
-	Subtotal string `json:"subtotal,omitempty"`
-	/*
-	   Discount: The amount discounted due to a discount code or ID being applied.
-
-	   Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-	*/
-	Discount string `json:"discount,omitempty"`
-	// Tax: The amount of tax due on the subtotal.
-	Tax string `json:"tax,omitempty"`
-	// Total: The subtotal - discount + tax.
-	Total string `json:"total,omitempty"`
-}
-
 // PricePreviewDiscounts: Array of discounts applied to this preview line item. Empty if no discounts applied.
 type PricePreviewDiscounts struct {
 	// Discount: Related discount entity for this preview line item.
@@ -62,13 +31,13 @@ type PricePreviewLineItem struct {
 	// TaxRate: Rate used to calculate tax for this preview line item.
 	TaxRate string `json:"tax_rate,omitempty"`
 	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals UnitTotals `json:"unit_totals,omitempty"`
+	UnitTotals Totals `json:"unit_totals,omitempty"`
 	// FormattedUnitTotals: Breakdown of the charge for one unit in the format of a given currency.
-	FormattedUnitTotals UnitTotalsFormatted `json:"formatted_unit_totals,omitempty"`
+	FormattedUnitTotals Totals `json:"formatted_unit_totals,omitempty"`
 	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
 	Totals Totals `json:"totals,omitempty"`
 	// FormattedTotals: The financial breakdown of a charge in the format of a given currency.
-	FormattedTotals TotalsFormatted `json:"formatted_totals,omitempty"`
+	FormattedTotals Totals `json:"formatted_totals,omitempty"`
 	// Product: Related product entity for this preview line item price.
 	Product Product `json:"product,omitempty"`
 	// Discounts: Array of discounts applied to this preview line item. Empty if no discounts applied.
