@@ -1105,7 +1105,7 @@ type Adjustment struct {
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
 	ID string `json:"id,omitempty"`
 	// Action: How this adjustment impacts the related transaction.
-	Action Action `json:"action,omitempty"`
+	Action AdjustmentAction `json:"action,omitempty"`
 	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	/*
