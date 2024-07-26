@@ -1036,8 +1036,8 @@ func (c *SubscriptionsClient) GetSubscriptionUpdatePaymentMethodTransaction(ctx 
 	return res, nil
 }
 
-// PreviewSubscriptionRequest is given as an input to PreviewSubscription.
-type PreviewSubscriptionRequest struct {
+// PreviewSubscriptionUpdateRequest is given as an input to PreviewSubscriptionUpdate.
+type PreviewSubscriptionUpdateRequest struct {
 	// URL path parameters.
 	SubscriptionID string `in:"path=subscription_id" json:"-"`
 
@@ -1075,8 +1075,8 @@ type PreviewSubscriptionRequest struct {
 	OnPaymentFailure *PatchField[SubscriptionOnPaymentFailure] `json:"on_payment_failure,omitempty"`
 }
 
-// PreviewSubscription performs the PATCH operation on a Subscriptions resource.
-func (c *SubscriptionsClient) PreviewSubscription(ctx context.Context, req *PreviewSubscriptionRequest) (res *SubscriptionPreview, err error) {
+// PreviewSubscriptionUpdate performs the PATCH operation on a Subscriptions resource.
+func (c *SubscriptionsClient) PreviewSubscriptionUpdate(ctx context.Context, req *PreviewSubscriptionUpdateRequest) (res *SubscriptionPreview, err error) {
 	if err := c.doer.Do(ctx, "PATCH", "/subscriptions/{subscription_id}/preview", req, &res); err != nil {
 		return nil, err
 	}
