@@ -583,8 +583,8 @@ type SubscriptionsDiscount struct {
 	EffectiveFrom EffectiveFrom `json:"effective_from,omitempty"`
 }
 
-// SubscriptionsCatalogItem: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionsCatalogItem struct {
+// SubscriptionsUpdateCatalogItem: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type SubscriptionsUpdateCatalogItem struct {
 	// PriceID: Paddle ID for the price to add to this subscription, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
 	// Quantity: Quantity of this item to add to the subscription. If updating an existing item and not changing the quantity, you may omit `quantity`.
@@ -852,7 +852,7 @@ type UpdateSubscriptionRequest struct {
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
 	ScheduledChange *PatchField[*SubscriptionScheduledChange] `json:"scheduled_change,omitempty"`
 	// Items: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-	Items *PatchField[[]SubscriptionsCatalogItem] `json:"items,omitempty"`
+	Items *PatchField[[]SubscriptionsUpdateCatalogItem] `json:"items,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	/*
@@ -1076,7 +1076,7 @@ type PreviewSubscriptionRequest struct {
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
 	ScheduledChange *PatchField[*SubscriptionScheduledChange] `json:"scheduled_change,omitempty"`
 	// Items: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-	Items *PatchField[[]SubscriptionsCatalogItem] `json:"items,omitempty"`
+	Items *PatchField[[]SubscriptionsUpdateCatalogItem] `json:"items,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	/*
