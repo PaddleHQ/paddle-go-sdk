@@ -340,7 +340,7 @@ type Card struct {
 	Last4 string `json:"last4,omitempty"`
 	// ExpiryMonth: Month of the expiry date of the card used to pay.
 	ExpiryMonth int `json:"expiry_month,omitempty"`
-	// ExpiryYear: Year of the expiry year of the card used to pay.
+	// ExpiryYear: Year of the expiry date of the card used to pay.
 	ExpiryYear int `json:"expiry_year,omitempty"`
 	// CardholderName: The name on the card used to pay.
 	CardholderName string `json:"cardholder_name,omitempty"`

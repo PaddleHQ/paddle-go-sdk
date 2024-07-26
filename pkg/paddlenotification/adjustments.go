@@ -125,6 +125,24 @@ type PayoutTotalsAdjustment struct {
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
 }
 
+// AdjustmentTaxRateUsedTotals: Calculated totals for the tax applied to this adjustment.
+type AdjustmentTaxRateUsedTotals struct {
+	// Subtotal: Total before tax. For tax adjustments, the value is 0.
+	Subtotal string `json:"subtotal,omitempty"`
+	// Tax: Total tax on the subtotal.
+	Tax string `json:"tax,omitempty"`
+	// Total: Total after tax.
+	Total string `json:"total,omitempty"`
+}
+
+// AdjustmentTaxRateUsed: List of tax rates applied for this adjustment.
+type AdjustmentTaxRateUsed struct {
+	// TaxRate: Rate used to calculate tax for this adjustment.
+	TaxRate string `json:"tax_rate,omitempty"`
+	// Totals: Calculated totals for the tax applied to this adjustment.
+	Totals AdjustmentTaxRateUsedTotals `json:"totals,omitempty"`
+}
+
 // AdjustmentNotification: New or changed entity.
 type AdjustmentNotification struct {
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
@@ -169,6 +187,8 @@ type AdjustmentNotification struct {
 	Totals AdjustmentTotals `json:"totals,omitempty"`
 	// PayoutTotals: Breakdown of how this adjustment affects your payout balance.
 	PayoutTotals *PayoutTotalsAdjustment `json:"payout_totals,omitempty"`
+	// TaxRatesUsed: List of tax rates applied for this adjustment.
+	TaxRatesUsed []AdjustmentTaxRateUsed `json:"tax_rates_used,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
