@@ -16,6 +16,64 @@ priceUpdate := &paddle.UpdatePriceRequest{Status: paddle.NewPatchField("archived
 priceUpdate := &paddle.UpdatePriceRequest{Status: paddle.NewPatchField(paddle.StatusArchived)}
 ```
 
+2. Notifications and Events `EventType` property now use `EventTypeName` instead of `string` type. 
+
+Any functions this property is passed into will need to be updated accordingly.
+
+3. `Totals` is now a unified type from the previous 4 types `Totals`, `TotalsFormatted`, `UnitTotals` and `UnitTotalsFormatted`
+
+The type shape is the same however receiving functions will need to be updated accordingly.
+
+Any usage of the following types may cause breakages.
+
+| Package              | Type                                      |
+|----------------------|-------------------------------------------|
+| `paddlenotification` | `TransactionLineItem`                     |
+| `paddle`             | `PricePreviewLineItem`                    |
+| `paddle`             | `TransactionLineItem`                     |
+| `paddle`             | `SubscriptionsTransactionLineItemPreview` |
+| `paddle`             | `TransactionLineItemPreview`              |
+
+4. Various types have been renamed to be less generic and lower the risk of a future breaking change
+
+| Previous Type                      | New Type                            |
+|------------------------------------|-------------------------------------|
+| `Action`                           | `AdjustmentAction`                  |
+| `IPAddressesData`                  | `IPAddress`                         | 
+| `Origin`                           | `NotificationOrigin`                |
+| `SubscriptionsCatalogItem`         | `SubscriptionsUpdateCatalogItem`    | 
+| `ResultAction`                     | `UpdateSummaryResultAction`         |
+| `Result`                           | `UpdateSummaryResult`               |
+| `PreviewSubscriptionUpdateSummary` | `SubscriptionPreviewUpdateSummary`  |
+| `Breakdown`                        | `AdjustmentsTotalsBreakdown`        |
+| `PreviewSubscriptionRequest`       | `PreviewSubscriptionUpdateRequest`  |
+| `PreviewTransactionRequest`        | `PreviewTransactionCreateRequest`   |
+| `CountryAndZipPostalCode`          | `TransactionPreviewByAddress`       |
+| `CountryAndZipPostalCodeItems`     | `TransactionPreviewByAddressItems`  |
+| `IPAddress`                        | `TransactionPreviewByIP`            |
+| `IPAddressItems`                   | `TransactionPreviewByIPItems`       |
+| `ExistingCustomerPaddleIDs`        | `TransactionPreviewByCustomer`      |
+| `ExistingCustomerPaddleIDsItems`   | `TransactionPreviewByCustomerItems` |
+
+Alongside these type changes some functions have been respectively updated and any usages will need to be changed in your codebase.
+
+| Previous Function Name                                                             | New Function Name                                                                     |
+|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `NewCountryAndZipPostalCodeItemsTransactionsCatalogItem`                           | `NewTransactionPreviewByAddressItemsTransactionsCatalogItem`                          | 
+| `NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceForAnExistingProduct`   | `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceForAnExistingProduct`  |
+| `NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceAndProduct`             | `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceAndProduct`            |
+| `NewIPAddressItemsTransactionsCatalogItem`                                         | `NewTransactionPreviewByIPItemsTransactionsCatalogItem`                               |
+| `NewIPAddressItemsTransactionsNonCatalogPriceForAnExistingProduct`                 | `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct`       |
+| `NewIPAddressItemsTransactionsNonCatalogPriceAndProduct`                           | `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct`                 |
+| `NewExistingCustomerPaddleIDsItemsTransactionsCatalogItem`                         | `NewTransactionPreviewByCustomerItemsTransactionsCatalogItem`                         |
+| `NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceForAnExistingProduct` | `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct` |
+| `NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceAndProduct`           | `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct`           |
+| `NewCreateSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem`            | `NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem`                            |
+| `NewPreviewSubscriptionChargeItemsSubscriptionsSubscriptionsCatalogItem`           | `NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem`                           |
+| `PreviewSubscription`                                                              | `PreviewSubscriptionUpdate`                                                           |
+| `PreviewTransaction`                                                               | `PreviewTransactionCreate`                                                            |
+
+
 ## v0.4.0
 
 1. This version includes a breaking change to shared types between Transactions and Subscriptions resources which have now been split into their own respective types.   
