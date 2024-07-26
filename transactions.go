@@ -333,7 +333,7 @@ type Transaction struct {
 	// Discount: Discount for this transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
 	Discount Discount `json:"discount,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for this transaction. Returned when the `include` parameter is used with the `available_payment_methods` value.
-	AvailablePaymentMethods PaymentMethodType `json:"available_payment_methods,omitempty"`
+	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
 // CatalogItem: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
@@ -754,7 +754,7 @@ type TransactionPreview struct {
 	// Details: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
 	Details TransactionDetailsPreview `json:"details,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for Paddle Checkout given the price and location information passed.
-	AvailablePaymentMethods PaymentMethodType `json:"available_payment_methods,omitempty"`
+	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
 // TransactionsTransactionsCheckout: Paddle Checkout details for this transaction. You may pass a URL when creating or updating an automatically-collected transaction, or when creating or updating a manually-collected transaction where `billing_details.enable_checkout` is `true`.
