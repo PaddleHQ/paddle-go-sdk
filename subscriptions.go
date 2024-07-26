@@ -659,9 +659,9 @@ type SubscriptionPreviewUpdateSummary struct {
 	// Credit: Details of any credit adjustments created for this update. Paddle creates adjustments against existing transactions when prorating.
 	Credit Money `json:"credit,omitempty"`
 	// Charge: Details of the transaction to be created for this update. Paddle creates a transaction to bill for new charges.
-	Charge Charge `json:"charge,omitempty"`
+	Charge Money `json:"charge,omitempty"`
 	// Result: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
-	Result Result `json:"result,omitempty"`
+	Result UpdateSummaryResult `json:"result,omitempty"`
 }
 
 // SubscriptionPreview: Represents a subscription preview when previewing a subscription.
