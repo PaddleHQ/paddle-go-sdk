@@ -240,8 +240,8 @@ var ErrTransactionPaymentMethodChangeFieldImmutable = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// Breakdown: Breakdown of the total adjustments by adjustment action.
-type Breakdown struct {
+// AdjustmentsTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
+type AdjustmentsTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
 	Credit string `json:"credit,omitempty"`
 	// Refund: Total amount of refund adjustments.
@@ -269,7 +269,7 @@ type AdjustmentsTotals struct {
 	*/
 	Earnings string `json:"earnings,omitempty"`
 	// Breakdown: Breakdown of the total adjustments by adjustment action.
-	Breakdown Breakdown `json:"breakdown,omitempty"`
+	Breakdown AdjustmentsTotalsBreakdown `json:"breakdown,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for adjustments for this transaction.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
