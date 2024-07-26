@@ -991,16 +991,16 @@ type Address struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// Action: How this adjustment impacts the related transaction..
-type Action string
+// AdjustmentAction: How this adjustment impacts the related transaction..
+type AdjustmentAction string
 
 const (
-	ActionCredit            Action = "credit"
-	ActionRefund            Action = "refund"
-	ActionChargeback        Action = "chargeback"
-	ActionChargebackReverse Action = "chargeback_reverse"
-	ActionChargebackWarning Action = "chargeback_warning"
-	ActionCreditReverse     Action = "credit_reverse"
+	AdjustmentActionCredit            AdjustmentAction = "credit"
+	AdjustmentActionRefund            AdjustmentAction = "refund"
+	AdjustmentActionChargeback        AdjustmentAction = "chargeback"
+	AdjustmentActionChargebackReverse AdjustmentAction = "chargeback_reverse"
+	AdjustmentActionChargebackWarning AdjustmentAction = "chargeback_warning"
+	AdjustmentActionCreditReverse     AdjustmentAction = "credit_reverse"
 )
 
 /*
@@ -1105,7 +1105,7 @@ type Adjustment struct {
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
 	ID string `json:"id,omitempty"`
 	// Action: How this adjustment impacts the related transaction.
-	Action Action `json:"action,omitempty"`
+	Action AdjustmentAction `json:"action,omitempty"`
 	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	/*

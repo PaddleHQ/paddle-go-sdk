@@ -55,12 +55,12 @@ const (
 	NotificationStatusFailed       NotificationStatus = "failed"
 )
 
-// Origin: Describes how this notification was created..
-type Origin string
+// NotificationOrigin: Describes how this notification was created..
+type NotificationOrigin string
 
 const (
-	OriginEvent  Origin = "event"
-	OriginReplay Origin = "replay"
+	NotificationOriginEvent  NotificationOrigin = "event"
+	NotificationOriginReplay NotificationOrigin = "replay"
 )
 
 // Notification: Represents a notification entity.
@@ -80,7 +80,7 @@ type Notification struct {
 	// ReplayedAt: RFC 3339 datetime string of when this notification was replayed. `null` if not replayed.
 	ReplayedAt *string `json:"replayed_at,omitempty"`
 	// Origin: Describes how this notification was created.
-	Origin Origin `json:"origin,omitempty"`
+	Origin NotificationOrigin `json:"origin,omitempty"`
 	// LastAttemptAt: RFC 3339 datetime string of when this notification was last attempted.
 	LastAttemptAt *string `json:"last_attempt_at,omitempty"`
 	// RetryAt: RFC 3339 datetime string of when this notification is scheduled to be retried.

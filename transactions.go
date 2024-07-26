@@ -240,8 +240,8 @@ var ErrTransactionPaymentMethodChangeFieldImmutable = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// Breakdown: Breakdown of the total adjustments by adjustment action.
-type Breakdown struct {
+// AdjustmentsTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
+type AdjustmentsTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
 	Credit string `json:"credit,omitempty"`
 	// Refund: Total amount of refund adjustments.
@@ -269,7 +269,7 @@ type AdjustmentsTotals struct {
 	*/
 	Earnings string `json:"earnings,omitempty"`
 	// Breakdown: Breakdown of the total adjustments by adjustment action.
-	Breakdown Breakdown `json:"breakdown,omitempty"`
+	Breakdown AdjustmentsTotalsBreakdown `json:"breakdown,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for adjustments for this transaction.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
@@ -460,44 +460,44 @@ type TransactionsNonCatalogPriceAndProduct struct {
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
 
-// NewCountryAndZipPostalCodeItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
-// and creates a CountryAndZipPostalCodeItems for use in a request.
-func NewCountryAndZipPostalCodeItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *CountryAndZipPostalCodeItems {
-	return &CountryAndZipPostalCodeItems{TransactionsCatalogItem: r}
+// NewTransactionPreviewByAddressItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
+// and creates a TransactionPreviewByAddressItems for use in a request.
+func NewTransactionPreviewByAddressItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionsCatalogItem: r}
 }
 
-// NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
-// and creates a CountryAndZipPostalCodeItems for use in a request.
-func NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *CountryAndZipPostalCodeItems {
-	return &CountryAndZipPostalCodeItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
+// NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
+// and creates a TransactionPreviewByAddressItems for use in a request.
+func NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
 }
 
-// NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
-// and creates a CountryAndZipPostalCodeItems for use in a request.
-func NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *CountryAndZipPostalCodeItems {
-	return &CountryAndZipPostalCodeItems{TransactionsNonCatalogPriceAndProduct: r}
+// NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
+// and creates a TransactionPreviewByAddressItems for use in a request.
+func NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionsNonCatalogPriceAndProduct: r}
 }
 
-// CountryAndZipPostalCodeItems represents a union request type of the following types:
+// TransactionPreviewByAddressItems represents a union request type of the following types:
 //   - `TransactionsCatalogItem`
 //   - `TransactionsNonCatalogPriceForAnExistingProduct`
 //   - `TransactionsNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewCountryAndZipPostalCodeItemsTransactionsCatalogItem()`
-//   - `NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceForAnExistingProduct()`
-//   - `NewCountryAndZipPostalCodeItemsTransactionsNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByAddressItemsTransactionsCatalogItem()`
+//   - `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceForAnExistingProduct()`
+//   - `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-type CountryAndZipPostalCodeItems struct {
+type TransactionPreviewByAddressItems struct {
 	*TransactionsCatalogItem
 	*TransactionsNonCatalogPriceForAnExistingProduct
 	*TransactionsNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u CountryAndZipPostalCodeItems) MarshalJSON() ([]byte, error) {
+func (u TransactionPreviewByAddressItems) MarshalJSON() ([]byte, error) {
 	if u.TransactionsCatalogItem != nil {
 		return json.Marshal(u.TransactionsCatalogItem)
 	}
@@ -513,8 +513,8 @@ func (u CountryAndZipPostalCodeItems) MarshalJSON() ([]byte, error) {
 	return nil, nil
 }
 
-// CountryAndZipPostalCode: Paddle uses the country and ZIP code (where supplied) to calculate totals.
-type CountryAndZipPostalCode struct {
+// TransactionPreviewByAddress: Paddle uses the country and ZIP code (where supplied) to calculate totals.
+type TransactionPreviewByAddress struct {
 	// Address: Address for this transaction preview.
 	Address AddressPreview `json:"address,omitempty"`
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
@@ -530,47 +530,47 @@ type CountryAndZipPostalCode struct {
 	*/
 	IgnoreTrials bool `json:"ignore_trials,omitempty"`
 	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-	Items []CountryAndZipPostalCodeItems `json:"items,omitempty"`
+	Items []TransactionPreviewByAddressItems `json:"items,omitempty"`
 }
 
-// NewIPAddressItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
-// and creates a IPAddressItems for use in a request.
-func NewIPAddressItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *IPAddressItems {
-	return &IPAddressItems{TransactionsCatalogItem: r}
+// NewTransactionPreviewByIPItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
+// and creates a TransactionPreviewByIPItems for use in a request.
+func NewTransactionPreviewByIPItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionsCatalogItem: r}
 }
 
-// NewIPAddressItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
-// and creates a IPAddressItems for use in a request.
-func NewIPAddressItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *IPAddressItems {
-	return &IPAddressItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
+// NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
+// and creates a TransactionPreviewByIPItems for use in a request.
+func NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
 }
 
-// NewIPAddressItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
-// and creates a IPAddressItems for use in a request.
-func NewIPAddressItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *IPAddressItems {
-	return &IPAddressItems{TransactionsNonCatalogPriceAndProduct: r}
+// NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
+// and creates a TransactionPreviewByIPItems for use in a request.
+func NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionsNonCatalogPriceAndProduct: r}
 }
 
-// IPAddressItems represents a union request type of the following types:
+// TransactionPreviewByIPItems represents a union request type of the following types:
 //   - `TransactionsCatalogItem`
 //   - `TransactionsNonCatalogPriceForAnExistingProduct`
 //   - `TransactionsNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewIPAddressItemsTransactionsCatalogItem()`
-//   - `NewIPAddressItemsTransactionsNonCatalogPriceForAnExistingProduct()`
-//   - `NewIPAddressItemsTransactionsNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByIPItemsTransactionsCatalogItem()`
+//   - `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct()`
+//   - `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-type IPAddressItems struct {
+type TransactionPreviewByIPItems struct {
 	*TransactionsCatalogItem
 	*TransactionsNonCatalogPriceForAnExistingProduct
 	*TransactionsNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u IPAddressItems) MarshalJSON() ([]byte, error) {
+func (u TransactionPreviewByIPItems) MarshalJSON() ([]byte, error) {
 	if u.TransactionsCatalogItem != nil {
 		return json.Marshal(u.TransactionsCatalogItem)
 	}
@@ -586,8 +586,8 @@ func (u IPAddressItems) MarshalJSON() ([]byte, error) {
 	return nil, nil
 }
 
-// IPAddress: Paddle fetches location using the IP address to calculate totals.
-type IPAddress struct {
+// TransactionPreviewByIP: Paddle fetches location using the IP address to calculate totals.
+type TransactionPreviewByIP struct {
 	// CustomerIPAddress: IP address for this transaction preview.
 	CustomerIPAddress string `json:"customer_ip_address,omitempty"`
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
@@ -603,47 +603,47 @@ type IPAddress struct {
 	*/
 	IgnoreTrials bool `json:"ignore_trials,omitempty"`
 	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-	Items []IPAddressItems `json:"items,omitempty"`
+	Items []TransactionPreviewByIPItems `json:"items,omitempty"`
 }
 
-// NewExistingCustomerPaddleIDsItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
-// and creates a ExistingCustomerPaddleIDsItems for use in a request.
-func NewExistingCustomerPaddleIDsItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *ExistingCustomerPaddleIDsItems {
-	return &ExistingCustomerPaddleIDsItems{TransactionsCatalogItem: r}
+// NewTransactionPreviewByCustomerItemsTransactionsCatalogItem takes a TransactionsCatalogItem type
+// and creates a TransactionPreviewByCustomerItems for use in a request.
+func NewTransactionPreviewByCustomerItemsTransactionsCatalogItem(r *TransactionsCatalogItem) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionsCatalogItem: r}
 }
 
-// NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
-// and creates a ExistingCustomerPaddleIDsItems for use in a request.
-func NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *ExistingCustomerPaddleIDsItems {
-	return &ExistingCustomerPaddleIDsItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
+// NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct takes a TransactionsNonCatalogPriceForAnExistingProduct type
+// and creates a TransactionPreviewByCustomerItems for use in a request.
+func NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct(r *TransactionsNonCatalogPriceForAnExistingProduct) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionsNonCatalogPriceForAnExistingProduct: r}
 }
 
-// NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
-// and creates a ExistingCustomerPaddleIDsItems for use in a request.
-func NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *ExistingCustomerPaddleIDsItems {
-	return &ExistingCustomerPaddleIDsItems{TransactionsNonCatalogPriceAndProduct: r}
+// NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct takes a TransactionsNonCatalogPriceAndProduct type
+// and creates a TransactionPreviewByCustomerItems for use in a request.
+func NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct(r *TransactionsNonCatalogPriceAndProduct) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionsNonCatalogPriceAndProduct: r}
 }
 
-// ExistingCustomerPaddleIDsItems represents a union request type of the following types:
+// TransactionPreviewByCustomerItems represents a union request type of the following types:
 //   - `TransactionsCatalogItem`
 //   - `TransactionsNonCatalogPriceForAnExistingProduct`
 //   - `TransactionsNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewExistingCustomerPaddleIDsItemsTransactionsCatalogItem()`
-//   - `NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceForAnExistingProduct()`
-//   - `NewExistingCustomerPaddleIDsItemsTransactionsNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionsCatalogItem()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-type ExistingCustomerPaddleIDsItems struct {
+type TransactionPreviewByCustomerItems struct {
 	*TransactionsCatalogItem
 	*TransactionsNonCatalogPriceForAnExistingProduct
 	*TransactionsNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u ExistingCustomerPaddleIDsItems) MarshalJSON() ([]byte, error) {
+func (u TransactionPreviewByCustomerItems) MarshalJSON() ([]byte, error) {
 	if u.TransactionsCatalogItem != nil {
 		return json.Marshal(u.TransactionsCatalogItem)
 	}
@@ -659,8 +659,8 @@ func (u ExistingCustomerPaddleIDsItems) MarshalJSON() ([]byte, error) {
 	return nil, nil
 }
 
-// ExistingCustomerPaddleIDs: Paddle uses existing customer data to calculate totals. Typically used for logged-in customers.
-type ExistingCustomerPaddleIDs struct {
+// TransactionPreviewByCustomer: Paddle uses existing customer data to calculate totals. Typically used for logged-in customers.
+type TransactionPreviewByCustomer struct {
 	// AddressID: Paddle ID of the address that this transaction preview is for, prefixed with `add_`. Requires `customer_id`.
 	AddressID string `json:"address_id,omitempty"`
 	// BusinessID: Paddle ID of the business that this transaction preview is for, prefixed with `biz_`.
@@ -678,7 +678,7 @@ type ExistingCustomerPaddleIDs struct {
 	*/
 	IgnoreTrials bool `json:"ignore_trials,omitempty"`
 	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-	Items []ExistingCustomerPaddleIDsItems `json:"items,omitempty"`
+	Items []TransactionPreviewByCustomerItems `json:"items,omitempty"`
 }
 
 // TransactionItemPreview: List of items to preview transaction calculations for.
@@ -987,43 +987,43 @@ func (c *TransactionsClient) CreateTransaction(ctx context.Context, req *CreateT
 	return res, nil
 }
 
-// NewPreviewTransactionRequestCountryAndZipPostalCode takes a CountryAndZipPostalCode type
-// and creates a PreviewTransactionRequest for use in a request.
-func NewPreviewTransactionRequestCountryAndZipPostalCode(r *CountryAndZipPostalCode) *PreviewTransactionRequest {
-	return &PreviewTransactionRequest{CountryAndZipPostalCode: r}
+// NewPreviewTransactionCreateRequestTransactionPreviewByAddress takes a TransactionPreviewByAddress type
+// and creates a PreviewTransactionCreateRequest for use in a request.
+func NewPreviewTransactionCreateRequestTransactionPreviewByAddress(r *TransactionPreviewByAddress) *PreviewTransactionCreateRequest {
+	return &PreviewTransactionCreateRequest{TransactionPreviewByAddress: r}
 }
 
-// NewPreviewTransactionRequestIPAddress takes a IPAddress type
-// and creates a PreviewTransactionRequest for use in a request.
-func NewPreviewTransactionRequestIPAddress(r *IPAddress) *PreviewTransactionRequest {
-	return &PreviewTransactionRequest{IPAddress: r}
+// NewPreviewTransactionCreateRequestTransactionPreviewByIP takes a TransactionPreviewByIP type
+// and creates a PreviewTransactionCreateRequest for use in a request.
+func NewPreviewTransactionCreateRequestTransactionPreviewByIP(r *TransactionPreviewByIP) *PreviewTransactionCreateRequest {
+	return &PreviewTransactionCreateRequest{TransactionPreviewByIP: r}
 }
 
-// NewPreviewTransactionRequestExistingCustomerPaddleIDs takes a ExistingCustomerPaddleIDs type
-// and creates a PreviewTransactionRequest for use in a request.
-func NewPreviewTransactionRequestExistingCustomerPaddleIDs(r *ExistingCustomerPaddleIDs) *PreviewTransactionRequest {
-	return &PreviewTransactionRequest{ExistingCustomerPaddleIDs: r}
+// NewPreviewTransactionCreateRequestTransactionPreviewByCustomer takes a TransactionPreviewByCustomer type
+// and creates a PreviewTransactionCreateRequest for use in a request.
+func NewPreviewTransactionCreateRequestTransactionPreviewByCustomer(r *TransactionPreviewByCustomer) *PreviewTransactionCreateRequest {
+	return &PreviewTransactionCreateRequest{TransactionPreviewByCustomer: r}
 }
 
-// PreviewTransactionRequest represents a union request type of the following types:
-//   - `CountryAndZipPostalCode`
-//   - `IPAddress`
-//   - `ExistingCustomerPaddleIDs`
+// PreviewTransactionCreateRequest represents a union request type of the following types:
+//   - `TransactionPreviewByAddress`
+//   - `TransactionPreviewByIP`
+//   - `TransactionPreviewByCustomer`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewPreviewTransactionRequestCountryAndZipPostalCode()`
-//   - `NewPreviewTransactionRequestIPAddress()`
-//   - `NewPreviewTransactionRequestExistingCustomerPaddleIDs()`
+//   - `NewPreviewTransactionCreateRequestTransactionPreviewByAddress()`
+//   - `NewPreviewTransactionCreateRequestTransactionPreviewByIP()`
+//   - `NewPreviewTransactionCreateRequestTransactionPreviewByCustomer()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
-type PreviewTransactionRequest struct {
-	*CountryAndZipPostalCode
-	*IPAddress
-	*ExistingCustomerPaddleIDs
+type PreviewTransactionCreateRequest struct {
+	*TransactionPreviewByAddress
+	*TransactionPreviewByIP
+	*TransactionPreviewByCustomer
 }
 
-// PreviewTransaction performs the POST operation on a Transactions resource.
-func (c *TransactionsClient) PreviewTransaction(ctx context.Context, req *PreviewTransactionRequest) (res *TransactionPreview, err error) {
+// PreviewTransactionCreate performs the POST operation on a Transactions resource.
+func (c *TransactionsClient) PreviewTransactionCreate(ctx context.Context, req *PreviewTransactionCreateRequest) (res *TransactionPreview, err error) {
 	if err := c.doer.Do(ctx, "POST", "/transactions/preview", req, &res); err != nil {
 		return nil, err
 	}
@@ -1032,17 +1032,17 @@ func (c *TransactionsClient) PreviewTransaction(ctx context.Context, req *Previe
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u PreviewTransactionRequest) MarshalJSON() ([]byte, error) {
-	if u.CountryAndZipPostalCode != nil {
-		return json.Marshal(u.CountryAndZipPostalCode)
+func (u PreviewTransactionCreateRequest) MarshalJSON() ([]byte, error) {
+	if u.TransactionPreviewByAddress != nil {
+		return json.Marshal(u.TransactionPreviewByAddress)
 	}
 
-	if u.IPAddress != nil {
-		return json.Marshal(u.IPAddress)
+	if u.TransactionPreviewByIP != nil {
+		return json.Marshal(u.TransactionPreviewByIP)
 	}
 
-	if u.ExistingCustomerPaddleIDs != nil {
-		return json.Marshal(u.ExistingCustomerPaddleIDs)
+	if u.TransactionPreviewByCustomer != nil {
+		return json.Marshal(u.TransactionPreviewByCustomer)
 	}
 
 	return nil, nil

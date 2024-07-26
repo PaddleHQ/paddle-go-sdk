@@ -120,6 +120,18 @@ var ErrAdjustmentCannotAdjustImportedTransaction = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// AdjustmentActionQuery: Return entities for the specified action..
+type AdjustmentActionQuery string
+
+const (
+	AdjustmentActionQueryChargeback        AdjustmentActionQuery = "chargeback"
+	AdjustmentActionQueryChargebackReverse AdjustmentActionQuery = "chargeback_reverse"
+	AdjustmentActionQueryChargebackWarning AdjustmentActionQuery = "chargeback_warning"
+	AdjustmentActionQueryCredit            AdjustmentActionQuery = "credit"
+	AdjustmentActionQueryCreditReverse     AdjustmentActionQuery = "credit_reverse"
+	AdjustmentActionQueryRefund            AdjustmentActionQuery = "refund"
+)
+
 // CustomerBalance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
 type CustomerBalance struct {
 	// Available: Total amount of credit available to use.
@@ -196,7 +208,7 @@ func (c *AdjustmentsClient) ListAdjustments(ctx context.Context, req *ListAdjust
 // CreateAdjustmentRequest is given as an input to CreateAdjustment.
 type CreateAdjustmentRequest struct {
 	// Action: How this adjustment impacts the related transaction.
-	Action Action `json:"action,omitempty"`
+	Action AdjustmentAction `json:"action,omitempty"`
 	// Items: List of transaction items to adjust.
 	Items []AdjustmentItem `json:"items,omitempty"`
 	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
