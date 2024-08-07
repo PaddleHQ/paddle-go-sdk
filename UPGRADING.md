@@ -2,6 +2,32 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
+## v0.6.0
+
+1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview)
+
+When updating to this version if you're integrating with Reports you will need to refactor the code accordingly as it now closely matches the oneOf design of the API. 
+
+An example generating a product/price report: 
+
+```go
+res, err := client.CreateReport(ctx,
+	paddle.NewCreateReportRequestProductsAndPricesReport(&paddle.ProductsAndPricesReport{
+		Type: paddle.ReportTypeProductsPricesProductsPrices,
+		Filters: []paddle.ReportFiltersProductPrices{
+			paddle.ReportFiltersProductPrices{
+				Name:  paddle.FilterNameProductPricesPriceStatus,
+				Value: []string{"archived"},
+			},
+			paddle.ReportFiltersProductPrices{
+				Name:  paddle.FilterNameProductPricesProductStatus,
+				Value: []string{"archived"},
+			},
+		},
+	}),
+)
+```
+
 ## v0.5.0
 
 1. This update fixes correctly resolves generated enum types. Prior to this enum types in our spec were using there respective basic type `string`
