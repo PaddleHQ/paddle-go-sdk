@@ -370,8 +370,8 @@ const (
 	SubscriptionStatusTrialing SubscriptionStatus = "trialing"
 )
 
-// SubscriptionDiscount: Details of the discount applied to this subscription.
-type SubscriptionDiscount struct {
+// SubscriptionDiscountTimePeriod: Details of the discount applied to this subscription.
+type SubscriptionDiscountTimePeriod struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
 	// StartsAt: RFC 3339 datetime string of when this discount was first applied.
@@ -440,16 +440,8 @@ type SubscriptionItem struct {
 	Product Product `json:"product,omitempty"`
 }
 
-// SubscriptionsTaxRatesUsed: List of tax rates applied to this transaction preview.
-type SubscriptionsTaxRatesUsed struct {
-	// TaxRate: Rate used to calculate tax for this transaction preview.
-	TaxRate string `json:"tax_rate,omitempty"`
-	// Totals: Calculated totals for the tax applied to this transaction preview.
-	Totals Totals `json:"totals,omitempty"`
-}
-
-// SubscriptionsTransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-type SubscriptionsTransactionLineItemPreview struct {
+// SubscriptionTransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
+type SubscriptionTransactionLineItemPreview struct {
 	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
 	// Quantity: Quantity of this transaction line item.
@@ -469,15 +461,15 @@ type SubscriptionsTransactionLineItemPreview struct {
 // SubscriptionTransactionDetailsPreview: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
 type SubscriptionTransactionDetailsPreview struct {
 	// TaxRatesUsed: List of tax rates applied to this transaction preview.
-	TaxRatesUsed []SubscriptionsTaxRatesUsed `json:"tax_rates_used,omitempty"`
+	TaxRatesUsed []TaxRatesUsed `json:"tax_rates_used,omitempty"`
 	// Totals: Breakdown of the total for a transaction preview. `fee` and `earnings` always return `null` for transaction previews.
 	Totals TransactionTotals `json:"totals,omitempty"`
 	// LineItems: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-	LineItems []SubscriptionsTransactionLineItemPreview `json:"line_items,omitempty"`
+	LineItems []SubscriptionTransactionLineItemPreview `json:"line_items,omitempty"`
 }
 
-// SubscriptionsAdjustmentItem: List of transaction items that this adjustment is for.
-type SubscriptionsAdjustmentItem struct {
+// SubscriptionAdjustmentItem: List of transaction items that this adjustment is for.
+type SubscriptionAdjustmentItem struct {
 	// ItemID: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
 	ItemID string `json:"item_id,omitempty"`
 	/*
@@ -498,7 +490,7 @@ type AdjustmentPreview struct {
 	// TransactionID: Paddle ID for this transaction entity that this adjustment relates to, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	// Items: List of transaction items that this adjustment is for.
-	Items []SubscriptionsAdjustmentItem `json:"items,omitempty"`
+	Items []SubscriptionAdjustmentItem `json:"items,omitempty"`
 	// Totals: Calculated totals for this adjustment.
 	Totals AdjustmentTotals `json:"totals,omitempty"`
 }
@@ -542,7 +534,7 @@ type Subscription struct {
 	// CanceledAt: RFC 3339 datetime string of when this subscription was canceled. Set automatically by Paddle when the cancel subscription operation is used. `null` if not canceled.
 	CanceledAt *string `json:"canceled_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription.
-	Discount *SubscriptionDiscount `json:"discount,omitempty"`
+	Discount *SubscriptionDiscountTimePeriod `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
@@ -575,16 +567,16 @@ const (
 	EffectiveFromImmediately       EffectiveFrom = "immediately"
 )
 
-// SubscriptionsDiscount: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
-type SubscriptionsDiscount struct {
+// SubscriptionDiscountEffectiveFrom: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
+type SubscriptionDiscountEffectiveFrom struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
 	// EffectiveFrom: When this discount should take effect from.
 	EffectiveFrom EffectiveFrom `json:"effective_from,omitempty"`
 }
 
-// SubscriptionsUpdateCatalogItem: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionsUpdateCatalogItem struct {
+// SubscriptionUpdateCatalogItem: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type SubscriptionUpdateCatalogItem struct {
 	// PriceID: Paddle ID for the price to add to this subscription, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
 	// Quantity: Quantity of this item to add to the subscription. If updating an existing item and not changing the quantity, you may omit `quantity`.
@@ -691,7 +683,7 @@ type SubscriptionPreview struct {
 	// CanceledAt: RFC 3339 datetime string of when this subscription was canceled. Set automatically by Paddle when the cancel subscription operation is used. `null` if not canceled.
 	CanceledAt *string `json:"canceled_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription.
-	Discount *SubscriptionDiscount `json:"discount,omitempty"`
+	Discount *SubscriptionDiscountTimePeriod `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
@@ -720,8 +712,8 @@ type SubscriptionPreview struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// SubscriptionsCatalogItem: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionsCatalogItem struct {
+// SubscriptionCatalogItem: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type SubscriptionCatalogItem struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// PriceID: Paddle ID of an an existing catalog price to bill for.
@@ -748,8 +740,8 @@ type SubscriptionChargeCreateWithPrice struct {
 	CustomData CustomData `json:"custom_data,omitempty"`
 }
 
-// SubscriptionsNonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a subscription. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
-type SubscriptionsNonCatalogPriceForAnExistingProduct struct {
+// SubscriptionNonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a subscription. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+type SubscriptionNonCatalogPriceForAnExistingProduct struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// Price: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
@@ -776,8 +768,8 @@ type SubscriptionChargeCreateWithProduct struct {
 	Product TransactionSubscriptionProductCreate `json:"product,omitempty"`
 }
 
-// SubscriptionsNonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
-type SubscriptionsNonCatalogPriceAndProduct struct {
+// SubscriptionNonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
+type SubscriptionNonCatalogPriceAndProduct struct {
 	// Quantity: Quantity to bill for.
 	Quantity int `json:"quantity,omitempty"`
 	// Price: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
@@ -828,7 +820,7 @@ type UpdateSubscriptionRequest struct {
 	// NextBilledAt: RFC 3339 datetime string of when this subscription is next scheduled to be billed. Include to change the next billing date.
 	NextBilledAt *PatchField[string] `json:"next_billed_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
-	Discount *PatchField[*SubscriptionsDiscount] `json:"discount,omitempty"`
+	Discount *PatchField[*SubscriptionDiscountEffectiveFrom] `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`. `null` if changing `collection_mode` to `automatic`.
@@ -836,7 +828,7 @@ type UpdateSubscriptionRequest struct {
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
 	ScheduledChange *PatchField[*SubscriptionScheduledChange] `json:"scheduled_change,omitempty"`
 	// Items: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-	Items *PatchField[[]SubscriptionsUpdateCatalogItem] `json:"items,omitempty"`
+	Items *PatchField[[]SubscriptionUpdateCatalogItem] `json:"items,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	/*
@@ -1052,7 +1044,7 @@ type PreviewSubscriptionUpdateRequest struct {
 	// NextBilledAt: RFC 3339 datetime string of when this subscription is next scheduled to be billed. Include to change the next billing date.
 	NextBilledAt *PatchField[string] `json:"next_billed_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
-	Discount *PatchField[*SubscriptionsDiscount] `json:"discount,omitempty"`
+	Discount *PatchField[*SubscriptionDiscountEffectiveFrom] `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`. `null` if changing `collection_mode` to `automatic`.
@@ -1060,7 +1052,7 @@ type PreviewSubscriptionUpdateRequest struct {
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
 	ScheduledChange *PatchField[*SubscriptionScheduledChange] `json:"scheduled_change,omitempty"`
 	// Items: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-	Items *PatchField[[]SubscriptionsUpdateCatalogItem] `json:"items,omitempty"`
+	Items *PatchField[[]SubscriptionUpdateCatalogItem] `json:"items,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	/*
@@ -1084,54 +1076,54 @@ func (c *SubscriptionsClient) PreviewSubscriptionUpdate(ctx context.Context, req
 	return res, nil
 }
 
-// NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem takes a SubscriptionsCatalogItem type
+// NewCreateSubscriptionChargeItemsSubscriptionCatalogItem takes a SubscriptionCatalogItem type
 // and creates a CreateSubscriptionChargeItems for use in a request.
-func NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem(r *SubscriptionsCatalogItem) *CreateSubscriptionChargeItems {
-	return &CreateSubscriptionChargeItems{SubscriptionsCatalogItem: r}
+func NewCreateSubscriptionChargeItemsSubscriptionCatalogItem(r *SubscriptionCatalogItem) *CreateSubscriptionChargeItems {
+	return &CreateSubscriptionChargeItems{SubscriptionCatalogItem: r}
 }
 
-// NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct takes a SubscriptionsNonCatalogPriceForAnExistingProduct type
+// NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct takes a SubscriptionNonCatalogPriceForAnExistingProduct type
 // and creates a CreateSubscriptionChargeItems for use in a request.
-func NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct(r *SubscriptionsNonCatalogPriceForAnExistingProduct) *CreateSubscriptionChargeItems {
-	return &CreateSubscriptionChargeItems{SubscriptionsNonCatalogPriceForAnExistingProduct: r}
+func NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct(r *SubscriptionNonCatalogPriceForAnExistingProduct) *CreateSubscriptionChargeItems {
+	return &CreateSubscriptionChargeItems{SubscriptionNonCatalogPriceForAnExistingProduct: r}
 }
 
-// NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct takes a SubscriptionsNonCatalogPriceAndProduct type
+// NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct takes a SubscriptionNonCatalogPriceAndProduct type
 // and creates a CreateSubscriptionChargeItems for use in a request.
-func NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *SubscriptionsNonCatalogPriceAndProduct) *CreateSubscriptionChargeItems {
-	return &CreateSubscriptionChargeItems{SubscriptionsNonCatalogPriceAndProduct: r}
+func NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct(r *SubscriptionNonCatalogPriceAndProduct) *CreateSubscriptionChargeItems {
+	return &CreateSubscriptionChargeItems{SubscriptionNonCatalogPriceAndProduct: r}
 }
 
 // CreateSubscriptionChargeItems represents a union request type of the following types:
-//   - `SubscriptionsCatalogItem`
-//   - `SubscriptionsNonCatalogPriceForAnExistingProduct`
-//   - `SubscriptionsNonCatalogPriceAndProduct`
+//   - `SubscriptionCatalogItem`
+//   - `SubscriptionNonCatalogPriceForAnExistingProduct`
+//   - `SubscriptionNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem()`
-//   - `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct()`
-//   - `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
+//   - `NewCreateSubscriptionChargeItemsSubscriptionCatalogItem()`
+//   - `NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct()`
+//   - `NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type CreateSubscriptionChargeItems struct {
-	*SubscriptionsCatalogItem
-	*SubscriptionsNonCatalogPriceForAnExistingProduct
-	*SubscriptionsNonCatalogPriceAndProduct
+	*SubscriptionCatalogItem
+	*SubscriptionNonCatalogPriceForAnExistingProduct
+	*SubscriptionNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u CreateSubscriptionChargeItems) MarshalJSON() ([]byte, error) {
-	if u.SubscriptionsCatalogItem != nil {
-		return json.Marshal(u.SubscriptionsCatalogItem)
+	if u.SubscriptionCatalogItem != nil {
+		return json.Marshal(u.SubscriptionCatalogItem)
 	}
 
-	if u.SubscriptionsNonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.SubscriptionsNonCatalogPriceForAnExistingProduct)
+	if u.SubscriptionNonCatalogPriceForAnExistingProduct != nil {
+		return json.Marshal(u.SubscriptionNonCatalogPriceForAnExistingProduct)
 	}
 
-	if u.SubscriptionsNonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.SubscriptionsNonCatalogPriceAndProduct)
+	if u.SubscriptionNonCatalogPriceAndProduct != nil {
+		return json.Marshal(u.SubscriptionNonCatalogPriceAndProduct)
 	}
 
 	return nil, nil
@@ -1159,54 +1151,54 @@ func (c *SubscriptionsClient) CreateSubscriptionCharge(ctx context.Context, req 
 	return res, nil
 }
 
-// NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem takes a SubscriptionsCatalogItem type
+// NewPreviewSubscriptionChargeItemsSubscriptionCatalogItem takes a SubscriptionCatalogItem type
 // and creates a PreviewSubscriptionChargeItems for use in a request.
-func NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem(r *SubscriptionsCatalogItem) *PreviewSubscriptionChargeItems {
-	return &PreviewSubscriptionChargeItems{SubscriptionsCatalogItem: r}
+func NewPreviewSubscriptionChargeItemsSubscriptionCatalogItem(r *SubscriptionCatalogItem) *PreviewSubscriptionChargeItems {
+	return &PreviewSubscriptionChargeItems{SubscriptionCatalogItem: r}
 }
 
-// NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct takes a SubscriptionsNonCatalogPriceForAnExistingProduct type
+// NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct takes a SubscriptionNonCatalogPriceForAnExistingProduct type
 // and creates a PreviewSubscriptionChargeItems for use in a request.
-func NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct(r *SubscriptionsNonCatalogPriceForAnExistingProduct) *PreviewSubscriptionChargeItems {
-	return &PreviewSubscriptionChargeItems{SubscriptionsNonCatalogPriceForAnExistingProduct: r}
+func NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct(r *SubscriptionNonCatalogPriceForAnExistingProduct) *PreviewSubscriptionChargeItems {
+	return &PreviewSubscriptionChargeItems{SubscriptionNonCatalogPriceForAnExistingProduct: r}
 }
 
-// NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct takes a SubscriptionsNonCatalogPriceAndProduct type
+// NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct takes a SubscriptionNonCatalogPriceAndProduct type
 // and creates a PreviewSubscriptionChargeItems for use in a request.
-func NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct(r *SubscriptionsNonCatalogPriceAndProduct) *PreviewSubscriptionChargeItems {
-	return &PreviewSubscriptionChargeItems{SubscriptionsNonCatalogPriceAndProduct: r}
+func NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct(r *SubscriptionNonCatalogPriceAndProduct) *PreviewSubscriptionChargeItems {
+	return &PreviewSubscriptionChargeItems{SubscriptionNonCatalogPriceAndProduct: r}
 }
 
 // PreviewSubscriptionChargeItems represents a union request type of the following types:
-//   - `SubscriptionsCatalogItem`
-//   - `SubscriptionsNonCatalogPriceForAnExistingProduct`
-//   - `SubscriptionsNonCatalogPriceAndProduct`
+//   - `SubscriptionCatalogItem`
+//   - `SubscriptionNonCatalogPriceForAnExistingProduct`
+//   - `SubscriptionNonCatalogPriceAndProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem()`
-//   - `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct()`
-//   - `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct()`
+//   - `NewPreviewSubscriptionChargeItemsSubscriptionCatalogItem()`
+//   - `NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct()`
+//   - `NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
 type PreviewSubscriptionChargeItems struct {
-	*SubscriptionsCatalogItem
-	*SubscriptionsNonCatalogPriceForAnExistingProduct
-	*SubscriptionsNonCatalogPriceAndProduct
+	*SubscriptionCatalogItem
+	*SubscriptionNonCatalogPriceForAnExistingProduct
+	*SubscriptionNonCatalogPriceAndProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u PreviewSubscriptionChargeItems) MarshalJSON() ([]byte, error) {
-	if u.SubscriptionsCatalogItem != nil {
-		return json.Marshal(u.SubscriptionsCatalogItem)
+	if u.SubscriptionCatalogItem != nil {
+		return json.Marshal(u.SubscriptionCatalogItem)
 	}
 
-	if u.SubscriptionsNonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.SubscriptionsNonCatalogPriceForAnExistingProduct)
+	if u.SubscriptionNonCatalogPriceForAnExistingProduct != nil {
+		return json.Marshal(u.SubscriptionNonCatalogPriceForAnExistingProduct)
 	}
 
-	if u.SubscriptionsNonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.SubscriptionsNonCatalogPriceAndProduct)
+	if u.SubscriptionNonCatalogPriceAndProduct != nil {
+		return json.Marshal(u.SubscriptionNonCatalogPriceAndProduct)
 	}
 
 	return nil, nil

@@ -5,21 +5,21 @@ package paddlenotification
 // DiscountCreated represents the discount.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type DiscountCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data DiscountNotification `json:"data"`
 }
 
 // DiscountImported represents the discount.imported event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type DiscountImported struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data DiscountNotification `json:"data"`
 }
 
 // DiscountUpdated represents the discount.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type DiscountUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data DiscountNotification `json:"data"`
 }
 

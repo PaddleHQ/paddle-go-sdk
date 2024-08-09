@@ -72,7 +72,7 @@ type Notification struct {
 	// Status: Status of this notification.
 	Status NotificationStatus `json:"status,omitempty"`
 	// Payload: Notification payload. Includes the new or changed event.
-	Payload paddlenotification.NotificationsEvent `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationEvent `json:"payload,omitempty"`
 	// OccurredAt: RFC 3339 datetime string of when this notification occurred.
 	OccurredAt string `json:"occurred_at,omitempty"`
 	// DeliveredAt: RFC 3339 datetime string of when this notification was delivered. `null` if not yet delivered successfully.
@@ -98,7 +98,7 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	var t paddlenotification.NotificationsEvent
+	var t paddlenotification.NotificationEvent
 	switch n.Type {
 	case "address.created":
 		t = &paddlenotification.AddressCreated{}
@@ -185,7 +185,7 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 	case "transaction.updated":
 		t = &paddlenotification.TransactionUpdated{}
 	default:
-		t = &paddlenotification.GenericNotificationsEvent{}
+		t = &paddlenotification.GenericNotificationEvent{}
 	}
 
 	rawT, err := json.Marshal(n.Payload)

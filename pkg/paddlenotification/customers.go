@@ -5,21 +5,21 @@ package paddlenotification
 // CustomerCreated represents the customer.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type CustomerCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data CustomerNotification `json:"data"`
 }
 
 // CustomerImported represents the customer.imported event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type CustomerImported struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data CustomerNotification `json:"data"`
 }
 
 // CustomerUpdated represents the customer.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type CustomerUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data CustomerNotification `json:"data"`
 }
 

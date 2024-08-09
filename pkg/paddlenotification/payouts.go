@@ -5,14 +5,14 @@ package paddlenotification
 // PayoutCreated represents the payout.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type PayoutCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data PayoutNotification `json:"data"`
 }
 
 // PayoutPaid represents the payout.paid event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type PayoutPaid struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data PayoutNotification `json:"data"`
 }
 

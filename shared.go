@@ -938,8 +938,8 @@ type TransactionPaymentAttempt struct {
 	CapturedAt *string `json:"captured_at,omitempty"`
 }
 
-// Checkout: Paddle Checkout details for this transaction. Returned for automatically-collected transactions and where `billing_details.enable_checkout` is `true` for manually-collected transactions; `null` otherwise.
-type Checkout struct {
+// TransactionCheckout: Paddle Checkout details for this transaction. Returned for automatically-collected transactions and where `billing_details.enable_checkout` is `true` for manually-collected transactions; `null` otherwise.
+type TransactionCheckout struct {
 	// URL: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
 	URL *string `json:"url,omitempty"`
 }

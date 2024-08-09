@@ -5,21 +5,21 @@ package paddlenotification
 // BusinessCreated represents the business.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type BusinessCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data BusinessNotification `json:"data"`
 }
 
 // BusinessImported represents the business.imported event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type BusinessImported struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data BusinessNotification `json:"data"`
 }
 
 // BusinessUpdated represents the business.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type BusinessUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data BusinessNotification `json:"data"`
 }
 

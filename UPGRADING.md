@@ -2,6 +2,100 @@
 
 All breaking changes prior to v1 will be documented in this file to assist with upgrading.
 
+## v0.7.0
+
+1. This release brings consistency to naming. We had some occurrences of pluralised prefixes where the pattern is to be singular. 
+
+As these are changing type definitions you will need to refactor the usage of these types accordingly:
+
+| Previous Type                                      | New Type                                          |
+|----------------------------------------------------|---------------------------------------------------|
+| `BusinessesContacts`                               | `BusinessContacts`                                |
+| `NotificationsEvent`                               | `NotificationEvent`                               |
+| `GenericNotificationsEvent`                        | `GenericNotificationEvent`                        |
+| `ReportsStatus`                                    | `ReportStatus`                                    |
+| `ReportsType`                                      | `ReportType`                                      |
+| `ReportsFiltersName`                               | `ReportFiltersName`                               |
+| `ReportsFiltersOperator`                           | `ReportFiltersOperator`                           |
+| `ReportsFilters`                                   | `ReportFilters`                                   |
+| `ReportTypeAdjustments`                            | `AdjustmentsReportType`                           |
+| `FilterNameAdjustments`                            | `AdjustmentsReportFilterName`                     |
+| `ReportFiltersAdjustments`                         | `AdjustmentsReportFilters`                        |
+| `ReportTypeTransactions`                           | `TransactionsReportType`                          |
+| `FilterNameTransactions`                           | `TransactionsReportFilterName`                    |
+| `ReportFiltersTransactions`                        | `TransactionsReportFilters`                       |
+| `ReportTypeProductsPrices`                         | `ProductsPricesReportType`                        |
+| `FilterNameProductPrices`                          | `ProductPricesReportFilterName`                   |
+| `ReportFiltersProductPrices`                       | `ProductPricesReportFilters`                      |
+| `ReportTypeDiscounts`                              | `DiscountsReportType`                             |
+| `FilterNameDiscounts`                              | `DiscountsReportFilterName`                       |
+| `ReportFiltersDiscounts`                           | `DiscountsReportFilters`                          |
+| `SubscriptionsTransactionLineItemPreview`          | `SubscriptionTransactionLineItemPreview`          |
+| `SubscriptionsTaxRatesUsed`                        | `TaxRatesUsed`                                    |
+| `SubscriptionsAdjustmentItem`                      | `SubscriptionsAdjustmentItem`                     |
+| `SubscriptionsUpdateCatalogItem`                   | `SubscriptionUpdateCatalogItem`                   |
+| `SubscriptionsCatalogItem`                         | `SubscriptionCatalogItem`                         |
+| `SubscriptionsNonCatalogPriceForAnExistingProduct` | `SubscriptionNonCatalogPriceForAnExistingProduct` |
+| `SubscriptionsNonCatalogPriceAndProduct`           | `SubscriptionNonCatalogPriceAndProduct`           |
+| `AdjustmentsTotalsBreakdown`                       | `AdjustmentTotalsBreakdown`                       |
+| `AdjustmentsTotals`                                | `TransactionAdjustmentTotals`                     |
+| `TransactionsCatalogItem`                          | `TransactionCatalogItem`                          |
+| `TransactionsNonCatalogPriceForAnExistingProduct`  | `TransactionNonCatalogPriceForAnExistingProduct`  |
+| `TransactionsNonCatalogPriceAndProduct`            | `TransactionNonCatalogPriceAndProduct`            |
+| `TransactionsTransactionsCheckout`                 | `TransactionCheckout`                             |
+
+
+Some types were enumerations using constants and therefore the following constants are renamed too, below is a note of the prefix changes:
+
+| Previous Constant Prefix   | New Constant Prefix             |
+|----------------------------|---------------------------------|
+| `ReportsStatus`            | `ReportStatus`                  |
+| `ReportsType`              | `ReportType`                    |
+| `ReportsFiltersName`       | `ReportFiltersName`             |
+| `ReportsFiltersOperator`   | `ReportFiltersOperator`         |
+| `ReportTypeAdjustments`    | `AdjustmentsReportType`         |
+| `FilterNameAdjustments`    | `AdjustmentsReportFilterName`   |
+| `ReportTypeTransactions`   | `TransactionsReportType`        |
+| `FilterNameTransactions`   | `TransactionsReportFilterName`  |
+| `ReportTypeProductsPrices` | `ProductsPricesReportType`      |
+| `FilterNameProductPrices`  | `ProductPricesReportFilterName` |
+| `ReportTypeDiscounts`      | `DiscountsReportType`           |
+| `FilterNameDiscounts`      | `DiscountsReportFilterName`     |
+
+
+Some types were used as part of a union and therefore the following functions are renamed too:
+
+| Previous Function                                                                     | New Function                                                                         |
+|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| `NewCreateSubscriptionChargeItemsSubscriptionsCatalogItem`                            | `NewCreateSubscriptionChargeItemsSubscriptionCatalogItem`                            |                              
+| `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct`    | `NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct`    |      
+| `NewCreateSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct`              | `NewCreateSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct`              |                
+| `NewPreviewSubscriptionChargeItemsSubscriptionsCatalogItem`                           | `NewPreviewSubscriptionChargeItemsSubscriptionCatalogItem`                           |                             
+| `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceForAnExistingProduct`   | `NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceForAnExistingProduct`   |     
+| `NewPreviewSubscriptionChargeItemsSubscriptionsNonCatalogPriceAndProduct`             | `NewPreviewSubscriptionChargeItemsSubscriptionNonCatalogPriceAndProduct`             |               
+| `NewTransactionPreviewByAddressItemsTransactionsCatalogItem`                          | `NewTransactionPreviewByAddressItemsTransactionCatalogItem`                          |                            
+| `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceForAnExistingProduct`  | `NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceForAnExistingProduct`  |    
+| `NewTransactionPreviewByAddressItemsTransactionsNonCatalogPriceAndProduct`            | `NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceAndProduct`            |              
+| `NewTransactionPreviewByIPItemsTransactionsCatalogItem`                               | `NewTransactionPreviewByIPItemsTransactionCatalogItem`                               |                                 
+| `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct`       | `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct`       |         
+| `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct`                 | `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct`                 |                   
+| `NewTransactionPreviewByCustomerItemsTransactionsCatalogItem`                         | `NewTransactionPreviewByCustomerItemsTransactionCatalogItem`                         |                           
+| `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct` | `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct` |   
+| `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct`           | `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct`           |             
+
+
+2.The consistency change of pluralised prefixes highlighted conflicting type names for `SubscriptionDiscount` and `Checkout`.
+
+This has resulted in some type changes
+
+| Previous Type           | New Type                            |
+|-------------------------|-------------------------------------|
+| `SubscriptionDiscount`  | `SubscriptionDiscountTimePeriod`    |
+| `SubscriptionsDiscount` | `SubscriptionDiscountEffectiveFrom` |
+| `Checkout`              | `TransactionCheckout`               |
+| `TransactionsCheckout`  | `TransactionCheckout`               |
+
+
 ## v0.6.0
 
 1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview)

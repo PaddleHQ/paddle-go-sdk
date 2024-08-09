@@ -5,63 +5,63 @@ package paddlenotification
 // TransactionBilled represents the transaction.billed event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionBilled struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionCanceled represents the transaction.canceled event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionCanceled struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionCompleted represents the transaction.completed event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionCompleted struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionCreated represents the transaction.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionPaid represents the transaction.paid event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionPaid struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionPastDue represents the transaction.past_due event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionPastDue struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionPaymentFailed represents the transaction.payment_failed event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionPaymentFailed struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionReady represents the transaction.ready event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionReady struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
 // TransactionUpdated represents the transaction.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type TransactionUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data TransactionNotification `json:"data"`
 }
 
