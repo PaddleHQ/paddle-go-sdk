@@ -5,14 +5,14 @@ package paddlenotification
 // AdjustmentCreated represents the adjustment.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type AdjustmentCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data AdjustmentNotification `json:"data"`
 }
 
 // AdjustmentUpdated represents the adjustment.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type AdjustmentUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data AdjustmentNotification `json:"data"`
 }
 

@@ -5,21 +5,21 @@ package paddlenotification
 // PriceCreated represents the price.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type PriceCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data PriceNotification `json:"data"`
 }
 
 // PriceImported represents the price.imported event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type PriceImported struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data PriceNotification `json:"data"`
 }
 
 // PriceUpdated represents the price.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type PriceUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data PriceNotification `json:"data"`
 }
 

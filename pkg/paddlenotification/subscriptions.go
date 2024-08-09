@@ -5,63 +5,63 @@ package paddlenotification
 // SubscriptionActivated represents the subscription.activated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionActivated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionCanceled represents the subscription.canceled event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionCanceled struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionCreated represents the subscription.created event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionCreated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionCreatedNotification `json:"data"`
 }
 
 // SubscriptionPastDue represents the subscription.past_due event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionPastDue struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionImported represents the subscription.imported event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionImported struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionPaused represents the subscription.paused event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionPaused struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionResumed represents the subscription.resumed event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionResumed struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionTrialing represents the subscription.trialing event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionTrialing struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
 // SubscriptionUpdated represents the subscription.updated event.
 // See https://developer.paddle.com/webhooks/overview for more information.
 type SubscriptionUpdated struct {
-	GenericNotificationsEvent
+	GenericNotificationEvent
 	Data SubscriptionNotification `json:"data"`
 }
 
@@ -76,8 +76,8 @@ const (
 	SubscriptionStatusTrialing SubscriptionStatus = "trialing"
 )
 
-// SubscriptionDiscount: Details of the discount applied to this subscription.
-type SubscriptionDiscount struct {
+// SubscriptionDiscountTimePeriod: Details of the discount applied to this subscription.
+type SubscriptionDiscountTimePeriod struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
 	// StartsAt: RFC 3339 datetime string of when this discount was first applied.
@@ -167,7 +167,7 @@ type SubscriptionNotification struct {
 	// CanceledAt: RFC 3339 datetime string of when this subscription was canceled. Set automatically by Paddle when the cancel subscription operation is used. `null` if not canceled.
 	CanceledAt *string `json:"canceled_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription.
-	Discount *SubscriptionDiscount `json:"discount,omitempty"`
+	Discount *SubscriptionDiscountTimePeriod `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
@@ -217,7 +217,7 @@ type SubscriptionCreatedNotification struct {
 	// CanceledAt: RFC 3339 datetime string of when this subscription was canceled. Set automatically by Paddle when the cancel subscription operation is used. `null` if not canceled.
 	CanceledAt *string `json:"canceled_at,omitempty"`
 	// Discount: Details of the discount applied to this subscription.
-	Discount *SubscriptionDiscount `json:"discount,omitempty"`
+	Discount *SubscriptionDiscountTimePeriod `json:"discount,omitempty"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
 	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.

@@ -2,11 +2,11 @@
 
 package paddlenotification
 
-type NotificationsEvent interface{}
+type NotificationEvent interface{}
 
-// GenericNotificationsEvent: Notification payload. Includes the new or changed event.
-type GenericNotificationsEvent struct {
-	NotificationsEvent
+// GenericNotificationEvent: Notification payload. Includes the new or changed event.
+type GenericNotificationEvent struct {
+	NotificationEvent
 
 	// EventID: Unique Paddle ID for this event, prefixed with `evt_`.
 	EventID string `json:"event_id,omitempty"`
