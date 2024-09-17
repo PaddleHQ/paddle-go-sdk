@@ -32,7 +32,7 @@ type ProductNotification struct {
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type CatalogType `json:"type,omitempty"`
+	Type *CatalogType `json:"type,omitempty"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`
 	// ImageURL: Image for this product. Included in the checkout and on some customer documents.

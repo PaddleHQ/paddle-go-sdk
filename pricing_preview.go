@@ -78,8 +78,8 @@ type PricingPreviewClient struct {
 	doer Doer
 }
 
-// PricePreviewRequest is given as an input to PricePreview.
-type PricePreviewRequest struct {
+// PreviewPricesRequest is given as an input to PreviewPrices.
+type PreviewPricesRequest struct {
 	// Items: List of items to preview price calculations for.
 	Items []PricePreviewItem `json:"items,omitempty"`
 	// CustomerID: Paddle ID of the customer that this preview is for, prefixed with `ctm_`.
@@ -98,8 +98,8 @@ type PricePreviewRequest struct {
 	CustomerIPAddress *string `json:"customer_ip_address,omitempty"`
 }
 
-// PricePreview performs the POST operation on a Pricing preview resource.
-func (c *PricingPreviewClient) PricePreview(ctx context.Context, req *PricePreviewRequest) (res *PricePreview, err error) {
+// PreviewPrices performs the POST operation on a Pricing preview resource.
+func (c *PricingPreviewClient) PreviewPrices(ctx context.Context, req *PreviewPricesRequest) (res *PricePreview, err error) {
 	if err := c.doer.Do(ctx, "POST", "/pricing-preview", req, &res); err != nil {
 		return nil, err
 	}

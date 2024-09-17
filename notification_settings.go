@@ -58,6 +58,9 @@ type ListNotificationSettingsRequest struct {
 	   Valid fields for ordering: `id`.
 	*/
 	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	// Active is a query parameter.
+	// Determine whether returned entities are active (`true`) or not (`false`).
+	Active *bool `in:"query=active;omitempty" json:"-"`
 }
 
 // ListNotificationSettings performs the GET operation on a Notification settings resource.
