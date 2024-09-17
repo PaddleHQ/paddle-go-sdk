@@ -1,6 +1,69 @@
 # Upgrading
 
-All breaking changes prior to v1 will be documented in this file to assist with upgrading.
+All breaking changes will be documented in this file to assist with upgrading.
+
+## v2.0.0
+
+This release brings 2 breaking changes and fixes that may require some changes in your code to upgrade.
+
+1. `PricePreview` has moved to `PreviewPrices` to match API documentation
+
+Any usage of the method `PricePreview` will need to me refactored to `PreviewPrices` which also includes the request type `PricePreviewRequest` to `PreviewPricesRequest`.
+
+2. Refactored non catalog item types for consistency through the SDK
+
+This release added support for non catalog items on Subscription updates and preview of Subscription updates. With this introduction naming conflicts occurred and were standardised throughout.
+
+Subscription updates now accepts a `[]UpdateSubscriptionItems`instead of `[]SubscriptionUpdateCatalogItem` use `NewUpdateSubscriptionItemsSubscriptionUpdateItem*` functions to create this.
+
+Preview subscription updates now accepts a `[]PreviewSubscriptionUpdateItems` instead of a `[]SubscriptionUpdateCatalogItem` use `NewPreviewSubscriptionUpdateItemsSubscriptionUpdateItem*` functions to create this.
+
+To support these changes you may have to refactor some of your type usage, see the below table for reference:
+
+| Previous Type                                   | New Type                                |
+|-------------------------------------------------|-----------------------------------------|
+| CatalogItem                                     | TransactionItemFromCatalog              | 
+| NonCatalogPriceForAnExistingProduct             | TransactionItemCreateWithPrice          |
+| NonCatalogPriceAndProduct                       | TransactionItemCreateWithProduct        |
+| TransactionCatalogItem                          | TransactionPreviewItemFromCatalog       |
+| TransactionNonCatalogPriceForAnExistingProduct  | TransactionPreviewItemCreateWithPrice   |
+| TransactionNonCatalogPriceAndProduct            | TransactionPreviewItemCreateWithProduct |
+| SubscriptionUpdateCatalogItem                   | SubscriptionUpdateItemFromCatalog       |
+| SubscriptionCatalogItem                         | SubscriptionChargeItemFromCatalog       |
+| SubscriptionNonCatalogPriceForAnExistingProduct | SubscriptionChargeItemCreateWithPrice   |
+| SubscriptionNonCatalogPriceAndProduct           | SubscriptionChargeItemCreateWithProduct |
+
+Functions names have also changed as part of this standardisation, see the following table and update your code accordingly: 
+
+| Previous Function                                                                  | New Function                                                                |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| NewCreateTransactionItemsCatalogItem                                               | NewCreateTransactionItemsTransactionItemFromCatalog                         |
+| NewCreateTransactionItemsNonCatalogPriceForAnExistingProduct                       | NewCreateTransactionItemsTransactionItemCreateWithPrice                     |
+| NewCreateTransactionItemsNonCatalogPriceAndProduct                                 | NewCreateTransactionItemsTransactionItemCreateWithProduct                   |
+| NewUpdateTransactionItemsCatalogItem                                               | NewUpdateTransactionItemsTransactionItemFromCatalog                         |
+| NewUpdateTransactionItemsNonCatalogPriceForAnExistingProduct                       | NewUpdateTransactionItemsTransactionItemCreateWithPrice                     |
+| NewUpdateTransactionItemsNonCatalogPriceAndProduct                                 | NewUpdateTransactionItemsTransactionItemCreateWithProduct                   |
+| NewTransactionPreviewByAddressItemsTransactionCatalogItem                          | NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog        |
+| NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceForAnExistingProduct  | NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithPrice    |
+| NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceAndProduct            | NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithProduct  |
+| NewTransactionPreviewByIPItemsTransactionCatalogItem                               | NewTransactionPreviewByIPItemsTransactionPreviewItemFromCatalog             |
+| NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct       | NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithPrice         |
+| NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct                 | NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithProduct       |
+| NewTransactionPreviewByCustomerItemsTransactionCatalogItem                         | NewTransactionPreviewByCustomerItemsTransactionPreviewItemFromCatalog       |
+| NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct | NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithPrice   |
+| NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct           | NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithProduct |
+
+3. Some fields have been moved to pointers to correctly facilitate them being nullable.
+
+- `Type` for Product and Price notifications are nullable `*CatalogType`
+- `PaymentMethodID` on Transaction payments is nullable `*PaymentMethodID` for both notifications and API calls
+
+Any usages of `Type` on `PriceNotification` or `ProductNotification` types will need to be changed to handle the `*CatalogType` type.
+Any usages of `PaymentMethodID` on `TransactionPaymentAttempt` will need to be changed to handle a `*string` type.
+
+## v1.0.0
+
+- No documented change
 
 ## v0.7.0
 
