@@ -34,15 +34,15 @@ func Example_update() {
 	res, err := client.UpdateTransaction(ctx, &paddle.UpdateTransactionRequest{
 		DiscountID: paddle.NewPtrPatchField("dsc_01gtgztp8fpchantd5g1wrksa3"),
 		Items: paddle.NewPatchField([]paddle.UpdateTransactionItems{
-			*paddle.NewUpdateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewUpdateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 50,
 				PriceID:  "pri_01gsz91wy9k1yn7kx82aafwvea",
 			}),
-			*paddle.NewUpdateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewUpdateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 1,
 				PriceID:  "pri_01gsz96z29d88jrmsf2ztbfgjg",
 			}),
-			*paddle.NewUpdateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewUpdateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 1,
 				PriceID:  "pri_01gsz98e27ak2tyhexptwc58yk",
 			}),

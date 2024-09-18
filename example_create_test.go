@@ -34,15 +34,15 @@ func Example_create() {
 	// Create a transaction.
 	res, err := client.CreateTransaction(ctx, &paddle.CreateTransactionRequest{
 		Items: []paddle.CreateTransactionItems{
-			*paddle.NewCreateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewCreateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 20,
 				PriceID:  "pri_01gsz91wy9k1yn7kx82aafwvea",
 			}),
-			*paddle.NewCreateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewCreateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 1,
 				PriceID:  "pri_01gsz96z29d88jrmsf2ztbfgjg",
 			}),
-			*paddle.NewCreateTransactionItemsCatalogItem(&paddle.CatalogItem{
+			*paddle.NewCreateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 1,
 				PriceID:  "pri_01gsz98e27ak2tyhexptwc58yk",
 			}),
