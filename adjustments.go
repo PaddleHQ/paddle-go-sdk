@@ -132,6 +132,11 @@ const (
 	AdjustmentActionQueryRefund            AdjustmentActionQuery = "refund"
 )
 
+type AdjustmentCreditNotePDF struct {
+	// URL: URL of the requested resource.
+	URL string `json:"url,omitempty"`
+}
+
 // CustomerBalance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
 type CustomerBalance struct {
 	// Available: Total amount of credit available to use.
@@ -215,7 +220,8 @@ type CreateAdjustmentRequest struct {
 	Reason string `json:"reason,omitempty"`
 	/*
 	   TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
-	   Transactions must be manually-collected, and have a status of `billed` or `completed`.
+
+	   Automatically-collected transactions must be `completed`; manually-collected transactions must have a status of `billed` or `past_due`
 
 	   You can't create an adjustment for a transaction that has a refund that's pending approval.
 	*/
@@ -225,6 +231,29 @@ type CreateAdjustmentRequest struct {
 // CreateAdjustment performs the POST operation on a Adjustments resource.
 func (c *AdjustmentsClient) CreateAdjustment(ctx context.Context, req *CreateAdjustmentRequest) (res *Adjustment, err error) {
 	if err := c.doer.Do(ctx, "POST", "/adjustments", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// GetAdjustmentCreditNoteRequest is given as an input to GetAdjustmentCreditNote.
+type GetAdjustmentCreditNoteRequest struct {
+	// URL path parameters.
+	AdjustmentID string `in:"path=adjustment_id" json:"-"`
+
+	// Disposition is a query parameter.
+	/*
+	   Determine whether the generated URL should download the PDF as an attachment saved locally, or open it inline in the browser.
+
+	   Default: `attachment`.
+	*/
+	Disposition *string `in:"query=disposition;omitempty" json:"-"`
+}
+
+// GetAdjustmentCreditNote performs the GET operation on a Adjustments resource.
+func (c *AdjustmentsClient) GetAdjustmentCreditNote(ctx context.Context, req *GetAdjustmentCreditNoteRequest) (res *AdjustmentCreditNotePDF, err error) {
+	if err := c.doer.Do(ctx, "GET", "/adjustments/{adjustment_id}/credit-note", req, &res); err != nil {
 		return nil, err
 	}
 

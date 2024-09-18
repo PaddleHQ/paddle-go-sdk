@@ -32,7 +32,7 @@ type PriceNotification struct {
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type CatalogType `json:"type,omitempty"`
+	Type *CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).

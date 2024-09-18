@@ -226,7 +226,7 @@ type TransactionPayoutTotalsAdjusted struct {
 
 // TransactionLineItem: Information about line items for this transaction. Different from transaction `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
 type TransactionLineItem struct {
-	// ID: Unique Paddle ID for this transaction item, prefixed with `txnitm_`.
+	// ID: Unique Paddle ID for this transaction item, prefixed with `txnitm_`. Used when working with [adjustments](https://developer.paddle.com/build/transactions/create-transaction-adjustments).
 	ID string `json:"id,omitempty"`
 	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
@@ -361,7 +361,7 @@ type TransactionPaymentAttempt struct {
 	// StoredPaymentMethodID: UUID for the stored payment method used for this payment attempt. Deprecated - use `payment_method_id` instead.
 	StoredPaymentMethodID string `json:"stored_payment_method_id,omitempty"`
 	// PaymentMethodID: Paddle ID of the payment method used for this payment attempt, prefixed with `paymtd_`.
-	PaymentMethodID string `json:"payment_method_id,omitempty"`
+	PaymentMethodID *string `json:"payment_method_id,omitempty"`
 	// Amount: Amount for collection in the lowest denomination of a currency (e.g. cents for USD).
 	Amount string `json:"amount,omitempty"`
 	// Status: Status of this payment attempt.

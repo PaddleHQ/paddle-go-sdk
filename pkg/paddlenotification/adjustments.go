@@ -163,13 +163,7 @@ type AdjustmentNotification struct {
 	CustomerID string `json:"customer_id,omitempty"`
 	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
 	Reason string `json:"reason,omitempty"`
-	/*
-	   CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-	   `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-	   `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
-	*/
+	// CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
 	CreditAppliedToBalance *bool `json:"credit_applied_to_balance,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this adjustment. Set automatically by Paddle based on the `currency_code` of the related transaction.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`

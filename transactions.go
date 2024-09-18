@@ -240,6 +240,34 @@ var ErrTransactionPaymentMethodChangeFieldImmutable = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionInvalidStatusToRevise represents a `transaction_invalid_status_to_revise` error.
+// See https://developer.paddle.com/errors/transactions/transaction_invalid_status_to_revise for more information.
+var ErrTransactionInvalidStatusToRevise = &paddleerr.Error{
+	Code: "transaction_invalid_status_to_revise",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionRevisedLimitReached represents a `transaction_revised_limit_reached` error.
+// See https://developer.paddle.com/errors/transactions/transaction_revised_limit_reached for more information.
+var ErrTransactionRevisedLimitReached = &paddleerr.Error{
+	Code: "transaction_revised_limit_reached",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionAdjustedUnableToRevise represents a `transaction_adjusted_unable_to_revise` error.
+// See https://developer.paddle.com/errors/transactions/transaction_adjusted_unable_to_revise for more information.
+var ErrTransactionAdjustedUnableToRevise = &paddleerr.Error{
+	Code: "transaction_adjusted_unable_to_revise",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionImmutableWhileProcessingPayment represents a `transaction_immutable_while_processing_payment` error.
+// See https://developer.paddle.com/errors/transactions/transaction_immutable_while_processing_payment for more information.
+var ErrTransactionImmutableWhileProcessingPayment = &paddleerr.Error{
+	Code: "transaction_immutable_while_processing_payment",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
@@ -336,8 +364,8 @@ type Transaction struct {
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
-// CatalogItem: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type CatalogItem struct {
+// TransactionItemFromCatalog: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type TransactionItemFromCatalog struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
@@ -346,32 +374,8 @@ type CatalogItem struct {
 	PriceID string `json:"price_id,omitempty"`
 }
 
-// TransactionPriceCreateWithProductID: Price object for a non-catalog item to charge for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
-type TransactionPriceCreateWithProductID struct {
-	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
-	Description string `json:"description,omitempty"`
-	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
-	Name *string `json:"name,omitempty"`
-	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
-	BillingCycle *Duration `json:"billing_cycle,omitempty"`
-	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
-	// TaxMode: How tax is calculated for this price.
-	TaxMode TaxMode `json:"tax_mode,omitempty"`
-	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
-	UnitPrice Money `json:"unit_price,omitempty"`
-	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
-	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
-	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
-	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
-	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
-	ProductID string `json:"product_id,omitempty"`
-}
-
-// NonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
-type NonCatalogPriceForAnExistingProduct struct {
+// TransactionItemCreateWithPrice: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+type TransactionItemCreateWithPrice struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
@@ -380,32 +384,8 @@ type NonCatalogPriceForAnExistingProduct struct {
 	Price TransactionPriceCreateWithProductID `json:"price,omitempty"`
 }
 
-// TransactionPriceCreateWithProduct: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
-type TransactionPriceCreateWithProduct struct {
-	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
-	Description string `json:"description,omitempty"`
-	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
-	Name *string `json:"name,omitempty"`
-	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
-	BillingCycle *Duration `json:"billing_cycle,omitempty"`
-	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
-	// TaxMode: How tax is calculated for this price.
-	TaxMode TaxMode `json:"tax_mode,omitempty"`
-	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
-	UnitPrice Money `json:"unit_price,omitempty"`
-	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
-	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
-	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
-	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
-	// Product: Product object for a non-catalog item to charge for.
-	Product TransactionSubscriptionProductCreate `json:"product,omitempty"`
-}
-
-// NonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-type NonCatalogPriceAndProduct struct {
+// TransactionItemCreateWithProduct: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+type TransactionItemCreateWithProduct struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
@@ -414,8 +394,8 @@ type NonCatalogPriceAndProduct struct {
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
 
-// TransactionCatalogItem: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type TransactionCatalogItem struct {
+// TransactionPreviewItemFromCatalog: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
+type TransactionPreviewItemFromCatalog struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
@@ -426,8 +406,8 @@ type TransactionCatalogItem struct {
 	PriceID string `json:"price_id,omitempty"`
 }
 
-// TransactionNonCatalogPriceForAnExistingProduct: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
-type TransactionNonCatalogPriceForAnExistingProduct struct {
+// TransactionPreviewItemCreateWithPrice: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+type TransactionPreviewItemCreateWithPrice struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
@@ -438,8 +418,8 @@ type TransactionNonCatalogPriceForAnExistingProduct struct {
 	Price TransactionPriceCreateWithProductID `json:"price,omitempty"`
 }
 
-// TransactionNonCatalogPriceAndProduct: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-type TransactionNonCatalogPriceAndProduct struct {
+// TransactionPreviewItemCreateWithProduct: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+type TransactionPreviewItemCreateWithProduct struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
@@ -450,54 +430,54 @@ type TransactionNonCatalogPriceAndProduct struct {
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
 
-// NewTransactionPreviewByAddressItemsTransactionCatalogItem takes a TransactionCatalogItem type
+// NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
 // and creates a TransactionPreviewByAddressItems for use in a request.
-func NewTransactionPreviewByAddressItemsTransactionCatalogItem(r *TransactionCatalogItem) *TransactionPreviewByAddressItems {
-	return &TransactionPreviewByAddressItems{TransactionCatalogItem: r}
+func NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionPreviewItemFromCatalog: r}
 }
 
-// NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceForAnExistingProduct takes a TransactionNonCatalogPriceForAnExistingProduct type
+// NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithPrice takes a TransactionPreviewItemCreateWithPrice type
 // and creates a TransactionPreviewByAddressItems for use in a request.
-func NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceForAnExistingProduct(r *TransactionNonCatalogPriceForAnExistingProduct) *TransactionPreviewByAddressItems {
-	return &TransactionPreviewByAddressItems{TransactionNonCatalogPriceForAnExistingProduct: r}
+func NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithPrice(r *TransactionPreviewItemCreateWithPrice) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionPreviewItemCreateWithPrice: r}
 }
 
-// NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceAndProduct takes a TransactionNonCatalogPriceAndProduct type
+// NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithProduct takes a TransactionPreviewItemCreateWithProduct type
 // and creates a TransactionPreviewByAddressItems for use in a request.
-func NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceAndProduct(r *TransactionNonCatalogPriceAndProduct) *TransactionPreviewByAddressItems {
-	return &TransactionPreviewByAddressItems{TransactionNonCatalogPriceAndProduct: r}
+func NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithProduct(r *TransactionPreviewItemCreateWithProduct) *TransactionPreviewByAddressItems {
+	return &TransactionPreviewByAddressItems{TransactionPreviewItemCreateWithProduct: r}
 }
 
 // TransactionPreviewByAddressItems represents a union request type of the following types:
-//   - `TransactionCatalogItem`
-//   - `TransactionNonCatalogPriceForAnExistingProduct`
-//   - `TransactionNonCatalogPriceAndProduct`
+//   - `TransactionPreviewItemFromCatalog`
+//   - `TransactionPreviewItemCreateWithPrice`
+//   - `TransactionPreviewItemCreateWithProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewTransactionPreviewByAddressItemsTransactionCatalogItem()`
-//   - `NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceForAnExistingProduct()`
-//   - `NewTransactionPreviewByAddressItemsTransactionNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog()`
+//   - `NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithPrice()`
+//   - `NewTransactionPreviewByAddressItemsTransactionPreviewItemCreateWithProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
 type TransactionPreviewByAddressItems struct {
-	*TransactionCatalogItem
-	*TransactionNonCatalogPriceForAnExistingProduct
-	*TransactionNonCatalogPriceAndProduct
+	*TransactionPreviewItemFromCatalog
+	*TransactionPreviewItemCreateWithPrice
+	*TransactionPreviewItemCreateWithProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u TransactionPreviewByAddressItems) MarshalJSON() ([]byte, error) {
-	if u.TransactionCatalogItem != nil {
-		return json.Marshal(u.TransactionCatalogItem)
+	if u.TransactionPreviewItemFromCatalog != nil {
+		return json.Marshal(u.TransactionPreviewItemFromCatalog)
 	}
 
-	if u.TransactionNonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceForAnExistingProduct)
+	if u.TransactionPreviewItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithPrice)
 	}
 
-	if u.TransactionNonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceAndProduct)
+	if u.TransactionPreviewItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithProduct)
 	}
 
 	return nil, nil
@@ -523,54 +503,54 @@ type TransactionPreviewByAddress struct {
 	Items []TransactionPreviewByAddressItems `json:"items,omitempty"`
 }
 
-// NewTransactionPreviewByIPItemsTransactionCatalogItem takes a TransactionCatalogItem type
+// NewTransactionPreviewByIPItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
 // and creates a TransactionPreviewByIPItems for use in a request.
-func NewTransactionPreviewByIPItemsTransactionCatalogItem(r *TransactionCatalogItem) *TransactionPreviewByIPItems {
-	return &TransactionPreviewByIPItems{TransactionCatalogItem: r}
+func NewTransactionPreviewByIPItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionPreviewItemFromCatalog: r}
 }
 
-// NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct takes a TransactionNonCatalogPriceForAnExistingProduct type
+// NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithPrice takes a TransactionPreviewItemCreateWithPrice type
 // and creates a TransactionPreviewByIPItems for use in a request.
-func NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct(r *TransactionNonCatalogPriceForAnExistingProduct) *TransactionPreviewByIPItems {
-	return &TransactionPreviewByIPItems{TransactionNonCatalogPriceForAnExistingProduct: r}
+func NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithPrice(r *TransactionPreviewItemCreateWithPrice) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionPreviewItemCreateWithPrice: r}
 }
 
-// NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct takes a TransactionNonCatalogPriceAndProduct type
+// NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithProduct takes a TransactionPreviewItemCreateWithProduct type
 // and creates a TransactionPreviewByIPItems for use in a request.
-func NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct(r *TransactionNonCatalogPriceAndProduct) *TransactionPreviewByIPItems {
-	return &TransactionPreviewByIPItems{TransactionNonCatalogPriceAndProduct: r}
+func NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithProduct(r *TransactionPreviewItemCreateWithProduct) *TransactionPreviewByIPItems {
+	return &TransactionPreviewByIPItems{TransactionPreviewItemCreateWithProduct: r}
 }
 
 // TransactionPreviewByIPItems represents a union request type of the following types:
-//   - `TransactionCatalogItem`
-//   - `TransactionNonCatalogPriceForAnExistingProduct`
-//   - `TransactionNonCatalogPriceAndProduct`
+//   - `TransactionPreviewItemFromCatalog`
+//   - `TransactionPreviewItemCreateWithPrice`
+//   - `TransactionPreviewItemCreateWithProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewTransactionPreviewByIPItemsTransactionCatalogItem()`
-//   - `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct()`
-//   - `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByIPItemsTransactionPreviewItemFromCatalog()`
+//   - `NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithPrice()`
+//   - `NewTransactionPreviewByIPItemsTransactionPreviewItemCreateWithProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
 type TransactionPreviewByIPItems struct {
-	*TransactionCatalogItem
-	*TransactionNonCatalogPriceForAnExistingProduct
-	*TransactionNonCatalogPriceAndProduct
+	*TransactionPreviewItemFromCatalog
+	*TransactionPreviewItemCreateWithPrice
+	*TransactionPreviewItemCreateWithProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u TransactionPreviewByIPItems) MarshalJSON() ([]byte, error) {
-	if u.TransactionCatalogItem != nil {
-		return json.Marshal(u.TransactionCatalogItem)
+	if u.TransactionPreviewItemFromCatalog != nil {
+		return json.Marshal(u.TransactionPreviewItemFromCatalog)
 	}
 
-	if u.TransactionNonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceForAnExistingProduct)
+	if u.TransactionPreviewItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithPrice)
 	}
 
-	if u.TransactionNonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceAndProduct)
+	if u.TransactionPreviewItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithProduct)
 	}
 
 	return nil, nil
@@ -596,54 +576,54 @@ type TransactionPreviewByIP struct {
 	Items []TransactionPreviewByIPItems `json:"items,omitempty"`
 }
 
-// NewTransactionPreviewByCustomerItemsTransactionCatalogItem takes a TransactionCatalogItem type
+// NewTransactionPreviewByCustomerItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
 // and creates a TransactionPreviewByCustomerItems for use in a request.
-func NewTransactionPreviewByCustomerItemsTransactionCatalogItem(r *TransactionCatalogItem) *TransactionPreviewByCustomerItems {
-	return &TransactionPreviewByCustomerItems{TransactionCatalogItem: r}
+func NewTransactionPreviewByCustomerItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionPreviewItemFromCatalog: r}
 }
 
-// NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct takes a TransactionNonCatalogPriceForAnExistingProduct type
+// NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithPrice takes a TransactionPreviewItemCreateWithPrice type
 // and creates a TransactionPreviewByCustomerItems for use in a request.
-func NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct(r *TransactionNonCatalogPriceForAnExistingProduct) *TransactionPreviewByCustomerItems {
-	return &TransactionPreviewByCustomerItems{TransactionNonCatalogPriceForAnExistingProduct: r}
+func NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithPrice(r *TransactionPreviewItemCreateWithPrice) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionPreviewItemCreateWithPrice: r}
 }
 
-// NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct takes a TransactionNonCatalogPriceAndProduct type
+// NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithProduct takes a TransactionPreviewItemCreateWithProduct type
 // and creates a TransactionPreviewByCustomerItems for use in a request.
-func NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct(r *TransactionNonCatalogPriceAndProduct) *TransactionPreviewByCustomerItems {
-	return &TransactionPreviewByCustomerItems{TransactionNonCatalogPriceAndProduct: r}
+func NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithProduct(r *TransactionPreviewItemCreateWithProduct) *TransactionPreviewByCustomerItems {
+	return &TransactionPreviewByCustomerItems{TransactionPreviewItemCreateWithProduct: r}
 }
 
 // TransactionPreviewByCustomerItems represents a union request type of the following types:
-//   - `TransactionCatalogItem`
-//   - `TransactionNonCatalogPriceForAnExistingProduct`
-//   - `TransactionNonCatalogPriceAndProduct`
+//   - `TransactionPreviewItemFromCatalog`
+//   - `TransactionPreviewItemCreateWithPrice`
+//   - `TransactionPreviewItemCreateWithProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewTransactionPreviewByCustomerItemsTransactionCatalogItem()`
-//   - `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct()`
-//   - `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionPreviewItemFromCatalog()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithPrice()`
+//   - `NewTransactionPreviewByCustomerItemsTransactionPreviewItemCreateWithProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
 type TransactionPreviewByCustomerItems struct {
-	*TransactionCatalogItem
-	*TransactionNonCatalogPriceForAnExistingProduct
-	*TransactionNonCatalogPriceAndProduct
+	*TransactionPreviewItemFromCatalog
+	*TransactionPreviewItemCreateWithPrice
+	*TransactionPreviewItemCreateWithProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u TransactionPreviewByCustomerItems) MarshalJSON() ([]byte, error) {
-	if u.TransactionCatalogItem != nil {
-		return json.Marshal(u.TransactionCatalogItem)
+	if u.TransactionPreviewItemFromCatalog != nil {
+		return json.Marshal(u.TransactionPreviewItemFromCatalog)
 	}
 
-	if u.TransactionNonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceForAnExistingProduct)
+	if u.TransactionPreviewItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithPrice)
 	}
 
-	if u.TransactionNonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.TransactionNonCatalogPriceAndProduct)
+	if u.TransactionPreviewItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithProduct)
 	}
 
 	return nil, nil
@@ -833,54 +813,54 @@ func (c *TransactionsClient) ListTransactions(ctx context.Context, req *ListTran
 	return res, nil
 }
 
-// NewCreateTransactionItemsCatalogItem takes a CatalogItem type
+// NewCreateTransactionItemsTransactionItemFromCatalog takes a TransactionItemFromCatalog type
 // and creates a CreateTransactionItems for use in a request.
-func NewCreateTransactionItemsCatalogItem(r *CatalogItem) *CreateTransactionItems {
-	return &CreateTransactionItems{CatalogItem: r}
+func NewCreateTransactionItemsTransactionItemFromCatalog(r *TransactionItemFromCatalog) *CreateTransactionItems {
+	return &CreateTransactionItems{TransactionItemFromCatalog: r}
 }
 
-// NewCreateTransactionItemsNonCatalogPriceForAnExistingProduct takes a NonCatalogPriceForAnExistingProduct type
+// NewCreateTransactionItemsTransactionItemCreateWithPrice takes a TransactionItemCreateWithPrice type
 // and creates a CreateTransactionItems for use in a request.
-func NewCreateTransactionItemsNonCatalogPriceForAnExistingProduct(r *NonCatalogPriceForAnExistingProduct) *CreateTransactionItems {
-	return &CreateTransactionItems{NonCatalogPriceForAnExistingProduct: r}
+func NewCreateTransactionItemsTransactionItemCreateWithPrice(r *TransactionItemCreateWithPrice) *CreateTransactionItems {
+	return &CreateTransactionItems{TransactionItemCreateWithPrice: r}
 }
 
-// NewCreateTransactionItemsNonCatalogPriceAndProduct takes a NonCatalogPriceAndProduct type
+// NewCreateTransactionItemsTransactionItemCreateWithProduct takes a TransactionItemCreateWithProduct type
 // and creates a CreateTransactionItems for use in a request.
-func NewCreateTransactionItemsNonCatalogPriceAndProduct(r *NonCatalogPriceAndProduct) *CreateTransactionItems {
-	return &CreateTransactionItems{NonCatalogPriceAndProduct: r}
+func NewCreateTransactionItemsTransactionItemCreateWithProduct(r *TransactionItemCreateWithProduct) *CreateTransactionItems {
+	return &CreateTransactionItems{TransactionItemCreateWithProduct: r}
 }
 
 // CreateTransactionItems represents a union request type of the following types:
-//   - `CatalogItem`
-//   - `NonCatalogPriceForAnExistingProduct`
-//   - `NonCatalogPriceAndProduct`
+//   - `TransactionItemFromCatalog`
+//   - `TransactionItemCreateWithPrice`
+//   - `TransactionItemCreateWithProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewCreateTransactionItemsCatalogItem()`
-//   - `NewCreateTransactionItemsNonCatalogPriceForAnExistingProduct()`
-//   - `NewCreateTransactionItemsNonCatalogPriceAndProduct()`
+//   - `NewCreateTransactionItemsTransactionItemFromCatalog()`
+//   - `NewCreateTransactionItemsTransactionItemCreateWithPrice()`
+//   - `NewCreateTransactionItemsTransactionItemCreateWithProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
 type CreateTransactionItems struct {
-	*CatalogItem
-	*NonCatalogPriceForAnExistingProduct
-	*NonCatalogPriceAndProduct
+	*TransactionItemFromCatalog
+	*TransactionItemCreateWithPrice
+	*TransactionItemCreateWithProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u CreateTransactionItems) MarshalJSON() ([]byte, error) {
-	if u.CatalogItem != nil {
-		return json.Marshal(u.CatalogItem)
+	if u.TransactionItemFromCatalog != nil {
+		return json.Marshal(u.TransactionItemFromCatalog)
 	}
 
-	if u.NonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.NonCatalogPriceForAnExistingProduct)
+	if u.TransactionItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionItemCreateWithPrice)
 	}
 
-	if u.NonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.NonCatalogPriceAndProduct)
+	if u.TransactionItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionItemCreateWithProduct)
 	}
 
 	return nil, nil
@@ -1063,54 +1043,54 @@ func (c *TransactionsClient) GetTransaction(ctx context.Context, req *GetTransac
 	return res, nil
 }
 
-// NewUpdateTransactionItemsCatalogItem takes a CatalogItem type
+// NewUpdateTransactionItemsTransactionItemFromCatalog takes a TransactionItemFromCatalog type
 // and creates a UpdateTransactionItems for use in a request.
-func NewUpdateTransactionItemsCatalogItem(r *CatalogItem) *UpdateTransactionItems {
-	return &UpdateTransactionItems{CatalogItem: r}
+func NewUpdateTransactionItemsTransactionItemFromCatalog(r *TransactionItemFromCatalog) *UpdateTransactionItems {
+	return &UpdateTransactionItems{TransactionItemFromCatalog: r}
 }
 
-// NewUpdateTransactionItemsNonCatalogPriceForAnExistingProduct takes a NonCatalogPriceForAnExistingProduct type
+// NewUpdateTransactionItemsTransactionItemCreateWithPrice takes a TransactionItemCreateWithPrice type
 // and creates a UpdateTransactionItems for use in a request.
-func NewUpdateTransactionItemsNonCatalogPriceForAnExistingProduct(r *NonCatalogPriceForAnExistingProduct) *UpdateTransactionItems {
-	return &UpdateTransactionItems{NonCatalogPriceForAnExistingProduct: r}
+func NewUpdateTransactionItemsTransactionItemCreateWithPrice(r *TransactionItemCreateWithPrice) *UpdateTransactionItems {
+	return &UpdateTransactionItems{TransactionItemCreateWithPrice: r}
 }
 
-// NewUpdateTransactionItemsNonCatalogPriceAndProduct takes a NonCatalogPriceAndProduct type
+// NewUpdateTransactionItemsTransactionItemCreateWithProduct takes a TransactionItemCreateWithProduct type
 // and creates a UpdateTransactionItems for use in a request.
-func NewUpdateTransactionItemsNonCatalogPriceAndProduct(r *NonCatalogPriceAndProduct) *UpdateTransactionItems {
-	return &UpdateTransactionItems{NonCatalogPriceAndProduct: r}
+func NewUpdateTransactionItemsTransactionItemCreateWithProduct(r *TransactionItemCreateWithProduct) *UpdateTransactionItems {
+	return &UpdateTransactionItems{TransactionItemCreateWithProduct: r}
 }
 
 // UpdateTransactionItems represents a union request type of the following types:
-//   - `CatalogItem`
-//   - `NonCatalogPriceForAnExistingProduct`
-//   - `NonCatalogPriceAndProduct`
+//   - `TransactionItemFromCatalog`
+//   - `TransactionItemCreateWithPrice`
+//   - `TransactionItemCreateWithProduct`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewUpdateTransactionItemsCatalogItem()`
-//   - `NewUpdateTransactionItemsNonCatalogPriceForAnExistingProduct()`
-//   - `NewUpdateTransactionItemsNonCatalogPriceAndProduct()`
+//   - `NewUpdateTransactionItemsTransactionItemFromCatalog()`
+//   - `NewUpdateTransactionItemsTransactionItemCreateWithPrice()`
+//   - `NewUpdateTransactionItemsTransactionItemCreateWithProduct()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
 type UpdateTransactionItems struct {
-	*CatalogItem
-	*NonCatalogPriceForAnExistingProduct
-	*NonCatalogPriceAndProduct
+	*TransactionItemFromCatalog
+	*TransactionItemCreateWithPrice
+	*TransactionItemCreateWithProduct
 }
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u UpdateTransactionItems) MarshalJSON() ([]byte, error) {
-	if u.CatalogItem != nil {
-		return json.Marshal(u.CatalogItem)
+	if u.TransactionItemFromCatalog != nil {
+		return json.Marshal(u.TransactionItemFromCatalog)
 	}
 
-	if u.NonCatalogPriceForAnExistingProduct != nil {
-		return json.Marshal(u.NonCatalogPriceForAnExistingProduct)
+	if u.TransactionItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionItemCreateWithPrice)
 	}
 
-	if u.NonCatalogPriceAndProduct != nil {
-		return json.Marshal(u.NonCatalogPriceAndProduct)
+	if u.TransactionItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionItemCreateWithProduct)
 	}
 
 	return nil, nil
@@ -1192,6 +1172,14 @@ func (c *TransactionsClient) UpdateTransaction(ctx context.Context, req *UpdateT
 type GetTransactionInvoiceRequest struct {
 	// URL path parameters.
 	TransactionID string `in:"path=transaction_id" json:"-"`
+
+	// Disposition is a query parameter.
+	/*
+	   Determine whether the generated URL should download the PDF as an attachment saved locally, or open it inline in the browser.
+
+	   Default: `attachment`.
+	*/
+	Disposition *string `in:"query=disposition;omitempty" json:"-"`
 }
 
 // GetTransactionInvoice performs the GET operation on a Transactions resource.

@@ -44,6 +44,9 @@ linters-settings:
     allow-cuddle-with-calls: ["Lock", "RLock"]
     allow-cuddle-with-rhs: ["Unlock", "RUnlock"]
     error-variable-names: ["err"]
+  gosec:
+    excludes:
+      - G115 # Potential integer overflow when converting between integer types
 
 linters:
   disable-all: true

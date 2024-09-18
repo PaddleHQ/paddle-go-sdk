@@ -137,6 +137,13 @@ var ErrInvalidJson = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrUnexpectedRequestBody represents a `unexpected_request_body` error.
+// See https://developer.paddle.com/errors/shared/unexpected_request_body for more information.
+var ErrUnexpectedRequestBody = &paddleerr.Error{
+	Code: "unexpected_request_body",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrInvalidTimeQueryParameter represents a `invalid_time_query_parameter` error.
 // See https://developer.paddle.com/errors/shared/invalid_time_query_parameter for more information.
 var ErrInvalidTimeQueryParameter = &paddleerr.Error{
@@ -155,6 +162,13 @@ var ErrUnsupportedMediaType = &paddleerr.Error{
 // See https://developer.paddle.com/errors/shared/receipt_data_not_enabled for more information.
 var ErrReceiptDataNotEnabled = &paddleerr.Error{
 	Code: "receipt_data_not_enabled",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrRequestHeadersTooLarge represents a `request_headers_too_large` error.
+// See https://developer.paddle.com/errors/apigateway/request_headers_too_large for more information.
+var ErrRequestHeadersTooLarge = &paddleerr.Error{
+	Code: "request_headers_too_large",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -788,7 +802,7 @@ type TransactionPayoutTotalsAdjusted struct {
 
 // TransactionLineItem: Information about line items for this transaction. Different from transaction `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
 type TransactionLineItem struct {
-	// ID: Unique Paddle ID for this transaction item, prefixed with `txnitm_`.
+	// ID: Unique Paddle ID for this transaction item, prefixed with `txnitm_`. Used when working with [adjustments](https://developer.paddle.com/build/transactions/create-transaction-adjustments).
 	ID string `json:"id,omitempty"`
 	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
@@ -923,7 +937,7 @@ type TransactionPaymentAttempt struct {
 	// StoredPaymentMethodID: UUID for the stored payment method used for this payment attempt. Deprecated - use `payment_method_id` instead.
 	StoredPaymentMethodID string `json:"stored_payment_method_id,omitempty"`
 	// PaymentMethodID: Paddle ID of the payment method used for this payment attempt, prefixed with `paymtd_`.
-	PaymentMethodID string `json:"payment_method_id,omitempty"`
+	PaymentMethodID *string `json:"payment_method_id,omitempty"`
 	// Amount: Amount for collection in the lowest denomination of a currency (e.g. cents for USD).
 	Amount string `json:"amount,omitempty"`
 	// Status: Status of this payment attempt.
@@ -1123,13 +1137,7 @@ type Adjustment struct {
 	CustomerID string `json:"customer_id,omitempty"`
 	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
 	Reason string `json:"reason,omitempty"`
-	/*
-	   CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-	   `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-	   `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
-	*/
+	// CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
 	CreditAppliedToBalance *bool `json:"credit_applied_to_balance,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this adjustment. Set automatically by Paddle based on the `currency_code` of the related transaction.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
@@ -1199,7 +1207,7 @@ const (
 	DiscountStatusUsed     DiscountStatus = "used"
 )
 
-// DiscountType: Type of discount. Determines how this discount impacts the transaction total..
+// DiscountType: Type of discount. Determines how this discount impacts the checkout or transaction total..
 type DiscountType string
 
 const (
@@ -1216,29 +1224,45 @@ type Discount struct {
 	Status DiscountStatus `json:"status,omitempty"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description,omitempty"`
-	// EnabledForCheckout: Whether this discount can be applied by customers at checkout.
+	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout bool `json:"enabled_for_checkout,omitempty"`
-	// Code: Unique code that customers can use to apply this discount at checkout.
+	// Code: Unique code that customers can use to redeem this discount at checkout.
 	Code *string `json:"code,omitempty"`
-	// Type: Type of discount. Determines how this discount impacts the transaction total.
+	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type DiscountType `json:"type,omitempty"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// Recur: Whether this discount applies for multiple subscription billing periods.
+	// Recur: Whether this discount applies for multiple subscription billing periods (`true`) or not (`false`).
 	Recur bool `json:"recur,omitempty"`
-	// MaximumRecurringIntervals: Amount of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
+	/*
+	   MaximumRecurringIntervals: Number of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
+
+	   Subscription renewals, midcycle changes, and one-time charges billed to a subscription aren't considered a redemption. `times_used` is not incremented in these cases.
+	*/
 	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals,omitempty"`
-	// UsageLimit: Maximum amount of times this discount can be used. This is an overall limit, rather than a per-customer limit. `null` if this discount can be used an unlimited amount of times.
+	/*
+	   UsageLimit: Maximum number of times this discount can be redeemed. This is an overall limit for this discount, rather than a per-customer limit. `null` if this discount can be redeemed an unlimited amount of times.
+
+	   Paddle counts a usage as a redemption on a checkout, transaction, or the initial application against a subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
+	*/
 	UsageLimit *int `json:"usage_limit,omitempty"`
 	// RestrictTo: Product or price IDs that this discount is for. When including a product ID, all prices for that product can be discounted. `null` if this discount applies to all products and prices.
 	RestrictTo []string `json:"restrict_to,omitempty"`
-	// ExpiresAt: RFC 3339 datetime string of when this discount expires. Discount can no longer be applied after this date has elapsed. `null` if this discount can be applied forever.
+	/*
+	   ExpiresAt: RFC 3339 datetime string of when this discount expires. Discount can no longer be redeemed after this date has elapsed. `null` if this discount can be redeemed forever.
+
+	   Expired discounts can't be redeemed against transactions or checkouts, but can be applied when updating subscriptions.
+	*/
 	ExpiresAt *string `json:"expires_at,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
-	// TimesUsed: How many times this discount has been redeemed. Automatically incremented by Paddle when an order completes.
+	/*
+	   TimesUsed: How many times this discount has been redeemed. Automatically incremented by Paddle.
+
+	   Paddle counts a usage as a redemption on a checkout, transaction, or subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
+	*/
 	TimesUsed int `json:"times_used,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
@@ -1246,6 +1270,30 @@ type Discount struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+}
+
+// TransactionPriceCreateWithProductID: Price object for a non-catalog item to charge for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
+type TransactionPriceCreateWithProductID struct {
+	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
+	Description string `json:"description,omitempty"`
+	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+	Name *string `json:"name,omitempty"`
+	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
+	BillingCycle *Duration `json:"billing_cycle,omitempty"`
+	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
+	TrialPeriod *Duration `json:"trial_period,omitempty"`
+	// TaxMode: How tax is calculated for this price.
+	TaxMode TaxMode `json:"tax_mode,omitempty"`
+	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+	UnitPrice Money `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+	Quantity PriceQuantity `json:"quantity,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
+	ProductID string `json:"product_id,omitempty"`
 }
 
 // TransactionSubscriptionProductCreate: Product object for a non-catalog item to charge for.
@@ -1260,6 +1308,30 @@ type TransactionSubscriptionProductCreate struct {
 	ImageURL *string `json:"image_url,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
+}
+
+// TransactionPriceCreateWithProduct: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
+type TransactionPriceCreateWithProduct struct {
+	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
+	Description string `json:"description,omitempty"`
+	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+	Name *string `json:"name,omitempty"`
+	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
+	BillingCycle *Duration `json:"billing_cycle,omitempty"`
+	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
+	TrialPeriod *Duration `json:"trial_period,omitempty"`
+	// TaxMode: How tax is calculated for this price.
+	TaxMode TaxMode `json:"tax_mode,omitempty"`
+	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+	UnitPrice Money `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+	Quantity PriceQuantity `json:"quantity,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// Product: Product object for a non-catalog item to charge for.
+	Product TransactionSubscriptionProductCreate `json:"product,omitempty"`
 }
 
 // AddressPreview: Address for this preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
@@ -1281,6 +1353,18 @@ type BillingDetailsUpdate struct {
 	// PaymentTerms: How long a customer has to pay this invoice once issued.
 	PaymentTerms Duration `json:"payment_terms,omitempty"`
 }
+
+/*
+Disposition: Determine whether the generated URL should download the PDF as an attachment saved locally, or open it inline in the browser.
+
+Default: `attachment`..
+*/
+type Disposition string
+
+const (
+	DispositionAttachment Disposition = "attachment"
+	DispositionInline     Disposition = "inline"
+)
 
 // EventTypeName: Type of event sent by Paddle, in the format `entity.event_type`..
 type EventTypeName string
