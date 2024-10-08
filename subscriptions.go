@@ -359,6 +359,13 @@ var ErrSubscriptionManualCollectionModeActivationNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionArchivedDiscountApplicationAttempt represents a `subscription_archived_discount_application_attempt` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_archived_discount_application_attempt for more information.
+var ErrSubscriptionArchivedDiscountApplicationAttempt = &paddleerr.Error{
+	Code: "subscription_archived_discount_application_attempt",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 

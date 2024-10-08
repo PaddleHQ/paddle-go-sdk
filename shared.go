@@ -166,7 +166,7 @@ var ErrReceiptDataNotEnabled = &paddleerr.Error{
 }
 
 // ErrRequestHeadersTooLarge represents a `request_headers_too_large` error.
-// See https://developer.paddle.com/errors/apigateway/request_headers_too_large for more information.
+// See https://developer.paddle.com/errors/shared/request_headers_too_large for more information.
 var ErrRequestHeadersTooLarge = &paddleerr.Error{
 	Code: "request_headers_too_large",
 	Type: paddleerr.ErrorTypeRequestError,
@@ -194,6 +194,9 @@ const (
 	TaxCategoryTrainingServices            TaxCategory = "training-services"
 	TaxCategoryWebsiteHosting              TaxCategory = "website-hosting"
 )
+
+// CustomData: Your own structured key-value data.
+type CustomData map[string]any
 
 // Status: Whether this entity can be used in Paddle..
 type Status string
@@ -1425,4 +1428,109 @@ type EventType struct {
 	// AvailableVersions: List of API versions that this event type supports.
 	AvailableVersions []int `json:"available_versions,omitempty"`
 }
-type CustomData map[string]any
+
+// Data: New or changed entity.
+type Data map[string]any
+
+// SimulationTypeName: Single event sent for this simulation, in the format `entity.event_type`..
+type SimulationTypeName string
+
+const (
+	SimulationTypeNameAddressCreated           SimulationTypeName = "address.created"
+	SimulationTypeNameAddressImported          SimulationTypeName = "address.imported"
+	SimulationTypeNameAddressUpdated           SimulationTypeName = "address.updated"
+	SimulationTypeNameAdjustmentCreated        SimulationTypeName = "adjustment.created"
+	SimulationTypeNameAdjustmentUpdated        SimulationTypeName = "adjustment.updated"
+	SimulationTypeNameBusinessCreated          SimulationTypeName = "business.created"
+	SimulationTypeNameBusinessImported         SimulationTypeName = "business.imported"
+	SimulationTypeNameBusinessUpdated          SimulationTypeName = "business.updated"
+	SimulationTypeNameCustomerCreated          SimulationTypeName = "customer.created"
+	SimulationTypeNameCustomerImported         SimulationTypeName = "customer.imported"
+	SimulationTypeNameCustomerUpdated          SimulationTypeName = "customer.updated"
+	SimulationTypeNameDiscountCreated          SimulationTypeName = "discount.created"
+	SimulationTypeNameDiscountImported         SimulationTypeName = "discount.imported"
+	SimulationTypeNameDiscountUpdated          SimulationTypeName = "discount.updated"
+	SimulationTypeNamePayoutCreated            SimulationTypeName = "payout.created"
+	SimulationTypeNamePayoutPaid               SimulationTypeName = "payout.paid"
+	SimulationTypeNamePriceCreated             SimulationTypeName = "price.created"
+	SimulationTypeNamePriceImported            SimulationTypeName = "price.imported"
+	SimulationTypeNamePriceUpdated             SimulationTypeName = "price.updated"
+	SimulationTypeNameProductCreated           SimulationTypeName = "product.created"
+	SimulationTypeNameProductImported          SimulationTypeName = "product.imported"
+	SimulationTypeNameProductUpdated           SimulationTypeName = "product.updated"
+	SimulationTypeNameReportCreated            SimulationTypeName = "report.created"
+	SimulationTypeNameReportUpdated            SimulationTypeName = "report.updated"
+	SimulationTypeNameSubscriptionActivated    SimulationTypeName = "subscription.activated"
+	SimulationTypeNameSubscriptionCanceled     SimulationTypeName = "subscription.canceled"
+	SimulationTypeNameSubscriptionCreated      SimulationTypeName = "subscription.created"
+	SimulationTypeNameSubscriptionImported     SimulationTypeName = "subscription.imported"
+	SimulationTypeNameSubscriptionPastDue      SimulationTypeName = "subscription.past_due"
+	SimulationTypeNameSubscriptionPaused       SimulationTypeName = "subscription.paused"
+	SimulationTypeNameSubscriptionResumed      SimulationTypeName = "subscription.resumed"
+	SimulationTypeNameSubscriptionTrialing     SimulationTypeName = "subscription.trialing"
+	SimulationTypeNameSubscriptionUpdated      SimulationTypeName = "subscription.updated"
+	SimulationTypeNameTransactionBilled        SimulationTypeName = "transaction.billed"
+	SimulationTypeNameTransactionCanceled      SimulationTypeName = "transaction.canceled"
+	SimulationTypeNameTransactionCompleted     SimulationTypeName = "transaction.completed"
+	SimulationTypeNameTransactionCreated       SimulationTypeName = "transaction.created"
+	SimulationTypeNameTransactionPaid          SimulationTypeName = "transaction.paid"
+	SimulationTypeNameTransactionPastDue       SimulationTypeName = "transaction.past_due"
+	SimulationTypeNameTransactionPaymentFailed SimulationTypeName = "transaction.payment_failed"
+	SimulationTypeNameTransactionReady         SimulationTypeName = "transaction.ready"
+	SimulationTypeNameTransactionUpdated       SimulationTypeName = "transaction.updated"
+	SimulationTypeNameSubscriptionCreation     SimulationTypeName = "subscription_creation"
+	SimulationTypeNameSubscriptionRenewal      SimulationTypeName = "subscription_renewal"
+	SimulationTypeNameSubscriptionPause        SimulationTypeName = "subscription_pause"
+	SimulationTypeNameSubscriptionResume       SimulationTypeName = "subscription_resume"
+	SimulationTypeNameSubscriptionCancellation SimulationTypeName = "subscription_cancellation"
+)
+
+// Payload: Simulation payload. `null` for scenarios.
+type Payload map[string]any
+
+// SimulationEventStatus: Status of this simulation run log..
+type SimulationEventStatus string
+
+const (
+	SimulationEventStatusPending SimulationEventStatus = "pending"
+	SimulationEventStatusSuccess SimulationEventStatus = "success"
+	SimulationEventStatusFailed  SimulationEventStatus = "failed"
+	SimulationEventStatusAborted SimulationEventStatus = "aborted"
+)
+
+// SimulationEventRequest: Information about the request. Sent by Paddle as part of the simulation.
+type SimulationEventRequest struct {
+	// Body: Request body sent by Paddle.
+	Body string `json:"body,omitempty"`
+}
+
+// SimulationEventResponse: Information about the response. Sent by the responding server for the notification setting.
+type SimulationEventResponse struct {
+	// Body: Response body sent by the responding server. May be empty for success responses.
+	Body string `json:"body,omitempty"`
+	// StatusCode: HTTP status code sent by the responding server.
+	StatusCode int `json:"status_code,omitempty"`
+}
+
+/*
+SimulationEvent: Events associated with this simulation run. Paddle creates a list of events for each simulation runs. Returned when the
+`include` parameter is used with the `events` value.
+*/
+type SimulationEvent struct {
+	// ID: Unique Paddle ID for this simulation event, prefixed with `ntfsimevt_`.
+	ID string `json:"id,omitempty"`
+	// Status: Status of this simulation run log.
+	Status SimulationEventStatus `json:"status,omitempty"`
+	// EventType: Type of event sent by Paddle, in the format `entity.event_type`.
+	EventType EventTypeName `json:"event_type,omitempty"`
+	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. If omitted, Paddle populates with a demo example.
+	Payload Payload `json:"payload,omitempty"`
+	// Request: Information about the request. Sent by Paddle as part of the simulation.
+	Request *SimulationEventRequest `json:"request,omitempty"`
+	// Response: Information about the response. Sent by the responding server for the notification setting.
+	Response *SimulationEventResponse `json:"response,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+}
