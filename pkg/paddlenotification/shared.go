@@ -285,6 +285,9 @@ const (
 	CountryCodeZM CountryCode = "ZM"
 )
 
+// CustomData: Your own structured key-value data.
+type CustomData map[string]any
+
 // Status: Whether this entity can be used in Paddle..
 type Status string
 
@@ -554,4 +557,3 @@ type Product struct {
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
-type CustomData map[string]any

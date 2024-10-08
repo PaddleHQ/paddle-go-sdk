@@ -264,6 +264,10 @@ func (c *AdjustmentsClient) GetAdjustmentCreditNote(ctx context.Context, req *Ge
 type ListCreditBalancesRequest struct {
 	// URL path parameters.
 	CustomerID string `in:"path=customer_id" json:"-"`
+
+	// CurrencyCode is a query parameter.
+	// Return entities that match the currency code. Use a comma-separated list to specify multiple currency codes.
+	CurrencyCode []string `in:"query=currency_code;omitempty" json:"-"`
 }
 
 // ListCreditBalances performs the GET operation on a Adjustments resource.

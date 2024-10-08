@@ -18,6 +18,10 @@ type SDK struct {
 	*NotificationsClient
 	*NotificationLogsClient
 	*NotificationSettingReplaysClient
+	*SimulationTypesClient
+	*SimulationsClient
+	*SimulationRunsClient
+	*SimulationRunEventsClient
 	*IPAddressesClient
 	*DiscountsClient
 	*SubscriptionsClient
@@ -43,6 +47,10 @@ func newSDK(d Doer) *SDK {
 		PricingPreviewClient:             &PricingPreviewClient{doer: d},
 		ProductsClient:                   &ProductsClient{doer: d},
 		ReportsClient:                    &ReportsClient{doer: d},
+		SimulationRunEventsClient:        &SimulationRunEventsClient{doer: d},
+		SimulationRunsClient:             &SimulationRunsClient{doer: d},
+		SimulationTypesClient:            &SimulationTypesClient{doer: d},
+		SimulationsClient:                &SimulationsClient{doer: d},
 		SubscriptionsClient:              &SubscriptionsClient{doer: d},
 		TransactionsClient:               &TransactionsClient{doer: d},
 	}

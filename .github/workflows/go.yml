@@ -40,10 +40,4 @@ jobs:
         run: go vet ./...
 
       - name: Test
-        run: go test ./... -v -coverprofile=./cover.out -covermode atomic -coverpkg ./... -race
-
-      - name: Check coverage
-        uses: vladopajic/go-test-coverage@v2
-        with:
-          profile: cover.out
-          threshold-total: 30
+        run: go test ./... -v

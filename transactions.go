@@ -268,6 +268,13 @@ var ErrTransactionImmutableWhileProcessingPayment = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionCannotBeRevisedWithInvalidTaxIdentifier represents a `transaction_cannot_be_revised_with_invalid_tax_identifier` error.
+// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_invalid_tax_identifier for more information.
+var ErrTransactionCannotBeRevisedWithInvalidTaxIdentifier = &paddleerr.Error{
+	Code: "transaction_cannot_be_revised_with_invalid_tax_identifier",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
