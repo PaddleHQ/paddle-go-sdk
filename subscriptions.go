@@ -1025,14 +1025,14 @@ func (c *SubscriptionsClient) PauseSubscription(ctx context.Context, req *PauseS
 
 // NewResumeSubscriptionRequestResumeOnASpecificDate takes a ResumeOnASpecificDate type
 // and creates a ResumeSubscriptionRequest for use in a request.
-func NewResumeSubscriptionRequestResumeOnASpecificDate(r *ResumeOnASpecificDate) *ResumeSubscriptionRequest {
-	return &ResumeSubscriptionRequest{ResumeOnASpecificDate: r}
+func NewResumeSubscriptionRequestResumeOnASpecificDate(subscriptionID string, r *ResumeOnASpecificDate) *ResumeSubscriptionRequest {
+	return &ResumeSubscriptionRequest{SubscriptionID: subscriptionID, ResumeOnASpecificDate: r}
 }
 
 // NewResumeSubscriptionRequestResumeImmediately takes a ResumeImmediately type
 // and creates a ResumeSubscriptionRequest for use in a request.
-func NewResumeSubscriptionRequestResumeImmediately(r *ResumeImmediately) *ResumeSubscriptionRequest {
-	return &ResumeSubscriptionRequest{ResumeImmediately: r}
+func NewResumeSubscriptionRequestResumeImmediately(subscriptionID string, r *ResumeImmediately) *ResumeSubscriptionRequest {
+	return &ResumeSubscriptionRequest{SubscriptionID: subscriptionID, ResumeImmediately: r}
 }
 
 // ResumeSubscriptionRequest represents a union request type of the following types:
