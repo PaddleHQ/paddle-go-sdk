@@ -5,6 +5,9 @@ package paddle
 import (
 	"context"
 	"encoding/json"
+	"strings"
+
+	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
 )
 
 // Simulation: Represents a simulation entity.
@@ -20,13 +23,67 @@ type Simulation struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type SimulationTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. `null` for scenarios.
-	Payload *Payload `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
 	// LastRunAt: RFC 3339 datetime string of when this simulation was last run. `null` until run. Set automatically by Paddle.
 	LastRunAt *string `json:"last_run_at,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for Notification
+func (s *Simulation) UnmarshalJSON(data []byte) error {
+	type alias Simulation
+
+	if err := json.Unmarshal(data, (*alias)(s)); err != nil {
+		return err
+	}
+
+	if s.Payload == nil || !strings.Contains(string(s.Type), ".") {
+		return nil
+	}
+
+	var t paddlenotification.NotificationPayload
+	switch strings.Split(string(s.Type), ".")[0] {
+	case "address":
+		t = &paddlenotification.AddressNotification{}
+	case "adjustment":
+		t = &paddlenotification.AdjustmentNotification{}
+	case "business":
+		t = &paddlenotification.BusinessNotification{}
+	case "customer":
+		t = &paddlenotification.CustomerNotification{}
+	case "discount":
+		t = &paddlenotification.DiscountNotification{}
+	case "payout":
+		t = &paddlenotification.PayoutNotification{}
+	case "price":
+		t = &paddlenotification.PriceNotification{}
+	case "product":
+		t = &paddlenotification.ProductNotification{}
+	case "report":
+		t = &paddlenotification.ReportNotification{}
+	case "subscription":
+		t = &paddlenotification.SubscriptionNotification{}
+	case "transaction":
+		t = &paddlenotification.TransactionNotification{}
+	default:
+		t = map[string]any{}
+	}
+
+	rawT, err := json.Marshal(s.Payload)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(rawT, t); err != nil {
+		return err
+	}
+
+	s.Payload = t
+
+	return nil
 }
 
 // SimulationSingleEventCreate: Single event simulations play a single event.
@@ -38,7 +95,7 @@ type SimulationSingleEventCreate struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type EventTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. If omitted, Paddle populates with a demo example.
-	Payload *Payload `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
 }
 
 // SimulationScenarioType: Scenario for this simulation. Scenario simulations play all events sent for a subscription lifecycle event..
@@ -73,7 +130,7 @@ type SimulationSingleEventUpdate struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type EventTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. Set to `null` to clear and populate with a demo example.
-	Payload *Payload `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
 }
 
 // SimulationScenarioUpdate: Scenario simulations play all events sent for a subscription lifecycle event.

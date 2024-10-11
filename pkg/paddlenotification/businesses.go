@@ -33,26 +33,28 @@ type Contacts struct {
 
 // BusinessNotification: New or changed entity.
 type BusinessNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this business entity, prefixed with `biz_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// CustomerID: Paddle ID for the customer related to this business, prefixed with `cus_`.
-	CustomerID string `json:"customer_id,omitempty"`
+	CustomerID string `json:"customer_id"`
 	// Name: Name of this business.
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// CompanyNumber: Company number for this business.
-	CompanyNumber *string `json:"company_number,omitempty"`
+	CompanyNumber *string `json:"company_number"`
 	// TaxIdentifier: Tax or VAT Number for this business.
-	TaxIdentifier *string `json:"tax_identifier,omitempty"`
+	TaxIdentifier *string `json:"tax_identifier"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status Status `json:"status"`
 	// Contacts: List of contacts related to this business, typically used for sending invoices.
-	Contacts []Contacts `json:"contacts,omitempty"`
+	Contacts []Contacts `json:"contacts"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 }

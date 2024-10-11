@@ -22,7 +22,7 @@ type GenericEvent struct {
 	// OccurredAt: RFC 3339 datetime string of when this event occurred.
 	OccurredAt string `json:"occurred_at,omitempty"`
 	// Data: New or changed entity.
-	Data any `json:"data,omitempty"`
+	Data paddlenotification.NotificationPayload `json:"data,omitempty"`
 }
 
 // AddressCreatedEvent represents an Event implementation for address.created event.

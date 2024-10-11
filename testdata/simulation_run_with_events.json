@@ -1,0 +1,38 @@
+{
+  "data" : {
+    "id" : "ntfsimrun_01j9yq3yspewy5r8zr05vkeekd",
+    "status" : "completed",
+    "type" : "customer.created",
+    "created_at" : "2024-10-11T21:17:54.870633Z",
+    "updated_at" : "2024-10-11T21:17:55.460363Z",
+    "events" : [ {
+      "id" : "ntfsimevt_01j9yq3yt7b418zwfs5pzsefqs",
+      "status" : "success",
+      "event_type" : "customer.created",
+      "payload" : {
+        "id" : "ctm_01j870snka0xdp6szgyxze6d6d",
+        "name" : "John Doe",
+        "email" : "john.doe+blackhole@paddle.com",
+        "locale" : "en",
+        "status" : "active",
+        "created_at" : "2024-04-12T00:00:00Z",
+        "updated_at" : "2024-04-12T00:00:00Z",
+        "custom_data" : null,
+        "import_meta" : null,
+        "marketing_consent" : false
+      },
+      "request" : {
+        "body" : "{\"event_id\":\"ntfsimevt_01j9yq3yt7b418zwfs5pzsefqs\",\"event_type\":\"customer.created\",\"occurred_at\":\"2024-10-11T21:17:54.887463Z\",\"notification_id\":\"ntfsimntf_01j9yq3yz7y77gszvatscnqfan\",\"data\":{\"id\":\"ctm_01j870snka0xdp6szgyxze6d6d\",\"name\":\"John Doe\",\"email\":\"john.doe+blackhole@paddle.com\",\"locale\":\"en\",\"status\":\"active\",\"created_at\":\"2024-04-12T00:00:00Z\",\"updated_at\":\"2024-04-12T00:00:00Z\",\"custom_data\":null,\"import_meta\":null,\"marketing_consent\":false}}"
+      },
+      "response" : {
+        "body" : "{\"status\":\"SUCCESS\",\"message\":\"Request handled by Hookdeck. Check your dashboard to inspect the request: https://dashboard.hookdeck.com/requests/123\",\"request_id\":\"123\"}",
+        "status_code" : 200
+      },
+      "created_at" : "2024-10-11T21:17:54.887463Z",
+      "updated_at" : "2024-10-11T21:17:55.427851Z"
+    } ]
+  },
+  "meta" : {
+    "request_id" : "252fb511-bf6e-45bf-b99e-6f6a9533183d"
+  }
+}

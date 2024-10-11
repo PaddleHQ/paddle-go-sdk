@@ -2,7 +2,13 @@
 
 package paddle
 
-import paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+import (
+	"encoding/json"
+	"strings"
+
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
+)
 
 // ErrNotFound represents a `not_found` error.
 // See https://developer.paddle.com/errors/shared/not_found for more information.
@@ -1485,9 +1491,6 @@ const (
 	SimulationTypeNameSubscriptionCancellation SimulationTypeName = "subscription_cancellation"
 )
 
-// Payload: Simulation payload. `null` for scenarios.
-type Payload map[string]any
-
 // SimulationEventStatus: Status of this simulation run log..
 type SimulationEventStatus string
 
@@ -1524,7 +1527,7 @@ type SimulationEvent struct {
 	// EventType: Type of event sent by Paddle, in the format `entity.event_type`.
 	EventType EventTypeName `json:"event_type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. If omitted, Paddle populates with a demo example.
-	Payload Payload `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
 	// Request: Information about the request. Sent by Paddle as part of the simulation.
 	Request *SimulationEventRequest `json:"request,omitempty"`
 	// Response: Information about the response. Sent by the responding server for the notification setting.
@@ -1533,4 +1536,53 @@ type SimulationEvent struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for Notification
+func (n *SimulationEvent) UnmarshalJSON(data []byte) error {
+	type alias SimulationEvent
+	if err := json.Unmarshal(data, (*alias)(n)); err != nil {
+		return err
+	}
+
+	var t paddlenotification.NotificationPayload
+	switch strings.Split(string(n.EventType), ".")[0] {
+	case "address":
+		t = &paddlenotification.AddressNotification{}
+	case "adjustment":
+		t = &paddlenotification.AdjustmentNotification{}
+	case "business":
+		t = &paddlenotification.BusinessNotification{}
+	case "customer":
+		t = &paddlenotification.CustomerNotification{}
+	case "discount":
+		t = &paddlenotification.DiscountNotification{}
+	case "payout":
+		t = &paddlenotification.PayoutNotification{}
+	case "price":
+		t = &paddlenotification.PriceNotification{}
+	case "product":
+		t = &paddlenotification.ProductNotification{}
+	case "report":
+		t = &paddlenotification.ReportNotification{}
+	case "subscription":
+		t = &paddlenotification.SubscriptionNotification{}
+	case "transaction":
+		t = &paddlenotification.TransactionNotification{}
+	default:
+		t = map[string]any{}
+	}
+
+	rawT, err := json.Marshal(n.Payload)
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(rawT, t); err != nil {
+		return err
+	}
+
+	n.Payload = t
+
+	return nil
 }

@@ -25,36 +25,38 @@ type PriceUpdated struct {
 
 // PriceNotification: Represents a price entity.
 type PriceNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this price, prefixed with `pri_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
-	ProductID string `json:"product_id,omitempty"`
+	ProductID string `json:"product_id"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type *CatalogType `json:"type,omitempty"`
+	Type *CatalogType `json:"type"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
-	BillingCycle *Duration `json:"billing_cycle,omitempty"`
+	BillingCycle *Duration `json:"billing_cycle"`
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
+	TrialPeriod *Duration `json:"trial_period"`
 	// TaxMode: How tax is calculated for this price.
-	TaxMode TaxMode `json:"tax_mode,omitempty"`
+	TaxMode TaxMode `json:"tax_mode"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
-	UnitPrice Money `json:"unit_price,omitempty"`
+	UnitPrice Money `json:"unit_price"`
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
-	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides"`
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
+	Quantity PriceQuantity `json:"quantity"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status Status `json:"status"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt *string `json:"updated_at"`
 }
