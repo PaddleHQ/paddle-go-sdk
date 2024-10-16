@@ -44,8 +44,6 @@ const (
 
 // DiscountNotification: New or changed entity.
 type DiscountNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id"`
 	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.

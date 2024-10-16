@@ -1527,7 +1527,7 @@ type SimulationEvent struct {
 	// EventType: Type of event sent by Paddle, in the format `entity.event_type`.
 	EventType EventTypeName `json:"event_type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. If omitted, Paddle populates with a demo example.
-	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
+	Payload any `json:"payload,omitempty"`
 	// Request: Information about the request. Sent by Paddle as part of the simulation.
 	Request *SimulationEventRequest `json:"request,omitempty"`
 	// Response: Information about the response. Sent by the responding server for the notification setting.
@@ -1545,7 +1545,7 @@ func (n *SimulationEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	var t paddlenotification.NotificationPayload
+	var t any
 	switch strings.Split(string(n.EventType), ".")[0] {
 	case "address":
 		t = &paddlenotification.AddressNotification{}

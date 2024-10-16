@@ -4,8 +4,6 @@ package paddlenotification
 
 type NotificationEvent interface{}
 
-type NotificationPayload interface{}
-
 // GenericNotificationEvent: Notification payload. Includes the new or changed event.
 type GenericNotificationEvent struct {
 	NotificationEvent
@@ -17,7 +15,7 @@ type GenericNotificationEvent struct {
 	// OccurredAt: RFC 3339 datetime string of when this event occurred.
 	OccurredAt string `json:"occurred_at,omitempty"`
 	// Data: New or changed entity.
-	Data NotificationPayload `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 	// NotificationID: Unique Paddle ID for this notification, prefixed with `ntf_`.
 	NotificationID string `json:"notification_id,omitempty"`
 }

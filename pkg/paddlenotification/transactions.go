@@ -384,8 +384,6 @@ type Checkout struct {
 
 // TransactionNotification: New or changed entity.
 type TransactionNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this transaction entity, prefixed with `txn_`.
 	ID string `json:"id"`
 	// Status: Status of this transaction. You may set a transaction to `billed` or `canceled`, other statuses are set automatically by Paddle. Automatically-collected transactions may return `completed` if payment is captured successfully, or `past_due` if payment failed.

@@ -145,8 +145,6 @@ type AdjustmentTaxRateUsed struct {
 
 // AdjustmentNotification: New or changed entity.
 type AdjustmentNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
 	ID string `json:"id"`
 	// Action: How this adjustment impacts the related transaction.

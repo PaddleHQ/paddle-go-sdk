@@ -25,8 +25,6 @@ type CustomerUpdated struct {
 
 // CustomerNotification: New or changed entity.
 type CustomerNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this customer entity, prefixed with `ctm_`.
 	ID string `json:"id"`
 	// Name: Full name of this customer. Required when creating transactions where `collection_mode` is `manual` (invoices).

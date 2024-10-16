@@ -180,7 +180,7 @@ func (c *Collection[T]) UnmarshalJSON(b []byte) error {
 
 	for _, item := range res.Data {
 		switch any(c).(type) {
-		case *Collection[Event]:
+		case *Collection[any]:
 			e, err := unmarshalEvent(item)
 			if err != nil {
 				return err

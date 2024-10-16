@@ -81,8 +81,6 @@ type ReportFilters struct {
 
 // ReportNotification: New or changed entity.
 type ReportNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this report, prefixed with `rep_`
 	ID string `json:"id"`
 	/*

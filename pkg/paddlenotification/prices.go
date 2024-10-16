@@ -25,8 +25,6 @@ type PriceUpdated struct {
 
 // PriceNotification: Represents a price entity.
 type PriceNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this price, prefixed with `pri_`.
 	ID string `json:"id"`
 	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.

@@ -18,8 +18,6 @@ type PayoutPaid struct {
 
 // PayoutNotification: New or changed entity.
 type PayoutNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: ID for this payout.
 	ID string `json:"id"`
 	// Status: Status of this payout.

@@ -9,12 +9,8 @@ import (
 	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
 )
 
-// Event: Represents an event entity.
-type Event interface{}
-
 // GenericEvent is an generic implementation for Event
 type GenericEvent struct {
-	Event
 	// EventID: Unique Paddle ID for this event, prefixed with `evt_`.
 	EventID string `json:"event_id,omitempty"`
 	// EventType: Type of event sent by Paddle, in the format `entity.event_type`.
@@ -22,7 +18,7 @@ type GenericEvent struct {
 	// OccurredAt: RFC 3339 datetime string of when this event occurred.
 	OccurredAt string `json:"occurred_at,omitempty"`
 	// Data: New or changed entity.
-	Data paddlenotification.NotificationPayload `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // AddressCreatedEvent represents an Event implementation for address.created event.
@@ -278,13 +274,13 @@ type TransactionUpdatedEvent struct {
 }
 
 // unmarshalEvent unmarshals JSON data to the correct Event implementation
-func unmarshalEvent(data []byte) (Event, error) {
+func unmarshalEvent(data []byte) (any, error) {
 	e := &GenericEvent{}
 	if err := json.Unmarshal(data, e); err != nil {
 		return nil, err
 	}
 
-	var t Event
+	var t any
 	switch e.EventType {
 	case "address.created":
 		t = &AddressCreatedEvent{}
@@ -409,7 +405,7 @@ type ListEventsRequest struct {
 }
 
 // ListEvents performs the GET operation on a Events resource.
-func (c *EventsClient) ListEvents(ctx context.Context, req *ListEventsRequest) (res *Collection[Event], err error) {
+func (c *EventsClient) ListEvents(ctx context.Context, req *ListEventsRequest) (res *Collection[any], err error) {
 	if err := c.doer.Do(ctx, "GET", "/events", req, &res); err != nil {
 		return nil, err
 	}

@@ -35,7 +35,7 @@ func Example_listEvents() {
 	res, err := client.ListEvents(ctx, &paddle.ListEventsRequest{})
 
 	// Iterate the events.
-	err = res.Iter(ctx, func(e paddle.Event) (bool, error) {
+	err = res.Iter(ctx, func(e any) (bool, error) {
 		switch v := e.(type) {
 		case *paddle.TransactionCompletedEvent:
 			// here v could be used as concrete type TransactionCompletedEvent
@@ -67,7 +67,7 @@ func Example_listEvents() {
 	//<nil>
 }
 
-func toGenericEvent(e paddle.Event) (ge *paddle.GenericEvent, err error) {
+func toGenericEvent(e any) (ge *paddle.GenericEvent, err error) {
 	t, err := json.Marshal(e)
 	if err != nil {
 		return nil, err

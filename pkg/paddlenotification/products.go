@@ -25,8 +25,6 @@ type ProductUpdated struct {
 
 // ProductNotification: Represents a product entity.
 type ProductNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this product, prefixed with `pro_`.
 	ID string `json:"id"`
 	// Name: Name of this product.

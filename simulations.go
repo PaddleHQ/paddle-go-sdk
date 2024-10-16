@@ -23,7 +23,7 @@ type Simulation struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type SimulationTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. `null` for scenarios.
-	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
+	Payload any `json:"payload,omitempty"`
 	// LastRunAt: RFC 3339 datetime string of when this simulation was last run. `null` until run. Set automatically by Paddle.
 	LastRunAt *string `json:"last_run_at,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
@@ -44,7 +44,7 @@ func (s *Simulation) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var t paddlenotification.NotificationPayload
+	var t any
 	switch strings.Split(string(s.Type), ".")[0] {
 	case "address":
 		t = &paddlenotification.AddressNotification{}
@@ -95,7 +95,7 @@ type SimulationSingleEventCreate struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type EventTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. If omitted, Paddle populates with a demo example.
-	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
+	Payload any `json:"payload,omitempty"`
 }
 
 // SimulationScenarioType: Scenario for this simulation. Scenario simulations play all events sent for a subscription lifecycle event..
@@ -130,7 +130,7 @@ type SimulationSingleEventUpdate struct {
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
 	Type EventTypeName `json:"type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. Set to `null` to clear and populate with a demo example.
-	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
+	Payload any `json:"payload,omitempty"`
 }
 
 // SimulationScenarioUpdate: Scenario simulations play all events sent for a subscription lifecycle event.

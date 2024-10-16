@@ -25,8 +25,6 @@ type AddressUpdated struct {
 
 // AddressNotification: New or changed entity.
 type AddressNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this address entity, prefixed with `add_`.
 	ID string `json:"id"`
 	// CustomerID: Paddle ID for the customer related to this address, prefixed with `cus_`.

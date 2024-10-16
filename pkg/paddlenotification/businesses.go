@@ -33,8 +33,6 @@ type Contacts struct {
 
 // BusinessNotification: New or changed entity.
 type BusinessNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this business entity, prefixed with `biz_`.
 	ID string `json:"id"`
 	// CustomerID: Paddle ID for the customer related to this business, prefixed with `cus_`.

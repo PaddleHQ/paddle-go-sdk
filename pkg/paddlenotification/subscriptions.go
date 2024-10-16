@@ -140,8 +140,6 @@ type SubscriptionItem struct {
 
 // SubscriptionNotification: New or changed entity.
 type SubscriptionNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
 	ID string `json:"id"`
 	// Status: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change.
@@ -190,8 +188,6 @@ type SubscriptionNotification struct {
 
 // SubscriptionCreatedNotification: New or changed entity.
 type SubscriptionCreatedNotification struct {
-	NotificationPayload `json:"-"`
-
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
 	ID string `json:"id,omitempty"`
 	// TransactionID: Paddle ID for the transaction entity that resulted in this subscription being created, prefixed with `txn_`.
