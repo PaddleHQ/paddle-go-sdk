@@ -67,6 +67,50 @@ func Example_simulation_create() {
 	//ctm_01j870snka0xdp6szgyxze6d6d
 }
 
+// Demonstrates how to create a scenario Simulation
+func Example_simulation_create_scenario_simulation() {
+	// Create a mock HTTP server for this example - skip over this bit!
+	s := mockServerForExample(mockServerResponse{stub: &stub{paths: []stubPath{simulationScenario}}})
+
+	// Create a new Paddle client.
+	client, err := paddle.New(
+		os.Getenv("PADDLE_API_KEY"),
+		paddle.WithBaseURL(s.URL), // Uses the mock server, you will not need this in your integration.
+	)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	ctx := context.Background()
+
+	// Optionally set a transit ID on the context. This is useful to link your
+	// own request IDs to Paddle API requests.
+	ctx = paddle.ContextWithTransitID(ctx, "sdk-testing-request-1")
+
+	simulation, err := client.CreateSimulation(ctx, paddle.NewCreateSimulationRequestSimulationScenarioCreate(&paddle.SimulationScenarioCreate{
+		NotificationSettingID: "ntfset_01j84xydheq48n3btebwf6ndn6",
+		Name:                  "Go SDK Test without Payload",
+		Type:                  "subscription_creation",
+	}))
+	if err != nil {
+		return
+	}
+
+	fmt.Println(simulation.ID)
+	fmt.Println(simulation.Type)
+	fmt.Println(simulation.Name)
+	fmt.Println(simulation.NotificationSettingID)
+	fmt.Println(simulation.Payload)
+	// Output:
+	//ntfsim_01j9y0jwekrcyezscgkehvdmd6
+	//subscription_creation
+	//Go SDK Test without Payload
+	//ntfset_01j84xydheq48n3btebwf6ndn6
+	//<nil>
+}
+
 // Demonstrates how to update a Simulation with Payload and read the Payload back out of the response
 func Example_simulation_update() {
 	// Create a mock HTTP server for this example - skip over this bit!
