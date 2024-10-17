@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

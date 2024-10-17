@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // ErrDiscountExpired represents a `discount_expired` error.

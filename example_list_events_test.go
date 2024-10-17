@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
 )
 
 // Demonstrates how to fetch a list of events and iterate over the provided results.

@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // ErrProductTaxCategoryNotApproved represents a `product_tax_category_not_approved` error.

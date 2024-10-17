@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk"
-	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
+	"github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddlenotification"
 )
 
 // Demonstrates how to create a Simulation with Payload and read the Payload back out of the response

@@ -8,8 +8,8 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/PaddleHQ/paddle-go-sdk/internal/client"
-	"github.com/PaddleHQ/paddle-go-sdk/internal/response"
+	"github.com/PaddleHQ/paddle-go-sdk/v2/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v2/internal/response"
 )
 
 // Collection is the response from a listing endpoint in the Paddle API.

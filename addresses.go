@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // ErrAddressLocationNotAllowed represents a `address_location_not_allowed` error.

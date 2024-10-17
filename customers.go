@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // ErrCustomerAlreadyExists represents a `customer_already_exists` error.

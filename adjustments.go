@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // ErrAdjustmentTransactionMissingCustomerID represents a `adjustment_transaction_missing_customer_id` error.
