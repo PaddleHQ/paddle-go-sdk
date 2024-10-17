@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
+	"github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddlenotification"
 )
 
 // Simulation: Represents a simulation entity.

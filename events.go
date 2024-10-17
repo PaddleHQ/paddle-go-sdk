@@ -6,7 +6,7 @@ import (
 	"context"
 	"encoding/json"
 
-	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddlenotification"
 )
 
 // Event: Represents an event entity.

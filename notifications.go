@@ -6,8 +6,8 @@ import (
 	"context"
 	"encoding/json"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
-	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/pkg/paddlenotification"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddlenotification"
 )
 
 // ErrNotificationMaximumActiveSettingsReached represents a `notification_maximum_active_settings_reached` error.

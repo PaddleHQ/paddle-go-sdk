@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
 )
 
 // Demonstrates how to get an existing entity.
