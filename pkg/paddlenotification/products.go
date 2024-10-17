@@ -25,26 +25,28 @@ type ProductUpdated struct {
 
 // ProductNotification: Represents a product entity.
 type ProductNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this product, prefixed with `pro_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// Name: Name of this product.
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// Description: Short description for this product.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
-	Type *CatalogType `json:"type,omitempty"`
+	Type *CatalogType `json:"type"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
-	TaxCategory TaxCategory `json:"tax_category,omitempty"`
+	TaxCategory TaxCategory `json:"tax_category"`
 	// ImageURL: Image for this product. Included in the checkout and on some customer documents.
-	ImageURL *string `json:"image_url,omitempty"`
+	ImageURL *string `json:"image_url"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status Status `json:"status"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt *string `json:"updated_at"`
 }

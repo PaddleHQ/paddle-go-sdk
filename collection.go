@@ -100,11 +100,12 @@ func (c *Collection[T]) Next(ctx context.Context) *Res[T] {
 	return &ptrCopy
 }
 
-// Ensure that Collection[T] implements the json.Unmarshaler and the
+// Ensure that Collection[T] implements the response.Unmarshaler and the
 // client.Wanter interfaces.
 var (
-	_ json.Unmarshaler = &Collection[any]{}
-	_ client.Wanter    = &Collection[any]{}
+	_ response.UnmarshalsResponses = &Collection[any]{}
+	_ json.Unmarshaler             = &Collection[any]{}
+	_ client.Wanter                = &Collection[any]{}
 )
 
 // Wants sets the client to be used for making requests.
@@ -156,6 +157,9 @@ func (c *Collection[T]) IterErr(ctx context.Context, fn func(v T) error) error {
 		}
 	}
 }
+
+// UnmarshalsResponses acts as a marker to identify this struct must Unmarshal the entire response.
+func (c *Collection[T]) UnmarshalsResponses() {}
 
 // UnmarshalJSON unmarshals the collection from a JSON response.
 func (c *Collection[T]) UnmarshalJSON(b []byte) error {

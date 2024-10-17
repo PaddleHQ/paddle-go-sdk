@@ -1,0 +1,12 @@
+{
+  "data" : {
+    "id" : "ntfsimrun_01j9yq3yspewy5r8zr05vkeekd",
+    "status" : "pending",
+    "type" : "customer.created",
+    "created_at" : "2024-10-11T21:17:54.870633Z",
+    "updated_at" : "2024-10-11T21:17:54.870633Z"
+  },
+  "meta" : {
+    "request_id" : "4779ce0c-4830-4ab1-b3f2-86cd3bce671d"
+  }
+}

@@ -4,6 +4,15 @@ package paddle
 
 import "context"
 
+// TrafficSource: Return entities that match the specified traffic source..
+type TrafficSource string
+
+const (
+	TrafficSourcePlatform   TrafficSource = "platform"
+	TrafficSourceSimulation TrafficSource = "simulation"
+	TrafficSourceAll        TrafficSource = "all"
+)
+
 // NotificationSettingType: Where notifications should be sent for this destination..
 type NotificationSettingType string
 
@@ -61,6 +70,9 @@ type ListNotificationSettingsRequest struct {
 	// Active is a query parameter.
 	// Determine whether returned entities are active (`true`) or not (`false`).
 	Active *bool `in:"query=active;omitempty" json:"-"`
+	// TrafficSource is a query parameter.
+	// Return entities that match the specified traffic source.
+	TrafficSource *string `in:"query=traffic_source;omitempty" json:"-"`
 }
 
 // ListNotificationSettings performs the GET operation on a Notification settings resource.
@@ -86,6 +98,8 @@ type CreateNotificationSettingRequest struct {
 	APIVersion *int `json:"api_version,omitempty"`
 	// IncludeSensitiveFields: Whether potentially sensitive fields should be sent to this notification destination. If omitted, defaults to `false`.
 	IncludeSensitiveFields *bool `json:"include_sensitive_fields,omitempty"`
+	// TrafficSource: Whether Paddle should deliver real platform events, simulation events or both to this notification destination.
+	TrafficSource *TrafficSource `json:"traffic_source,omitempty"`
 }
 
 // CreateNotificationSetting performs the POST operation on a Notification settings resource.
@@ -129,6 +143,8 @@ type UpdateNotificationSettingRequest struct {
 	IncludeSensitiveFields *PatchField[bool] `json:"include_sensitive_fields,omitempty"`
 	// SubscribedEvents: Type of event sent by Paddle, in the format `entity.event_type`.
 	SubscribedEvents *PatchField[[]EventTypeName] `json:"subscribed_events,omitempty"`
+	// TrafficSource: Whether Paddle should deliver real platform events, simulation events or both to this notification destination.
+	TrafficSource *PatchField[TrafficSource] `json:"traffic_source,omitempty"`
 }
 
 // UpdateNotificationSetting performs the PATCH operation on a Notification settings resource.

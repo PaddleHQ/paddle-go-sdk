@@ -13,6 +13,11 @@ import (
 	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
 )
 
+// UnmarshalsResponses is an interface implemented by type that must unmarshal responses for themselves.
+type UnmarshalsResponses interface {
+	UnmarshalsResponses()
+}
+
 // Response is the wrapper response type returned by the Paddle API.
 type Response[T any] struct {
 	Data  T                `json:"data"`
@@ -58,7 +63,7 @@ func Handle(req *http.Request, res *http.Response, dst any) (err error) {
 	teedBytes := bytes.NewBuffer([]byte{})
 	tee := io.TeeReader(res.Body, teedBytes)
 
-	if dst != nil && reflect.TypeOf(dst).Elem().Implements(reflect.TypeOf((*json.Unmarshaler)(nil)).Elem()) {
+	if dst != nil && reflect.TypeOf(dst).Elem().Implements(reflect.TypeOf((*UnmarshalsResponses)(nil)).Elem()) {
 		err = json.NewDecoder(tee).Decode(dst)
 	} else {
 		err = json.NewDecoder(tee).Decode(r)

@@ -44,50 +44,52 @@ const (
 
 // DiscountNotification: New or changed entity.
 type DiscountNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
-	Status DiscountStatus `json:"status,omitempty"`
+	Status DiscountStatus `json:"status"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
-	EnabledForCheckout bool `json:"enabled_for_checkout,omitempty"`
+	EnabledForCheckout bool `json:"enabled_for_checkout"`
 	// Code: Unique code that customers can use to redeem this discount at checkout.
-	Code *string `json:"code,omitempty"`
+	Code *string `json:"code"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
-	Type Type `json:"type,omitempty"`
+	Type Type `json:"type"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
-	Amount string `json:"amount,omitempty"`
+	Amount string `json:"amount"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
-	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code"`
 	// Recur: Whether this discount applies for multiple subscription billing periods (`true`) or not (`false`).
-	Recur bool `json:"recur,omitempty"`
+	Recur bool `json:"recur"`
 	/*
 	   MaximumRecurringIntervals: Number of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
 
 	   Subscription renewals, midcycle changes, and one-time charges billed to a subscription aren't considered a redemption. `times_used` is not incremented in these cases.
 	*/
-	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals,omitempty"`
+	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals"`
 	/*
 	   UsageLimit: Maximum number of times this discount can be redeemed. This is an overall limit for this discount, rather than a per-customer limit. `null` if this discount can be redeemed an unlimited amount of times.
 
 	   Paddle counts a usage as a redemption on a checkout, transaction, or the initial application against a subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
 	*/
-	UsageLimit *int `json:"usage_limit,omitempty"`
+	UsageLimit *int `json:"usage_limit"`
 	// RestrictTo: Product or price IDs that this discount is for. When including a product ID, all prices for that product can be discounted. `null` if this discount applies to all products and prices.
-	RestrictTo []string `json:"restrict_to,omitempty"`
+	RestrictTo []string `json:"restrict_to"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 	/*
 	   ExpiresAt: RFC 3339 datetime string of when this discount expires. Discount can no longer be redeemed after this date has elapsed. `null` if this discount can be redeemed forever.
 
 	   Expired discounts can't be redeemed against transactions or checkouts, but can be applied when updating subscriptions.
 	*/
-	ExpiresAt *string `json:"expires_at,omitempty"`
+	ExpiresAt *string `json:"expires_at"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 }

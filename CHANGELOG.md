@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 2.1.0 - 2024-10-17
+
+### Added
+
+- Support for the Simulation API - see related [changelog entry](https://developer.paddle.com/changelog/2024/webhook-simulator)
+- Filtering of customer credit balances by `currency_code` in `AdjustmentsClient.ListCreditBalances`
+- New API error mappings
+
+### Fixed
+
+- Subscription resume union funcs now accept the required path param
+  - `NewResumeSubscriptionRequestResumeOnASpecificDate`
+  - `NewResumeSubscriptionRequestResumeImmediately`
+- Response unmarshal for GetNotifications to the Notification struct
+
 ## 2.0.0 - 2024-09-18
 
 ### Changed

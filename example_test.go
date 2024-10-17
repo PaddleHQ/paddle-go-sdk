@@ -16,6 +16,11 @@ const (
 	transactionsPaginatedPg1 stubPath = "testdata/transactions_paginated_pg1.json"
 	transactionsPaginatedPg2 stubPath = "testdata/transactions_paginated_pg2.json"
 	priceCreatedEvent        stubPath = "testdata/price_created.json"
+	simulation               stubPath = "testdata/simulation.json"
+	simulationScenario       stubPath = "testdata/simulation_scenario.json"
+	simulations              stubPath = "testdata/simulations.json"
+	simulationRun            stubPath = "testdata/simulation_run.json"
+	simulationRunWithEvents  stubPath = "testdata/simulation_run_with_events.json"
 )
 
 //go:embed testdata

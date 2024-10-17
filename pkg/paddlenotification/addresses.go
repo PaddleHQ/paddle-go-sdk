@@ -25,32 +25,34 @@ type AddressUpdated struct {
 
 // AddressNotification: New or changed entity.
 type AddressNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this address entity, prefixed with `add_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// CustomerID: Paddle ID for the customer related to this address, prefixed with `cus_`.
-	CustomerID string `json:"customer_id,omitempty"`
+	CustomerID string `json:"customer_id"`
 	// Description: Memorable description for this address.
-	Description *string `json:"description,omitempty"`
+	Description *string `json:"description"`
 	// FirstLine: First line of this address.
-	FirstLine *string `json:"first_line,omitempty"`
+	FirstLine *string `json:"first_line"`
 	// SecondLine: Second line of this address.
-	SecondLine *string `json:"second_line,omitempty"`
+	SecondLine *string `json:"second_line"`
 	// City: City of this address.
-	City *string `json:"city,omitempty"`
+	City *string `json:"city"`
 	// PostalCode: ZIP or postal code of this address. Required for some countries.
-	PostalCode *string `json:"postal_code,omitempty"`
+	PostalCode *string `json:"postal_code"`
 	// Region: State, county, or region of this address.
-	Region *string `json:"region,omitempty"`
+	Region *string `json:"region"`
 	// CountryCode: Supported two-letter ISO 3166-1 alpha-2 country code for this address.
-	CountryCode CountryCode `json:"country_code,omitempty"`
+	CountryCode CountryCode `json:"country_code"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status Status `json:"status"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 }

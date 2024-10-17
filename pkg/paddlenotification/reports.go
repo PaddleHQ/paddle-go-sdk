@@ -81,24 +81,26 @@ type ReportFilters struct {
 
 // ReportNotification: New or changed entity.
 type ReportNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this report, prefixed with `rep_`
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	/*
 	   Status: Status of this report. Set automatically by Paddle.
 
 	   Reports are created as `pending` initially, then move to `ready` when they're available to download.
 	*/
-	Status ReportStatus `json:"status,omitempty"`
+	Status ReportStatus `json:"status"`
 	// Rows: Number of records in this report. `null` if the report is `pending`.
-	Rows *int `json:"rows,omitempty"`
+	Rows *int `json:"rows"`
 	// ExpiresAt: RFC 3339 datetime string of when this report expires. The report is no longer available to download after this date.
-	ExpiresAt *string `json:"expires_at,omitempty"`
+	ExpiresAt *string `json:"expires_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this report was last updated.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 	// CreatedAt: RFC 3339 datetime string of when this report was created.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// Type: Type of report to create.
-	Type ReportType `json:"type,omitempty"`
+	Type ReportType `json:"type"`
 	// Filters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
-	Filters []ReportFilters `json:"filters,omitempty"`
+	Filters []ReportFilters `json:"filters"`
 }

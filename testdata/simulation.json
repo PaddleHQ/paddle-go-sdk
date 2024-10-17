@@ -1,0 +1,27 @@
+{
+  "data": {
+    "id": "ntfsim_01j9y0jwekrcyezscgkehvdmd6",
+    "notification_setting_id": "ntfset_01j84xydheq48n3btebwf6ndn6",
+    "name": "Go SDK Test with Payload",
+    "type": "customer.created",
+    "status": "active",
+    "payload": {
+      "id": "ctm_01j870snka0xdp6szgyxze6d6d",
+      "name": "John Doe",
+      "email": "john.doe@paddle.com",
+      "marketing_consent": false,
+      "status": "active",
+      "custom_data": null,
+      "locale": "en",
+      "created_at": "2024-04-12T00:00:00Z",
+      "updated_at": "2024-04-12T00:00:00Z",
+      "import_meta": null
+    },
+    "last_run_at": null,
+    "created_at": "2024-10-11T14:44:06.739792Z",
+    "updated_at": "2024-10-11T14:44:06.739792Z"
+  },
+  "meta": {
+    "request_id": "cba8e79a-e5af-463f-9648-338262c4fd00"
+  }
+}

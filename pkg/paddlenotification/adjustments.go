@@ -145,28 +145,30 @@ type AdjustmentTaxRateUsed struct {
 
 // AdjustmentNotification: New or changed entity.
 type AdjustmentNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this adjustment entity, prefixed with `adj_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// Action: How this adjustment impacts the related transaction.
-	Action AdjustmentAction `json:"action,omitempty"`
+	Action AdjustmentAction `json:"action"`
 	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
-	TransactionID string `json:"transaction_id,omitempty"`
+	TransactionID string `json:"transaction_id"`
 	/*
 	   SubscriptionID: Paddle ID for the subscription related to this adjustment, prefixed with `sub_`.
 	   Set automatically by Paddle based on the `subscription_id` of the related transaction.
 	*/
-	SubscriptionID *string `json:"subscription_id,omitempty"`
+	SubscriptionID *string `json:"subscription_id"`
 	/*
 	   CustomerID: Paddle ID for the customer related to this adjustment, prefixed with `ctm_`.
 	   Set automatically by Paddle based on the `customer_id` of the related transaction.
 	*/
-	CustomerID string `json:"customer_id,omitempty"`
+	CustomerID string `json:"customer_id"`
 	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
-	Reason string `json:"reason,omitempty"`
+	Reason string `json:"reason"`
 	// CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
-	CreditAppliedToBalance *bool `json:"credit_applied_to_balance,omitempty"`
+	CreditAppliedToBalance *bool `json:"credit_applied_to_balance"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this adjustment. Set automatically by Paddle based on the `currency_code` of the related transaction.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code"`
 	/*
 	   Status: Status of this adjustment. Set automatically by Paddle.
 
@@ -174,17 +176,17 @@ type AdjustmentNotification struct {
 
 	   Credit adjustments don't require approval from Paddle, so they're created as `approved`.
 	*/
-	Status AdjustmentStatus `json:"status,omitempty"`
+	Status AdjustmentStatus `json:"status"`
 	// Items: List of items on this adjustment.
-	Items []AdjustmentItem `json:"items,omitempty"`
+	Items []AdjustmentItem `json:"items"`
 	// Totals: Breakdown of the total for an adjustment.
-	Totals AdjustmentTotals `json:"totals,omitempty"`
+	Totals AdjustmentTotals `json:"totals"`
 	// PayoutTotals: Breakdown of how this adjustment affects your payout balance.
-	PayoutTotals *PayoutTotalsAdjustment `json:"payout_totals,omitempty"`
+	PayoutTotals *PayoutTotalsAdjustment `json:"payout_totals"`
 	// TaxRatesUsed: List of tax rates applied for this adjustment.
-	TaxRatesUsed []AdjustmentTaxRateUsed `json:"tax_rates_used,omitempty"`
+	TaxRatesUsed []AdjustmentTaxRateUsed `json:"tax_rates_used"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 }

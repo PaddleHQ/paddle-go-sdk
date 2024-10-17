@@ -140,54 +140,58 @@ type SubscriptionItem struct {
 
 // SubscriptionNotification: New or changed entity.
 type SubscriptionNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// Status: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change.
-	Status SubscriptionStatus `json:"status,omitempty"`
+	Status SubscriptionStatus `json:"status"`
 	// CustomerID: Paddle ID of the customer that this subscription is for, prefixed with `ctm_`.
-	CustomerID string `json:"customer_id,omitempty"`
+	CustomerID string `json:"customer_id"`
 	// AddressID: Paddle ID of the address that this subscription is for, prefixed with `add_`.
-	AddressID string `json:"address_id,omitempty"`
+	AddressID string `json:"address_id"`
 	// BusinessID: Paddle ID of the business that this subscription is for, prefixed with `biz_`.
-	BusinessID *string `json:"business_id,omitempty"`
+	BusinessID *string `json:"business_id"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Transactions for this subscription are created in this currency. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode CurrencyCode `json:"currency_code"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
-	CreatedAt string `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 	// StartedAt: RFC 3339 datetime string of when this subscription started. This may be different from `first_billed_at` if the subscription started in trial.
-	StartedAt *string `json:"started_at,omitempty"`
+	StartedAt *string `json:"started_at"`
 	// FirstBilledAt: RFC 3339 datetime string of when this subscription was first billed. This may be different from `started_at` if the subscription started in trial.
-	FirstBilledAt *string `json:"first_billed_at,omitempty"`
+	FirstBilledAt *string `json:"first_billed_at"`
 	// NextBilledAt: RFC 3339 datetime string of when this subscription is next scheduled to be billed.
-	NextBilledAt *string `json:"next_billed_at,omitempty"`
+	NextBilledAt *string `json:"next_billed_at"`
 	// PausedAt: RFC 3339 datetime string of when this subscription was paused. Set automatically by Paddle when the pause subscription operation is used. `null` if not paused.
-	PausedAt *string `json:"paused_at,omitempty"`
+	PausedAt *string `json:"paused_at"`
 	// CanceledAt: RFC 3339 datetime string of when this subscription was canceled. Set automatically by Paddle when the cancel subscription operation is used. `null` if not canceled.
-	CanceledAt *string `json:"canceled_at,omitempty"`
+	CanceledAt *string `json:"canceled_at"`
 	// Discount: Details of the discount applied to this subscription.
-	Discount *SubscriptionDiscountTimePeriod `json:"discount,omitempty"`
+	Discount *SubscriptionDiscountTimePeriod `json:"discount"`
 	// CollectionMode: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
-	CollectionMode CollectionMode `json:"collection_mode,omitempty"`
+	CollectionMode CollectionMode `json:"collection_mode"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
-	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
+	BillingDetails *BillingDetails `json:"billing_details"`
 	// CurrentBillingPeriod: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
-	CurrentBillingPeriod *TimePeriod `json:"current_billing_period,omitempty"`
+	CurrentBillingPeriod *TimePeriod `json:"current_billing_period"`
 	// BillingCycle: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
-	BillingCycle Duration `json:"billing_cycle,omitempty"`
+	BillingCycle Duration `json:"billing_cycle"`
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes. `null` if no scheduled changes.
-	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change,omitempty"`
+	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change"`
 	// Items: Represents a subscription item.
-	Items []SubscriptionItem `json:"items,omitempty"`
+	Items []SubscriptionItem `json:"items"`
 	// CustomData: Your own structured key-value data.
-	CustomData CustomData `json:"custom_data,omitempty"`
+	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
-	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	ImportMeta *ImportMeta `json:"import_meta"`
 }
 
 // SubscriptionCreatedNotification: New or changed entity.
 type SubscriptionCreatedNotification struct {
+	NotificationPayload `json:"-"`
+
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
 	ID string `json:"id,omitempty"`
 	// TransactionID: Paddle ID for the transaction entity that resulted in this subscription being created, prefixed with `txn_`.
