@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/PaddleHQ/paddle-go-sdk/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
 )
 
 // UnmarshalsResponses is an interface implemented by type that must unmarshal responses for themselves.

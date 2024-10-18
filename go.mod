@@ -1,4 +1,4 @@
-module github.com/PaddleHQ/paddle-go-sdk
+module github.com/PaddleHQ/paddle-go-sdk/v2
 
 go 1.21.0
 
