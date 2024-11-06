@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 2.1.3 - 2024-11-06
+
+## Fixed
+
+- Corrected internal package version number
+- Added missing changelog updates
+
+## 2.1.2 - 2024-11-06
+
+### Added
+
+- An example for webhook unmarshalling was added to the package.
+
+## 2.1.1 - 2024-10-18
+
+### Fixed
+
+- Create v2 module for the latest major version
+
 ## 2.1.0 - 2024-10-17
 
 ### Added
