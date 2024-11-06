@@ -62,7 +62,7 @@ func Example_webhookUnmarshal() {
 		var entityID string
 
 		switch webhook.EventType {
-		case "address.created":
+		case paddlenotification.EventTypeNameAddressCreated:
 			address := &paddlenotification.AddressCreated{}
 			if err := json.Unmarshal(rawBody, address); err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
@@ -71,7 +71,7 @@ func Example_webhookUnmarshal() {
 
 			// You can safely proceed with address as a paddlenotification.AddressCreated type
 			entityID = address.Data.ID
-		case "price.created":
+		case paddlenotification.EventTypeNamePriceCreated:
 			price := &paddlenotification.PriceCreated{}
 			if err := json.Unmarshal(rawBody, price); err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
