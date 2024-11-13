@@ -38,6 +38,13 @@ var ErrAuthenticationMalformed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrInvalidClientToken represents a `invalid_client_token` error.
+// See https://developer.paddle.com/errors/shared/invalid_client_token for more information.
+var ErrInvalidClientToken = &paddleerr.Error{
+	Code: "invalid_client_token",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrInvalidToken represents a `invalid_token` error.
 // See https://developer.paddle.com/errors/shared/invalid_token for more information.
 var ErrInvalidToken = &paddleerr.Error{

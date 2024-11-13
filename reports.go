@@ -16,6 +16,13 @@ var ErrReportCreationLimitExceeded = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrConcurrentReportGenerationNotAllowed represents a `concurrent_report_generation_not_allowed` error.
+// See https://developer.paddle.com/errors/reports/concurrent_report_generation_not_allowed for more information.
+var ErrConcurrentReportGenerationNotAllowed = &paddleerr.Error{
+	Code: "concurrent_report_generation_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrReportNotReady represents a `report_not_ready` error.
 // See https://developer.paddle.com/errors/reports/report_not_ready for more information.
 var ErrReportNotReady = &paddleerr.Error{
