@@ -104,7 +104,10 @@ type CreateDiscountRequest struct {
 	Type DiscountType `json:"type,omitempty"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout *bool `json:"enabled_for_checkout,omitempty"`
-	// Code: Unique code that customers can use to redeem this discount at checkout. Use letters and numbers only, up to 16 characters. If omitted and `enabled_for_checkout` is `true`, Paddle generates a random 10-character code.
+	/*
+	   Code: Unique code that customers can use to redeem this discount at checkout. Use letters and numbers only, up to 16 characters. Not case-sensitive.
+	   If omitted and `enabled_for_checkout` is `true`, Paddle generates a random 10-character code.
+	*/
 	Code *string `json:"code,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
@@ -163,13 +166,13 @@ type UpdateDiscountRequest struct {
 	// URL path parameters.
 	DiscountID string `in:"path=discount_id" json:"-"`
 
-	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
+	// Status: Whether this entity can be used in Paddle.
 	Status *PatchField[DiscountStatus] `json:"status,omitempty"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description *PatchField[string] `json:"description,omitempty"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout *PatchField[bool] `json:"enabled_for_checkout,omitempty"`
-	// Code: Unique code that customers can use to redeem this discount at checkout.
+	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
 	Code *PatchField[*string] `json:"code,omitempty"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type *PatchField[DiscountType] `json:"type,omitempty"`
