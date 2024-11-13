@@ -658,6 +658,48 @@ type TransactionPreviewByCustomer struct {
 	Items []TransactionPreviewByCustomerItems `json:"items,omitempty"`
 }
 
+// TransactionPricePreview: Represents a price preview entity.
+type TransactionPricePreview struct {
+	/*
+	   ID: Unique Paddle ID for this price, prefixed with `pri_`.
+	   The value is null for custom prices being previewed.
+	*/
+	ID *string `json:"id,omitempty"`
+	/*
+	   ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
+	   The value is null for custom products being previewed.
+	*/
+	ProductID *string `json:"product_id,omitempty"`
+	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
+	Description string `json:"description,omitempty"`
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	Type CatalogType `json:"type,omitempty"`
+	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+	Name *string `json:"name,omitempty"`
+	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
+	BillingCycle *Duration `json:"billing_cycle,omitempty"`
+	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
+	TrialPeriod *Duration `json:"trial_period,omitempty"`
+	// TaxMode: How tax is calculated for this price.
+	TaxMode TaxMode `json:"tax_mode,omitempty"`
+	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+	UnitPrice Money `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
+	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns.
+	Quantity PriceQuantity `json:"quantity,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status Status `json:"status,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+}
+
 // TransactionItemPreview: List of items to preview transaction calculations for.
 type TransactionItemPreview struct {
 	// Quantity: Quantity of this item on the transaction.
@@ -666,14 +708,17 @@ type TransactionItemPreview struct {
 	IncludeInTotals bool `json:"include_in_totals,omitempty"`
 	// Proration: How proration was calculated for this item. `null` for transaction previews.
 	Proration *Proration `json:"proration,omitempty"`
-	// Price: Represents a price entity.
-	Price Price `json:"price,omitempty"`
+	// Price: Represents a price preview entity.
+	Price TransactionPricePreview `json:"price,omitempty"`
 }
 
 // TransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
 type TransactionLineItemPreview struct {
-	// PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
-	PriceID string `json:"price_id,omitempty"`
+	/*
+	   PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
+	   The value is null for custom prices being previewed.
+	*/
+	PriceID *string `json:"price_id,omitempty"`
 	// Quantity: Quantity of this transaction line item.
 	Quantity int `json:"quantity,omitempty"`
 	// TaxRate: Rate used to calculate tax for this transaction line item.
@@ -683,7 +728,7 @@ type TransactionLineItemPreview struct {
 	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
 	Totals Totals `json:"totals,omitempty"`
 	// Product: Related product entity for this transaction line item price.
-	Product Product `json:"product,omitempty"`
+	Product ProductPreview `json:"product,omitempty"`
 }
 
 // TransactionDetailsPreview: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
