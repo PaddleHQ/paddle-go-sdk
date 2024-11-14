@@ -109,6 +109,18 @@ type DiscountUpdatedEvent struct {
 	Data paddlenotification.DiscountNotification `json:"data"`
 }
 
+// PaymentMethodSavedEvent represents an Event implementation for payment_method.saved event.
+type PaymentMethodSavedEvent struct {
+	GenericEvent
+	Data paddlenotification.PaymentMethodSavedNotification `json:"data"`
+}
+
+// PaymentMethodDeletedEvent represents an Event implementation for payment_method.deleted event.
+type PaymentMethodDeletedEvent struct {
+	GenericEvent
+	Data paddlenotification.PaymentMethodDeletedNotification `json:"data"`
+}
+
 // PayoutCreatedEvent represents an Event implementation for payout.created event.
 type PayoutCreatedEvent struct {
 	GenericEvent
@@ -314,6 +326,10 @@ func unmarshalEvent(data []byte) (Event, error) {
 		t = &DiscountImportedEvent{}
 	case "discount.updated":
 		t = &DiscountUpdatedEvent{}
+	case "payment_method.saved":
+		t = &PaymentMethodSavedEvent{}
+	case "payment_method.deleted":
+		t = &PaymentMethodDeletedEvent{}
 	case "payout.created":
 		t = &PayoutCreatedEvent{}
 	case "payout.paid":
