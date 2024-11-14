@@ -41,6 +41,8 @@ type NotificationSetting struct {
 	SubscribedEvents []EventType `json:"subscribed_events,omitempty"`
 	// EndpointSecretKey: Webhook destination secret key, prefixed with `pdl_ntfset_`. Used for signature verification.
 	EndpointSecretKey string `json:"endpoint_secret_key,omitempty"`
+	// TrafficSource: Whether Paddle should deliver real platform events, simulation events or both to this notification destination.
+	TrafficSource TrafficSource `json:"traffic_source,omitempty"`
 }
 
 // NotificationSettingsClient is a client for the Notification settings resource.
@@ -98,7 +100,7 @@ type CreateNotificationSettingRequest struct {
 	APIVersion *int `json:"api_version,omitempty"`
 	// IncludeSensitiveFields: Whether potentially sensitive fields should be sent to this notification destination. If omitted, defaults to `false`.
 	IncludeSensitiveFields *bool `json:"include_sensitive_fields,omitempty"`
-	// TrafficSource: Whether Paddle should deliver real platform events, simulation events or both to this notification destination.
+	// TrafficSource: Whether Paddle should deliver real platform events, simulation events or both to this notification destination. If omitted, defaults to `platform`.
 	TrafficSource *TrafficSource `json:"traffic_source,omitempty"`
 }
 
