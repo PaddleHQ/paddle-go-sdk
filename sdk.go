@@ -13,6 +13,7 @@ type SDK struct {
 	*AddressesClient
 	*BusinessesClient
 	*PaymentMethodsClient
+	*CustomerPortalSessionsClient
 	*NotificationSettingsClient
 	*EventsTypesClient
 	*EventsClient
@@ -35,6 +36,7 @@ func newSDK(d Doer) *SDK {
 		AddressesClient:                  &AddressesClient{doer: d},
 		AdjustmentsClient:                &AdjustmentsClient{doer: d},
 		BusinessesClient:                 &BusinessesClient{doer: d},
+		CustomerPortalSessionsClient:     &CustomerPortalSessionsClient{doer: d},
 		CustomersClient:                  &CustomersClient{doer: d},
 		DiscountsClient:                  &DiscountsClient{doer: d},
 		EventsClient:                     &EventsClient{doer: d},
