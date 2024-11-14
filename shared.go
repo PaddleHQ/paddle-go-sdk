@@ -38,6 +38,13 @@ var ErrAuthenticationMalformed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrInvalidClientToken represents a `invalid_client_token` error.
+// See https://developer.paddle.com/errors/shared/invalid_client_token for more information.
+var ErrInvalidClientToken = &paddleerr.Error{
+	Code: "invalid_client_token",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrInvalidToken represents a `invalid_token` error.
 // See https://developer.paddle.com/errors/shared/invalid_token for more information.
 var ErrInvalidToken = &paddleerr.Error{
@@ -285,7 +292,7 @@ const (
 
 // Money: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 type Money struct {
-	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents).
+	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents). Although represented as a string, this value must be a valid integer.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
@@ -1206,7 +1213,7 @@ type Business struct {
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
 
-// DiscountStatus: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle..
+// DiscountStatus: Whether this entity can be used in Paddle..
 type DiscountStatus string
 
 const (
@@ -1229,13 +1236,13 @@ const (
 type Discount struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
-	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
+	// Status: Whether this entity can be used in Paddle.
 	Status DiscountStatus `json:"status,omitempty"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description,omitempty"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout bool `json:"enabled_for_checkout,omitempty"`
-	// Code: Unique code that customers can use to redeem this discount at checkout.
+	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
 	Code *string `json:"code,omitempty"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type DiscountType `json:"type,omitempty"`

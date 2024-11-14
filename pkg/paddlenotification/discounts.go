@@ -34,12 +34,12 @@ const (
 )
 
 // Type: Type of discount. Determines how this discount impacts the checkout or transaction total..
-type Type string
+type DiscountType string
 
 const (
-	TypeFlat        Type = "flat"
-	TypeFlatPerSeat Type = "flat_per_seat"
-	TypePercentage  Type = "percentage"
+	DiscountTypeFlat        DiscountType = "flat"
+	DiscountTypeFlatPerSeat DiscountType = "flat_per_seat"
+	DiscountTypePercentage  DiscountType = "percentage"
 )
 
 // DiscountNotification: New or changed entity.
@@ -48,16 +48,16 @@ type DiscountNotification struct {
 
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id"`
-	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
+	// Status: Whether this entity can be used in Paddle.
 	Status DiscountStatus `json:"status"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout bool `json:"enabled_for_checkout"`
-	// Code: Unique code that customers can use to redeem this discount at checkout.
+	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
 	Code *string `json:"code"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
-	Type Type `json:"type"`
+	Type DiscountType `json:"type"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.

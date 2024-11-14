@@ -439,7 +439,7 @@ const (
 
 // Money: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 type Money struct {
-	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents).
+	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents). Although represented as a string, this value must be a valid integer.
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
