@@ -275,6 +275,27 @@ var ErrTransactionCannotBeRevisedWithInvalidTaxIdentifier = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal represents a `transaction_cannot_be_revised_with_tax_higher_than_grand_total` error.
+// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_tax_higher_than_grand_total for more information.
+var ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal = &paddleerr.Error{
+	Code: "transaction_cannot_be_revised_with_tax_higher_than_grand_total",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionMaximumNumberOfLineItemsReached represents a `transaction_maximum_number_of_line_items_reached` error.
+// See https://developer.paddle.com/errors/transactions/transaction_maximum_number_of_line_items_reached for more information.
+var ErrTransactionMaximumNumberOfLineItemsReached = &paddleerr.Error{
+	Code: "transaction_maximum_number_of_line_items_reached",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionNothingToRevise represents a `transaction_nothing_to_revise` error.
+// See https://developer.paddle.com/errors/transactions/transaction_nothing_to_revise for more information.
+var ErrTransactionNothingToRevise = &paddleerr.Error{
+	Code: "transaction_nothing_to_revise",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
