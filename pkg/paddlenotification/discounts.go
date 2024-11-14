@@ -34,12 +34,12 @@ const (
 )
 
 // Type: Type of discount. Determines how this discount impacts the checkout or transaction total..
-type Type string
+type DiscountType string
 
 const (
-	TypeFlat        Type = "flat"
-	TypeFlatPerSeat Type = "flat_per_seat"
-	TypePercentage  Type = "percentage"
+	DiscountTypeFlat        DiscountType = "flat"
+	DiscountTypeFlatPerSeat DiscountType = "flat_per_seat"
+	DiscountTypePercentage  DiscountType = "percentage"
 )
 
 // DiscountNotification: New or changed entity.
@@ -57,7 +57,7 @@ type DiscountNotification struct {
 	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
 	Code *string `json:"code"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
-	Type Type `json:"type"`
+	Type DiscountType `json:"type"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
