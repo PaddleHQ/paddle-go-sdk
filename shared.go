@@ -1358,6 +1358,35 @@ type AddressPreview struct {
 	CountryCode CountryCode `json:"country_code,omitempty"`
 }
 
+// ProductPreview: Related product entity for this transaction line item price.
+type ProductPreview struct {
+	/*
+	   ID: Unique Paddle ID for this product, prefixed with `pro_`.
+	   The value is null for custom products being previewed.
+	*/
+	ID *string `json:"id,omitempty"`
+	// Name: Name of this product.
+	Name string `json:"name,omitempty"`
+	// Description: Short description for this product.
+	Description *string `json:"description,omitempty"`
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	Type CatalogType `json:"type,omitempty"`
+	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
+	TaxCategory TaxCategory `json:"tax_category,omitempty"`
+	// ImageURL: Image for this product. Included in the checkout and on some customer documents.
+	ImageURL *string `json:"image_url,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status Status `json:"status,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+}
+
 // BillingDetailsUpdate: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetailsUpdate struct {
 	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout.
