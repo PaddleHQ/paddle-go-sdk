@@ -4,20 +4,20 @@ package paddle
 
 import "context"
 
-// CustomerPortalSessionGeneralUrLs: Authenticated customer portal deep links that aren't associated with a specific entity.
-type CustomerPortalSessionGeneralUrLs struct {
+// CustomerPortalSessionGeneralURLs: Authenticated customer portal deep links that aren't associated with a specific entity.
+type CustomerPortalSessionGeneralURLs struct {
 	// Overview: Link to the overview page in the customer portal.
 	Overview string `json:"overview,omitempty"`
 }
 
 /*
-CustomerPortalSessionSubscriptionUrLs: List of generated authenticated customer portal deep links for the subscriptions passed in the `subscription_ids` array in the request.
+CustomerPortalSessionSubscriptionURLs: List of generated authenticated customer portal deep links for the subscriptions passed in the `subscription_ids` array in the request.
 
 If subscriptions are paused or canceled, links open the overview page for a subscription.
 
 Empty if no subscriptions passed in the request.
 */
-type CustomerPortalSessionSubscriptionUrLs struct {
+type CustomerPortalSessionSubscriptionURLs struct {
 	// ID: Paddle ID of the subscription that the authenticated customer portal deep links are for.
 	ID string `json:"id,omitempty"`
 	// CancelSubscription: Link to the page for this subscription in the customer portal with the subscription cancellation form pre-opened. Use as part of cancel subscription workflows.
@@ -30,10 +30,10 @@ type CustomerPortalSessionSubscriptionUrLs struct {
 	UpdateSubscriptionPaymentMethod string `json:"update_subscription_payment_method,omitempty"`
 }
 
-// CustomerPortalSessionUrLs: Authenticated customer portal deep links. For security, the `token` appended to each link is temporary. You shouldn't store these links.
-type CustomerPortalSessionUrLs struct {
+// CustomerPortalSessionURLs: Authenticated customer portal deep links. For security, the `token` appended to each link is temporary. You shouldn't store these links.
+type CustomerPortalSessionURLs struct {
 	// General: Authenticated customer portal deep links that aren't associated with a specific entity.
-	General CustomerPortalSessionGeneralUrLs `json:"general,omitempty"`
+	General CustomerPortalSessionGeneralURLs `json:"general,omitempty"`
 	/*
 	   Subscriptions: List of generated authenticated customer portal deep links for the subscriptions passed in the `subscription_ids` array in the request.
 
@@ -41,7 +41,7 @@ type CustomerPortalSessionUrLs struct {
 
 	   Empty if no subscriptions passed in the request.
 	*/
-	Subscriptions []CustomerPortalSessionSubscriptionUrLs `json:"subscriptions,omitempty"`
+	Subscriptions []CustomerPortalSessionSubscriptionURLs `json:"subscriptions,omitempty"`
 }
 
 // CustomerPortalSession: Represents a customer portal session.
@@ -51,7 +51,7 @@ type CustomerPortalSession struct {
 	// CustomerID: Paddle ID of the customer that this customer portal sessions is for, prefixed with `ctm_`.
 	CustomerID string `json:"customer_id,omitempty"`
 	// URLs: Authenticated customer portal deep links. For security, the `token` appended to each link is temporary. You shouldn't store these links.
-	URLs CustomerPortalSessionUrLs `json:"urls,omitempty"`
+	URLs CustomerPortalSessionURLs `json:"urls,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this customer portal session was created.
 	CreatedAt string `json:"created_at,omitempty"`
 }
