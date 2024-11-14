@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 2.2.0 - 2024-11-14
+
+## Added
+
+- Support for the new Payment Methods API, see [related changelog](https://developer.paddle.com/changelog/2024/saved-payment-methods)
+- Support for the new Customer Portal Sessions API, see [related changelog](https://developer.paddle.com/changelog/2024/customer-portal-sessions)
+- Definitions for New API errors
+- Updated code comments from documentation
+
+## Fixed
+
+- Missing TrafficSource field for NotificationSetting
+
+
 ## 2.1.3 - 2024-11-06
 
 ## Fixed
