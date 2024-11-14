@@ -48,13 +48,13 @@ type DiscountNotification struct {
 
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id"`
-	// Status: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle.
+	// Status: Whether this entity can be used in Paddle.
 	Status DiscountStatus `json:"status"`
 	// Description: Short description for this discount for your reference. Not shown to customers.
 	Description string `json:"description"`
 	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
 	EnabledForCheckout bool `json:"enabled_for_checkout"`
-	// Code: Unique code that customers can use to redeem this discount at checkout.
+	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
 	Code *string `json:"code"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type DiscountType `json:"type"`
