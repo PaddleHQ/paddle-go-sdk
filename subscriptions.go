@@ -366,6 +366,27 @@ var ErrSubscriptionArchivedDiscountApplicationAttempt = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionMaximumNumberOfLineItemsReached represents a `subscription_maximum_number_of_line_items_reached` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_maximum_number_of_line_items_reached for more information.
+var ErrSubscriptionMaximumNumberOfLineItemsReached = &paddleerr.Error{
+	Code: "subscription_maximum_number_of_line_items_reached",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionImmediateChargeHourLimitExceeded represents a `subscription_immediate_charge_hour_limit_exceeded` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_immediate_charge_hour_limit_exceeded for more information.
+var ErrSubscriptionImmediateChargeHourLimitExceeded = &paddleerr.Error{
+	Code: "subscription_immediate_charge_hour_limit_exceeded",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionImmediateCharge24HourLimitExceeded represents a `subscription_immediate_charge_24_hour_limit_exceeded` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_immediate_charge_24_hour_limit_exceeded for more information.
+var ErrSubscriptionImmediateCharge24HourLimitExceeded = &paddleerr.Error{
+	Code: "subscription_immediate_charge_24_hour_limit_exceeded",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
