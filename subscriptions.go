@@ -427,11 +427,11 @@ type SubscriptionScheduledChange struct {
 	ResumeAt *string `json:"resume_at,omitempty"`
 }
 
-// SubscriptionManagementUrLs: Public URLs that customers can use to make changes to this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
+// SubscriptionManagementUrLs: Authenticated customer portal deep links for this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
 type SubscriptionManagementUrLs struct {
-	// UpdatePaymentMethod: Public URL that lets customers update the payment method for this subscription. Creates or gets a transaction that can be used to update a payment method, then passes it to your default checkout page.
+	// UpdatePaymentMethod: Link to the page for this subscription in the customer portal with the payment method update form pre-opened. Use as part of workflows to let customers update their payment details. `null` for manually-collected subscriptions.
 	UpdatePaymentMethod *string `json:"update_payment_method,omitempty"`
-	// Cancel: Public URL that lets customers cancel this subscription. Takes customers to a Paddle page that lets them cancel their subscription.
+	// Cancel: Link to the page for this subscription in the customer portal with the subscription cancellation form pre-opened. Use as part of cancel subscription workflows.
 	Cancel string `json:"cancel,omitempty"`
 }
 
@@ -576,7 +576,7 @@ type Subscription struct {
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes. `null` if no scheduled changes.
 	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change,omitempty"`
-	// ManagementURLs: Public URLs that customers can use to make changes to this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
+	// ManagementURLs: Authenticated customer portal deep links for this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
 	ManagementURLs SubscriptionManagementUrLs `json:"management_urls,omitempty"`
 	// Items: Represents a subscription item.
 	Items []SubscriptionItem `json:"items,omitempty"`
@@ -741,7 +741,7 @@ type SubscriptionPreview struct {
 	BillingCycle Duration `json:"billing_cycle,omitempty"`
 	// ScheduledChange: Change that's scheduled to be applied to a subscription. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes. `null` if no scheduled changes.
 	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change,omitempty"`
-	// ManagementURLs: Public URLs that customers can use to make changes to this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
+	// ManagementURLs: Authenticated customer portal deep links for this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
 	ManagementURLs SubscriptionManagementUrLs `json:"management_urls,omitempty"`
 	// Items: Represents a subscription item.
 	Items []SubscriptionItem `json:"items,omitempty"`
