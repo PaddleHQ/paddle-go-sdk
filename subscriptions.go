@@ -1003,6 +1003,23 @@ func (c *SubscriptionsClient) ListSubscriptions(ctx context.Context, req *ListSu
 	return res, nil
 }
 
+// ListSubscriptionPlansRequest is given as an input to ListSubscriptionPlans.
+type ListSubscriptionPlansRequest struct {
+	/*
+		Filter: The product/plan ID
+	*/
+	Plan string `json:"plan,omitempty"`
+}
+
+// ListSubscriptionPlans performs the POST operation on a Subscriptions Plans resource.
+func (c *SubscriptionsClient) ListSubscriptionPlans(ctx context.Context, req *ListSubscriptionPlansRequest) (res *Collection[*Subscription], err error) {
+	if err := c.doer.Do(ctx, "POST", "/subscriptions/plans", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
 // CancelSubscriptionRequest is given as an input to CancelSubscription.
 type CancelSubscriptionRequest struct {
 	// URL path parameters.
