@@ -17,6 +17,9 @@ var (
 
 	// ErrInvalidSignatureFormat is returned when the signature format is invalid.
 	ErrInvalidSignatureFormat = errors.New("invalid signature format")
+
+	// ErrRequestExceedsExpectation is returned when the request exceeds the limit
+	ErrRequestExceedsExpectation = errors.New("request body size exceeds limit")
 )
 
 // signatureRegexp matches the Paddle-Signature header format, e.g.:
@@ -51,9 +54,16 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 	ts := matches[0][1]
 	h1 := matches[0][2]
 
-	body, err := io.ReadAll(req.Body)
+	const maxBodySize = 1 << 20 // 1 MB
+	limitedReader := io.LimitReader(req.Body, maxBodySize)
+
+	body, err := io.ReadAll(limitedReader)
 	if err != nil {
 		return false, err
+	}
+
+	if len(body) == maxBodySize {
+		return false, ErrRequestExceedsExpectation
 	}
 
 	req.Body = io.NopCloser(bytes.NewBuffer(body))
