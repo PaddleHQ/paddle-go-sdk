@@ -287,6 +287,7 @@ const (
 	CurrencyCodeTRY CurrencyCode = "TRY"
 	CurrencyCodeTWD CurrencyCode = "TWD"
 	CurrencyCodeUAH CurrencyCode = "UAH"
+	CurrencyCodeVND CurrencyCode = "VND"
 	CurrencyCodeZAR CurrencyCode = "ZAR"
 )
 
