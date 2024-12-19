@@ -44,6 +44,13 @@ var ErrReportFailed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrReportEmpty represents a `report_empty` error.
+// See https://developer.paddle.com/errors/reports/report_empty for more information.
+var ErrReportEmpty = &paddleerr.Error{
+	Code: "report_empty",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 /*
 ReportStatus: Status of this report. Set automatically by Paddle.
 
