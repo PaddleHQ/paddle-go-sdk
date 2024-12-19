@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
 )
 
 const (

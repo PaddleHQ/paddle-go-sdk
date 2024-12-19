@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

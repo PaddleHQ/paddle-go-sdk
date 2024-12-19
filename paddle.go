@@ -5,7 +5,7 @@ import (
 	"context"
 	"net/url"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v2/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v3/internal/client"
 
 	"github.com/hashicorp/go-cleanhttp"
 )
