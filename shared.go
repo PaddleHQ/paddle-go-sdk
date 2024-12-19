@@ -1230,8 +1230,6 @@ type DiscountStatus string
 const (
 	DiscountStatusActive   DiscountStatus = "active"
 	DiscountStatusArchived DiscountStatus = "archived"
-	DiscountStatusExpired  DiscountStatus = "expired"
-	DiscountStatusUsed     DiscountStatus = "used"
 )
 
 // DiscountType: Type of discount. Determines how this discount impacts the checkout or transaction total..

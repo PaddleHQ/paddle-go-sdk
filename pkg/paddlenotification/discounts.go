@@ -23,14 +23,12 @@ type DiscountUpdated struct {
 	Data DiscountNotification `json:"data"`
 }
 
-// DiscountStatus: Whether this entity can be used in Paddle. `expired` and `used` are set automatically by Paddle..
+// DiscountStatus: Whether this entity can be used in Paddle..
 type DiscountStatus string
 
 const (
 	DiscountStatusActive   DiscountStatus = "active"
 	DiscountStatusArchived DiscountStatus = "archived"
-	DiscountStatusExpired  DiscountStatus = "expired"
-	DiscountStatusUsed     DiscountStatus = "used"
 )
 
 // Type: Type of discount. Determines how this discount impacts the checkout or transaction total..
