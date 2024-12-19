@@ -54,7 +54,7 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 	ts := matches[0][1]
 	h1 := matches[0][2]
 
-	const maxBodySize = 1 << 20 // 1 MB
+	const maxBodySize = 2 << 20 // 2 MB
 	limitedReader := io.LimitReader(req.Body, maxBodySize)
 
 	body, err := io.ReadAll(limitedReader)
