@@ -214,8 +214,6 @@ func (c *AdjustmentsClient) ListAdjustments(ctx context.Context, req *ListAdjust
 type CreateAdjustmentRequest struct {
 	// Action: How this adjustment impacts the related transaction.
 	Action AdjustmentAction `json:"action,omitempty"`
-	// Items: List of transaction items to adjust.
-	Items []AdjustmentItem `json:"items,omitempty"`
 	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
 	Reason string `json:"reason,omitempty"`
 	/*
@@ -226,6 +224,10 @@ type CreateAdjustmentRequest struct {
 	   You can't create an adjustment for a transaction that has a refund that's pending approval.
 	*/
 	TransactionID string `json:"transaction_id,omitempty"`
+	// Type: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
+	Type *AdjustmentType `json:"type,omitempty"`
+	// Items: List of transaction items to adjust. Required if `type` is not populated or set to `partial`.
+	Items []AdjustmentItem `json:"items,omitempty"`
 }
 
 // CreateAdjustment performs the POST operation on a Adjustments resource.
