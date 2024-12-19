@@ -296,6 +296,20 @@ var ErrTransactionNothingToRevise = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionReviseMissingBusinessName represents a `transaction_revise_missing_business_name` error.
+// See https://developer.paddle.com/errors/transactions/transaction_revise_missing_business_name for more information.
+var ErrTransactionReviseMissingBusinessName = &paddleerr.Error{
+	Code: "transaction_revise_missing_business_name",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionAddressRegionOrCityAlreadySet represents a `transaction_address_region_or_city_already_set` error.
+// See https://developer.paddle.com/errors/transactions/transaction_address_region_or_city_already_set for more information.
+var ErrTransactionAddressRegionOrCityAlreadySet = &paddleerr.Error{
+	Code: "transaction_address_region_or_city_already_set",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.

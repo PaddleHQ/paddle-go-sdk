@@ -38,17 +38,17 @@ var ErrAuthenticationMalformed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrInvalidClientToken represents a `invalid_client_token` error.
-// See https://developer.paddle.com/errors/shared/invalid_client_token for more information.
-var ErrInvalidClientToken = &paddleerr.Error{
-	Code: "invalid_client_token",
-	Type: paddleerr.ErrorTypeRequestError,
-}
-
 // ErrInvalidToken represents a `invalid_token` error.
 // See https://developer.paddle.com/errors/shared/invalid_token for more information.
 var ErrInvalidToken = &paddleerr.Error{
 	Code: "invalid_token",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrInvalidClientToken represents a `invalid_client_token` error.
+// See https://developer.paddle.com/errors/shared/invalid_client_token for more information.
+var ErrInvalidClientToken = &paddleerr.Error{
+	Code: "invalid_client_token",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -112,6 +112,13 @@ var ErrBadGateway = &paddleerr.Error{
 // See https://developer.paddle.com/errors/shared/too_many_requests for more information.
 var ErrTooManyRequests = &paddleerr.Error{
 	Code: "too_many_requests",
+	Type: paddleerr.ErrorTypeAPIError,
+}
+
+// ErrTemporarilyUnavailable represents a `temporarily_unavailable` error.
+// See https://developer.paddle.com/errors/shared/temporarily_unavailable for more information.
+var ErrTemporarilyUnavailable = &paddleerr.Error{
+	Code: "temporarily_unavailable",
 	Type: paddleerr.ErrorTypeAPIError,
 }
 
@@ -182,6 +189,13 @@ var ErrReceiptDataNotEnabled = &paddleerr.Error{
 // See https://developer.paddle.com/errors/shared/request_headers_too_large for more information.
 var ErrRequestHeadersTooLarge = &paddleerr.Error{
 	Code: "request_headers_too_large",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrRequestBodyTooLarge represents a `request_body_too_large` error.
+// See https://developer.paddle.com/errors/shared/request_body_too_large for more information.
+var ErrRequestBodyTooLarge = &paddleerr.Error{
+	Code: "request_body_too_large",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
