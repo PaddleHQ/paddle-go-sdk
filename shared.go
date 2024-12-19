@@ -287,6 +287,7 @@ const (
 	CurrencyCodeTRY CurrencyCode = "TRY"
 	CurrencyCodeTWD CurrencyCode = "TWD"
 	CurrencyCodeUAH CurrencyCode = "UAH"
+	CurrencyCodeVND CurrencyCode = "VND"
 	CurrencyCodeZAR CurrencyCode = "ZAR"
 )
 
@@ -1018,6 +1019,14 @@ const (
 	AdjustmentActionCreditReverse     AdjustmentAction = "credit_reverse"
 )
 
+// AdjustmentType: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`..
+type AdjustmentType string
+
+const (
+	AdjustmentTypeFull    AdjustmentType = "full"
+	AdjustmentTypePartial AdjustmentType = "partial"
+)
+
 /*
 AdjustmentStatus: Status of this adjustment. Set automatically by Paddle.
 
@@ -1035,16 +1044,16 @@ const (
 )
 
 /*
-AdjustmentType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
+AdjustmentItemType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 Include `amount` when creating a `partial` adjustment..
 */
-type AdjustmentType string
+type AdjustmentItemType string
 
 const (
-	AdjustmentTypeFull      AdjustmentType = "full"
-	AdjustmentTypePartial   AdjustmentType = "partial"
-	AdjustmentTypeTax       AdjustmentType = "tax"
-	AdjustmentTypeProration AdjustmentType = "proration"
+	AdjustmentItemTypeFull      AdjustmentItemType = "full"
+	AdjustmentItemTypePartial   AdjustmentItemType = "partial"
+	AdjustmentItemTypeTax       AdjustmentItemType = "tax"
+	AdjustmentItemTypeProration AdjustmentItemType = "proration"
 )
 
 // AdjustmentItemTotals: Breakdown of the total for an adjustment item.
@@ -1057,7 +1066,7 @@ type AdjustmentItemTotals struct {
 	Total string `json:"total,omitempty"`
 }
 
-// AdjustmentItem: List of items on this adjustment.
+// AdjustmentItem: List of items on this adjustment. Required if `type` is not populated or set to `partial`.
 type AdjustmentItem struct {
 	// ID: Unique Paddle ID for this adjustment item, prefixed with `adjitm_`.
 	ID string `json:"id,omitempty"`
@@ -1067,8 +1076,8 @@ type AdjustmentItem struct {
 	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
-	Type AdjustmentType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
+	Type AdjustmentItemType `json:"type,omitempty"`
+	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
@@ -1139,6 +1148,8 @@ type Adjustment struct {
 	ID string `json:"id,omitempty"`
 	// Action: How this adjustment impacts the related transaction.
 	Action AdjustmentAction `json:"action,omitempty"`
+	// Type: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
+	Type AdjustmentType `json:"type,omitempty"`
 	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id,omitempty"`
 	/*
@@ -1165,7 +1176,7 @@ type Adjustment struct {
 	   Credit adjustments don't require approval from Paddle, so they're created as `approved`.
 	*/
 	Status AdjustmentStatus `json:"status,omitempty"`
-	// Items: List of items on this adjustment.
+	// Items: List of items on this adjustment. Required if `type` is not populated or set to `partial`.
 	Items []AdjustmentItem `json:"items,omitempty"`
 	// Totals: Breakdown of the total for an adjustment.
 	Totals AdjustmentTotals `json:"totals,omitempty"`

@@ -28,6 +28,14 @@ const (
 	AdjustmentActionCreditReverse     AdjustmentAction = "credit_reverse"
 )
 
+// AdjustmentType: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`..
+type AdjustmentType string
+
+const (
+	AdjustmentTypeFull    AdjustmentType = "full"
+	AdjustmentTypePartial AdjustmentType = "partial"
+)
+
 /*
 AdjustmentStatus: Status of this adjustment. Set automatically by Paddle.
 
@@ -45,16 +53,16 @@ const (
 )
 
 /*
-AdjustmentType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
+AdjustmentItemType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 Include `amount` when creating a `partial` adjustment..
 */
-type AdjustmentType string
+type AdjustmentItemType string
 
 const (
-	AdjustmentTypeFull      AdjustmentType = "full"
-	AdjustmentTypePartial   AdjustmentType = "partial"
-	AdjustmentTypeTax       AdjustmentType = "tax"
-	AdjustmentTypeProration AdjustmentType = "proration"
+	AdjustmentItemTypeFull      AdjustmentItemType = "full"
+	AdjustmentItemTypePartial   AdjustmentItemType = "partial"
+	AdjustmentItemTypeTax       AdjustmentItemType = "tax"
+	AdjustmentItemTypeProration AdjustmentItemType = "proration"
 )
 
 // AdjustmentItemTotals: Breakdown of the total for an adjustment item.
@@ -77,8 +85,8 @@ type AdjustmentItem struct {
 	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
-	Type AdjustmentType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
+	Type AdjustmentItemType `json:"type,omitempty"`
+	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
@@ -151,6 +159,8 @@ type AdjustmentNotification struct {
 	ID string `json:"id"`
 	// Action: How this adjustment impacts the related transaction.
 	Action AdjustmentAction `json:"action"`
+	// Type: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
+	Type *AdjustmentType `json:"type"`
 	// TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
 	TransactionID string `json:"transaction_id"`
 	/*

@@ -387,6 +387,13 @@ var ErrSubscriptionImmediateCharge24HourLimitExceeded = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionContinuingExistingBillingPeriodNotAllowed represents a `subscription_continuing_existing_billing_period_not_allowed` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_continuing_existing_billing_period_not_allowed for more information.
+var ErrSubscriptionContinuingExistingBillingPeriodNotAllowed = &paddleerr.Error{
+	Code: "subscription_continuing_existing_billing_period_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
@@ -402,8 +409,8 @@ const (
 type SubscriptionDiscountTimePeriod struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
-	// StartsAt: RFC 3339 datetime string of when this discount was first applied.
-	StartsAt string `json:"starts_at,omitempty"`
+	// StartsAt: RFC 3339 datetime string of when this discount was first applied. `null` for canceled subscriptions where a discount was redeemed but never applied to a transaction.
+	StartsAt *string `json:"starts_at,omitempty"`
 	// EndsAt: RFC 3339 datetime string of when this discount no longer applies. Where a discount has `maximum_recurring_intervals`, this is the date of the last billing period where this discount applies. `null` where a discount recurs forever.
 	EndsAt *string `json:"ends_at,omitempty"`
 }
@@ -507,8 +514,8 @@ type SubscriptionAdjustmentItem struct {
 	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
-	Type AdjustmentType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
+	Type AdjustmentItemType `json:"type,omitempty"`
+	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
@@ -655,6 +662,14 @@ const (
 	SubscriptionOnPaymentFailureApplyChange   SubscriptionOnPaymentFailure = "apply_change"
 )
 
+// SubscriptionOnResume: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`..
+type SubscriptionOnResume string
+
+const (
+	SubscriptionOnResumeContinueExistingBillingPeriod SubscriptionOnResume = "continue_existing_billing_period"
+	SubscriptionOnResumeStartNewBillingPeriod         SubscriptionOnResume = "start_new_billing_period"
+)
+
 type ResumeOnASpecificDate struct {
 	/*
 	   EffectiveFrom: When this scheduled change should take effect from. RFC 3339 datetime string of when the subscription should resume.
@@ -662,6 +677,8 @@ type ResumeOnASpecificDate struct {
 	   Valid where subscriptions are `active` with a scheduled change to pause, or where they have the status of `paused`.
 	*/
 	EffectiveFrom string `json:"effective_from,omitempty"`
+	// OnResume: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`.
+	OnResume SubscriptionOnResume `json:"on_resume,omitempty"`
 }
 
 type ResumeImmediately struct {
@@ -673,6 +690,8 @@ type ResumeImmediately struct {
 	   Defaults to `immediately` if omitted.
 	*/
 	EffectiveFrom *EffectiveFrom `json:"effective_from,omitempty"`
+	// OnResume: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`.
+	OnResume SubscriptionOnResume `json:"on_resume,omitempty"`
 }
 
 // UpdateSummaryResultAction: Whether the subscription change results in a prorated credit or a charge..
@@ -1036,6 +1055,8 @@ type PauseSubscriptionRequest struct {
 	EffectiveFrom *EffectiveFrom `json:"effective_from,omitempty"`
 	// ResumeAt: RFC 3339 datetime string of when the paused subscription should resume. Omit to pause indefinitely until resumed.
 	ResumeAt *string `json:"resume_at,omitempty"`
+	// OnResume: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`.
+	OnResume *SubscriptionOnResume `json:"on_resume,omitempty"`
 }
 
 // PauseSubscription performs the POST operation on a Subscriptions resource.
