@@ -514,8 +514,8 @@ type SubscriptionAdjustmentItem struct {
 	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 	   Include `amount` when creating a `partial` adjustment.
 	*/
-	Type AdjustmentType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when adjustment type is `partial`.
+	Type AdjustmentItemType `json:"type,omitempty"`
+	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
