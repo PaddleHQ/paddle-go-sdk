@@ -5,7 +5,7 @@ go 1.21.0
 require (
 	github.com/ggicci/httpin v0.19.0
 	github.com/hashicorp/go-cleanhttp v0.5.2
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 )
 
 require (
