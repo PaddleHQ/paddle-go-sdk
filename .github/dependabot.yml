@@ -7,7 +7,7 @@ updates:
       day: "wednesday"
       time: "03:00"
     labels:
-      - "release:patch"
+      - "norelease"
     groups:
       go.mod:
         patterns:
@@ -19,4 +19,4 @@ updates:
       day: "wednesday"
       time: "03:00"
     labels:
-      - "release:none"
+      - "norelease"
