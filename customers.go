@@ -184,5 +184,6 @@ func (c *CustomersClient) GenerateCustomerAuthenticationToken(ctx context.Contex
 	if err := c.doer.Do(ctx, "POST", "/customers/{customer_id}/auth-token", req, &res); err != nil {
 		return nil, err
 	}
+
 	return res, nil
 }
