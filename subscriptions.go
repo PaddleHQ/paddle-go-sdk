@@ -409,8 +409,8 @@ const (
 type SubscriptionDiscountTimePeriod struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
 	ID string `json:"id,omitempty"`
-	// StartsAt: RFC 3339 datetime string of when this discount was first applied.
-	StartsAt string `json:"starts_at,omitempty"`
+	// StartsAt: RFC 3339 datetime string of when this discount was first applied. `null` for canceled subscriptions where a discount was redeemed but never applied to a transaction.
+	StartsAt *string `json:"starts_at,omitempty"`
 	// EndsAt: RFC 3339 datetime string of when this discount no longer applies. Where a discount has `maximum_recurring_intervals`, this is the date of the last billing period where this discount applies. `null` where a discount recurs forever.
 	EndsAt *string `json:"ends_at,omitempty"`
 }
