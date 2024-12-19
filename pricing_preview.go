@@ -65,8 +65,6 @@ type PricePreview struct {
 	Address *AddressPreview `json:"address,omitempty"`
 	// CustomerIPAddress: IP address for this transaction preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
 	CustomerIPAddress *string `json:"customer_ip_address,omitempty"`
-	// Items: List of items to preview price calculations for.
-	Items []PricePreviewItem `json:"items,omitempty"`
 	// Details: Calculated totals for a price preview, including discounts, tax, and currency conversion.
 	Details PricePreviewDetails `json:"details,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for Paddle Checkout given the price and location information passed.
