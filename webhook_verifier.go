@@ -51,6 +51,10 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 	ts := matches[0][1]
 	h1 := matches[0][2]
 
+	const maxBodySize = 2 << 20 // 2 MB
+
+	req.Body = http.MaxBytesReader(nil, req.Body, maxBodySize)
+
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		return false, err
