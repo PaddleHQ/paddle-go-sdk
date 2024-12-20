@@ -2,6 +2,30 @@
 
 All breaking changes will be documented in this file to assist with upgrading.
 
+## v3.0.0
+
+This release contains 4 commits introducing breaking changes. To summarise: 
+
+1. Rename `DiscountNotification` `Type` property to `DiscountType` to reduce the risk of conflicting type names as `type` is a common property name within the API.
+
+Any existing references to the `Type` property on `DiscountNotification` will need to be updated to reference the property `DiscountType`
+
+2. Support for non catalog items on Transaction Previews with pointer ID properties
+
+- Non catalog items when in a transaction preview can produce a nullable ID, to support these the type are updated to be a pointer ID where applicable.
+- We've introduced `ProductPreview` and `TransactionPricePreview` types to support these changes without impacting the core `Product` and `Price` types.
+- Any type references for these will have to be updated accordingly and access of the ID properties will need to be dereferenced. 
+
+3. Fix acronym casing for `SubscriptionManagementUrLs`
+ 
+Any existing references to the type `SubscriptionManagementUrLs` will need to be updated to `SubscriptionManagementURLs`.
+
+4. Support nullable discount `starts_at` for subscriptions
+
+- It's possibly for Paddle to return `starts_at` as `null` for Subscription discounts. With this being the case our types have been updated to pointers.
+- `SubscriptionDiscountTimePeriod` within `paddle` and `paddlenotification` packages are effected
+- The property `StartsAt` is now a pointer and will now need to be dereferenced
+
 ## v2.0.0
 
 This release brings 2 breaking changes and fixes that may require some changes in your code to upgrade.

@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"strings"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
-	"github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddlenotification"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
 )
 
 // ErrNotFound represents a `not_found` error.
