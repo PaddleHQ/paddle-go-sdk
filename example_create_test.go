@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v2"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
 )
 
 // Demonstrates how to create a new entity.

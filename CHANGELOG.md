@@ -6,9 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 3.0.0 - 2024-12-20
+
+### Fixed
+
+- Limited bytes that can be read via the webhook verification middleware
+- Handle nullable `SubscriptionDiscountTimePeriod` property `StartsAt` making it a pointer
+
+### Added
+
+- Support for new API errors
+- Vietnamese Dong (VND) currency support, see related [changelog](https://developer.paddle.com/changelog/2024/vietnamese-dong-vnd-supported-currency)
+- Simpler creation of full adjustments and a new `AdjustmentType` property, see related [changelog](https://developer.paddle.com/changelog/2024/refund-credit-full-total)
+- Support for controlling how Paddle bills when resuming subscriptions with `SubscriptionOnResume`, see related [chagnelog](https://developer.paddle.com/changelog/2024/resume-subscription-billing-period-options)
+- Support for non catalog items on Transaction Previews with pointer ID properties
+
+### Changed
+
+- Removed write only property `items` from PricePreview entity
+- Removed unused DiscountStatus values `expired` and `used`
+- Corrected URL acronym casing for `SubscriptionManagementURLs`
+
 ## 2.1.3 - 2024-11-06
 
-## Fixed
+### Fixed
 
 - Corrected internal package version number
 - Added missing changelog updates

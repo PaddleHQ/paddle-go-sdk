@@ -1,7 +1,7 @@
 package paddle
 
 import (
-	"github.com/PaddleHQ/paddle-go-sdk/v2/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v3/internal/client"
 )
 
 // Option is a function that configures the Paddle SDK.

@@ -6,7 +6,7 @@ import (
 	"context"
 	"encoding/json"
 
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v2/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 )
 
 // ErrTransactionImmutable represents a `transaction_immutable` error.
