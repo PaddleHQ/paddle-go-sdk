@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Extract Go version
-        uses: arnested/go-version-action@8a203e9ff069cbbf4e3b65cb248101cfe307c71c # v1.1.18
+        uses: arnested/go-version-action@571817a9d4e450f9eb80a7a955ac71d8b0321e2e # v1.1.19
         id: go-version
 
       - name: Split version code
