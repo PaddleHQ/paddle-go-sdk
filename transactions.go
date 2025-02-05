@@ -388,7 +388,7 @@ type Transaction struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at,omitempty"`
-	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
 	BilledAt *string `json:"billed_at,omitempty"`
 	// Address: Address for this transaction. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
 	Address Address `json:"address,omitempty"`
@@ -707,7 +707,7 @@ type TransactionPricePreview struct {
 	ProductID *string `json:"product_id,omitempty"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
@@ -853,7 +853,7 @@ type ListTransactionsRequest struct {
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
 	Status []string `in:"query=status;omitempty" json:"-"`
 	// SubscriptionID is a query parameter.
-	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that are not related to any subscription.
+	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that aren't related to any subscription.
 	SubscriptionID []string `in:"query=subscription_id;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	// Set how many entities are returned per page.
