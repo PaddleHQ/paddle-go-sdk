@@ -394,6 +394,20 @@ var ErrSubscriptionContinuingExistingBillingPeriodNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionContinuingExistingBillingPeriodNotAllowedSubscriptionPastDue represents a `subscription_continuing_existing_billing_period_not_allowed_subscription_past_due` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_continuing_existing_billing_period_not_allowed_subscription_past_due for more information.
+var ErrSubscriptionContinuingExistingBillingPeriodNotAllowedSubscriptionPastDue = &paddleerr.Error{
+	Code: "subscription_continuing_existing_billing_period_not_allowed_subscription_past_due",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionMissingPaymentMethodCannotActivate represents a `subscription_missing_payment_method_cannot_activate` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_activate for more information.
+var ErrSubscriptionMissingPaymentMethodCannotActivate = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_activate",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
@@ -533,7 +547,7 @@ type AdjustmentPreview struct {
 	Totals AdjustmentTotals `json:"totals,omitempty"`
 }
 
-// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that are not yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
+// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
 type NextTransaction struct {
 	// BillingPeriod: Billing period for the next transaction.
 	BillingPeriod TimePeriod `json:"billing_period,omitempty"`
@@ -591,7 +605,7 @@ type Subscription struct {
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
-	// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that are not yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
+	// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
 	NextTransaction *NextTransaction `json:"next_transaction,omitempty"`
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges. Returned when the `include` parameter is used with the `recurring_transaction_details` value.
 	RecurringTransactionDetails SubscriptionTransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`

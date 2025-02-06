@@ -403,7 +403,7 @@ const (
 	CurrencyCodePayoutsZAR CurrencyCodePayouts = "ZAR"
 )
 
-// CatalogType: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app..
+// CatalogType: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard..
 type CatalogType string
 
 const (
@@ -487,7 +487,7 @@ const (
 
 // BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetails struct {
-	// EnableCheckout: Whether the related transaction may be paid using a Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
+	// EnableCheckout: Whether the related transaction may be paid using Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
 	EnableCheckout bool `json:"enable_checkout,omitempty"`
 	// PurchaseOrderNumber: Customer purchase order number. Appears on invoice documents.
 	PurchaseOrderNumber string `json:"purchase_order_number,omitempty"`
@@ -505,7 +505,7 @@ type Price struct {
 	ProductID string `json:"product_id,omitempty"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
@@ -541,7 +541,7 @@ type Product struct {
 	Name string `json:"name,omitempty"`
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`

@@ -126,7 +126,7 @@ type TaxRatesUsed struct {
 	Totals Totals `json:"totals,omitempty"`
 }
 
-// TransactionTotals: Breakdown of the total for a transaction. These numbers can become negative when dealing with subscription updates that result in credit.
+// TransactionTotals: Breakdown of the total for a transaction. These numbers can be negative when dealing with subscription updates that result in credit.
 type TransactionTotals struct {
 	// Subtotal: Subtotal before discount, tax, and deductions. If an item, unit price multiplied by quantity.
 	Subtotal string `json:"subtotal,omitempty"`
@@ -156,7 +156,7 @@ type TransactionTotals struct {
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
-// TransactionTotalsAdjusted: Breakdown of the payout totals for a transaction after adjustments. `null` until the transaction is `completed`.
+// TransactionTotalsAdjusted: Breakdown of the totals for a transaction after adjustments.
 type TransactionTotalsAdjusted struct {
 	// Subtotal: Subtotal before discount, tax, and deductions. If an item, unit price multiplied by quantity.
 	Subtotal string `json:"subtotal,omitempty"`
@@ -240,7 +240,7 @@ type TransactionLineItem struct {
 	UnitTotals Totals `json:"unit_totals,omitempty"`
 	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
 	Totals Totals `json:"totals,omitempty"`
-	// Product: Related product entity for this transaction line item price.
+	// Product: Related product entity for this transaction line item price. Reflects the entity at the time it was added to the transaction.
 	Product Product `json:"product,omitempty"`
 }
 
@@ -248,9 +248,9 @@ type TransactionLineItem struct {
 type TransactionDetails struct {
 	// TaxRatesUsed: List of tax rates applied for this transaction.
 	TaxRatesUsed []TaxRatesUsed `json:"tax_rates_used,omitempty"`
-	// Totals: Breakdown of the total for a transaction. These numbers can become negative when dealing with subscription updates that result in credit.
+	// Totals: Breakdown of the total for a transaction. These numbers can be negative when dealing with subscription updates that result in credit.
 	Totals TransactionTotals `json:"totals,omitempty"`
-	// AdjustedTotals: Breakdown of the payout totals for a transaction after adjustments. `null` until the transaction is `completed`.
+	// AdjustedTotals: Breakdown of the totals for a transaction after adjustments.
 	AdjustedTotals TransactionTotalsAdjusted `json:"adjusted_totals,omitempty"`
 	// PayoutTotals: Breakdown of the payout total for a transaction. `null` until the transaction is `completed`. Returned in your payout currency.
 	PayoutTotals *TransactionPayoutTotals `json:"payout_totals,omitempty"`
@@ -280,24 +280,25 @@ const (
 type ErrorCode string
 
 const (
-	ErrorCodeAlreadyCanceled         ErrorCode = "already_canceled"
-	ErrorCodeAlreadyRefunded         ErrorCode = "already_refunded"
-	ErrorCodeAuthenticationFailed    ErrorCode = "authentication_failed"
-	ErrorCodeBlockedCard             ErrorCode = "blocked_card"
-	ErrorCodeCanceled                ErrorCode = "canceled"
-	ErrorCodeDeclined                ErrorCode = "declined"
-	ErrorCodeDeclinedNotRetryable    ErrorCode = "declined_not_retryable"
-	ErrorCodeExpiredCard             ErrorCode = "expired_card"
-	ErrorCodeFraud                   ErrorCode = "fraud"
-	ErrorCodeInvalidAmount           ErrorCode = "invalid_amount"
-	ErrorCodeInvalidPaymentDetails   ErrorCode = "invalid_payment_details"
-	ErrorCodeIssuerUnavailable       ErrorCode = "issuer_unavailable"
-	ErrorCodeNotEnoughBalance        ErrorCode = "not_enough_balance"
-	ErrorCodePspError                ErrorCode = "psp_error"
-	ErrorCodeRedactedPaymentMethod   ErrorCode = "redacted_payment_method"
-	ErrorCodeSystemError             ErrorCode = "system_error"
-	ErrorCodeTransactionNotPermitted ErrorCode = "transaction_not_permitted"
-	ErrorCodeUnknown                 ErrorCode = "unknown"
+	ErrorCodeAlreadyCanceled              ErrorCode = "already_canceled"
+	ErrorCodeAlreadyRefunded              ErrorCode = "already_refunded"
+	ErrorCodeAuthenticationFailed         ErrorCode = "authentication_failed"
+	ErrorCodeBlockedCard                  ErrorCode = "blocked_card"
+	ErrorCodeCanceled                     ErrorCode = "canceled"
+	ErrorCodeDeclined                     ErrorCode = "declined"
+	ErrorCodeDeclinedNotRetryable         ErrorCode = "declined_not_retryable"
+	ErrorCodeExpiredCard                  ErrorCode = "expired_card"
+	ErrorCodeFraud                        ErrorCode = "fraud"
+	ErrorCodeInvalidAmount                ErrorCode = "invalid_amount"
+	ErrorCodeInvalidPaymentDetails        ErrorCode = "invalid_payment_details"
+	ErrorCodeIssuerUnavailable            ErrorCode = "issuer_unavailable"
+	ErrorCodeNotEnoughBalance             ErrorCode = "not_enough_balance"
+	ErrorCodePreferredNetworkNotSupported ErrorCode = "preferred_network_not_supported"
+	ErrorCodePspError                     ErrorCode = "psp_error"
+	ErrorCodeRedactedPaymentMethod        ErrorCode = "redacted_payment_method"
+	ErrorCodeSystemError                  ErrorCode = "system_error"
+	ErrorCodeTransactionNotPermitted      ErrorCode = "transaction_not_permitted"
+	ErrorCodeUnknown                      ErrorCode = "unknown"
 )
 
 // PaymentMethodType: Type of payment method used for this payment attempt..
@@ -378,7 +379,7 @@ type TransactionPaymentAttempt struct {
 
 // Checkout: Paddle Checkout details for this transaction. Returned for automatically-collected transactions and where `billing_details.enable_checkout` is `true` for manually-collected transactions; `null` otherwise.
 type Checkout struct {
-	// URL: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+	// URL: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
 	URL *string `json:"url,omitempty"`
 }
 
@@ -428,6 +429,6 @@ type TransactionNotification struct {
 	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at"`
-	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
 	BilledAt *string `json:"billed_at"`
 }
