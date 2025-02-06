@@ -1203,7 +1203,7 @@ type UpdateTransactionRequest struct {
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
-	CurrencyCode *PatchField[CurrencyCode] `json:"currency_code,omitempty"`
+	CurrencyCode *PatchField[*CurrencyCode] `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
