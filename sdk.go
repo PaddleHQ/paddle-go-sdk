@@ -19,7 +19,6 @@ type SDK struct {
 	*EventsClient
 	*NotificationsClient
 	*NotificationLogsClient
-	*NotificationSettingReplaysClient
 	*SimulationTypesClient
 	*SimulationsClient
 	*SimulationRunsClient
@@ -33,29 +32,28 @@ type SDK struct {
 // newSDK creates a new SDK instance. This is auto-generated, modifications should be done in the generator.
 func newSDK(d Doer) *SDK {
 	return &SDK{
-		AddressesClient:                  &AddressesClient{doer: d},
-		AdjustmentsClient:                &AdjustmentsClient{doer: d},
-		BusinessesClient:                 &BusinessesClient{doer: d},
-		CustomerPortalSessionsClient:     &CustomerPortalSessionsClient{doer: d},
-		CustomersClient:                  &CustomersClient{doer: d},
-		DiscountsClient:                  &DiscountsClient{doer: d},
-		EventsClient:                     &EventsClient{doer: d},
-		EventsTypesClient:                &EventsTypesClient{doer: d},
-		IPAddressesClient:                &IPAddressesClient{doer: d},
-		NotificationLogsClient:           &NotificationLogsClient{doer: d},
-		NotificationSettingReplaysClient: &NotificationSettingReplaysClient{doer: d},
-		NotificationSettingsClient:       &NotificationSettingsClient{doer: d},
-		NotificationsClient:              &NotificationsClient{doer: d},
-		PaymentMethodsClient:             &PaymentMethodsClient{doer: d},
-		PricesClient:                     &PricesClient{doer: d},
-		PricingPreviewClient:             &PricingPreviewClient{doer: d},
-		ProductsClient:                   &ProductsClient{doer: d},
-		ReportsClient:                    &ReportsClient{doer: d},
-		SimulationRunEventsClient:        &SimulationRunEventsClient{doer: d},
-		SimulationRunsClient:             &SimulationRunsClient{doer: d},
-		SimulationTypesClient:            &SimulationTypesClient{doer: d},
-		SimulationsClient:                &SimulationsClient{doer: d},
-		SubscriptionsClient:              &SubscriptionsClient{doer: d},
-		TransactionsClient:               &TransactionsClient{doer: d},
+		AddressesClient:              &AddressesClient{doer: d},
+		AdjustmentsClient:            &AdjustmentsClient{doer: d},
+		BusinessesClient:             &BusinessesClient{doer: d},
+		CustomerPortalSessionsClient: &CustomerPortalSessionsClient{doer: d},
+		CustomersClient:              &CustomersClient{doer: d},
+		DiscountsClient:              &DiscountsClient{doer: d},
+		EventsClient:                 &EventsClient{doer: d},
+		EventsTypesClient:            &EventsTypesClient{doer: d},
+		IPAddressesClient:            &IPAddressesClient{doer: d},
+		NotificationLogsClient:       &NotificationLogsClient{doer: d},
+		NotificationSettingsClient:   &NotificationSettingsClient{doer: d},
+		NotificationsClient:          &NotificationsClient{doer: d},
+		PaymentMethodsClient:         &PaymentMethodsClient{doer: d},
+		PricesClient:                 &PricesClient{doer: d},
+		PricingPreviewClient:         &PricingPreviewClient{doer: d},
+		ProductsClient:               &ProductsClient{doer: d},
+		ReportsClient:                &ReportsClient{doer: d},
+		SimulationRunEventsClient:    &SimulationRunEventsClient{doer: d},
+		SimulationRunsClient:         &SimulationRunsClient{doer: d},
+		SimulationTypesClient:        &SimulationTypesClient{doer: d},
+		SimulationsClient:            &SimulationsClient{doer: d},
+		SubscriptionsClient:          &SubscriptionsClient{doer: d},
+		TransactionsClient:           &TransactionsClient{doer: d},
 	}
 }
