@@ -827,7 +827,7 @@ type TransactionRevisionAddress struct {
 	// FirstLine: Revised first line of the address for this transaction.
 	FirstLine string `json:"first_line,omitempty"`
 	// SecondLine: Revised second line of the address for this transaction.
-	SecondLine *string `json:"second_line,omitempty"`
+	SecondLine *PatchField[*string] `json:"second_line,omitempty"`
 	// City: Revised city of the address for this transaction.
 	City string `json:"city,omitempty"`
 	// Region: Revised state, county, or region of the address for this transaction.
