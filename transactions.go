@@ -808,16 +808,22 @@ type TransactionPreview struct {
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
-// TransactionBusiness: Revised business information for this transaction.
-type TransactionBusiness struct {
+// TransactionRevisionCustomer: Revised customer information for this transaction.
+type TransactionRevisionCustomer struct {
+	// Name: Revised name of the customer for this transaction.
+	Name string `json:"name,omitempty"`
+}
+
+// TransactionRevisionBusiness: Revised business information for this transaction.
+type TransactionRevisionBusiness struct {
 	// Name: Revised name of the business for this transaction.
 	Name string `json:"name,omitempty"`
 	// TaxIdentifier: Revised tax or VAT number for this transaction. You can't remove a valid tax or VAT number, only replace it with another valid one. Paddle automatically creates an adjustment to refund any tax where applicable.
 	TaxIdentifier string `json:"tax_identifier,omitempty"`
 }
 
-// TransactionAddress: Revised address information for this transaction.
-type TransactionAddress struct {
+// TransactionRevisionAddress: Revised address information for this transaction.
+type TransactionRevisionAddress struct {
 	// FirstLine: Revised first line of the address for this transaction.
 	FirstLine string `json:"first_line,omitempty"`
 	// SecondLine: Revised second line of the address for this transaction.
@@ -1283,11 +1289,11 @@ type ReviseTransactionRequest struct {
 	TransactionID string `in:"path=transaction_id" json:"-"`
 
 	// Customer: Revised customer information for this transaction.
-	Customer *Customer `json:"customer,omitempty"`
+	Customer *TransactionRevisionCustomer `json:"customer,omitempty"`
 	// Business: Revised business information for this transaction.
-	Business *TransactionBusiness `json:"business,omitempty"`
+	Business *TransactionRevisionBusiness `json:"business,omitempty"`
 	// Address: Revised address information for this transaction.
-	Address *TransactionAddress `json:"address,omitempty"`
+	Address *TransactionRevisionAddress `json:"address,omitempty"`
 }
 
 // ReviseTransaction performs the POST operation on a Transactions resource.
