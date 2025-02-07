@@ -275,10 +275,10 @@ var ErrTransactionCannotBeRevisedWithInvalidTaxIdentifier = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal represents a `transaction_cannot_be_revised_with_tax_higher_than_grand_total` error.
-// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_tax_higher_than_grand_total for more information.
-var ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal = &paddleerr.Error{
-	Code: "transaction_cannot_be_revised_with_tax_higher_than_grand_total",
+// ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotalOrNegativeTax represents a `transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax` error.
+// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax for more information.
+var ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotalOrNegativeTax = &paddleerr.Error{
+	Code: "transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -390,17 +390,19 @@ type Transaction struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
 	BilledAt *string `json:"billed_at,omitempty"`
-	// Address: Address for this transaction. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
+	// RevisedAt: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+	RevisedAt *string `json:"revised_at,omitempty"`
+	// Address: Address for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
 	Address Address `json:"address,omitempty"`
 	// Adjustments: Represents an adjustment entity.
 	Adjustments []Adjustment `json:"adjustments,omitempty"`
 	// AdjustmentsTotals: Object containing totals for all adjustments on a transaction. Returned when the `include` parameter is used with the `adjustments_totals` value.
 	AdjustmentsTotals TransactionAdjustmentTotals `json:"adjustments_totals,omitempty"`
-	// Business: Business for this transaction. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
+	// Business: Business for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
 	Business Business `json:"business,omitempty"`
-	// Customer: Customer for this transaction. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
+	// Customer: Customer for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
 	Customer Customer `json:"customer,omitempty"`
-	// Discount: Discount for this transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
+	// Discount: Discount for this transaction. Reflects the entity at the time it was added to the transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
 	Discount Discount `json:"discount,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for this transaction. Returned when the `include` parameter is used with the `available_payment_methods` value.
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
@@ -877,6 +879,32 @@ type TransactionPreview struct {
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
+// TransactionRevisionCustomer: Revised customer information for this transaction.
+type TransactionRevisionCustomer struct {
+	// Name: Revised name of the customer for this transaction.
+	Name string `json:"name,omitempty"`
+}
+
+// TransactionRevisionBusiness: Revised business information for this transaction.
+type TransactionRevisionBusiness struct {
+	// Name: Revised name of the business for this transaction.
+	Name string `json:"name,omitempty"`
+	// TaxIdentifier: Revised tax or VAT number for this transaction. You can't remove a valid tax or VAT number, only replace it with another valid one. Paddle automatically creates an adjustment to refund any tax where applicable.
+	TaxIdentifier string `json:"tax_identifier,omitempty"`
+}
+
+// TransactionRevisionAddress: Revised address information for this transaction.
+type TransactionRevisionAddress struct {
+	// FirstLine: Revised first line of the address for this transaction.
+	FirstLine string `json:"first_line,omitempty"`
+	// SecondLine: Revised second line of the address for this transaction.
+	SecondLine *PatchField[*string] `json:"second_line,omitempty"`
+	// City: Revised city of the address for this transaction.
+	City string `json:"city,omitempty"`
+	// Region: Revised state, county, or region of the address for this transaction.
+	Region string `json:"region,omitempty"`
+}
+
 type TransactionInvoicePDF struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -1333,6 +1361,28 @@ type UpdateTransactionRequest struct {
 // UpdateTransaction performs the PATCH operation on a Transactions resource.
 func (c *TransactionsClient) UpdateTransaction(ctx context.Context, req *UpdateTransactionRequest) (res *Transaction, err error) {
 	if err := c.doer.Do(ctx, "PATCH", "/transactions/{transaction_id}", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// ReviseTransactionRequest is given as an input to ReviseTransaction.
+type ReviseTransactionRequest struct {
+	// URL path parameters.
+	TransactionID string `in:"path=transaction_id" json:"-"`
+
+	// Customer: Revised customer information for this transaction.
+	Customer *TransactionRevisionCustomer `json:"customer,omitempty"`
+	// Business: Revised business information for this transaction.
+	Business *TransactionRevisionBusiness `json:"business,omitempty"`
+	// Address: Revised address information for this transaction.
+	Address *TransactionRevisionAddress `json:"address,omitempty"`
+}
+
+// ReviseTransaction performs the POST operation on a Transactions resource.
+func (c *TransactionsClient) ReviseTransaction(ctx context.Context, req *ReviseTransactionRequest) (res *Transaction, err error) {
+	if err := c.doer.Do(ctx, "POST", "/transactions/{transaction_id}/revise", req, &res); err != nil {
 		return nil, err
 	}
 
