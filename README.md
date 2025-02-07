@@ -64,7 +64,7 @@ You can now use the client to make requests to the Paddle API.
 
 ## Examples
 
-Below are some concise examples to get you going, you can also compile and run the [testable examples](#testable-examples).
+Below are some concise examples to get you going. You can also compile and run the [testable examples](#testable-examples).
 
 ### List all entities
 
@@ -162,11 +162,11 @@ webhookVerifier := paddle.NewWebhookVerifier(os.Getenv("WEBHOOK_SECRET_KEY"))
 ok, err := webhookVerifier.Verify(req)
 ```
 
-### Testable Examples
+### Testable examples
 
-The SDK utilises [testable examples](https://go.dev/blog/examples) in Go which are compiled and executed as part of testing the package.
+The SDK uses [testable examples](https://go.dev/blog/examples) in Go, which are compiled and executed as part of testing the package.
 
-These examples utilise a mocked server with fixed responses but ensure the example compiles and executes as expected.
+These testable examples use a mock server that returns predefined responses. This approach means you can make sure the examples compile and execute as expected.
 
 - [Create](./example_create_test.go)
 - [Get](./example_get_test.go)
@@ -177,7 +177,7 @@ These examples utilise a mocked server with fixed responses but ensure the examp
 - [Webhook Unmarshalling](./example_webhook_unmarshal_test.go)
 - [Webhook Verification](./example_webhook_verifier_test.go)
 
-These are not intended to be comprehensive for each and every operation, instead cover the general flow of operations for entities as well as some useful examples. 
+These are not intended to be comprehensive for each and every operation. Instead, they cover the general flow of operations for entities as well as some useful examples. 
 
 ## Learn more
 
