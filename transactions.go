@@ -474,6 +474,77 @@ type TransactionPreviewItemCreateWithProduct struct {
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
 
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemFromCatalog: r}
+}
+
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice takes a TransactionPreviewItemCreateWithPrice type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice(r *TransactionPreviewItemCreateWithPrice) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemCreateWithPrice: r}
+}
+
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct takes a TransactionPreviewItemCreateWithProduct type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct(r *TransactionPreviewItemCreateWithProduct) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemCreateWithProduct: r}
+}
+
+// TransactionPreviewWithoutAddressItems represents a union request type of the following types:
+//   - `TransactionPreviewItemFromCatalog`
+//   - `TransactionPreviewItemCreateWithPrice`
+//   - `TransactionPreviewItemCreateWithProduct`
+//
+// The following constructor functions can be used to create a new instance of this type.
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog()`
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice()`
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct()`
+//
+// Only one of the values can be set at a time, the first non-nil value will be used in the request.
+// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+type TransactionPreviewWithoutAddressItems struct {
+	*TransactionPreviewItemFromCatalog
+	*TransactionPreviewItemCreateWithPrice
+	*TransactionPreviewItemCreateWithProduct
+}
+
+// MarshalJSON implements the json.Marshaler interface.
+func (u TransactionPreviewWithoutAddressItems) MarshalJSON() ([]byte, error) {
+	if u.TransactionPreviewItemFromCatalog != nil {
+		return json.Marshal(u.TransactionPreviewItemFromCatalog)
+	}
+
+	if u.TransactionPreviewItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithPrice)
+	}
+
+	if u.TransactionPreviewItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithProduct)
+	}
+
+	return nil, nil
+}
+
+// TransactionPreviewWithoutAddress: Preview a transaction without using any address information.
+type TransactionPreviewWithoutAddress struct {
+	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
+	CustomerID *string `json:"customer_id,omitempty"`
+	// CurrencyCode: Supported three-letter ISO 4217 currency code.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	DiscountID *string `json:"discount_id,omitempty"`
+	/*
+	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
+
+	   By default, recurring items with trials are considered to have a zero charge when previewing. Set to `true` to disable this.
+	*/
+	IgnoreTrials bool `json:"ignore_trials,omitempty"`
+	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+	Items []TransactionPreviewWithoutAddressItems `json:"items,omitempty"`
+}
+
 // NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
 // and creates a TransactionPreviewByAddressItems for use in a request.
 func NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewByAddressItems {
@@ -1054,6 +1125,12 @@ func (c *TransactionsClient) CreateTransaction(ctx context.Context, req *CreateT
 	return res, nil
 }
 
+// NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress takes a TransactionPreviewWithoutAddress type
+// and creates a PreviewTransactionCreateRequest for use in a request.
+func NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress(r *TransactionPreviewWithoutAddress) *PreviewTransactionCreateRequest {
+	return &PreviewTransactionCreateRequest{TransactionPreviewWithoutAddress: r}
+}
+
 // NewPreviewTransactionCreateRequestTransactionPreviewByAddress takes a TransactionPreviewByAddress type
 // and creates a PreviewTransactionCreateRequest for use in a request.
 func NewPreviewTransactionCreateRequestTransactionPreviewByAddress(r *TransactionPreviewByAddress) *PreviewTransactionCreateRequest {
@@ -1073,17 +1150,20 @@ func NewPreviewTransactionCreateRequestTransactionPreviewByCustomer(r *Transacti
 }
 
 // PreviewTransactionCreateRequest represents a union request type of the following types:
+//   - `TransactionPreviewWithoutAddress`
 //   - `TransactionPreviewByAddress`
 //   - `TransactionPreviewByIP`
 //   - `TransactionPreviewByCustomer`
 //
 // The following constructor functions can be used to create a new instance of this type.
+//   - `NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByAddress()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByIP()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByCustomer()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type PreviewTransactionCreateRequest struct {
+	*TransactionPreviewWithoutAddress
 	*TransactionPreviewByAddress
 	*TransactionPreviewByIP
 	*TransactionPreviewByCustomer
@@ -1100,6 +1180,10 @@ func (c *TransactionsClient) PreviewTransactionCreate(ctx context.Context, req *
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u PreviewTransactionCreateRequest) MarshalJSON() ([]byte, error) {
+	if u.TransactionPreviewWithoutAddress != nil {
+		return json.Marshal(u.TransactionPreviewWithoutAddress)
+	}
+
 	if u.TransactionPreviewByAddress != nil {
 		return json.Marshal(u.TransactionPreviewByAddress)
 	}
