@@ -275,10 +275,10 @@ var ErrTransactionCannotBeRevisedWithInvalidTaxIdentifier = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal represents a `transaction_cannot_be_revised_with_tax_higher_than_grand_total` error.
-// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_tax_higher_than_grand_total for more information.
-var ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotal = &paddleerr.Error{
-	Code: "transaction_cannot_be_revised_with_tax_higher_than_grand_total",
+// ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotalOrNegativeTax represents a `transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax` error.
+// See https://developer.paddle.com/errors/transactions/transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax for more information.
+var ErrTransactionCannotBeRevisedWithTaxHigherThanGrandTotalOrNegativeTax = &paddleerr.Error{
+	Code: "transaction_cannot_be_revised_with_tax_higher_than_grand_total_or_negative_tax",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -390,17 +390,19 @@ type Transaction struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
 	BilledAt *string `json:"billed_at,omitempty"`
-	// Address: Address for this transaction. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
+	// RevisedAt: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+	RevisedAt *string `json:"revised_at,omitempty"`
+	// Address: Address for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
 	Address Address `json:"address,omitempty"`
 	// Adjustments: Represents an adjustment entity.
 	Adjustments []Adjustment `json:"adjustments,omitempty"`
 	// AdjustmentsTotals: Object containing totals for all adjustments on a transaction. Returned when the `include` parameter is used with the `adjustments_totals` value.
 	AdjustmentsTotals TransactionAdjustmentTotals `json:"adjustments_totals,omitempty"`
-	// Business: Business for this transaction. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
+	// Business: Business for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
 	Business Business `json:"business,omitempty"`
-	// Customer: Customer for this transaction. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
+	// Customer: Customer for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
 	Customer Customer `json:"customer,omitempty"`
-	// Discount: Discount for this transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
+	// Discount: Discount for this transaction. Reflects the entity at the time it was added to the transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
 	Discount Discount `json:"discount,omitempty"`
 	// AvailablePaymentMethods: List of available payment methods for this transaction. Returned when the `include` parameter is used with the `available_payment_methods` value.
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
@@ -470,6 +472,77 @@ type TransactionPreviewItemCreateWithProduct struct {
 	Proration *Proration `json:"proration,omitempty"`
 	// Price: Price object for a non-catalog item to preview charging for. Include a `product` object to create a non-catalog product for this non-catalog price.
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
+}
+
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog(r *TransactionPreviewItemFromCatalog) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemFromCatalog: r}
+}
+
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice takes a TransactionPreviewItemCreateWithPrice type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice(r *TransactionPreviewItemCreateWithPrice) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemCreateWithPrice: r}
+}
+
+// NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct takes a TransactionPreviewItemCreateWithProduct type
+// and creates a TransactionPreviewWithoutAddressItems for use in a request.
+func NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct(r *TransactionPreviewItemCreateWithProduct) *TransactionPreviewWithoutAddressItems {
+	return &TransactionPreviewWithoutAddressItems{TransactionPreviewItemCreateWithProduct: r}
+}
+
+// TransactionPreviewWithoutAddressItems represents a union request type of the following types:
+//   - `TransactionPreviewItemFromCatalog`
+//   - `TransactionPreviewItemCreateWithPrice`
+//   - `TransactionPreviewItemCreateWithProduct`
+//
+// The following constructor functions can be used to create a new instance of this type.
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemFromCatalog()`
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithPrice()`
+//   - `NewTransactionPreviewWithoutAddressItemsTransactionPreviewItemCreateWithProduct()`
+//
+// Only one of the values can be set at a time, the first non-nil value will be used in the request.
+// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+type TransactionPreviewWithoutAddressItems struct {
+	*TransactionPreviewItemFromCatalog
+	*TransactionPreviewItemCreateWithPrice
+	*TransactionPreviewItemCreateWithProduct
+}
+
+// MarshalJSON implements the json.Marshaler interface.
+func (u TransactionPreviewWithoutAddressItems) MarshalJSON() ([]byte, error) {
+	if u.TransactionPreviewItemFromCatalog != nil {
+		return json.Marshal(u.TransactionPreviewItemFromCatalog)
+	}
+
+	if u.TransactionPreviewItemCreateWithPrice != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithPrice)
+	}
+
+	if u.TransactionPreviewItemCreateWithProduct != nil {
+		return json.Marshal(u.TransactionPreviewItemCreateWithProduct)
+	}
+
+	return nil, nil
+}
+
+// TransactionPreviewWithoutAddress: Preview a transaction without using any address information.
+type TransactionPreviewWithoutAddress struct {
+	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
+	CustomerID *string `json:"customer_id,omitempty"`
+	// CurrencyCode: Supported three-letter ISO 4217 currency code.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	DiscountID *string `json:"discount_id,omitempty"`
+	/*
+	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
+
+	   By default, recurring items with trials are considered to have a zero charge when previewing. Set to `true` to disable this.
+	*/
+	IgnoreTrials bool `json:"ignore_trials,omitempty"`
+	// Items: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
+	Items []TransactionPreviewWithoutAddressItems `json:"items,omitempty"`
 }
 
 // NewTransactionPreviewByAddressItemsTransactionPreviewItemFromCatalog takes a TransactionPreviewItemFromCatalog type
@@ -806,6 +879,32 @@ type TransactionPreview struct {
 	AvailablePaymentMethods []PaymentMethodType `json:"available_payment_methods,omitempty"`
 }
 
+// TransactionRevisionCustomer: Revised customer information for this transaction.
+type TransactionRevisionCustomer struct {
+	// Name: Revised name of the customer for this transaction.
+	Name string `json:"name,omitempty"`
+}
+
+// TransactionRevisionBusiness: Revised business information for this transaction.
+type TransactionRevisionBusiness struct {
+	// Name: Revised name of the business for this transaction.
+	Name string `json:"name,omitempty"`
+	// TaxIdentifier: Revised tax or VAT number for this transaction. You can't remove a valid tax or VAT number, only replace it with another valid one. Paddle automatically creates an adjustment to refund any tax where applicable.
+	TaxIdentifier string `json:"tax_identifier,omitempty"`
+}
+
+// TransactionRevisionAddress: Revised address information for this transaction.
+type TransactionRevisionAddress struct {
+	// FirstLine: Revised first line of the address for this transaction.
+	FirstLine string `json:"first_line,omitempty"`
+	// SecondLine: Revised second line of the address for this transaction.
+	SecondLine *PatchField[*string] `json:"second_line,omitempty"`
+	// City: Revised city of the address for this transaction.
+	City string `json:"city,omitempty"`
+	// Region: Revised state, county, or region of the address for this transaction.
+	Region string `json:"region,omitempty"`
+}
+
 type TransactionInvoicePDF struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -1026,6 +1125,12 @@ func (c *TransactionsClient) CreateTransaction(ctx context.Context, req *CreateT
 	return res, nil
 }
 
+// NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress takes a TransactionPreviewWithoutAddress type
+// and creates a PreviewTransactionCreateRequest for use in a request.
+func NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress(r *TransactionPreviewWithoutAddress) *PreviewTransactionCreateRequest {
+	return &PreviewTransactionCreateRequest{TransactionPreviewWithoutAddress: r}
+}
+
 // NewPreviewTransactionCreateRequestTransactionPreviewByAddress takes a TransactionPreviewByAddress type
 // and creates a PreviewTransactionCreateRequest for use in a request.
 func NewPreviewTransactionCreateRequestTransactionPreviewByAddress(r *TransactionPreviewByAddress) *PreviewTransactionCreateRequest {
@@ -1045,17 +1150,20 @@ func NewPreviewTransactionCreateRequestTransactionPreviewByCustomer(r *Transacti
 }
 
 // PreviewTransactionCreateRequest represents a union request type of the following types:
+//   - `TransactionPreviewWithoutAddress`
 //   - `TransactionPreviewByAddress`
 //   - `TransactionPreviewByIP`
 //   - `TransactionPreviewByCustomer`
 //
 // The following constructor functions can be used to create a new instance of this type.
+//   - `NewPreviewTransactionCreateRequestTransactionPreviewWithoutAddress()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByAddress()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByIP()`
 //   - `NewPreviewTransactionCreateRequestTransactionPreviewByCustomer()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type PreviewTransactionCreateRequest struct {
+	*TransactionPreviewWithoutAddress
 	*TransactionPreviewByAddress
 	*TransactionPreviewByIP
 	*TransactionPreviewByCustomer
@@ -1072,6 +1180,10 @@ func (c *TransactionsClient) PreviewTransactionCreate(ctx context.Context, req *
 
 // MarshalJSON implements the json.Marshaler interface.
 func (u PreviewTransactionCreateRequest) MarshalJSON() ([]byte, error) {
+	if u.TransactionPreviewWithoutAddress != nil {
+		return json.Marshal(u.TransactionPreviewWithoutAddress)
+	}
+
 	if u.TransactionPreviewByAddress != nil {
 		return json.Marshal(u.TransactionPreviewByAddress)
 	}
@@ -1249,6 +1361,28 @@ type UpdateTransactionRequest struct {
 // UpdateTransaction performs the PATCH operation on a Transactions resource.
 func (c *TransactionsClient) UpdateTransaction(ctx context.Context, req *UpdateTransactionRequest) (res *Transaction, err error) {
 	if err := c.doer.Do(ctx, "PATCH", "/transactions/{transaction_id}", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// ReviseTransactionRequest is given as an input to ReviseTransaction.
+type ReviseTransactionRequest struct {
+	// URL path parameters.
+	TransactionID string `in:"path=transaction_id" json:"-"`
+
+	// Customer: Revised customer information for this transaction.
+	Customer *TransactionRevisionCustomer `json:"customer,omitempty"`
+	// Business: Revised business information for this transaction.
+	Business *TransactionRevisionBusiness `json:"business,omitempty"`
+	// Address: Revised address information for this transaction.
+	Address *TransactionRevisionAddress `json:"address,omitempty"`
+}
+
+// ReviseTransaction performs the POST operation on a Transactions resource.
+func (c *TransactionsClient) ReviseTransaction(ctx context.Context, req *ReviseTransactionRequest) (res *Transaction, err error) {
+	if err := c.doer.Do(ctx, "POST", "/transactions/{transaction_id}/revise", req, &res); err != nil {
 		return nil, err
 	}
 
