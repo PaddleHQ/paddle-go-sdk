@@ -173,7 +173,7 @@ type AdjustmentNotification struct {
 	   Set automatically by Paddle based on the `customer_id` of the related transaction.
 	*/
 	CustomerID string `json:"customer_id"`
-	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
+	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for recordkeeping purposes.
 	Reason string `json:"reason"`
 	// CreditAppliedToBalance: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
 	CreditAppliedToBalance *bool `json:"credit_applied_to_balance"`

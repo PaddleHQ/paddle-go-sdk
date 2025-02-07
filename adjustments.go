@@ -214,7 +214,7 @@ func (c *AdjustmentsClient) ListAdjustments(ctx context.Context, req *ListAdjust
 type CreateAdjustmentRequest struct {
 	// Action: How this adjustment impacts the related transaction.
 	Action AdjustmentAction `json:"action,omitempty"`
-	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
+	// Reason: Why this adjustment was created. Appears in the Paddle dashboard. Retained for recordkeeping purposes.
 	Reason string `json:"reason,omitempty"`
 	/*
 	   TransactionID: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.

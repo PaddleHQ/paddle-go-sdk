@@ -243,10 +243,10 @@ type ListNotificationsRequest struct {
 	// Return entities that contain the Paddle ID specified. Pass a transaction, customer, or subscription ID.
 	Filter *string `in:"query=filter;omitempty" json:"-"`
 	// To is a query parameter.
-	// Return entities up to a specific time.
+	// Return entities up to a specific time. Pass an RFC 3339 datetime string.
 	To *string `in:"query=to;omitempty" json:"-"`
 	// From is a query parameter.
-	// Return entities from a specific time.
+	// Return entities from a specific time. Pass an RFC 3339 datetime string.
 	From *string `in:"query=from;omitempty" json:"-"`
 }
 

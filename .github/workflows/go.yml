@@ -1,19 +1,40 @@
 name: go
 
 on:
-  - push
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+  actions: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract Go version
+        uses: arnested/go-version-action@571817a9d4e450f9eb80a7a955ac71d8b0321e2e # v1.1.19
+        id: go-version
+
+      - name: Split version code
+        uses: xom9ikk/split@10ba6c9f71c5953bc304e21781213e933b043891 #v1.1
+        id: split
+        with:
+          string: ${{ steps.go-version.outputs.go-mod-version }}
+          separator: .
+          limit: 2
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
         with:
-          go-version: '1.22'
+          go-version: '${{ steps.split.outputs._0 }}.${{ steps.split.outputs._1 }}'
+          check-latest: true
+          cache: true
+
 
       - name: Install dependencies
         run: go mod download
@@ -30,11 +51,19 @@ jobs:
       - name: Go Generate
         run: go generate ./... && git diff --exit-code
 
-      - name: Install `govulncheck`
-        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+      - id: govulncheck
+        uses: golang/govulncheck-action@b625fbe08f3bccbe446d94fbf87fcc875a4f50ee # v1.0.4
+        with:
+          go-version-input: '${{ steps.split.outputs._0 }}.${{ steps.split.outputs._1 }}'
+          go-package: ./...
+          output-format: sarif
+          output-file: results.sarif
 
-      - name: Run `govulncheck`
-        run: govulncheck ./...
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@dd746615b3b9d728a6a37ca2045b68ca76d4841a # v3.28.8
+        with:
+          sarif_file: results.sarif
+          category: govulncheck
 
       - name: Vet
         run: go vet ./...

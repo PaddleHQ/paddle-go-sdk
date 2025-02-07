@@ -31,7 +31,7 @@ const (
 	DiscountStatusArchived DiscountStatus = "archived"
 )
 
-// Type: Type of discount. Determines how this discount impacts the checkout or transaction total..
+// DiscountType: Type of discount. Determines how this discount impacts the checkout or transaction total..
 type DiscountType string
 
 const (
