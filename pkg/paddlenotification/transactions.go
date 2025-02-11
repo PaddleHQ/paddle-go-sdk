@@ -65,6 +65,13 @@ type TransactionUpdated struct {
 	Data TransactionNotification `json:"data"`
 }
 
+// TransactionRevised represents the transaction.revised event.
+// See https://developer.paddle.com/webhooks/overview for more information.
+type TransactionRevised struct {
+	GenericNotificationEvent
+	Data TransactionNotification `json:"data"`
+}
+
 // TransactionStatus: Status of this transaction. You may set a transaction to `billed` or `canceled`, other statuses are set automatically by Paddle. Automatically-collected transactions may return `completed` if payment is captured successfully, or `past_due` if payment failed..
 type TransactionStatus string
 
@@ -431,4 +438,6 @@ type TransactionNotification struct {
 	UpdatedAt string `json:"updated_at"`
 	// BilledAt: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
 	BilledAt *string `json:"billed_at"`
+	// RevisedAt: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+	RevisedAt *string `json:"revised_at"`
 }
