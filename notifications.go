@@ -188,6 +188,8 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.TransactionReady{}
 	case "transaction.updated":
 		t = &paddlenotification.TransactionUpdated{}
+	case "transaction.revised":
+		t = &paddlenotification.TransactionRevised{}
 	default:
 		t = &paddlenotification.GenericNotificationEvent{}
 	}

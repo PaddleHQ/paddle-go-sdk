@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+### 3.1.0 - 2025-02-07
+
+### Added
+
+- New API errors
+- Support for calling Transaction Preview API without Address information
+- Support for the Transaction Revise API, see related [changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information)
+
 ## 3.0.0 - 2024-12-20
 
 ### Fixed
