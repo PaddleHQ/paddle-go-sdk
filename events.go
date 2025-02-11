@@ -289,6 +289,12 @@ type TransactionUpdatedEvent struct {
 	Data paddlenotification.TransactionNotification `json:"data"`
 }
 
+// TransactionRevisedEvent represents an Event implementation for transaction.revised event.
+type TransactionRevisedEvent struct {
+	GenericEvent
+	Data paddlenotification.TransactionNotification `json:"data"`
+}
+
 // unmarshalEvent unmarshals JSON data to the correct Event implementation
 func unmarshalEvent(data []byte) (Event, error) {
 	e := &GenericEvent{}
@@ -386,6 +392,8 @@ func unmarshalEvent(data []byte) (Event, error) {
 		t = &TransactionReadyEvent{}
 	case "transaction.updated":
 		t = &TransactionUpdatedEvent{}
+	case "transaction.revised":
+		t = &TransactionRevisedEvent{}
 	default:
 		return e, nil
 	}
