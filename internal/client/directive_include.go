@@ -15,7 +15,8 @@ type DirectiveInclude struct{}
 // Decode is not implemented. This is because we only deal with encoding
 // concerns in the client.
 func (*DirectiveInclude) Decode(_ *core.DirectiveRuntime) error {
-	return errors.New("not implemented") //nolint:goerr113 // typed error not needed here.
+	//nolint:err113 // typed error not needed here.
+	return errors.New("not implemented")
 }
 
 // ErrDirectiveRequiresBool is returned when the directive's struct field is not
