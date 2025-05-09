@@ -60,7 +60,7 @@ func bootstrapSDK(opts ...Option) (*SDK, error) {
 		return nil, err
 	}
 
-	c, err := client.New(cleanhttp.DefaultPooledClient(), o.APIKey, parsedBaseURL)
+	c, err := client.New(o.Client, o.APIKey, parsedBaseURL)
 	if err != nil {
 		return nil, err
 	}
