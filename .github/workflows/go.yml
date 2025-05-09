@@ -35,6 +35,7 @@ jobs:
           check-latest: true
           cache: true
 
+
       - name: Install dependencies
         run: go mod download
 
