@@ -4,16 +4,16 @@ package paddle
 
 import "context"
 
-// EventsTypesClient is a client for the Events types resource.
-type EventsTypesClient struct {
+// EventTypesClient is a client for the Event types resource.
+type EventTypesClient struct {
 	doer Doer
 }
 
 // ListEventTypesRequest is given as an input to ListEventTypes.
 type ListEventTypesRequest struct{}
 
-// ListEventTypes performs the GET operation on a Events types resource.
-func (c *EventsTypesClient) ListEventTypes(ctx context.Context, req *ListEventTypesRequest) (res *Collection[*EventType], err error) {
+// ListEventTypes performs the GET operation on a Event types resource.
+func (c *EventTypesClient) ListEventTypes(ctx context.Context, req *ListEventTypesRequest) (res *Collection[*EventType], err error) {
 	if err := c.doer.Do(ctx, "GET", "/event-types", req, &res); err != nil {
 		return nil, err
 	}
