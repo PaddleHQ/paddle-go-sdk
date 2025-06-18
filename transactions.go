@@ -605,7 +605,7 @@ type TransactionPreviewByAddress struct {
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
@@ -678,7 +678,7 @@ type TransactionPreviewByIP struct {
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
@@ -753,7 +753,7 @@ type TransactionPreviewByCustomer struct {
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
@@ -1315,7 +1315,7 @@ type UpdateTransactionRequest struct {
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
-	CurrencyCode *PatchField[CurrencyCode] `json:"currency_code,omitempty"`
+	CurrencyCode *PatchField[*CurrencyCode] `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
