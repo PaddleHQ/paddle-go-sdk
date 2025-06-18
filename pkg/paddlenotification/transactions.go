@@ -324,6 +324,52 @@ const (
 	PaymentMethodTypeWireTransfer PaymentMethodType = "wire_transfer"
 )
 
+// KoreanMarketUnderlyingPaymentMethodType: Type of Korean payment method used to pay..
+type KoreanMarketUnderlyingPaymentMethodType string
+
+const (
+	KoreanMarketUnderlyingPaymentMethodTypeBc            KoreanMarketUnderlyingPaymentMethodType = "bc"
+	KoreanMarketUnderlyingPaymentMethodTypeCiti          KoreanMarketUnderlyingPaymentMethodType = "citi"
+	KoreanMarketUnderlyingPaymentMethodTypeHana          KoreanMarketUnderlyingPaymentMethodType = "hana"
+	KoreanMarketUnderlyingPaymentMethodTypeHyundai       KoreanMarketUnderlyingPaymentMethodType = "hyundai"
+	KoreanMarketUnderlyingPaymentMethodTypeJeju          KoreanMarketUnderlyingPaymentMethodType = "jeju"
+	KoreanMarketUnderlyingPaymentMethodTypeJeonbuk       KoreanMarketUnderlyingPaymentMethodType = "jeonbuk"
+	KoreanMarketUnderlyingPaymentMethodTypeKakaobank     KoreanMarketUnderlyingPaymentMethodType = "kakaobank"
+	KoreanMarketUnderlyingPaymentMethodTypeKakaopay      KoreanMarketUnderlyingPaymentMethodType = "kakaopay"
+	KoreanMarketUnderlyingPaymentMethodTypeKbank         KoreanMarketUnderlyingPaymentMethodType = "kbank"
+	KoreanMarketUnderlyingPaymentMethodTypeKdbbank       KoreanMarketUnderlyingPaymentMethodType = "kdbbank"
+	KoreanMarketUnderlyingPaymentMethodTypeKookmin       KoreanMarketUnderlyingPaymentMethodType = "kookmin"
+	KoreanMarketUnderlyingPaymentMethodTypeKwangju       KoreanMarketUnderlyingPaymentMethodType = "kwangju"
+	KoreanMarketUnderlyingPaymentMethodTypeLotte         KoreanMarketUnderlyingPaymentMethodType = "lotte"
+	KoreanMarketUnderlyingPaymentMethodTypeMg            KoreanMarketUnderlyingPaymentMethodType = "mg"
+	KoreanMarketUnderlyingPaymentMethodTypeNaverpaycard  KoreanMarketUnderlyingPaymentMethodType = "naverpaycard"
+	KoreanMarketUnderlyingPaymentMethodTypeNaverpaypoint KoreanMarketUnderlyingPaymentMethodType = "naverpaypoint"
+	KoreanMarketUnderlyingPaymentMethodTypeNh            KoreanMarketUnderlyingPaymentMethodType = "nh"
+	KoreanMarketUnderlyingPaymentMethodTypePayco         KoreanMarketUnderlyingPaymentMethodType = "payco"
+	KoreanMarketUnderlyingPaymentMethodTypePost          KoreanMarketUnderlyingPaymentMethodType = "post"
+	KoreanMarketUnderlyingPaymentMethodTypeSamsung       KoreanMarketUnderlyingPaymentMethodType = "samsung"
+	KoreanMarketUnderlyingPaymentMethodTypeSamsungpay    KoreanMarketUnderlyingPaymentMethodType = "samsungpay"
+	KoreanMarketUnderlyingPaymentMethodTypeSavingsbank   KoreanMarketUnderlyingPaymentMethodType = "savingsbank"
+	KoreanMarketUnderlyingPaymentMethodTypeShinhan       KoreanMarketUnderlyingPaymentMethodType = "shinhan"
+	KoreanMarketUnderlyingPaymentMethodTypeShinhyup      KoreanMarketUnderlyingPaymentMethodType = "shinhyup"
+	KoreanMarketUnderlyingPaymentMethodTypeSuhyup        KoreanMarketUnderlyingPaymentMethodType = "suhyup"
+	KoreanMarketUnderlyingPaymentMethodTypeTossbank      KoreanMarketUnderlyingPaymentMethodType = "tossbank"
+	KoreanMarketUnderlyingPaymentMethodTypeUnknown       KoreanMarketUnderlyingPaymentMethodType = "unknown"
+	KoreanMarketUnderlyingPaymentMethodTypeWoori         KoreanMarketUnderlyingPaymentMethodType = "woori"
+)
+
+// KoreanMarketUnderlyingDetails: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`.
+type KoreanMarketUnderlyingDetails struct {
+	// Type: Type of Korean payment method used to pay.
+	Type KoreanMarketUnderlyingPaymentMethodType `json:"type,omitempty"`
+}
+
+// PaymentMethodUnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+type PaymentMethodUnderlyingDetails struct {
+	// KoreaLocal: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`.
+	KoreaLocal *KoreanMarketUnderlyingDetails `json:"korea_local,omitempty"`
+}
+
 // CardType: Type of credit or debit card used to pay..
 type CardType string
 
@@ -358,6 +404,8 @@ type Card struct {
 type MethodDetails struct {
 	// Type: Type of payment method used for this payment attempt.
 	Type PaymentMethodType `json:"type,omitempty"`
+	// UnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+	UnderlyingDetails *PaymentMethodUnderlyingDetails `json:"underlying_details,omitempty"`
 	// Card: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
 	Card *Card `json:"card,omitempty"`
 }

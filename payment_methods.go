@@ -45,6 +45,8 @@ type PaymentMethod struct {
 	Card *Card `json:"card,omitempty"`
 	// Paypal: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
 	Paypal *PayPal `json:"paypal,omitempty"`
+	// UnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+	UnderlyingDetails *PaymentMethodUnderlyingDetails `json:"underlying_details,omitempty"`
 	// Origin: Describes how this payment method was saved.
 	Origin PaymentMethodOrigin `json:"origin,omitempty"`
 	// SavedAt: RFC 3339 datetime string of when this entity was saved. Set automatically by Paddle.
