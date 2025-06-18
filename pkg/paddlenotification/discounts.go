@@ -40,6 +40,14 @@ const (
 	DiscountTypePercentage  DiscountType = "percentage"
 )
 
+// DiscountMode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard..
+type DiscountMode string
+
+const (
+	DiscountModeStandard DiscountMode = "standard"
+	DiscountModeCustom   DiscountMode = "custom"
+)
+
 // DiscountNotification: New or changed entity.
 type DiscountNotification struct {
 	NotificationPayload `json:"-"`
@@ -56,6 +64,8 @@ type DiscountNotification struct {
 	Code *string `json:"code"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type DiscountType `json:"type"`
+	// Mode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard.
+	Mode *DiscountMode `json:"mode"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount string `json:"amount"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
