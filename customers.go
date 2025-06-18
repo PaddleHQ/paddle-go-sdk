@@ -29,6 +29,26 @@ var ErrCustomerEmailInvalid = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// CustomerBalance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
+type CustomerBalance struct {
+	// Available: Total amount of credit available to use.
+	Available string `json:"available,omitempty"`
+	// Reserved: Total amount of credit temporarily reserved for `billed` transactions.
+	Reserved string `json:"reserved,omitempty"`
+	// Used: Total amount of credit used.
+	Used string `json:"used,omitempty"`
+}
+
+// CreditBalance: Represents a credit balance for a customer.
+type CreditBalance struct {
+	// CustomerID: Paddle ID of the customer that this credit balance is for, prefixed with `ctm_`.
+	CustomerID string `json:"customer_id,omitempty"`
+	// CurrencyCode: Three-letter ISO 4217 currency code for this credit balance.
+	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	// Balance: Totals for this credit balance. Where a customer has more than one subscription in this currency with a credit balance, includes totals for all subscriptions.
+	Balance CustomerBalance `json:"balance,omitempty"`
+}
+
 // Customer: Represents a customer entity with included entities.
 type Customer struct {
 	// ID: Unique Paddle ID for this customer entity, prefixed with `ctm_`.
@@ -67,6 +87,25 @@ type CustomerAuthenticationToken struct {
 // CustomersClient is a client for the Customers resource.
 type CustomersClient struct {
 	doer Doer
+}
+
+// ListCreditBalancesRequest is given as an input to ListCreditBalances.
+type ListCreditBalancesRequest struct {
+	// URL path parameters.
+	CustomerID string `in:"path=customer_id" json:"-"`
+
+	// CurrencyCode is a query parameter.
+	// Return entities that match the currency code. Use a comma-separated list to specify multiple currency codes.
+	CurrencyCode []string `in:"query=currency_code;omitempty" json:"-"`
+}
+
+// ListCreditBalances performs the GET operation on a Customers resource.
+func (c *CustomersClient) ListCreditBalances(ctx context.Context, req *ListCreditBalancesRequest) (res *Collection[*CreditBalance], err error) {
+	if err := c.doer.Do(ctx, "GET", "/customers/{customer_id}/credit-balances", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
 // ListCustomersRequest is given as an input to ListCustomers.
