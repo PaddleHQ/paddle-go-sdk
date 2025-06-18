@@ -124,12 +124,13 @@ var ErrAdjustmentCannotAdjustImportedTransaction = &paddleerr.Error{
 type AdjustmentActionQuery string
 
 const (
-	AdjustmentActionQueryChargeback        AdjustmentActionQuery = "chargeback"
-	AdjustmentActionQueryChargebackReverse AdjustmentActionQuery = "chargeback_reverse"
-	AdjustmentActionQueryChargebackWarning AdjustmentActionQuery = "chargeback_warning"
-	AdjustmentActionQueryCredit            AdjustmentActionQuery = "credit"
-	AdjustmentActionQueryCreditReverse     AdjustmentActionQuery = "credit_reverse"
-	AdjustmentActionQueryRefund            AdjustmentActionQuery = "refund"
+	AdjustmentActionQueryChargeback               AdjustmentActionQuery = "chargeback"
+	AdjustmentActionQueryChargebackReverse        AdjustmentActionQuery = "chargeback_reverse"
+	AdjustmentActionQueryChargebackWarning        AdjustmentActionQuery = "chargeback_warning"
+	AdjustmentActionQueryChargebackWarningReverse AdjustmentActionQuery = "chargeback_warning_reverse"
+	AdjustmentActionQueryCredit                   AdjustmentActionQuery = "credit"
+	AdjustmentActionQueryCreditReverse            AdjustmentActionQuery = "credit_reverse"
+	AdjustmentActionQueryRefund                   AdjustmentActionQuery = "refund"
 )
 
 type AdjustmentCreditNotePDF struct {
