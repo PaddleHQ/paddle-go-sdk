@@ -110,6 +110,16 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.AdjustmentCreated{}
 	case "adjustment.updated":
 		t = &paddlenotification.AdjustmentUpdated{}
+	case "api_key.created":
+		t = &paddlenotification.APIKeyCreated{}
+	case "api_key.updated":
+		t = &paddlenotification.APIKeyUpdated{}
+	case "api_key.expired":
+		t = &paddlenotification.APIKeyExpired{}
+	case "api_key.expiring":
+		t = &paddlenotification.APIKeyExpiring{}
+	case "api_key.revoked":
+		t = &paddlenotification.APIKeyRevoked{}
 	case "business.created":
 		t = &paddlenotification.BusinessCreated{}
 	case "business.imported":

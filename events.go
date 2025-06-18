@@ -55,6 +55,36 @@ type AdjustmentUpdatedEvent struct {
 	Data paddlenotification.AdjustmentNotification `json:"data"`
 }
 
+// APIKeyCreatedEvent represents an Event implementation for api_key.created event.
+type APIKeyCreatedEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyNotification `json:"data"`
+}
+
+// APIKeyUpdatedEvent represents an Event implementation for api_key.updated event.
+type APIKeyUpdatedEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyNotification `json:"data"`
+}
+
+// APIKeyExpiredEvent represents an Event implementation for api_key.expired event.
+type APIKeyExpiredEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyNotification `json:"data"`
+}
+
+// APIKeyExpiringEvent represents an Event implementation for api_key.expiring event.
+type APIKeyExpiringEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyNotification `json:"data"`
+}
+
+// APIKeyRevokedEvent represents an Event implementation for api_key.revoked event.
+type APIKeyRevokedEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyNotification `json:"data"`
+}
+
 // BusinessCreatedEvent represents an Event implementation for business.created event.
 type BusinessCreatedEvent struct {
 	GenericEvent
@@ -314,6 +344,16 @@ func unmarshalEvent(data []byte) (Event, error) {
 		t = &AdjustmentCreatedEvent{}
 	case "adjustment.updated":
 		t = &AdjustmentUpdatedEvent{}
+	case "api_key.created":
+		t = &APIKeyCreatedEvent{}
+	case "api_key.updated":
+		t = &APIKeyUpdatedEvent{}
+	case "api_key.expired":
+		t = &APIKeyExpiredEvent{}
+	case "api_key.expiring":
+		t = &APIKeyExpiringEvent{}
+	case "api_key.revoked":
+		t = &APIKeyRevokedEvent{}
 	case "business.created":
 		t = &BusinessCreatedEvent{}
 	case "business.imported":
