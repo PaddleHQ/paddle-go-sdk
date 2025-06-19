@@ -1459,6 +1459,7 @@ const (
 	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
 	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
 	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNameDiscountGroupCreated     EventTypeName = "discount_group.created"
 	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
 	EventTypeNamePayoutPaid               EventTypeName = "payout.paid"
 	EventTypeNamePriceCreated             EventTypeName = "price.created"
@@ -1527,6 +1528,7 @@ const (
 	SimulationTypeNameDiscountCreated          SimulationTypeName = "discount.created"
 	SimulationTypeNameDiscountImported         SimulationTypeName = "discount.imported"
 	SimulationTypeNameDiscountUpdated          SimulationTypeName = "discount.updated"
+	SimulationTypeNameDiscountGroupCreated     SimulationTypeName = "discount_group.created"
 	SimulationTypeNamePayoutCreated            SimulationTypeName = "payout.created"
 	SimulationTypeNamePayoutPaid               SimulationTypeName = "payout.paid"
 	SimulationTypeNamePriceCreated             SimulationTypeName = "price.created"
@@ -1630,6 +1632,8 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 			t = &paddlenotification.BusinessNotification{}
 		case "discount":
 			t = &paddlenotification.DiscountNotification{}
+		case "discount_group":
+			t = &paddlenotification.DiscountGroupNotification{}
 		case "price":
 			t = &paddlenotification.PriceNotification{}
 		case "product":
@@ -1665,4 +1669,20 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 	s.Payload = t
 
 	return nil
+}
+
+// DiscountGroup: Discount group for this discount. Returned when the `include` parameter is used with the `group` value and the discount has a `group_id`.
+type DiscountGroup struct {
+	// ID: Unique Paddle ID for this discount group, prefixed with `dsg_`.
+	ID string `json:"id,omitempty"`
+	// Name: Name of this discount group, typically something short and memorable for categorization. Not shown to customers.
+	Name string `json:"name,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status Status `json:"status,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
