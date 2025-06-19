@@ -33,7 +33,7 @@ type ProductNotification struct {
 	Name string `json:"name"`
 	// Description: Short description for this product.
 	Description *string `json:"description"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type *CatalogType `json:"type"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory TaxCategory `json:"tax_category"`
