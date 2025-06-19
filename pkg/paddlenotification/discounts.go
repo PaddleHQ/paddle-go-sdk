@@ -86,6 +86,8 @@ type DiscountNotification struct {
 	UsageLimit *int `json:"usage_limit"`
 	// RestrictTo: Product or price IDs that this discount is for. When including a product ID, all prices for that product can be discounted. `null` if this discount applies to all products and prices.
 	RestrictTo []string `json:"restrict_to"`
+	// DiscountGroupID: Unique Paddle ID for this discount group, prefixed with `dsg_`.
+	DiscountGroupID *string `json:"discount_group_id"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
