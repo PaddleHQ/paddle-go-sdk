@@ -5,7 +5,6 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 )
 
@@ -780,7 +779,7 @@ type TransactionPricePreview struct {
 	ProductID *string `json:"product_id,omitempty"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
