@@ -50,6 +50,64 @@ var ErrDiscountUsageLimitLessThanTimesUsed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// Discount: Represents a discount entity with included entities.
+type Discount struct {
+	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
+	ID string `json:"id,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status DiscountStatus `json:"status,omitempty"`
+	// Description: Short description for this discount for your reference. Not shown to customers.
+	Description string `json:"description,omitempty"`
+	// EnabledForCheckout: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
+	EnabledForCheckout bool `json:"enabled_for_checkout,omitempty"`
+	// Code: Unique code that customers can use to redeem this discount at checkout. Not case-sensitive.
+	Code *string `json:"code,omitempty"`
+	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
+	Type DiscountType `json:"type,omitempty"`
+	// Mode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard.
+	Mode DiscountMode `json:"mode,omitempty"`
+	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
+	Amount string `json:"amount,omitempty"`
+	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+	// Recur: Whether this discount applies for multiple subscription billing periods (`true`) or not (`false`).
+	Recur bool `json:"recur,omitempty"`
+	/*
+	   MaximumRecurringIntervals: Number of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
+
+	   Subscription renewals, midcycle changes, and one-time charges billed to a subscription aren't considered a redemption. `times_used` is not incremented in these cases.
+	*/
+	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals,omitempty"`
+	/*
+	   UsageLimit: Maximum number of times this discount can be redeemed. This is an overall limit for this discount, rather than a per-customer limit. `null` if this discount can be redeemed an unlimited amount of times.
+
+	   Paddle counts a usage as a redemption on a checkout, transaction, or the initial application against a subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
+	*/
+	UsageLimit *int `json:"usage_limit,omitempty"`
+	// RestrictTo: Product or price IDs that this discount is for. When including a product ID, all prices for that product can be discounted. `null` if this discount applies to all products and prices.
+	RestrictTo []string `json:"restrict_to,omitempty"`
+	/*
+	   ExpiresAt: RFC 3339 datetime string of when this discount expires. Discount can no longer be redeemed after this date has elapsed. `null` if this discount can be redeemed forever.
+
+	   Expired discounts can't be redeemed against transactions or checkouts, but can be applied when updating subscriptions.
+	*/
+	ExpiresAt *string `json:"expires_at,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	/*
+	   TimesUsed: How many times this discount has been redeemed. Automatically incremented by Paddle.
+
+	   Paddle counts a usage as a redemption on a checkout, transaction, or subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
+	*/
+	TimesUsed int `json:"times_used,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+}
+
 // DiscountsClient is a client for the Discounts resource.
 type DiscountsClient struct {
 	doer Doer
@@ -83,6 +141,9 @@ type ListDiscountsRequest struct {
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
 	Status []string `in:"query=status;omitempty" json:"-"`
+	// Mode is a query parameter.
+	// Return entities that match the specified mode.
+	Mode *string `in:"query=mode;omitempty" json:"-"`
 }
 
 // ListDiscounts performs the GET operation on a Discounts resource.
@@ -110,6 +171,8 @@ type CreateDiscountRequest struct {
 	   If omitted and `enabled_for_checkout` is `true`, Paddle generates a random 10-character code.
 	*/
 	Code *string `json:"code,omitempty"`
+	// Mode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
+	Mode *DiscountMode `json:"mode,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// Recur: Whether this discount applies for multiple subscription billing periods (`true`) or not (`false`). If omitted, defaults to `false`.
@@ -177,6 +240,8 @@ type UpdateDiscountRequest struct {
 	Code *PatchField[*string] `json:"code,omitempty"`
 	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
 	Type *PatchField[DiscountType] `json:"type,omitempty"`
+	// Mode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard.
+	Mode *PatchField[DiscountMode] `json:"mode,omitempty"`
 	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
 	Amount *PatchField[string] `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code. Required where discount type is `flat` or `flat_per_seat`.
