@@ -44,6 +44,27 @@ var ErrNotificationReplayInvalidOriginType = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrNotificationSimulationAlreadyRunningConflict represents a `notification_simulation_already_running_conflict` error.
+// See https://developer.paddle.com/errors/notifications/notification_simulation_already_running_conflict for more information.
+var ErrNotificationSimulationAlreadyRunningConflict = &paddleerr.Error{
+	Code: "notification_simulation_already_running_conflict",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrNotificationSimulationRunNotificationSettingsConflict represents a `notification_simulation_run_notification_settings_conflict` error.
+// See https://developer.paddle.com/errors/notifications/notification_simulation_run_notification_settings_conflict for more information.
+var ErrNotificationSimulationRunNotificationSettingsConflict = &paddleerr.Error{
+	Code: "notification_simulation_run_notification_settings_conflict",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrNotificationSimulationRunConfigurationConflict represents a `notification_simulation_run_configuration_conflict` error.
+// See https://developer.paddle.com/errors/notifications/notification_simulation_run_configuration_conflict for more information.
+var ErrNotificationSimulationRunConfigurationConflict = &paddleerr.Error{
+	Code: "notification_simulation_run_configuration_conflict",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // NotificationStatus: Status of this notification..
 type NotificationStatus string
 
