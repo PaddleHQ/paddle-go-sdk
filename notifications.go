@@ -5,7 +5,6 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
 )
@@ -66,29 +65,29 @@ const (
 // Notification: Represents a notification entity.
 type Notification struct {
 	// ID: Unique Paddle ID for this notification, prefixed with `ntf_`.
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 	// Type: Type of event sent by Paddle, in the format `entity.event_type`.
-	Type EventTypeName `json:"type,omitempty"`
+	Type EventTypeName `json:"type"`
 	// Status: Status of this notification.
-	Status NotificationStatus `json:"status,omitempty"`
+	Status NotificationStatus `json:"status"`
 	// Payload: Notification payload. Includes the new or changed event.
-	Payload paddlenotification.NotificationEvent `json:"payload,omitempty"`
+	Payload paddlenotification.NotificationEvent `json:"payload"`
 	// OccurredAt: RFC 3339 datetime string of when this notification occurred.
-	OccurredAt string `json:"occurred_at,omitempty"`
+	OccurredAt string `json:"occurred_at"`
 	// DeliveredAt: RFC 3339 datetime string of when this notification was delivered. `null` if not yet delivered successfully.
-	DeliveredAt *string `json:"delivered_at,omitempty"`
+	DeliveredAt *string `json:"delivered_at"`
 	// ReplayedAt: RFC 3339 datetime string of when this notification was replayed. `null` if not replayed.
-	ReplayedAt *string `json:"replayed_at,omitempty"`
+	ReplayedAt *string `json:"replayed_at"`
 	// Origin: Describes how this notification was created.
-	Origin NotificationOrigin `json:"origin,omitempty"`
+	Origin NotificationOrigin `json:"origin"`
 	// LastAttemptAt: RFC 3339 datetime string of when this notification was last attempted.
-	LastAttemptAt *string `json:"last_attempt_at,omitempty"`
+	LastAttemptAt *string `json:"last_attempt_at"`
 	// RetryAt: RFC 3339 datetime string of when this notification is scheduled to be retried.
-	RetryAt *string `json:"retry_at,omitempty"`
+	RetryAt *string `json:"retry_at"`
 	// TimesAttempted: How many times delivery of this notification has been attempted. Automatically incremented by Paddle after an attempt.
-	TimesAttempted int `json:"times_attempted,omitempty"`
+	TimesAttempted int `json:"times_attempted"`
 	// NotificationSettingID: Unique Paddle ID for this notification setting, prefixed with `ntfset_`.
-	NotificationSettingID string `json:"notification_setting_id,omitempty"`
+	NotificationSettingID string `json:"notification_setting_id"`
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Notification

@@ -4,10 +4,9 @@ package paddle
 
 import (
 	"encoding/json"
-	"strings"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
-	"github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
+	"strings"
 )
 
 // ErrNotFound represents a `not_found` error.
@@ -313,7 +312,7 @@ type Money struct {
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
 }
 
-// CountryCode: Supported two-letter ISO 3166-1 alpha-2 country code..
+// CountryCode: Two-letter ISO 3166-1 alpha-2 country code..
 type CountryCode string
 
 const (
@@ -550,7 +549,7 @@ const (
 
 // UnitPriceOverride: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 type UnitPriceOverride struct {
-	// CountryCodes: Supported two-letter ISO 3166-1 alpha-2 country code.
+	// CountryCodes: Two-letter ISO 3166-1 alpha-2 country code.
 	CountryCodes []CountryCode `json:"country_codes,omitempty"`
 	// UnitPrice: Override price. This price applies to customers located in the countries for this unit price override.
 	UnitPrice Money `json:"unit_price,omitempty"`
@@ -1141,7 +1140,7 @@ type AdjustmentItem struct {
 	   Include `amount` when creating a `partial` adjustment.
 	*/
 	Type AdjustmentItemType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
+	// Amount: Amount adjusted for this transaction item. Required when item `type` is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
@@ -1394,7 +1393,7 @@ type ProductPreview struct {
 	Name string `json:"name,omitempty"`
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`
@@ -1504,9 +1503,6 @@ type EventType struct {
 	// AvailableVersions: List of API versions that this event type supports.
 	AvailableVersions []int `json:"available_versions,omitempty"`
 }
-
-// Data: New or changed entity.
-type Data map[string]any
 
 // SimulationTypeName: Single event sent for this simulation, in the format `entity.event_type`..
 type SimulationTypeName string

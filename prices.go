@@ -4,7 +4,6 @@ package paddle
 
 import (
 	"context"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 )
 
@@ -51,7 +50,7 @@ type Price struct {
 	ProductID string `json:"product_id,omitempty"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
@@ -143,7 +142,7 @@ type CreatePriceRequest struct {
 	ProductID string `json:"product_id,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 	UnitPrice Money `json:"unit_price,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
 	Type *CatalogType `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name,omitempty"`
@@ -199,7 +198,7 @@ type UpdatePriceRequest struct {
 
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description *PatchField[string] `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type *PatchField[CatalogType] `json:"type,omitempty"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *PatchField[*string] `json:"name,omitempty"`

@@ -4,7 +4,6 @@ package paddle
 
 import (
 	"context"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 )
 
@@ -23,7 +22,7 @@ type Product struct {
 	Name string `json:"name,omitempty"`
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type CatalogType `json:"type,omitempty"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`
@@ -102,7 +101,7 @@ type CreateProductRequest struct {
 	TaxCategory TaxCategory `json:"tax_category,omitempty"`
 	// Description: Short description for this product.
 	Description *string `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
 	Type *CatalogType `json:"type,omitempty"`
 	// ImageURL: Image for this product. Included in the checkout and on some customer documents.
 	ImageURL *string `json:"image_url,omitempty"`
@@ -147,7 +146,7 @@ type UpdateProductRequest struct {
 	Name *PatchField[string] `json:"name,omitempty"`
 	// Description: Short description for this product.
 	Description *PatchField[*string] `json:"description,omitempty"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type *PatchField[CatalogType] `json:"type,omitempty"`
 	// TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account.
 	TaxCategory *PatchField[TaxCategory] `json:"tax_category,omitempty"`
