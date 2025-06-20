@@ -1459,6 +1459,7 @@ const (
 	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
 	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
 	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNameDiscountGroupCreated     EventTypeName = "discount_group.created"
 	EventTypeNamePaymentMethodSaved       EventTypeName = "payment_method.saved"
 	EventTypeNamePaymentMethodDeleted     EventTypeName = "payment_method.deleted"
 	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
@@ -1530,6 +1531,7 @@ const (
 	SimulationTypeNameDiscountCreated          SimulationTypeName = "discount.created"
 	SimulationTypeNameDiscountImported         SimulationTypeName = "discount.imported"
 	SimulationTypeNameDiscountUpdated          SimulationTypeName = "discount.updated"
+	SimulationTypeNameDiscountGroupCreated     SimulationTypeName = "discount_group.created"
 	SimulationTypeNamePaymentMethodSaved       SimulationTypeName = "payment_method.saved"
 	SimulationTypeNamePaymentMethodDeleted     SimulationTypeName = "payment_method.deleted"
 	SimulationTypeNamePayoutCreated            SimulationTypeName = "payout.created"
@@ -1630,26 +1632,28 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.PaymentMethodDeletedNotification{}
 	default:
 		switch strings.Split((string)(s.EventType), ".")[0] {
+		case "address":
+			t = &paddlenotification.AddressNotification{}
 		case "adjustment":
 			t = &paddlenotification.AdjustmentNotification{}
+		case "api_key":
+			t = &paddlenotification.APIKeyNotification{}
 		case "business":
 			t = &paddlenotification.BusinessNotification{}
+		case "customer":
+			t = &paddlenotification.CustomerNotification{}
 		case "discount":
 			t = &paddlenotification.DiscountNotification{}
+		case "discount_group":
+			t = &paddlenotification.DiscountGroupNotification{}
+		case "payout":
+			t = &paddlenotification.PayoutNotification{}
 		case "price":
 			t = &paddlenotification.PriceNotification{}
 		case "product":
 			t = &paddlenotification.ProductNotification{}
 		case "report":
 			t = &paddlenotification.ReportNotification{}
-		case "address":
-			t = &paddlenotification.AddressNotification{}
-		case "api_key":
-			t = &paddlenotification.APIKeyNotification{}
-		case "customer":
-			t = &paddlenotification.CustomerNotification{}
-		case "payout":
-			t = &paddlenotification.PayoutNotification{}
 		case "subscription":
 			t = &paddlenotification.SubscriptionNotification{}
 		case "transaction":
@@ -1671,4 +1675,20 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 	s.Payload = t
 
 	return nil
+}
+
+// DiscountGroup: Discount group for this discount. Returned when the `include` parameter is used with the `group` value and the discount has a `group_id`.
+type DiscountGroup struct {
+	// ID: Unique Paddle ID for this discount group, prefixed with `dsg_`.
+	ID string `json:"id,omitempty"`
+	// Name: Name of this discount group, typically something short and memorable for categorization. Not shown to customers.
+	Name string `json:"name,omitempty"`
+	// Status: Whether this entity can be used in Paddle.
+	Status Status `json:"status,omitempty"`
+	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
+	CreatedAt string `json:"created_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
+	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }

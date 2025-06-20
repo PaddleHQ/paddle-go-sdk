@@ -25,6 +25,7 @@ const (
 	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
 	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
 	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNameDiscountGroupCreated     EventTypeName = "discount_group.created"
 	EventTypeNamePaymentMethodSaved       EventTypeName = "payment_method.saved"
 	EventTypeNamePaymentMethodDeleted     EventTypeName = "payment_method.deleted"
 	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
