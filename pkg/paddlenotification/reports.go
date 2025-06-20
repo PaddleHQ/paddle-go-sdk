@@ -61,12 +61,12 @@ const (
 	ReportFiltersNameType             ReportFiltersName = "type"
 )
 
-// ReportFiltersOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
-type ReportFiltersOperator string
+// FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
+type FilterOperator string
 
 const (
-	ReportFiltersOperatorLt  ReportFiltersOperator = "lt"
-	ReportFiltersOperatorGte ReportFiltersOperator = "gte"
+	FilterOperatorLt  FilterOperator = "lt"
+	FilterOperatorGte FilterOperator = "gte"
 )
 
 // ReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -74,7 +74,7 @@ type ReportFilters struct {
 	// Name: Field name to filter by.
 	Name ReportFiltersName `json:"name,omitempty"`
 	// Operator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
-	Operator *ReportFiltersOperator `json:"operator,omitempty"`
+	Operator *FilterOperator `json:"operator,omitempty"`
 	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
 	Value any `json:"value,omitempty"`
 }

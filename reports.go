@@ -74,6 +74,7 @@ const (
 	ReportTypeTransactionLineItems ReportType = "transaction_line_items"
 	ReportTypeProductsPrices       ReportType = "products_prices"
 	ReportTypeDiscounts            ReportType = "discounts"
+	ReportTypeBalance              ReportType = "balance"
 )
 
 // ReportFiltersName: Field name to filter by..
@@ -95,12 +96,12 @@ const (
 	ReportFiltersNameType             ReportFiltersName = "type"
 )
 
-// ReportFiltersOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
-type ReportFiltersOperator string
+// FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
+type FilterOperator string
 
 const (
-	ReportFiltersOperatorLt  ReportFiltersOperator = "lt"
-	ReportFiltersOperatorGte ReportFiltersOperator = "gte"
+	FilterOperatorLt  FilterOperator = "lt"
+	FilterOperatorGte FilterOperator = "gte"
 )
 
 // ReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -108,7 +109,7 @@ type ReportFilters struct {
 	// Name: Field name to filter by.
 	Name ReportFiltersName `json:"name,omitempty"`
 	// Operator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
-	Operator *ReportFiltersOperator `json:"operator,omitempty"`
+	Operator *FilterOperator `json:"operator,omitempty"`
 	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
 	Value any `json:"value,omitempty"`
 }
@@ -153,14 +154,6 @@ const (
 	AdjustmentsReportFilterNameCurrencyCode AdjustmentsReportFilterName = "currency_code"
 	AdjustmentsReportFilterNameStatus       AdjustmentsReportFilterName = "status"
 	AdjustmentsReportFilterNameUpdatedAt    AdjustmentsReportFilterName = "updated_at"
-)
-
-// FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
-type FilterOperator string
-
-const (
-	FilterOperatorLt  FilterOperator = "lt"
-	FilterOperatorGte FilterOperator = "gte"
 )
 
 // AdjustmentsReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -285,6 +278,34 @@ type DiscountsReport struct {
 	Filters []DiscountsReportFilters `json:"filters,omitempty"`
 }
 
+// BalanceReportType: Type of report to create..
+type BalanceReportType string
+
+const BalanceReportTypeBalance BalanceReportType = "balance"
+
+// BalanceReportFilterName: Field name to filter by..
+type BalanceReportFilterName string
+
+const BalanceReportFilterNameUpdatedAt BalanceReportFilterName = "updated_at"
+
+// BalanceReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include Paddle Billing data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+type BalanceReportFilters struct {
+	// Name: Field name to filter by.
+	Name BalanceReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value any `json:"value,omitempty"`
+}
+
+// BalanceReport: Entity when working with a balance report.
+type BalanceReport struct {
+	// Type: Type of report to create.
+	Type BalanceReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. If omitted when creating, reports are filtered to include Paddle Billing data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+	Filters []BalanceReportFilters `json:"filters,omitempty"`
+}
+
 type ReportCSV struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -352,17 +373,25 @@ func NewCreateReportRequestDiscountsReport(r *DiscountsReport) *CreateReportRequ
 	return &CreateReportRequest{DiscountsReport: r}
 }
 
+// NewCreateReportRequestBalanceReport takes a BalanceReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestBalanceReport(r *BalanceReport) *CreateReportRequest {
+	return &CreateReportRequest{BalanceReport: r}
+}
+
 // CreateReportRequest represents a union request type of the following types:
 //   - `AdjustmentsReports`
 //   - `TransactionsReports`
 //   - `ProductsAndPricesReport`
 //   - `DiscountsReport`
+//   - `BalanceReport`
 //
 // The following constructor functions can be used to create a new instance of this type.
 //   - `NewCreateReportRequestAdjustmentsReports()`
 //   - `NewCreateReportRequestTransactionsReports()`
 //   - `NewCreateReportRequestProductsAndPricesReport()`
 //   - `NewCreateReportRequestDiscountsReport()`
+//   - `NewCreateReportRequestBalanceReport()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type CreateReportRequest struct {
@@ -370,6 +399,7 @@ type CreateReportRequest struct {
 	*TransactionsReports
 	*ProductsAndPricesReport
 	*DiscountsReport
+	*BalanceReport
 }
 
 // CreateReport performs the POST operation on a Reports resource.
@@ -397,6 +427,10 @@ func (u CreateReportRequest) MarshalJSON() ([]byte, error) {
 
 	if u.DiscountsReport != nil {
 		return json.Marshal(u.DiscountsReport)
+	}
+
+	if u.BalanceReport != nil {
+		return json.Marshal(u.BalanceReport)
 	}
 
 	return nil, nil
