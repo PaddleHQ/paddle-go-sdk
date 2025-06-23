@@ -1595,6 +1595,22 @@ const (
 	SimulationTypeNameSubscriptionCancellation SimulationTypeName = "subscription_cancellation"
 )
 
+// EffectiveFrom: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`..
+type EffectiveFrom string
+
+const (
+	EffectiveFromNextBillingPeriod EffectiveFrom = "next_billing_period"
+	EffectiveFromImmediately       EffectiveFrom = "immediately"
+)
+
+// SubscriptionChargeItemFromCatalog: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
+type SubscriptionChargeItemFromCatalog struct {
+	// Quantity: Quantity to bill for.
+	Quantity int `json:"quantity,omitempty"`
+	// PriceID: Paddle ID of an an existing catalog price to bill for.
+	PriceID string `json:"price_id,omitempty"`
+}
+
 // SimulationEventStatus: Status of this simulation run log..
 type SimulationEventStatus string
 

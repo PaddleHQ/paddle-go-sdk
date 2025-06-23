@@ -587,14 +587,6 @@ type Subscription struct {
 	RecurringTransactionDetails TransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
 }
 
-// EffectiveFrom: When this discount should take effect from..
-type EffectiveFrom string
-
-const (
-	EffectiveFromNextBillingPeriod EffectiveFrom = "next_billing_period"
-	EffectiveFromImmediately       EffectiveFrom = "immediately"
-)
-
 // SubscriptionDiscountEffectiveFrom: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
 type SubscriptionDiscountEffectiveFrom struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
@@ -770,14 +762,6 @@ type SubscriptionPreview struct {
 	UpdateSummary *SubscriptionPreviewUpdateSummary `json:"update_summary,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
-}
-
-// SubscriptionChargeItemFromCatalog: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionChargeItemFromCatalog struct {
-	// Quantity: Quantity to bill for.
-	Quantity int `json:"quantity,omitempty"`
-	// PriceID: Paddle ID of an an existing catalog price to bill for.
-	PriceID string `json:"price_id,omitempty"`
 }
 
 // SubscriptionChargeCreateWithPrice: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
