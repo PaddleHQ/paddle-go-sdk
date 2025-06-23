@@ -393,6 +393,34 @@ var ErrSubscriptionMissingPaymentMethodCannotActivate = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionMissingPaymentMethodCannotUpdate represents a `subscription_missing_payment_method_cannot_update` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_update for more information.
+var ErrSubscriptionMissingPaymentMethodCannotUpdate = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_update",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionMissingPaymentMethodCannotResume represents a `subscription_missing_payment_method_cannot_resume` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_resume for more information.
+var ErrSubscriptionMissingPaymentMethodCannotResume = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_resume",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionMissingPaymentMethodCannotRetryPayment represents a `subscription_missing_payment_method_cannot_retry_payment` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_retry_payment for more information.
+var ErrSubscriptionMissingPaymentMethodCannotRetryPayment = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_retry_payment",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionInvalidBillingModeForScheduledChange represents a `subscription_invalid_billing_mode_for_scheduled_change` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_invalid_billing_mode_for_scheduled_change for more information.
+var ErrSubscriptionInvalidBillingModeForScheduledChange = &paddleerr.Error{
+	Code: "subscription_invalid_billing_mode_for_scheduled_change",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
