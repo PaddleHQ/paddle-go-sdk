@@ -288,20 +288,6 @@ var ErrSubscriptionCustomerEmailDomainNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrSubscriptionPaymentRetryAttemptsExceeded represents a `subscription_payment_retry_attempts_exceeded` error.
-// See https://developer.paddle.com/errors/subscriptions/subscription_payment_retry_attempts_exceeded for more information.
-var ErrSubscriptionPaymentRetryAttemptsExceeded = &paddleerr.Error{
-	Code: "subscription_payment_retry_attempts_exceeded",
-	Type: paddleerr.ErrorTypeRequestError,
-}
-
-// ErrSubscriptionManualRetryPaymentNotAllowed represents a `subscription_manual_retry_payment_not_allowed` error.
-// See https://developer.paddle.com/errors/subscriptions/subscription_manual_retry_payment_not_allowed for more information.
-var ErrSubscriptionManualRetryPaymentNotAllowed = &paddleerr.Error{
-	Code: "subscription_manual_retry_payment_not_allowed",
-	Type: paddleerr.ErrorTypeRequestError,
-}
-
 // ErrSubscriptionCurrencyUpdateNotAllowed represents a `subscription_currency_update_not_allowed` error.
 // See https://developer.paddle.com/errors/subscriptions/subscription_currency_update_not_allowed for more information.
 var ErrSubscriptionCurrencyUpdateNotAllowed = &paddleerr.Error{
