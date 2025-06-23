@@ -501,7 +501,7 @@ type SubscriptionAdjustmentItem struct {
 	   Include `amount` when creating a `partial` adjustment.
 	*/
 	Type AdjustmentItemType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
+	// Amount: Amount adjusted for this transaction item. Required when item `type` is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`

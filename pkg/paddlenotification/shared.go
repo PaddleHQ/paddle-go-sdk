@@ -307,9 +307,9 @@ const (
 
 // ImportMeta: Import information for this entity. `null` if this entity is not imported.
 type ImportMeta struct {
-	// ExternalID: Reference or identifier for this entity from the solution where it was imported from.
+	// ExternalID: Reference or identifier for this entity from the provider where it was imported from.
 	ExternalID *string `json:"external_id,omitempty"`
-	// ImportedFrom: Name of the platform where this entity was imported from.
+	// ImportedFrom: Name of the platform or provider where this entity was imported from.
 	ImportedFrom string `json:"imported_from,omitempty"`
 }
 
