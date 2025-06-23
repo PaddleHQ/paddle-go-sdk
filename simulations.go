@@ -669,15 +669,15 @@ type SimulationScenarioCreate struct {
 // SimulationSingleEventUpdate: Single event simulations play a single event.
 type SimulationSingleEventUpdate struct {
 	// NotificationSettingID: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-	NotificationSettingID string `json:"notification_setting_id,omitempty"`
+	NotificationSettingID *PatchField[string] `json:"notification_setting_id,omitempty"`
 	// Name: Name of this simulation.
-	Name string `json:"name,omitempty"`
+	Name *PatchField[string] `json:"name,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status *PatchField[Status] `json:"status,omitempty"`
 	// Type: Single event sent for this simulation, in the format `entity.event_type`.
-	Type EventTypeName `json:"type,omitempty"`
+	Type *PatchField[EventTypeName] `json:"type,omitempty"`
 	// Payload: Simulation payload. Pass a JSON object that matches the schema for an event type to simulate a custom payload. Set to `null` to clear and populate with a demo example.
-	Payload paddlenotification.NotificationPayload `json:"payload,omitempty"`
+	Payload *PatchField[paddlenotification.NotificationPayload] `json:"payload,omitempty"`
 }
 
 // NewSimulationScenarioUpdateConfigSimulationSubscriptionCancellation takes a SimulationSubscriptionCancellation type
@@ -762,15 +762,15 @@ func (u SimulationScenarioUpdateConfig) MarshalJSON() ([]byte, error) {
 // SimulationScenarioUpdate: Scenario simulations play all events sent for a subscription lifecycle event.
 type SimulationScenarioUpdate struct {
 	// NotificationSettingID: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-	NotificationSettingID string `json:"notification_setting_id,omitempty"`
+	NotificationSettingID *PatchField[string] `json:"notification_setting_id,omitempty"`
 	// Name: Name of this simulation.
-	Name string `json:"name,omitempty"`
+	Name *PatchField[string] `json:"name,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
-	Status Status `json:"status,omitempty"`
+	Status *PatchField[Status] `json:"status,omitempty"`
 	// Type: Scenario for this simulation. Scenario simulations play all events sent for a subscription lifecycle event.
-	Type SimulationScenarioType `json:"type,omitempty"`
+	Type *PatchField[SimulationScenarioType] `json:"type,omitempty"`
 	// Config: Configuration for this scenario simulation. Use to simulate more granular flows and populate payloads with your own entity data. If omitted, Paddle simulates the default scenario flow and populates payloads with demo examples.
-	Config *SimulationScenarioUpdateConfig `json:"config,omitempty"`
+	Config *PatchField[*SimulationScenarioUpdateConfig] `json:"config,omitempty"`
 }
 
 // SimulationsClient is a client for the Simulations resource.
