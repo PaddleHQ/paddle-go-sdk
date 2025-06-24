@@ -275,3 +275,18 @@ func (c *NotificationsClient) GetNotification(ctx context.Context, req *GetNotif
 
 	return res, nil
 }
+
+// ReplayNotificationRequest is given as an input to ReplayNotification.
+type ReplayNotificationRequest struct {
+	// URL path parameters.
+	NotificationID string `in:"path=notification_id" json:"-"`
+}
+
+// ReplayNotification performs the POST operation on a Notifications resource.
+func (c *NotificationsClient) ReplayNotification(ctx context.Context, req *ReplayNotificationRequest) (err error) {
+	if err := c.doer.Do(ctx, "POST", "/notifications/{notification_id}/replay", req, nil); err != nil {
+		return err
+	}
+
+	return nil
+}
