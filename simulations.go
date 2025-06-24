@@ -8,26 +8,26 @@ import (
 	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
 )
 
-// SimulationSubscriptionCancellationConfigEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-type SimulationSubscriptionCancellationConfigEntities struct {
+// SimulationSubscriptionCancellationConfigEntitiesCreate: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+type SimulationSubscriptionCancellationConfigEntitiesCreate struct {
 	// SubscriptionID: Paddle ID of a subscription to simulate as canceled. Adds details of that subscription to webhook payloads.
 	SubscriptionID *string `json:"subscription_id,omitempty"`
 }
 
-// SimulationSubscriptionCancellationConfigOptions: Options that determine which webhooks are sent as part of a simulation.
-type SimulationSubscriptionCancellationConfigOptions struct {
+// SimulationSubscriptionCancellationConfigOptionsCreate: Options that determine which webhooks are sent as part of a simulation.
+type SimulationSubscriptionCancellationConfigOptionsCreate struct {
 	// EffectiveFrom: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`.
 	EffectiveFrom EffectiveFrom `json:"effective_from,omitempty"`
 	// HasPastDueTransaction: Whether a simulated subscription has a past due transaction (`true`) or not (`false`), which determines whether events occur for canceling past due transactions. If omitted, defaults to `false`.
 	HasPastDueTransaction bool `json:"has_past_due_transaction,omitempty"`
 }
 
-// SimulationSubscriptionCancellationConfig: Configuration for subscription canceled simulations.
-type SimulationSubscriptionCancellationConfig struct {
+// SimulationSubscriptionCancellationConfigCreate: Configuration for subscription canceled simulations.
+type SimulationSubscriptionCancellationConfigCreate struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-	Entities SimulationSubscriptionCancellationConfigEntities `json:"entities,omitempty"`
+	Entities SimulationSubscriptionCancellationConfigEntitiesCreate `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSubscriptionCancellationConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionCancellationConfigOptionsCreate `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionCreationConfigEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
@@ -75,8 +75,8 @@ const (
 	DiscountSimulatedAsEnteredByCustomer DiscountSimulatedAs = "entered_by_customer"
 )
 
-// SimulationSubscriptionCreationConfigOptions: Options that determine which webhooks are sent as part of a simulation.
-type SimulationSubscriptionCreationConfigOptions struct {
+// SimulationSubscriptionCreationConfigOptionsCreate: Options that determine which webhooks are sent as part of a simulation.
+type SimulationSubscriptionCreationConfigOptionsCreate struct {
 	// CustomerSimulatedAs: Determines which webhooks are sent based on whether a new or existing customer subscribes, and how their details are entered if they're an existing customer. If omitted, defaults to `new`.
 	CustomerSimulatedAs CustomerSimulatedAs `json:"customer_simulated_as,omitempty"`
 	// BusinessSimulatedAs: Determines which webhooks are sent based on whether a new, existing, or no business was provided. If omitted, defaults to `not_provided`.
@@ -90,29 +90,29 @@ type SimulationSubscriptionCreationConfig struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
 	Entities SimulationSubscriptionCreationConfigEntities `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSubscriptionCreationConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionCreationConfigOptionsCreate `json:"options,omitempty"`
 }
 
-// SimulationSubscriptionPauseConfigEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-type SimulationSubscriptionPauseConfigEntities struct {
+// SimulationSubscriptionPauseConfigEntitiesCreate: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+type SimulationSubscriptionPauseConfigEntitiesCreate struct {
 	// SubscriptionID: Paddle ID of a subscription to simulate as paused. Adds details of that subscription to webhook payloads.
 	SubscriptionID *string `json:"subscription_id,omitempty"`
 }
 
-// SimulationSubscriptionPauseConfigOptions: Options that determine which webhooks are sent as part of a simulation.
-type SimulationSubscriptionPauseConfigOptions struct {
+// SimulationSubscriptionPauseConfigOptionsCreate: Options that determine which webhooks are sent as part of a simulation.
+type SimulationSubscriptionPauseConfigOptionsCreate struct {
 	// EffectiveFrom: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`.
 	EffectiveFrom EffectiveFrom `json:"effective_from,omitempty"`
 	// HasPastDueTransaction: Whether a simulated subscription has a past due transaction (`true`) or not (`false`), which determines whether events occur for canceling past due transactions. If omitted, defaults to `false`.
 	HasPastDueTransaction bool `json:"has_past_due_transaction,omitempty"`
 }
 
-// SimulationSubscriptionPauseConfig: Configuration for subscription paused simulations.
-type SimulationSubscriptionPauseConfig struct {
+// SimulationSubscriptionPauseConfigCreate: Configuration for subscription paused simulations.
+type SimulationSubscriptionPauseConfigCreate struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-	Entities SimulationSubscriptionPauseConfigEntities `json:"entities,omitempty"`
+	Entities SimulationSubscriptionPauseConfigEntitiesCreate `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSubscriptionPauseConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionPauseConfigOptionsCreate `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionRenewalConfigEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
@@ -172,11 +172,11 @@ type SimulationSubscriptionResumeConfig struct {
 // SimulationScenarioConfig: Configuration for this scenario simulation. Determines which granular flow is simulated and what entities are used to populate webhook payloads with.
 type SimulationScenarioConfig struct {
 	// SubscriptionCancellation: Configuration for subscription canceled simulations.
-	SubscriptionCancellation *SimulationSubscriptionCancellationConfig `json:"subscription_cancellation,omitempty"`
+	SubscriptionCancellation *SimulationSubscriptionCancellationConfigCreate `json:"subscription_cancellation,omitempty"`
 	// SubscriptionCreation: Configuration for subscription creation simulations.
 	SubscriptionCreation *SimulationSubscriptionCreationConfig `json:"subscription_creation,omitempty"`
 	// SubscriptionPause: Configuration for subscription paused simulations.
-	SubscriptionPause *SimulationSubscriptionPauseConfig `json:"subscription_pause,omitempty"`
+	SubscriptionPause *SimulationSubscriptionPauseConfigCreate `json:"subscription_pause,omitempty"`
 	// SubscriptionRenewal: Configuration for subscription renewed simulations.
 	SubscriptionRenewal *SimulationSubscriptionRenewalConfig `json:"subscription_renewal,omitempty"`
 	// SubscriptionResume: Configuration for subscription resumed simulations.
@@ -233,7 +233,7 @@ const (
 // SimulationSubscriptionCancellation: Configuration for subscription canceled simulations.
 type SimulationSubscriptionCancellation struct {
 	// SubscriptionCancellation: Configuration for subscription canceled simulations.
-	SubscriptionCancellation SimulationSubscriptionCancellationConfig `json:"subscription_cancellation,omitempty"`
+	SubscriptionCancellation SimulationSubscriptionCancellationConfigCreate `json:"subscription_cancellation,omitempty"`
 }
 
 // SimulationSubscriptionCreationConfigNoPrices: Configuration resources for subscription creation simulations
@@ -282,44 +282,44 @@ type SimulationSubscriptionCreationConfigTransaction struct {
 	TransactionID string `json:"transaction_id,omitempty"`
 }
 
-// NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigNoPrices takes a SimulationSubscriptionCreationConfigNoPrices type
-// and creates a SimulationSimulationSubscriptionCreationConfigEntities for use in a request.
-func NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigNoPrices(r *SimulationSubscriptionCreationConfigNoPrices) *SimulationSimulationSubscriptionCreationConfigEntities {
-	return &SimulationSimulationSubscriptionCreationConfigEntities{SimulationSubscriptionCreationConfigNoPrices: r}
+// NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigNoPrices takes a SimulationSubscriptionCreationConfigNoPrices type
+// and creates a SimulationSubscriptionCreationConfigCreateEntities for use in a request.
+func NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigNoPrices(r *SimulationSubscriptionCreationConfigNoPrices) *SimulationSubscriptionCreationConfigCreateEntities {
+	return &SimulationSubscriptionCreationConfigCreateEntities{SimulationSubscriptionCreationConfigNoPrices: r}
 }
 
-// NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigItems takes a SimulationSubscriptionCreationConfigItems type
-// and creates a SimulationSimulationSubscriptionCreationConfigEntities for use in a request.
-func NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigItems(r *SimulationSubscriptionCreationConfigItems) *SimulationSimulationSubscriptionCreationConfigEntities {
-	return &SimulationSimulationSubscriptionCreationConfigEntities{SimulationSubscriptionCreationConfigItems: r}
+// NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigItems takes a SimulationSubscriptionCreationConfigItems type
+// and creates a SimulationSubscriptionCreationConfigCreateEntities for use in a request.
+func NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigItems(r *SimulationSubscriptionCreationConfigItems) *SimulationSubscriptionCreationConfigCreateEntities {
+	return &SimulationSubscriptionCreationConfigCreateEntities{SimulationSubscriptionCreationConfigItems: r}
 }
 
-// NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigTransaction takes a SimulationSubscriptionCreationConfigTransaction type
-// and creates a SimulationSimulationSubscriptionCreationConfigEntities for use in a request.
-func NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigTransaction(r *SimulationSubscriptionCreationConfigTransaction) *SimulationSimulationSubscriptionCreationConfigEntities {
-	return &SimulationSimulationSubscriptionCreationConfigEntities{SimulationSubscriptionCreationConfigTransaction: r}
+// NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigTransaction takes a SimulationSubscriptionCreationConfigTransaction type
+// and creates a SimulationSubscriptionCreationConfigCreateEntities for use in a request.
+func NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigTransaction(r *SimulationSubscriptionCreationConfigTransaction) *SimulationSubscriptionCreationConfigCreateEntities {
+	return &SimulationSubscriptionCreationConfigCreateEntities{SimulationSubscriptionCreationConfigTransaction: r}
 }
 
-// SimulationSimulationSubscriptionCreationConfigEntities represents a union request type of the following types:
+// SimulationSubscriptionCreationConfigCreateEntities represents a union request type of the following types:
 //   - `SimulationSubscriptionCreationConfigNoPrices`
 //   - `SimulationSubscriptionCreationConfigItems`
 //   - `SimulationSubscriptionCreationConfigTransaction`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigNoPrices()`
-//   - `NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigItems()`
-//   - `NewSimulationSimulationSubscriptionCreationConfigEntitiesSimulationSubscriptionCreationConfigTransaction()`
+//   - `NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigNoPrices()`
+//   - `NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigItems()`
+//   - `NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigTransaction()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-type SimulationSimulationSubscriptionCreationConfigEntities struct {
+type SimulationSubscriptionCreationConfigCreateEntities struct {
 	*SimulationSubscriptionCreationConfigNoPrices
 	*SimulationSubscriptionCreationConfigItems
 	*SimulationSubscriptionCreationConfigTransaction
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u SimulationSimulationSubscriptionCreationConfigEntities) MarshalJSON() ([]byte, error) {
+func (u SimulationSubscriptionCreationConfigCreateEntities) MarshalJSON() ([]byte, error) {
 	if u.SimulationSubscriptionCreationConfigNoPrices != nil {
 		return json.Marshal(u.SimulationSubscriptionCreationConfigNoPrices)
 	}
@@ -335,28 +335,28 @@ func (u SimulationSimulationSubscriptionCreationConfigEntities) MarshalJSON() ([
 	return nil, nil
 }
 
-// SimulationSimulationSubscriptionCreationConfig: Configuration for subscription creation simulations.
-type SimulationSimulationSubscriptionCreationConfig struct {
+// SimulationSubscriptionCreationConfigCreate: Configuration for subscription creation simulations.
+type SimulationSubscriptionCreationConfigCreate struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-	Entities SimulationSimulationSubscriptionCreationConfigEntities `json:"entities,omitempty"`
+	Entities SimulationSubscriptionCreationConfigCreateEntities `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSubscriptionCreationConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionCreationConfigOptionsCreate `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionCreation: Configuration for subscription creation simulations.
 type SimulationSubscriptionCreation struct {
 	// SubscriptionCreation: Configuration for subscription creation simulations.
-	SubscriptionCreation SimulationSimulationSubscriptionCreationConfig `json:"subscription_creation,omitempty"`
+	SubscriptionCreation SimulationSubscriptionCreationConfigCreate `json:"subscription_creation,omitempty"`
 }
 
 // SimulationSubscriptionPause: Configuration for subscription paused simulations.
 type SimulationSubscriptionPause struct {
 	// SubscriptionPause: Configuration for subscription paused simulations.
-	SubscriptionPause SimulationSubscriptionPauseConfig `json:"subscription_pause,omitempty"`
+	SubscriptionPause SimulationSubscriptionPauseConfigCreate `json:"subscription_pause,omitempty"`
 }
 
-// SimulationSubscriptionRenewalEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-type SimulationSubscriptionRenewalEntities struct {
+// SimulationSubscriptionRenewalEntitiesCreate: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+type SimulationSubscriptionRenewalEntitiesCreate struct {
 	// SubscriptionID: Paddle ID of a subscription to simulate as renewed. Adds details of that subscription to webhook payloads.
 	SubscriptionID *string `json:"subscription_id,omitempty"`
 }
@@ -415,45 +415,45 @@ type SimulationConfigRecoveredUpdatedPaymentOutcomeOptions struct {
 	PaymentOutcome SimulationConfigOptionRecoveredUpdatedPaymentOutcome `json:"payment_outcome,omitempty"`
 }
 
-// NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions takes a SimulationConfigSuccessfulPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionRenewalConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions(r *SimulationConfigSuccessfulPaymentOutcomeOptions) *SimulationSimulationSubscriptionRenewalConfigOptions {
-	return &SimulationSimulationSubscriptionRenewalConfigOptions{SimulationConfigSuccessfulPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions takes a SimulationConfigSuccessfulPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionRenewalConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions(r *SimulationConfigSuccessfulPaymentOutcomeOptions) *SimulationSubscriptionRenewalConfigCreateOptions {
+	return &SimulationSubscriptionRenewalConfigCreateOptions{SimulationConfigSuccessfulPaymentOutcomeOptions: r}
 }
 
-// NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigFailedPaymentOutcomeOptions takes a SimulationConfigFailedPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionRenewalConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigFailedPaymentOutcomeOptions(r *SimulationConfigFailedPaymentOutcomeOptions) *SimulationSimulationSubscriptionRenewalConfigOptions {
-	return &SimulationSimulationSubscriptionRenewalConfigOptions{SimulationConfigFailedPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions takes a SimulationConfigFailedPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionRenewalConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions(r *SimulationConfigFailedPaymentOutcomeOptions) *SimulationSubscriptionRenewalConfigCreateOptions {
+	return &SimulationSubscriptionRenewalConfigCreateOptions{SimulationConfigFailedPaymentOutcomeOptions: r}
 }
 
-// NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions takes a SimulationConfigRecoveredPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionRenewalConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions(r *SimulationConfigRecoveredPaymentOutcomeOptions) *SimulationSimulationSubscriptionRenewalConfigOptions {
-	return &SimulationSimulationSubscriptionRenewalConfigOptions{SimulationConfigRecoveredPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions takes a SimulationConfigRecoveredPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionRenewalConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions(r *SimulationConfigRecoveredPaymentOutcomeOptions) *SimulationSubscriptionRenewalConfigCreateOptions {
+	return &SimulationSubscriptionRenewalConfigCreateOptions{SimulationConfigRecoveredPaymentOutcomeOptions: r}
 }
 
-// NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions takes a SimulationConfigRecoveredUpdatedPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionRenewalConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions(r *SimulationConfigRecoveredUpdatedPaymentOutcomeOptions) *SimulationSimulationSubscriptionRenewalConfigOptions {
-	return &SimulationSimulationSubscriptionRenewalConfigOptions{SimulationConfigRecoveredUpdatedPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions takes a SimulationConfigRecoveredUpdatedPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionRenewalConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions(r *SimulationConfigRecoveredUpdatedPaymentOutcomeOptions) *SimulationSubscriptionRenewalConfigCreateOptions {
+	return &SimulationSubscriptionRenewalConfigCreateOptions{SimulationConfigRecoveredUpdatedPaymentOutcomeOptions: r}
 }
 
-// SimulationSimulationSubscriptionRenewalConfigOptions represents a union request type of the following types:
+// SimulationSubscriptionRenewalConfigCreateOptions represents a union request type of the following types:
 //   - `SimulationConfigSuccessfulPaymentOutcomeOptions`
 //   - `SimulationConfigFailedPaymentOutcomeOptions`
 //   - `SimulationConfigRecoveredPaymentOutcomeOptions`
 //   - `SimulationConfigRecoveredUpdatedPaymentOutcomeOptions`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigFailedPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionRenewalConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionRenewalConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Options: Options that determine which webhooks are sent as part of a simulation.
-type SimulationSimulationSubscriptionRenewalConfigOptions struct {
+type SimulationSubscriptionRenewalConfigCreateOptions struct {
 	*SimulationConfigSuccessfulPaymentOutcomeOptions
 	*SimulationConfigFailedPaymentOutcomeOptions
 	*SimulationConfigRecoveredPaymentOutcomeOptions
@@ -461,7 +461,7 @@ type SimulationSimulationSubscriptionRenewalConfigOptions struct {
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u SimulationSimulationSubscriptionRenewalConfigOptions) MarshalJSON() ([]byte, error) {
+func (u SimulationSubscriptionRenewalConfigCreateOptions) MarshalJSON() ([]byte, error) {
 	if u.SimulationConfigSuccessfulPaymentOutcomeOptions != nil {
 		return json.Marshal(u.SimulationConfigSuccessfulPaymentOutcomeOptions)
 	}
@@ -481,59 +481,65 @@ func (u SimulationSimulationSubscriptionRenewalConfigOptions) MarshalJSON() ([]b
 	return nil, nil
 }
 
-// SimulationSimulationSubscriptionRenewalConfig: Configuration for subscription renewed simulations.
-type SimulationSimulationSubscriptionRenewalConfig struct {
+// SimulationSubscriptionRenewalConfigCreate: Configuration for subscription renewed simulations.
+type SimulationSubscriptionRenewalConfigCreate struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-	Entities SimulationSubscriptionRenewalEntities `json:"entities,omitempty"`
+	Entities SimulationSubscriptionRenewalEntitiesCreate `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSimulationSubscriptionRenewalConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionRenewalConfigCreateOptions `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionRenewal: Configuration for subscription renewed simulations.
 type SimulationSubscriptionRenewal struct {
 	// SubscriptionRenewal: Configuration for subscription renewed simulations.
-	SubscriptionRenewal SimulationSimulationSubscriptionRenewalConfig `json:"subscription_renewal,omitempty"`
+	SubscriptionRenewal SimulationSubscriptionRenewalConfigCreate `json:"subscription_renewal,omitempty"`
 }
 
-// NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions takes a SimulationConfigSuccessfulPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionResumeConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions(r *SimulationConfigSuccessfulPaymentOutcomeOptions) *SimulationSimulationSubscriptionResumeConfigOptions {
-	return &SimulationSimulationSubscriptionResumeConfigOptions{SimulationConfigSuccessfulPaymentOutcomeOptions: r}
+// SimulationSubscriptionResumeConfigEntitiesCreate: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+type SimulationSubscriptionResumeConfigEntitiesCreate struct {
+	// SubscriptionID: Paddle ID of a subscription to simulate as resumed. Adds details of that subscription to webhook payloads.
+	SubscriptionID *string `json:"subscription_id,omitempty"`
 }
 
-// NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigFailedPaymentOutcomeOptions takes a SimulationConfigFailedPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionResumeConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigFailedPaymentOutcomeOptions(r *SimulationConfigFailedPaymentOutcomeOptions) *SimulationSimulationSubscriptionResumeConfigOptions {
-	return &SimulationSimulationSubscriptionResumeConfigOptions{SimulationConfigFailedPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions takes a SimulationConfigSuccessfulPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionResumeConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions(r *SimulationConfigSuccessfulPaymentOutcomeOptions) *SimulationSubscriptionResumeConfigCreateOptions {
+	return &SimulationSubscriptionResumeConfigCreateOptions{SimulationConfigSuccessfulPaymentOutcomeOptions: r}
 }
 
-// NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions takes a SimulationConfigRecoveredPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionResumeConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions(r *SimulationConfigRecoveredPaymentOutcomeOptions) *SimulationSimulationSubscriptionResumeConfigOptions {
-	return &SimulationSimulationSubscriptionResumeConfigOptions{SimulationConfigRecoveredPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions takes a SimulationConfigFailedPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionResumeConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions(r *SimulationConfigFailedPaymentOutcomeOptions) *SimulationSubscriptionResumeConfigCreateOptions {
+	return &SimulationSubscriptionResumeConfigCreateOptions{SimulationConfigFailedPaymentOutcomeOptions: r}
 }
 
-// NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions takes a SimulationConfigRecoveredUpdatedPaymentOutcomeOptions type
-// and creates a SimulationSimulationSubscriptionResumeConfigOptions for use in a request.
-func NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions(r *SimulationConfigRecoveredUpdatedPaymentOutcomeOptions) *SimulationSimulationSubscriptionResumeConfigOptions {
-	return &SimulationSimulationSubscriptionResumeConfigOptions{SimulationConfigRecoveredUpdatedPaymentOutcomeOptions: r}
+// NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions takes a SimulationConfigRecoveredPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionResumeConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions(r *SimulationConfigRecoveredPaymentOutcomeOptions) *SimulationSubscriptionResumeConfigCreateOptions {
+	return &SimulationSubscriptionResumeConfigCreateOptions{SimulationConfigRecoveredPaymentOutcomeOptions: r}
 }
 
-// SimulationSimulationSubscriptionResumeConfigOptions represents a union request type of the following types:
+// NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions takes a SimulationConfigRecoveredUpdatedPaymentOutcomeOptions type
+// and creates a SimulationSubscriptionResumeConfigCreateOptions for use in a request.
+func NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions(r *SimulationConfigRecoveredUpdatedPaymentOutcomeOptions) *SimulationSubscriptionResumeConfigCreateOptions {
+	return &SimulationSubscriptionResumeConfigCreateOptions{SimulationConfigRecoveredUpdatedPaymentOutcomeOptions: r}
+}
+
+// SimulationSubscriptionResumeConfigCreateOptions represents a union request type of the following types:
 //   - `SimulationConfigSuccessfulPaymentOutcomeOptions`
 //   - `SimulationConfigFailedPaymentOutcomeOptions`
 //   - `SimulationConfigRecoveredPaymentOutcomeOptions`
 //   - `SimulationConfigRecoveredUpdatedPaymentOutcomeOptions`
 //
 // The following constructor functions can be used to create a new instance of this type.
-//   - `NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigSuccessfulPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigFailedPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredPaymentOutcomeOptions()`
-//   - `NewSimulationSimulationSubscriptionResumeConfigOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigSuccessfulPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigFailedPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredPaymentOutcomeOptions()`
+//   - `NewSimulationSubscriptionResumeConfigCreateOptionsSimulationConfigRecoveredUpdatedPaymentOutcomeOptions()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 // Options: Options that determine which webhooks are sent as part of a simulation.
-type SimulationSimulationSubscriptionResumeConfigOptions struct {
+type SimulationSubscriptionResumeConfigCreateOptions struct {
 	*SimulationConfigSuccessfulPaymentOutcomeOptions
 	*SimulationConfigFailedPaymentOutcomeOptions
 	*SimulationConfigRecoveredPaymentOutcomeOptions
@@ -541,7 +547,7 @@ type SimulationSimulationSubscriptionResumeConfigOptions struct {
 }
 
 // MarshalJSON implements the json.Marshaler interface.
-func (u SimulationSimulationSubscriptionResumeConfigOptions) MarshalJSON() ([]byte, error) {
+func (u SimulationSubscriptionResumeConfigCreateOptions) MarshalJSON() ([]byte, error) {
 	if u.SimulationConfigSuccessfulPaymentOutcomeOptions != nil {
 		return json.Marshal(u.SimulationConfigSuccessfulPaymentOutcomeOptions)
 	}
@@ -561,18 +567,18 @@ func (u SimulationSimulationSubscriptionResumeConfigOptions) MarshalJSON() ([]by
 	return nil, nil
 }
 
-// SimulationSimulationSubscriptionResumeConfig: Configuration for subscription resumed simulations.
-type SimulationSimulationSubscriptionResumeConfig struct {
+// SimulationSubscriptionResumeConfigCreate: Configuration for subscription resumed simulations.
+type SimulationSubscriptionResumeConfigCreate struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
-	Entities SimulationSubscriptionResumeConfigEntities `json:"entities,omitempty"`
+	Entities SimulationSubscriptionResumeConfigEntitiesCreate `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationSimulationSubscriptionResumeConfigOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionResumeConfigCreateOptions `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionResume: Configuration for subscription resumed simulations.
 type SimulationSubscriptionResume struct {
 	// SubscriptionResume: Configuration for subscription resumed simulations.
-	SubscriptionResume SimulationSimulationSubscriptionResumeConfig `json:"subscription_resume,omitempty"`
+	SubscriptionResume SimulationSubscriptionResumeConfigCreate `json:"subscription_resume,omitempty"`
 }
 
 // NewSimulationScenarioCreateConfigSimulationSubscriptionCancellation takes a SimulationSubscriptionCancellation type
