@@ -1598,42 +1598,49 @@ type SimulationEvent struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
 
-// UnmarshalJSON implements the json.Unmarshaler interface for Notification
-func (n *SimulationEvent) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaler interface for SimulationEvent
+func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 	type alias SimulationEvent
-	if err := json.Unmarshal(data, (*alias)(n)); err != nil {
+	if err := json.Unmarshal(data, (*alias)(s)); err != nil {
 		return err
 	}
 
 	var t paddlenotification.NotificationPayload
-	switch strings.Split(string(n.EventType), ".")[0] {
-	case "address":
-		t = &paddlenotification.AddressNotification{}
-	case "adjustment":
-		t = &paddlenotification.AdjustmentNotification{}
-	case "business":
-		t = &paddlenotification.BusinessNotification{}
-	case "customer":
-		t = &paddlenotification.CustomerNotification{}
-	case "discount":
-		t = &paddlenotification.DiscountNotification{}
-	case "payout":
-		t = &paddlenotification.PayoutNotification{}
-	case "price":
-		t = &paddlenotification.PriceNotification{}
-	case "product":
-		t = &paddlenotification.ProductNotification{}
-	case "report":
-		t = &paddlenotification.ReportNotification{}
-	case "subscription":
-		t = &paddlenotification.SubscriptionNotification{}
-	case "transaction":
-		t = &paddlenotification.TransactionNotification{}
+	switch s.EventType {
+	case "payment_method.saved":
+		t = &paddlenotification.PaymentMethodSavedNotification{}
+	case "payment_method.deleted":
+		t = &paddlenotification.PaymentMethodDeletedNotification{}
 	default:
-		t = map[string]any{}
+		switch strings.Split((string)(s.EventType), ".")[0] {
+		case "adjustment":
+			t = &paddlenotification.AdjustmentNotification{}
+		case "business":
+			t = &paddlenotification.BusinessNotification{}
+		case "discount":
+			t = &paddlenotification.DiscountNotification{}
+		case "price":
+			t = &paddlenotification.PriceNotification{}
+		case "product":
+			t = &paddlenotification.ProductNotification{}
+		case "report":
+			t = &paddlenotification.ReportNotification{}
+		case "address":
+			t = &paddlenotification.AddressNotification{}
+		case "customer":
+			t = &paddlenotification.CustomerNotification{}
+		case "payout":
+			t = &paddlenotification.PayoutNotification{}
+		case "subscription":
+			t = &paddlenotification.SubscriptionNotification{}
+		case "transaction":
+			t = &paddlenotification.TransactionNotification{}
+		default:
+			t = map[string]any{}
+		}
 	}
 
-	rawT, err := json.Marshal(n.Payload)
+	rawT, err := json.Marshal(s.Payload)
 	if err != nil {
 		return err
 	}
@@ -1642,7 +1649,7 @@ func (n *SimulationEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	n.Payload = t
+	s.Payload = t
 
 	return nil
 }
