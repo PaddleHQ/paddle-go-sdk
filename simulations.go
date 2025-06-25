@@ -140,8 +140,8 @@ const (
 	SimulationConfigOptionDunningExhaustedActionSubscriptionCanceled SimulationConfigOptionDunningExhaustedAction = "subscription_canceled"
 )
 
-// SimulationConfigPaymentOutcomeOptions: Options that determine which webhooks are sent as part of a simulation.
-type SimulationConfigPaymentOutcomeOptions struct {
+// SimulationSubscriptionRenewalConfigOptions: Options that determine which webhooks are sent as part of a simulation.
+type SimulationSubscriptionRenewalConfigOptions struct {
 	// PaymentOutcome: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
 	PaymentOutcome SimulationConfigOptionPaymentOutcome `json:"payment_outcome,omitempty"`
 	// DunningExhaustedAction: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
@@ -153,7 +153,7 @@ type SimulationSubscriptionRenewalConfig struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
 	Entities SimulationSubscriptionRenewalConfigEntities `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationConfigPaymentOutcomeOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionRenewalConfigOptions `json:"options,omitempty"`
 }
 
 // SimulationSubscriptionResumeConfigEntities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
@@ -162,12 +162,20 @@ type SimulationSubscriptionResumeConfigEntities struct {
 	SubscriptionID *string `json:"subscription_id,omitempty"`
 }
 
+// SimulationSubscriptionResumeConfigOptions: Options that determine which webhooks are sent as part of a simulation.
+type SimulationSubscriptionResumeConfigOptions struct {
+	// PaymentOutcome: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+	PaymentOutcome SimulationConfigOptionPaymentOutcome `json:"payment_outcome,omitempty"`
+	// DunningExhaustedAction: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
+	DunningExhaustedAction *SimulationConfigOptionDunningExhaustedAction `json:"dunning_exhausted_action,omitempty"`
+}
+
 // SimulationSubscriptionResumeConfig: Configuration for subscription resumed simulations.
 type SimulationSubscriptionResumeConfig struct {
 	// Entities: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
 	Entities SimulationSubscriptionResumeConfigEntities `json:"entities,omitempty"`
 	// Options: Options that determine which webhooks are sent as part of a simulation.
-	Options SimulationConfigPaymentOutcomeOptions `json:"options,omitempty"`
+	Options SimulationSubscriptionResumeConfigOptions `json:"options,omitempty"`
 }
 
 // SimulationScenarioConfig: Configuration for this scenario simulation. Determines which granular flow is simulated and what entities are used to populate webhook payloads with.
