@@ -1444,6 +1444,11 @@ const (
 	EventTypeNameAddressUpdated           EventTypeName = "address.updated"
 	EventTypeNameAdjustmentCreated        EventTypeName = "adjustment.created"
 	EventTypeNameAdjustmentUpdated        EventTypeName = "adjustment.updated"
+	EventTypeNameAPIKeyCreated            EventTypeName = "api_key.created"
+	EventTypeNameAPIKeyExpired            EventTypeName = "api_key.expired"
+	EventTypeNameAPIKeyExpiring           EventTypeName = "api_key.expiring"
+	EventTypeNameAPIKeyRevoked            EventTypeName = "api_key.revoked"
+	EventTypeNameAPIKeyUpdated            EventTypeName = "api_key.updated"
 	EventTypeNameBusinessCreated          EventTypeName = "business.created"
 	EventTypeNameBusinessImported         EventTypeName = "business.imported"
 	EventTypeNameBusinessUpdated          EventTypeName = "business.updated"
@@ -1507,6 +1512,11 @@ const (
 	SimulationTypeNameAddressUpdated           SimulationTypeName = "address.updated"
 	SimulationTypeNameAdjustmentCreated        SimulationTypeName = "adjustment.created"
 	SimulationTypeNameAdjustmentUpdated        SimulationTypeName = "adjustment.updated"
+	SimulationTypeNameAPIKeyCreated            SimulationTypeName = "api_key.created"
+	SimulationTypeNameAPIKeyExpired            SimulationTypeName = "api_key.expired"
+	SimulationTypeNameAPIKeyExpiring           SimulationTypeName = "api_key.expiring"
+	SimulationTypeNameAPIKeyRevoked            SimulationTypeName = "api_key.revoked"
+	SimulationTypeNameAPIKeyUpdated            SimulationTypeName = "api_key.updated"
 	SimulationTypeNameBusinessCreated          SimulationTypeName = "business.created"
 	SimulationTypeNameBusinessImported         SimulationTypeName = "business.imported"
 	SimulationTypeNameBusinessUpdated          SimulationTypeName = "business.updated"
@@ -1627,6 +1637,8 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 			t = &paddlenotification.ReportNotification{}
 		case "address":
 			t = &paddlenotification.AddressNotification{}
+		case "api_key":
+			t = &paddlenotification.APIKeyNotification{}
 		case "customer":
 			t = &paddlenotification.CustomerNotification{}
 		case "payout":
