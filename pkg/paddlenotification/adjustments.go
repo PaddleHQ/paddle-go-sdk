@@ -20,12 +20,13 @@ type AdjustmentUpdated struct {
 type AdjustmentAction string
 
 const (
-	AdjustmentActionCredit            AdjustmentAction = "credit"
-	AdjustmentActionRefund            AdjustmentAction = "refund"
-	AdjustmentActionChargeback        AdjustmentAction = "chargeback"
-	AdjustmentActionChargebackReverse AdjustmentAction = "chargeback_reverse"
-	AdjustmentActionChargebackWarning AdjustmentAction = "chargeback_warning"
-	AdjustmentActionCreditReverse     AdjustmentAction = "credit_reverse"
+	AdjustmentActionCredit                   AdjustmentAction = "credit"
+	AdjustmentActionRefund                   AdjustmentAction = "refund"
+	AdjustmentActionChargeback               AdjustmentAction = "chargeback"
+	AdjustmentActionChargebackReverse        AdjustmentAction = "chargeback_reverse"
+	AdjustmentActionChargebackWarning        AdjustmentAction = "chargeback_warning"
+	AdjustmentActionChargebackWarningReverse AdjustmentAction = "chargeback_warning_reverse"
+	AdjustmentActionCreditReverse            AdjustmentAction = "credit_reverse"
 )
 
 // AdjustmentType: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`..
