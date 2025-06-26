@@ -58,7 +58,7 @@ type PricePreview struct {
 	// BusinessID: Paddle ID of the business that this preview is for, prefixed with `biz_`.
 	BusinessID *string `json:"business_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
-	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// DiscountID: Paddle ID of the discount applied to this preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	// Address: Address for this preview. Send one of `address_id`, `customer_ip_address`, or the `address` object when previewing.
