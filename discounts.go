@@ -100,12 +100,16 @@ type Discount struct {
 	   Paddle counts a usage as a redemption on a checkout, transaction, or subscription. Transactions created for subscription renewals, midcycle changes, and one-time charges aren't considered a redemption.
 	*/
 	TimesUsed int `json:"times_used,omitempty"`
+	// DiscountGroupID: Paddle ID for the discount group related to this discount, prefixed with `dsg_`. `null` if not in a discount group.
+	DiscountGroupID *string `json:"discount_group_id,omitempty"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
 	CreatedAt string `json:"created_at,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// DiscountGroup: Discount group for this discount. Returned when the `include` parameter is used with the `discount_group` value and the discount has a `discount_group_id`.
+	DiscountGroup DiscountGroup `json:"discount_group,omitempty"`
 }
 
 // DiscountsClient is a client for the Discounts resource.
@@ -144,6 +148,13 @@ type ListDiscountsRequest struct {
 	// Mode is a query parameter.
 	// Return entities that match the specified mode.
 	Mode *string `in:"query=mode;omitempty" json:"-"`
+	// DiscountGroupID is a query parameter.
+	// Return entities related to the specified discount group. Use a comma-separated list to specify multiple discount group IDs.
+	DiscountGroupID []string `in:"query=discount_group_id;omitempty" json:"-"`
+
+	// IncludeDiscountGroup allows requesting the discount_group sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeDiscountGroup bool `in:"paddle_include=discount_group" json:"-"`
 }
 
 // ListDiscounts performs the GET operation on a Discounts resource.
@@ -199,6 +210,8 @@ type CreateDiscountRequest struct {
 	ExpiresAt *string `json:"expires_at,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
+	// DiscountGroupID: Paddle ID for the discount group related to this discount, prefixed with `dsg_`. `null` if not in a discount group.
+	DiscountGroupID *string `json:"discount_group_id,omitempty"`
 }
 
 // CreateDiscount performs the POST operation on a Discounts resource.
@@ -214,6 +227,10 @@ func (c *DiscountsClient) CreateDiscount(ctx context.Context, req *CreateDiscoun
 type GetDiscountRequest struct {
 	// URL path parameters.
 	DiscountID string `in:"path=discount_id" json:"-"`
+
+	// IncludeDiscountGroup allows requesting the discount_group sub-resource as part of this request.
+	// If set to true, will be included on the response.
+	IncludeDiscountGroup bool `in:"paddle_include=discount_group" json:"-"`
 }
 
 // GetDiscount performs the GET operation on a Discounts resource.
@@ -270,6 +287,8 @@ type UpdateDiscountRequest struct {
 	ExpiresAt *PatchField[*string] `json:"expires_at,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData *PatchField[CustomData] `json:"custom_data,omitempty"`
+	// DiscountGroupID: Paddle ID for the discount group related to this discount, prefixed with `dsg_`. `null` if not in a discount group.
+	DiscountGroupID *PatchField[*string] `json:"discount_group_id,omitempty"`
 }
 
 // UpdateDiscount performs the PATCH operation on a Discounts resource.
