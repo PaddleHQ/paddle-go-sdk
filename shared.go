@@ -1459,6 +1459,8 @@ const (
 	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
 	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
 	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNamePaymentMethodSaved       EventTypeName = "payment_method.saved"
+	EventTypeNamePaymentMethodDeleted     EventTypeName = "payment_method.deleted"
 	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
 	EventTypeNamePayoutPaid               EventTypeName = "payout.paid"
 	EventTypeNamePriceCreated             EventTypeName = "price.created"
@@ -1486,6 +1488,7 @@ const (
 	EventTypeNameTransactionPastDue       EventTypeName = "transaction.past_due"
 	EventTypeNameTransactionPaymentFailed EventTypeName = "transaction.payment_failed"
 	EventTypeNameTransactionReady         EventTypeName = "transaction.ready"
+	EventTypeNameTransactionRevised       EventTypeName = "transaction.revised"
 	EventTypeNameTransactionUpdated       EventTypeName = "transaction.updated"
 )
 
@@ -1527,6 +1530,8 @@ const (
 	SimulationTypeNameDiscountCreated          SimulationTypeName = "discount.created"
 	SimulationTypeNameDiscountImported         SimulationTypeName = "discount.imported"
 	SimulationTypeNameDiscountUpdated          SimulationTypeName = "discount.updated"
+	SimulationTypeNamePaymentMethodSaved       SimulationTypeName = "payment_method.saved"
+	SimulationTypeNamePaymentMethodDeleted     SimulationTypeName = "payment_method.deleted"
 	SimulationTypeNamePayoutCreated            SimulationTypeName = "payout.created"
 	SimulationTypeNamePayoutPaid               SimulationTypeName = "payout.paid"
 	SimulationTypeNamePriceCreated             SimulationTypeName = "price.created"
@@ -1554,6 +1559,7 @@ const (
 	SimulationTypeNameTransactionPastDue       SimulationTypeName = "transaction.past_due"
 	SimulationTypeNameTransactionPaymentFailed SimulationTypeName = "transaction.payment_failed"
 	SimulationTypeNameTransactionReady         SimulationTypeName = "transaction.ready"
+	SimulationTypeNameTransactionRevised       SimulationTypeName = "transaction.revised"
 	SimulationTypeNameTransactionUpdated       SimulationTypeName = "transaction.updated"
 	SimulationTypeNameSubscriptionCreation     SimulationTypeName = "subscription_creation"
 	SimulationTypeNameSubscriptionRenewal      SimulationTypeName = "subscription_renewal"

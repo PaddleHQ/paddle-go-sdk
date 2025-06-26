@@ -25,6 +25,8 @@ const (
 	EventTypeNameDiscountCreated          EventTypeName = "discount.created"
 	EventTypeNameDiscountImported         EventTypeName = "discount.imported"
 	EventTypeNameDiscountUpdated          EventTypeName = "discount.updated"
+	EventTypeNamePaymentMethodSaved       EventTypeName = "payment_method.saved"
+	EventTypeNamePaymentMethodDeleted     EventTypeName = "payment_method.deleted"
 	EventTypeNamePayoutCreated            EventTypeName = "payout.created"
 	EventTypeNamePayoutPaid               EventTypeName = "payout.paid"
 	EventTypeNamePriceCreated             EventTypeName = "price.created"
@@ -52,6 +54,7 @@ const (
 	EventTypeNameTransactionPastDue       EventTypeName = "transaction.past_due"
 	EventTypeNameTransactionPaymentFailed EventTypeName = "transaction.payment_failed"
 	EventTypeNameTransactionReady         EventTypeName = "transaction.ready"
+	EventTypeNameTransactionRevised       EventTypeName = "transaction.revised"
 	EventTypeNameTransactionUpdated       EventTypeName = "transaction.updated"
 )
 
