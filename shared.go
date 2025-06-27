@@ -234,9 +234,9 @@ const (
 
 // ImportMeta: Import information for this entity. `null` if this entity is not imported.
 type ImportMeta struct {
-	// ExternalID: Reference or identifier for this entity from the solution where it was imported from.
+	// ExternalID: Reference or identifier for this entity from the provider where it was imported from.
 	ExternalID *string `json:"external_id,omitempty"`
-	// ImportedFrom: Name of the platform where this entity was imported from.
+	// ImportedFrom: Name of the platform or provider where this entity was imported from.
 	ImportedFrom string `json:"imported_from,omitempty"`
 }
 
@@ -1595,6 +1595,22 @@ const (
 	SimulationTypeNameSubscriptionCancellation SimulationTypeName = "subscription_cancellation"
 )
 
+// EffectiveFrom: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`..
+type EffectiveFrom string
+
+const (
+	EffectiveFromNextBillingPeriod EffectiveFrom = "next_billing_period"
+	EffectiveFromImmediately       EffectiveFrom = "immediately"
+)
+
+// SubscriptionChargeItemFromCatalog: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
+type SubscriptionChargeItemFromCatalog struct {
+	// Quantity: Quantity to bill for.
+	Quantity int `json:"quantity,omitempty"`
+	// PriceID: Paddle ID of an an existing catalog price to bill for.
+	PriceID string `json:"price_id,omitempty"`
+}
+
 // SimulationEventStatus: Status of this simulation run log..
 type SimulationEventStatus string
 
@@ -1706,7 +1722,7 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// DiscountGroup: Discount group for this discount. Returned when the `include` parameter is used with the `group` value and the discount has a `group_id`.
+// DiscountGroup: Discount group for this discount. Returned when the `include` parameter is used with the `discount_group` value and the discount has a `discount_group_id`.
 type DiscountGroup struct {
 	// ID: Unique Paddle ID for this discount group, prefixed with `dsg_`.
 	ID string `json:"id,omitempty"`

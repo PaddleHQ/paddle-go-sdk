@@ -288,20 +288,6 @@ var ErrSubscriptionCustomerEmailDomainNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrSubscriptionPaymentRetryAttemptsExceeded represents a `subscription_payment_retry_attempts_exceeded` error.
-// See https://developer.paddle.com/errors/subscriptions/subscription_payment_retry_attempts_exceeded for more information.
-var ErrSubscriptionPaymentRetryAttemptsExceeded = &paddleerr.Error{
-	Code: "subscription_payment_retry_attempts_exceeded",
-	Type: paddleerr.ErrorTypeRequestError,
-}
-
-// ErrSubscriptionManualRetryPaymentNotAllowed represents a `subscription_manual_retry_payment_not_allowed` error.
-// See https://developer.paddle.com/errors/subscriptions/subscription_manual_retry_payment_not_allowed for more information.
-var ErrSubscriptionManualRetryPaymentNotAllowed = &paddleerr.Error{
-	Code: "subscription_manual_retry_payment_not_allowed",
-	Type: paddleerr.ErrorTypeRequestError,
-}
-
 // ErrSubscriptionCurrencyUpdateNotAllowed represents a `subscription_currency_update_not_allowed` error.
 // See https://developer.paddle.com/errors/subscriptions/subscription_currency_update_not_allowed for more information.
 var ErrSubscriptionCurrencyUpdateNotAllowed = &paddleerr.Error{
@@ -407,6 +393,34 @@ var ErrSubscriptionMissingPaymentMethodCannotActivate = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionMissingPaymentMethodCannotUpdate represents a `subscription_missing_payment_method_cannot_update` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_update for more information.
+var ErrSubscriptionMissingPaymentMethodCannotUpdate = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_update",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionMissingPaymentMethodCannotResume represents a `subscription_missing_payment_method_cannot_resume` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_resume for more information.
+var ErrSubscriptionMissingPaymentMethodCannotResume = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_resume",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionMissingPaymentMethodCannotRetryPayment represents a `subscription_missing_payment_method_cannot_retry_payment` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_missing_payment_method_cannot_retry_payment for more information.
+var ErrSubscriptionMissingPaymentMethodCannotRetryPayment = &paddleerr.Error{
+	Code: "subscription_missing_payment_method_cannot_retry_payment",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionInvalidBillingModeForScheduledChange represents a `subscription_invalid_billing_mode_for_scheduled_change` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_invalid_billing_mode_for_scheduled_change for more information.
+var ErrSubscriptionInvalidBillingModeForScheduledChange = &paddleerr.Error{
+	Code: "subscription_invalid_billing_mode_for_scheduled_change",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
@@ -501,7 +515,7 @@ type SubscriptionAdjustmentItem struct {
 	   Include `amount` when creating a `partial` adjustment.
 	*/
 	Type AdjustmentItemType `json:"type,omitempty"`
-	// Amount: Amount adjusted for this transaction item. Required when item type is `partial`.
+	// Amount: Amount adjusted for this transaction item. Required when item `type` is `partial`.
 	Amount *string `json:"amount,omitempty"`
 	// Proration: How proration was calculated for this adjustment item.
 	Proration *Proration `json:"proration,omitempty"`
@@ -586,14 +600,6 @@ type Subscription struct {
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges. Returned when the `include` parameter is used with the `recurring_transaction_details` value.
 	RecurringTransactionDetails TransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
 }
-
-// EffectiveFrom: When this discount should take effect from..
-type EffectiveFrom string
-
-const (
-	EffectiveFromNextBillingPeriod EffectiveFrom = "next_billing_period"
-	EffectiveFromImmediately       EffectiveFrom = "immediately"
-)
 
 // SubscriptionDiscountEffectiveFrom: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
 type SubscriptionDiscountEffectiveFrom struct {
@@ -770,14 +776,6 @@ type SubscriptionPreview struct {
 	UpdateSummary *SubscriptionPreviewUpdateSummary `json:"update_summary,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
-}
-
-// SubscriptionChargeItemFromCatalog: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
-type SubscriptionChargeItemFromCatalog struct {
-	// Quantity: Quantity to bill for.
-	Quantity int `json:"quantity,omitempty"`
-	// PriceID: Paddle ID of an an existing catalog price to bill for.
-	PriceID string `json:"price_id,omitempty"`
 }
 
 // SubscriptionChargeCreateWithPrice: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
