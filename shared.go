@@ -652,8 +652,6 @@ type Proration struct {
 
 // TransactionItem: List of items on this transaction. For calculated totals, use `details.line_items`.
 type TransactionItem struct {
-	// PriceID: Paddle ID for the price to add to this transaction, prefixed with `pri_`.
-	PriceID string `json:"price_id,omitempty"`
 	// Price: Represents a price entity.
 	Price Price `json:"price,omitempty"`
 	// Quantity: Quantity of this item on the transaction.

@@ -411,8 +411,6 @@ type Transaction struct {
 type TransactionItemFromCatalog struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
-	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
-	Proration *Proration `json:"proration,omitempty"`
 	// PriceID: Paddle ID of an existing catalog price to add to this transaction, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
 }
@@ -421,8 +419,6 @@ type TransactionItemFromCatalog struct {
 type TransactionItemCreateWithPrice struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
-	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
-	Proration *Proration `json:"proration,omitempty"`
 	// Price: Price object for a non-catalog item to charge for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
 	Price TransactionPriceCreateWithProductID `json:"price,omitempty"`
 }
@@ -431,8 +427,6 @@ type TransactionItemCreateWithPrice struct {
 type TransactionItemCreateWithProduct struct {
 	// Quantity: Quantity of this item on the transaction.
 	Quantity int `json:"quantity,omitempty"`
-	// Proration: How proration was calculated for this item. Populated when a transaction is created from a subscription change, where `proration_billing_mode` was `prorated_immediately` or `prorated_next_billing_period`. Set automatically by Paddle.
-	Proration *Proration `json:"proration,omitempty"`
 	// Price: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
@@ -443,8 +437,6 @@ type TransactionPreviewItemFromCatalog struct {
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
 	IncludeInTotals bool `json:"include_in_totals,omitempty"`
-	// Proration: How proration was calculated for this item. `null` for transaction previews.
-	Proration *Proration `json:"proration,omitempty"`
 	// PriceID: Paddle ID of an existing catalog price to preview charging for, prefixed with `pri_`.
 	PriceID string `json:"price_id,omitempty"`
 }
@@ -455,8 +447,6 @@ type TransactionPreviewItemCreateWithPrice struct {
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
 	IncludeInTotals bool `json:"include_in_totals,omitempty"`
-	// Proration: How proration was calculated for this item. `null` for transaction previews.
-	Proration *Proration `json:"proration,omitempty"`
 	// Price: Price object for a non-catalog item to preview charging for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
 	Price TransactionPriceCreateWithProductID `json:"price,omitempty"`
 }
@@ -467,8 +457,6 @@ type TransactionPreviewItemCreateWithProduct struct {
 	Quantity int `json:"quantity,omitempty"`
 	// IncludeInTotals: Whether this item should be included in totals for this transaction preview. Typically used to exclude one-time charges from calculations.
 	IncludeInTotals bool `json:"include_in_totals,omitempty"`
-	// Proration: How proration was calculated for this item. `null` for transaction previews.
-	Proration *Proration `json:"proration,omitempty"`
 	// Price: Price object for a non-catalog item to preview charging for. Include a `product` object to create a non-catalog product for this non-catalog price.
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }

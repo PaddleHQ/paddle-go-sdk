@@ -132,6 +132,30 @@ const (
 	AdjustmentActionQueryRefund                   AdjustmentActionQuery = "refund"
 )
 
+/*
+AdjustmentItemCreateType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
+Include `amount` when creating a `partial` adjustment..
+*/
+type AdjustmentItemCreateType string
+
+const (
+	AdjustmentItemCreateTypeFull    AdjustmentItemCreateType = "full"
+	AdjustmentItemCreateTypePartial AdjustmentItemCreateType = "partial"
+)
+
+// AdjustmentItemCreate: List of transaction items to adjust. Required if `type` is not populated or set to `partial`.
+type AdjustmentItemCreate struct {
+	// ItemID: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
+	ItemID string `json:"item_id,omitempty"`
+	/*
+	   Type: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
+	   Include `amount` when creating a `partial` adjustment.
+	*/
+	Type AdjustmentItemCreateType `json:"type,omitempty"`
+	// Amount: Amount adjusted for this transaction item. Required when item `type` is `partial`.
+	Amount *string `json:"amount,omitempty"`
+}
+
 type AdjustmentCreditNotePDF struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -207,7 +231,7 @@ type CreateAdjustmentRequest struct {
 	// Type: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
 	Type *AdjustmentType `json:"type,omitempty"`
 	// Items: List of transaction items to adjust. Required if `type` is not populated or set to `partial`.
-	Items []AdjustmentItem `json:"items,omitempty"`
+	Items []AdjustmentItemCreate `json:"items,omitempty"`
 }
 
 // CreateAdjustment performs the POST operation on a Adjustments resource.
