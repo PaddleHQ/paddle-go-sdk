@@ -112,10 +112,10 @@ var ErrAdjustmentTransactionItemInvalid = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// ErrAdjustmentCannotAdjustImportedTransaction represents a `adjustment_cannot_adjust_imported_transaction` error.
-// See https://developer.paddle.com/errors/adjustments/adjustment_cannot_adjust_imported_transaction for more information.
-var ErrAdjustmentCannotAdjustImportedTransaction = &paddleerr.Error{
-	Code: "adjustment_cannot_adjust_imported_transaction",
+// ErrAdjustmentTaxModeNotAllowed represents a `adjustment_tax_mode_not_allowed` error.
+// See https://developer.paddle.com/errors/adjustments/adjustment_tax_mode_not_allowed for more information.
+var ErrAdjustmentTaxModeNotAllowed = &paddleerr.Error{
+	Code: "adjustment_tax_mode_not_allowed",
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
@@ -130,6 +130,20 @@ const (
 	AdjustmentActionQueryCredit                   AdjustmentActionQuery = "credit"
 	AdjustmentActionQueryCreditReverse            AdjustmentActionQuery = "credit_reverse"
 	AdjustmentActionQueryRefund                   AdjustmentActionQuery = "refund"
+)
+
+/*
+AdjustmentTaxMode: Whether the amounts to be adjusted are inclusive or exclusive of tax. If `internal`, adjusted amounts are considered to be inclusive of tax. If `external`, Paddle calculates the tax and adds it to the amounts provided.
+
+Only valid for adjustments where the `type` is `partial`.
+
+If omitted, defaults to `internal`..
+*/
+type AdjustmentTaxMode string
+
+const (
+	AdjustmentTaxModeExternal AdjustmentTaxMode = "external"
+	AdjustmentTaxModeInternal AdjustmentTaxMode = "internal"
 )
 
 /*
@@ -230,6 +244,14 @@ type CreateAdjustmentRequest struct {
 	TransactionID string `json:"transaction_id,omitempty"`
 	// Type: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
 	Type *AdjustmentType `json:"type,omitempty"`
+	/*
+	   TaxMode: Whether the amounts to be adjusted are inclusive or exclusive of tax. If `internal`, adjusted amounts are considered to be inclusive of tax. If `external`, Paddle calculates the tax and adds it to the amounts provided.
+
+	   Only valid for adjustments where the `type` is `partial`.
+
+	   If omitted, defaults to `internal`.
+	*/
+	TaxMode *AdjustmentTaxMode `json:"tax_mode,omitempty"`
 	// Items: List of transaction items to adjust. Required if `type` is not populated or set to `partial`.
 	Items []AdjustmentItemCreate `json:"items,omitempty"`
 }
