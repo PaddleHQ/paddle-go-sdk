@@ -33,7 +33,7 @@ type PriceNotification struct {
 	ProductID string `json:"product_id"`
 	// Description: Internal description for this price, not shown to customers. Typically notes for your team.
 	Description string `json:"description"`
-	// Type: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+	// Type: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
 	Type *CatalogType `json:"type"`
 	// Name: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
 	Name *string `json:"name"`

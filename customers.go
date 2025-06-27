@@ -4,7 +4,6 @@ package paddle
 
 import (
 	"context"
-
 	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
 )
 

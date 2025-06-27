@@ -2,8 +2,10 @@
 
 package paddlenotification
 
+// NotificationEvent represents the common interface for all notification events.
 type NotificationEvent interface{}
 
+// NotificationPayload represents the common interface for all notification payloads.
 type NotificationPayload interface{}
 
 // GenericNotificationEvent: Notification payload. Includes the new or changed event.
