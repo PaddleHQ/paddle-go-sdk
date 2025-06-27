@@ -6,6 +6,16 @@
     "type": "subscription_creation",
     "status": "active",
     "payload": null,
+    "config": {
+      "subscription_creation": {
+        "entities": {
+          "customer_id": "ctm_01j870snka0xdp6szgyxze6d6d"
+        },
+        "options": {
+          "customer_simulated_as": "new"
+        }
+      }
+    },
     "last_run_at": null,
     "created_at": "2024-10-11T14:44:06.739792Z",
     "updated_at": "2024-10-11T14:44:06.739792Z"

@@ -93,6 +93,18 @@ func Example_simulation_create_scenario_simulation() {
 		NotificationSettingID: "ntfset_01j84xydheq48n3btebwf6ndn6",
 		Name:                  "Go SDK Test without Payload",
 		Type:                  "subscription_creation",
+		Config: paddle.NewSimulationScenarioCreateConfigSimulationSubscriptionCreation(&paddle.SimulationSubscriptionCreation{
+			SubscriptionCreation: paddle.SimulationSubscriptionCreationConfigCreate{
+				Entities: *paddle.NewSimulationSubscriptionCreationConfigCreateEntitiesSimulationSubscriptionCreationConfigNoPrices(
+					&paddle.SimulationSubscriptionCreationConfigNoPrices{
+						CustomerID: paddle.PtrTo("ctm_01j870snka0xdp6szgyxze6d6d"),
+					},
+				),
+				Options: paddle.SimulationSubscriptionCreationConfigOptions{
+					CustomerSimulatedAs: paddle.CustomerSimulatedAsNew,
+				},
+			},
+		}),
 	}))
 	if err != nil {
 		return
@@ -138,10 +150,11 @@ func Example_simulation_update() {
 		paddle.NewUpdateSimulationRequestSimulationSingleEventUpdate(
 			"ntfsim_01j9y0jwekrcyezscgkehvdmd6",
 			&paddle.SimulationSingleEventUpdate{
-				NotificationSettingID: "ntfset_01j84xydheq48n3btebwf6ndn6",
-				Name:                  "Go SDK Test with Payload",
-				Type:                  "customer.created",
-				Payload: paddlenotification.CustomerNotification{
+				NotificationSettingID: paddle.NewPatchField("ntfset_01j84xydheq48n3btebwf6ndn6"),
+				Name:                  paddle.NewPatchField("Go SDK Test with Payload"),
+				Type:                  paddle.NewPatchField(paddle.EventTypeNameCustomerCreated),
+
+				Payload: paddle.NewPtrPatchField(paddlenotification.NotificationPayload(&paddlenotification.CustomerNotification{
 					ID:               "ctm_01j870snka0xdp6szgyxze6d6d",
 					Name:             paddle.PtrTo("John Doe"),
 					Email:            "jane.doe@paddle.com",
@@ -152,7 +165,7 @@ func Example_simulation_update() {
 					CreatedAt:        time.Date(2024, 4, 12, 0, 0, 0, 0, time.UTC).Format(time.RFC3339),
 					UpdatedAt:        time.Date(2024, 4, 12, 0, 0, 0, 0, time.UTC).Format(time.RFC3339),
 					ImportMeta:       nil,
-				},
+				})),
 			},
 		),
 	)

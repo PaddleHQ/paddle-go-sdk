@@ -1620,6 +1620,10 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
+	if s.Payload == nil || !strings.Contains((string)(s.EventType), ".") {
+		return nil
+	}
+
 	var t paddlenotification.NotificationPayload
 	switch s.EventType {
 	case "payment_method.saved":
