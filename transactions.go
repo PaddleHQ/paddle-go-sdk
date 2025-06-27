@@ -807,35 +807,6 @@ type TransactionItemPreview struct {
 	Price TransactionPricePreview `json:"price,omitempty"`
 }
 
-// TransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-type TransactionLineItemPreview struct {
-	/*
-	   PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
-	   The value is null for custom prices being previewed.
-	*/
-	PriceID *string `json:"price_id,omitempty"`
-	// Quantity: Quantity of this transaction line item.
-	Quantity int `json:"quantity,omitempty"`
-	// TaxRate: Rate used to calculate tax for this transaction line item.
-	TaxRate string `json:"tax_rate,omitempty"`
-	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals Totals `json:"unit_totals,omitempty"`
-	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
-	Totals Totals `json:"totals,omitempty"`
-	// Product: Related product entity for this transaction line item price.
-	Product ProductPreview `json:"product,omitempty"`
-}
-
-// TransactionDetailsPreview: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
-type TransactionDetailsPreview struct {
-	// TaxRatesUsed: List of tax rates applied to this transaction preview.
-	TaxRatesUsed []TaxRatesUsed `json:"tax_rates_used,omitempty"`
-	// Totals: Breakdown of the total for a transaction preview. `fee` and `earnings` always return `null` for transaction previews.
-	Totals TransactionTotals `json:"totals,omitempty"`
-	// LineItems: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-	LineItems []TransactionLineItemPreview `json:"line_items,omitempty"`
-}
-
 // TransactionPreview: Represents a transaction entity when previewing transactions.
 type TransactionPreview struct {
 	// CustomerID: Paddle ID of the customer that this transaction preview is for, prefixed with `ctm_`.

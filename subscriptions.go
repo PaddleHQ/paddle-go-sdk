@@ -492,37 +492,6 @@ type SubscriptionItem struct {
 	Product Product `json:"product,omitempty"`
 }
 
-// SubscriptionTransactionLineItemPreview: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-type SubscriptionTransactionLineItemPreview struct {
-	/*
-	   PriceID: Paddle ID for the price related to this transaction line item, prefixed with `pri_`.
-	   The value is null for custom prices being previewed.
-	*/
-	PriceID *string `json:"price_id,omitempty"`
-	// Quantity: Quantity of this transaction line item.
-	Quantity int `json:"quantity,omitempty"`
-	// TaxRate: Rate used to calculate tax for this transaction line item.
-	TaxRate string `json:"tax_rate,omitempty"`
-	// UnitTotals: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-	UnitTotals Totals `json:"unit_totals,omitempty"`
-	// Totals: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
-	Totals Totals `json:"totals,omitempty"`
-	// Product: Related product entity for this transaction line item price.
-	Product ProductPreview `json:"product,omitempty"`
-	// Proration: How proration was calculated for this item.
-	Proration Proration `json:"proration,omitempty"`
-}
-
-// SubscriptionTransactionDetailsPreview: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
-type SubscriptionTransactionDetailsPreview struct {
-	// TaxRatesUsed: List of tax rates applied to this transaction preview.
-	TaxRatesUsed []TaxRatesUsed `json:"tax_rates_used,omitempty"`
-	// Totals: Breakdown of the total for a transaction preview. `fee` and `earnings` always return `null` for transaction previews.
-	Totals TransactionTotals `json:"totals,omitempty"`
-	// LineItems: Information about line items for this transaction preview. Different from transaction preview `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
-	LineItems []SubscriptionTransactionLineItemPreview `json:"line_items,omitempty"`
-}
-
 // SubscriptionAdjustmentItem: List of transaction items that this adjustment is for.
 type SubscriptionAdjustmentItem struct {
 	// ItemID: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
@@ -555,7 +524,7 @@ type NextTransaction struct {
 	// BillingPeriod: Billing period for the next transaction.
 	BillingPeriod TimePeriod `json:"billing_period,omitempty"`
 	// Details: Calculated totals for a transaction preview, including discounts, tax, and currency conversion. Considered the source of truth for totals on a transaction preview.
-	Details SubscriptionTransactionDetailsPreview `json:"details,omitempty"`
+	Details TransactionDetailsPreview `json:"details,omitempty"`
 	// Adjustments: Represents an adjustment entity when previewing adjustments.
 	Adjustments []AdjustmentPreview `json:"adjustments,omitempty"`
 }
@@ -615,7 +584,7 @@ type Subscription struct {
 	// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
 	NextTransaction *NextTransaction `json:"next_transaction,omitempty"`
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges. Returned when the `include` parameter is used with the `recurring_transaction_details` value.
-	RecurringTransactionDetails SubscriptionTransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
+	RecurringTransactionDetails TransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
 }
 
 // EffectiveFrom: When this discount should take effect from..
@@ -796,7 +765,7 @@ type SubscriptionPreview struct {
 	// NextTransaction: Preview of the next transaction for this subscription. Includes charges created where `proration_billing_mode` is `prorated_next_billing_period` or `full_next_billing_period`, as well as one-time charges. `null` if the subscription is scheduled to cancel or pause.
 	NextTransaction *NextTransaction `json:"next_transaction,omitempty"`
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges.
-	RecurringTransactionDetails SubscriptionTransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
+	RecurringTransactionDetails TransactionDetailsPreview `json:"recurring_transaction_details,omitempty"`
 	// UpdateSummary: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
 	UpdateSummary *SubscriptionPreviewUpdateSummary `json:"update_summary,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
