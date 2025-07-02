@@ -39,7 +39,7 @@ Then, reference paddle-go-sdk in a Go program with import:
 
 ```go
 import (
-    paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
+    paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
 )
 ```
 
@@ -51,7 +51,7 @@ Pass your API key while initializing a new Paddle client.
 
 ``` go
 import (
-    paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
+    paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
 )
 
 client, err := paddle.New(

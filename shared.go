@@ -4,8 +4,8 @@ package paddle
 
 import (
 	"encoding/json"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
-	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddlenotification"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddleerr"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddlenotification"
 	"strings"
 )
 

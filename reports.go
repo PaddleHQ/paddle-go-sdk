@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddleerr"
 )
 
 // ErrReportCreationLimitExceeded represents a `report_creation_limit_exceeded` error.

@@ -3,9 +3,8 @@ package paddle_test
 import (
 	"context"
 	"fmt"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
 	"os"
-
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
 )
 
 // Demonstrates how to get an existing entity.

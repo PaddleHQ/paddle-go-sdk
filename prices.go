@@ -4,7 +4,7 @@ package paddle
 
 import (
 	"context"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddleerr"
 )
 
 // ErrPriceTrialPeriodMissingFields represents a `price_trial_period_missing_fields` error.

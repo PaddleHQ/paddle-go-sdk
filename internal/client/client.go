@@ -13,7 +13,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v3/internal/response"
+	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/response"
 
 	"github.com/ggicci/httpin"
 	"github.com/ggicci/httpin/core"

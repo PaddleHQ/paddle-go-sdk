@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v3/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddleerr"
 )
 
 // ErrSubscriptionLockedRenewal represents a `subscription_locked_renewal` error.
