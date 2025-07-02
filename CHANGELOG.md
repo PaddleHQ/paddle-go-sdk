@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 4.0.0 - 2025-07-02
+
+### Added
+
+- Support for Balance Reports ([changelog](https://developer.paddle.com/changelog/2025/balance-reports?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for Simulation Scenario configuration ([changelog](https://developer.paddle.com/changelog/2025/webhook-simulator-scenario-configuration?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for Adjustment `tax_mode` ([changelog](https://developer.paddle.com/changelog/2025/tax-exclusive-refunds?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for Discount Groups ([changelog](https://developer.paddle.com/changelog/2025/discount-groups?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for local Korea payment methods ([changelog](https://developer.paddle.com/changelog/2024/korean-payment-methods?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for Discount mode for checkout recovery ([changelog](https://developer.paddle.com/changelog/2025/checkout-recovery#change-fields?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for AdjustmentAction `chargeback_warning_reverse`
+- Support for API Key Events and Notifications
+
+### Changed
+
+- Minimum supported Go version is now 1.23
+- Consolidated `ReportFiltersOperator` and `FilterOperator` types
+- Consolidated `SubscriptionTransactionDetailsPreview` and `TransactionDetailsPreview` into a single type
+- Consolidated `SubscriptionTransactionLineItemPreview` and `TransactionLineItemPreview` into a single type
+- `CurrencyCode` is now a pointer type for Transaction Previews
+- Improved property visibility: structs no longer include properties not contextually correct
+- Client organisation and naming cleanup:
+  - `EventTypesClient` naming fixed
+  - `NotificationSettingReplaysClient` merged into `NotificationsClient`
+  - `ListCreditBalances` moved to `CustomerClient` (breaking for direct client usage)
+- Various types moved into `shared` package, unused errors removed, new errors added
+
+### Fixed
+
+- `SimulationSingleEventUpdate` and `SimulationScenarioUpdate` now correctly use `PatchFields` for updates
+- Added missing event type name constants: `payment_method.saved`, `payment_method.deleted`, `transaction.revised`
+- Simulation unmarshal of payment_method events
+- Miscellaneous formatting and spec description updates for consistency
+
+
 ## 3.1.1 - 2025-05-12
 
 ### Fixed
@@ -18,7 +53,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 - New API errors
 - Support for calling Transaction Preview API without Address information
-- Support for the Transaction Revise API, see related [changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information)
+- Support for the Transaction Revise API, see related [changelog](https://developer.paddle.com/changelog/2024/revise-transaction-customer-information?utm_source=dx&utm_medium=paddle-go-sdk)
 
 ## 3.0.0 - 2024-12-20
 
@@ -30,9 +65,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Support for new API errors
-- Vietnamese Dong (VND) currency support, see related [changelog](https://developer.paddle.com/changelog/2024/vietnamese-dong-vnd-supported-currency)
-- Simpler creation of full adjustments and a new `AdjustmentType` property, see related [changelog](https://developer.paddle.com/changelog/2024/refund-credit-full-total)
-- Support for controlling how Paddle bills when resuming subscriptions with `SubscriptionOnResume`, see related [chagnelog](https://developer.paddle.com/changelog/2024/resume-subscription-billing-period-options)
+- Vietnamese Dong (VND) currency support, see related [changelog](https://developer.paddle.com/changelog/2024/vietnamese-dong-vnd-supported-currency?utm_source=dx&utm_medium=paddle-go-sdk)
+- Simpler creation of full adjustments and a new `AdjustmentType` property, see related [changelog](https://developer.paddle.com/changelog/2024/refund-credit-full-total?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for controlling how Paddle bills when resuming subscriptions with `SubscriptionOnResume`, see related [chagnelog](https://developer.paddle.com/changelog/2024/resume-subscription-billing-period-options?utm_source=dx&utm_medium=paddle-go-sdk)
 - Support for non catalog items on Transaction Previews with pointer ID properties
 
 ### Changed
@@ -64,7 +99,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 
 ### Added
 
-- Support for the Simulation API - see related [changelog entry](https://developer.paddle.com/changelog/2024/webhook-simulator)
+- Support for the Simulation API - see related [changelog entry](https://developer.paddle.com/changelog/2024/webhook-simulator?utm_source=dx&utm_medium=paddle-go-sdk)
 - Filtering of customer credit balances by `currency_code` in `AdjustmentsClient.ListCreditBalances`
 - New API error mappings
 

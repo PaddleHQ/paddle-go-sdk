@@ -4,9 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
 	"os"
-
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v3"
 )
 
 // Demonstrates how to fetch a list of events and iterate over the provided results.

@@ -2,6 +2,43 @@
 
 All breaking changes will be documented in this file to assist with upgrading.
 
+## v4.0.0
+
+This release introduces several breaking changes and improvements. Please review the following to upgrade:
+
+1. Minimum Go Version  
+   - The minimum supported Go version is now 1.23.  
+   - Update your environment to Go 1.23 or later.
+
+2. Type Consolidation  
+   - `ReportFiltersOperator` and `FilterOperator` types are now consolidated into a single type.  
+   - `SubscriptionTransactionDetailsPreview` and `TransactionDetailsPreview` are now a single type.  
+   - `SubscriptionTransactionLineItemPreview` and `TransactionLineItemPreview` are now a single type.  
+   - Update any references to the removed types to use the new consolidated types.
+
+3. Struct Property Visibility  
+   - Structs no longer include properties that are not contextually correct (e.g., writeOnly properties in response entities).  
+   - Remove any code that referenced these properties, as they are no longer present.
+
+4. PatchFields for Simulation Updates  
+   - `SimulationSingleEventUpdate` and `SimulationScenarioUpdate` now use `PatchFields` for update operations.  
+   - Update any code constructing these structs to use patch fields.
+
+5. Transaction Preview Currency Code  
+   - `CurrencyCode` is now a pointer type for transaction previews to allow omitting in requests.  
+   - Update your code to use pointer values for `CurrencyCode` e.g. within `PreviewTransactionCreate` operations.
+
+6. Client Organisation and Naming  
+   - _Applicable if you're using clients directly_
+   - `EventTypesClient` naming has been fixed.  
+   - `NotificationSettingReplaysClient` has been merged into `NotificationsClient`.  
+   - `ListCreditBalances` has moved to `CustomerClient`.  
+   - Update any direct usage of these clients to use the new structure and names.
+
+7. Errors  
+   - Unused errors have been removed, and new errors have been added.
+   - Review handling code to ensure it handles any new errors or doesn't reference removed errors.
+
 ## v3.0.0
 
 This release contains 4 commits introducing breaking changes. To summarise: 
@@ -167,7 +204,7 @@ Some types were used as part of a union and therefore the following functions ar
 | `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceForAnExistingProduct`       | `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceForAnExistingProduct`       |         
 | `NewTransactionPreviewByIPItemsTransactionsNonCatalogPriceAndProduct`                 | `NewTransactionPreviewByIPItemsTransactionNonCatalogPriceAndProduct`                 |                   
 | `NewTransactionPreviewByCustomerItemsTransactionsCatalogItem`                         | `NewTransactionPreviewByCustomerItemsTransactionCatalogItem`                         |                           
-| `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct` | `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct` |   
+| `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceForAnExistingProduct` | `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceForAnExistingProduct` |
 | `NewTransactionPreviewByCustomerItemsTransactionsNonCatalogPriceAndProduct`           | `NewTransactionPreviewByCustomerItemsTransactionNonCatalogPriceAndProduct`           |             
 
 
