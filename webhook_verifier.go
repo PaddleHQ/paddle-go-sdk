@@ -1,3 +1,16 @@
+// ----------------------------------------------------------------------------
+// Paddle Webhook Verifier
+//
+// Added Security Improvements:
+// - Timestamp validation to prevent replay attacks (±5 min window)
+// - Strict SHA256 hex regex to validate signature format
+// - Request body size limit using actual ResponseWriter (prevents silent DoS)
+// - Proper rehydration of req.Body for downstream use
+// - Clear and specific HTTP status responses on failure 
+//
+// Based on original Paddle logic
+// ----------------------------------------------------------------------------
+
 package paddle
 
 import (
@@ -7,91 +20,114 @@ import (
 	"encoding/hex"
 	"errors"
 	"io"
+	"math"
 	"net/http"
 	"regexp"
+	"strconv"
+	"time"
+	"strings"
 )
 
 var (
-	// ErrMissingSignature is returned when the signature is missing.
-	ErrMissingSignature = errors.New("missing signature")
-
-	// ErrInvalidSignatureFormat is returned when the signature format is invalid.
+	ErrMissingSignature       = errors.New("missing signature")
 	ErrInvalidSignatureFormat = errors.New("invalid signature format")
+	ErrReplayAttack           = errors.New("timestamp is too old or too far in the future")
 )
 
-// signatureRegexp matches the Paddle-Signature header format, e.g.:
-//
-//	ts=1671552777;h1=eb4d0dc8853be92b7f063b9f3ba5233eb920a09459b6e6b2c26705b4364db151
-//
-// More information can be found here: https://developer.paddle.com/webhooks/signature-verification.
-var signatureRegexp = regexp.MustCompile(`^ts=(\d+);h1=(\w+)$`)
+// enforce a strict signature format: ts=<timestamp>;h1=<64-char hex>
+var signatureRegexp = regexp.MustCompile(`^ts=(\d+);h1=([a-f0-9]{64})$`)
 
-// WebhookVerifier is used to verify webhook requests from Paddle.
+// WebhookVerifier validates signed Paddle webhook requests
 type WebhookVerifier struct {
 	secretKey []byte
 }
 
-// NewWebhookVerifier creates a new WebhookVerifier with the given secret key.
+// NewWebhookVerifier creates a new instance with the provided shared secret.
 func NewWebhookVerifier(secretKey string) *WebhookVerifier {
 	return &WebhookVerifier{secretKey: []byte(secretKey)}
 }
 
-// Verify verifies the signature of a webhook request.
-func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
-	sig := req.Header.Get("Paddle-Signature")
+// Verify checks signature, timestamp   and body integrity
+// it now accepts the http.ResponseWriter so MaxBytesReader can work properly
+func (wv *WebhookVerifier) Verify(w http.ResponseWriter, req *http.Request) (bool, error) {
+
+	sigHeader :=  req.Header.Get("Paddle-Signature") 
+
+	sig := strings.TrimSpace(sigHeader) // trim  spaces
+
 	if sig == "" {
 		return false, ErrMissingSignature
 	}
 
-	matches := signatureRegexp.FindAllStringSubmatch(sig, -1)
-	if len(matches) != 1 || len(matches[0]) != 3 {
+	matches := signatureRegexp.FindStringSubmatch(sig)
+	if len(matches) != 3 {
 		return false, ErrInvalidSignatureFormat
 	}
 
-	ts := matches[0][1]
-	h1 := matches[0][2]
+	tsStr := matches[1]
+	h1 := matches[2]
+
+	tsInt, err := strconv.ParseInt(tsStr, 10, 64)
+	if err != nil {
+		return false, ErrInvalidSignatureFormat
+	}
+
+	// prevent replay attacks with ±5 min timestamp window
+	if math.Abs(float64(time.Now().Unix()-tsInt)) > 300 {
+		return false, ErrReplayAttack
+	}
 
 	const maxBodySize = 2 << 20 // 2 MB
 
-	req.Body = http.MaxBytesReader(nil, req.Body, maxBodySize)
+	// Original  (it will be ineffective): as ResponseWriter is set nil, the body limit will  not be enforced
+	// limited := http.MaxBytesReader(nil, req.Body, maxBodySize)
 
-	body, err := io.ReadAll(req.Body)
+	// Fixed: use  ResponseWriter, so that  413 error can be sent if needed
+	limited := http.MaxBytesReader(w, req.Body, maxBodySize)
+
+	body, err := io.ReadAll(limited)
 	if err != nil {
 		return false, err
 	}
 
+	// Rehydrate body for downstream handlers 
 	req.Body = io.NopCloser(bytes.NewBuffer(body))
 
+	// Construct HMAC using ts:body format as per Paddle docs
 	mac := hmac.New(sha256.New, wv.secretKey)
-	mac.Write([]byte(ts))
+	mac.Write([]byte(tsStr))
 	mac.Write([]byte(":"))
 	mac.Write(body)
 
-	generatedMAC := mac.Sum(nil)
+	expectedMAC := mac.Sum(nil)
 
-	dst, err := hex.DecodeString(h1)
+	receivedMAC, err := hex.DecodeString(h1)
 	if err != nil {
 		return false, err
 	}
 
-	return hmac.Equal(dst, generatedMAC), nil
+	return hmac.Equal(receivedMAC, expectedMAC), nil
 }
 
-// Middleware returns a middleware that verifies the signature of a webhook
-// request.
+// Middleware verifies the request before passing it to the next handler.
 func (wv *WebhookVerifier) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ok, err := wv.Verify(r)
-		if err != nil && (errors.Is(err, ErrMissingSignature) || errors.Is(err, ErrInvalidSignatureFormat)) {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		} else if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		//  Pass ResponseWriter to Verify, so that the  body size limiting works
+		ok, err := wv.Verify(w, r)
+		if err != nil {
+			switch {
+			case errors.Is(err, ErrMissingSignature),
+				errors.Is(err, ErrInvalidSignatureFormat),
+				errors.Is(err, ErrReplayAttack):
+				http.Error(w, err.Error(), http.StatusBadRequest)
+			default:
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 
 		if !ok {
-			http.Error(w, "signature mismatch", http.StatusForbidden)
+			http.Error(w, "signature mismatch", http.StatusUnauthorized)
 			return
 		}
 
