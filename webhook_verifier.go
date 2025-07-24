@@ -37,7 +37,6 @@ var signatureRegexp = regexp.MustCompile(`^ts=(\d+);h1=([a-f0-9]{64})$`)
 type WebhookVerifier struct {
 	secretKey          []byte
 	timestampTolerance *time.Duration
-	resWriter          http.ResponseWriter
 }
 
 // VerifierOption defines a functional option for configuring the verifier.
@@ -57,13 +56,6 @@ func NewWebhookVerifier(secretKey string, opts ...VerifierOption) *WebhookVerifi
 func VerifierWithTimestampTolerance(d time.Duration) VerifierOption {
 	return func(wv *WebhookVerifier) {
 		wv.timestampTolerance = &d
-	}
-}
-
-// VerifierWithResponseWriter allows using a response writer to enforce request body size limits.
-func VerifierWithResponseWriter(w http.ResponseWriter) VerifierOption {
-	return func(wv *WebhookVerifier) {
-		wv.resWriter = w
 	}
 }
 
@@ -93,11 +85,11 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 			return false, ErrReplayAttack
 		}
 	}
-
+	
 	const maxBodySize = 2 << 20 // 2 MB
+	req.Body = http.MaxBytesReader(nil, req.Body, maxBodySize)
 
-	limited := http.MaxBytesReader(wv.resWriter, req.Body, maxBodySize)
-	body, err := io.ReadAll(limited)
+	body, err := io.ReadAll(req.Body)
 	if err != nil {
 		return false, err
 	}
@@ -121,8 +113,7 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 // Middleware returns a middleware that verifies the signature of a webhook request.
 func (wv *WebhookVerifier) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		wv.resWriter = w
-
+		
 		ok, err := wv.Verify(r)
 		if err != nil && (errors.Is(err, ErrMissingSignature) || errors.Is(err, ErrInvalidSignatureFormat) || errors.Is(err, ErrReplayAttack)) {
 			http.Error(w, err.Error(), http.StatusBadRequest)
