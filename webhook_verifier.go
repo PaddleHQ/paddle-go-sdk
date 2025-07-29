@@ -85,7 +85,7 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 			return false, ErrReplayAttack
 		}
 	}
-	
+
 	const maxBodySize = 2 << 20 // 2 MB
 	req.Body = http.MaxBytesReader(nil, req.Body, maxBodySize)
 
@@ -113,7 +113,7 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 // Middleware returns a middleware that verifies the signature of a webhook request.
 func (wv *WebhookVerifier) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		
+
 		ok, err := wv.Verify(r)
 		if err != nil && (errors.Is(err, ErrMissingSignature) || errors.Is(err, ErrInvalidSignatureFormat) || errors.Is(err, ErrReplayAttack)) {
 			http.Error(w, err.Error(), http.StatusBadRequest)
