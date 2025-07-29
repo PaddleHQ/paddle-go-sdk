@@ -21,7 +21,8 @@ const (
 
 func TestVerifier_Verify(t *testing.T) {
 	type args struct {
-		name      string
+		name string
+
 		payload   string
 		signature string
 		secretKey string
@@ -85,14 +86,16 @@ func TestVerifier_Verify(t *testing.T) {
 			req.Header.Set("Paddle-Signature", c.signature)
 
 			ok, err := paddle.NewWebhookVerifier(c.secretKey).Verify(req)
+
 			assert.Equal(t, c.expectedResult, ok)
+
 			if c.expectedError == nil {
 				assert.NoError(t, err)
 			} else {
 				assert.ErrorIs(t, err, c.expectedError)
 			}
 
-			// Assert that the body was put back onto the request after reading:
+			// Assert that the body was restored for future reads
 			body, err := io.ReadAll(req.Body)
 			require.NoError(t, err)
 
@@ -150,6 +153,7 @@ func TestVerifier_Middleware(t *testing.T) {
 			req.Header.Set("Paddle-Signature", c.signature)
 
 			rr := httptest.NewRecorder()
+
 			next := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusOK)
 			})
