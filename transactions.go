@@ -15,6 +15,13 @@ var ErrTransactionImmutable = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionCreationBlocked represents a `transaction_creation_blocked` error.
+// See https://developer.paddle.com/errors/transactions/transaction_creation_blocked for more information.
+var ErrTransactionCreationBlocked = &paddleerr.Error{
+	Code: "transaction_creation_blocked",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrTransactionDiscountNotEligible represents a `transaction_discount_not_eligible` error.
 // See https://developer.paddle.com/errors/transactions/transaction_discount_not_eligible for more information.
 var ErrTransactionDiscountNotEligible = &paddleerr.Error{
@@ -309,6 +316,13 @@ var ErrTransactionAddressRegionOrCityAlreadySet = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionCustomDataNumericValueTooLarge represents a `transaction_custom_data_numeric_value_too_large` error.
+// See https://developer.paddle.com/errors/transactions/transaction_custom_data_numeric_value_too_large for more information.
+var ErrTransactionCustomDataNumericValueTooLarge = &paddleerr.Error{
+	Code: "transaction_custom_data_numeric_value_too_large",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
@@ -520,7 +534,7 @@ type TransactionPreviewWithoutAddress struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
@@ -593,7 +607,7 @@ type TransactionPreviewByAddress struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
@@ -666,7 +680,7 @@ type TransactionPreviewByIP struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
@@ -741,7 +755,7 @@ type TransactionPreviewByCustomer struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
@@ -913,7 +927,11 @@ type ListTransactionsRequest struct {
 	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that aren't related to any subscription.
 	SubscriptionID []string `in:"query=subscription_id;omitempty" json:"-"`
 	// PerPage is a query parameter.
-	// Set how many entities are returned per page.
+	/*
+	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
+
+	   Default: `30`; Maximum: `30`.
+	*/
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// UpdatedAt is a query parameter.
 	// Return entities updated at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `updated_at=2023-04-18T17:03:26` or `updated_at[LT]=2023-04-18T17:03:26`.
@@ -1036,7 +1054,7 @@ type CreateTransactionRequest struct {
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices. If omitted, defaults to `automatic`.
 	CollectionMode *CollectionMode `json:"collection_mode,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`.
 	DiscountID *string `json:"discount_id,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
@@ -1276,7 +1294,7 @@ type UpdateTransactionRequest struct {
 	CurrencyCode *PatchField[*CurrencyCode] `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
-	// DiscountID: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`.
 	DiscountID *PatchField[*string] `json:"discount_id,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *PatchField[*BillingDetailsUpdate] `json:"billing_details,omitempty"`

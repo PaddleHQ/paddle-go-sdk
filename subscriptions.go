@@ -421,6 +421,20 @@ var ErrSubscriptionInvalidBillingModeForScheduledChange = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionConsentGrantedTooEarly represents a `subscription_consent_granted_too_early` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_consent_granted_too_early for more information.
+var ErrSubscriptionConsentGrantedTooEarly = &paddleerr.Error{
+	Code: "subscription_consent_granted_too_early",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionLockedConsentReviewPeriod represents a `subscription_locked_consent_review_period` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_locked_consent_review_period for more information.
+var ErrSubscriptionLockedConsentReviewPeriod = &paddleerr.Error{
+	Code: "subscription_locked_consent_review_period",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 
