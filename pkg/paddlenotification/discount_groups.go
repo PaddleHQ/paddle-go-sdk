@@ -9,6 +9,13 @@ type DiscountGroupCreated struct {
 	Data DiscountGroupNotification `json:"data"`
 }
 
+// DiscountGroupUpdated represents the discount_group.updated event.
+// See https://developer.paddle.com/webhooks/overview for more information.
+type DiscountGroupUpdated struct {
+	GenericNotificationEvent
+	Data DiscountGroupNotification `json:"data"`
+}
+
 // DiscountGroupNotification: New or changed entity.
 type DiscountGroupNotification struct {
 	NotificationPayload `json:"-"`
