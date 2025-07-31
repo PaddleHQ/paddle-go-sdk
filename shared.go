@@ -781,6 +781,10 @@ type TransactionPayoutTotals struct {
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
+	// ExchangeRate: Currency exchange rate, including margin if applicable. `1.0` if the transaction currency matches your payout currency.
+	ExchangeRate string `json:"exchange_rate,omitempty"`
+	// FeeRate: Paddle fee rate that was applied to this transaction.
+	FeeRate string `json:"fee_rate,omitempty"`
 }
 
 // CurrencyCodeChargebacks: Three-letter ISO 4217 currency code for the original chargeback fee..
@@ -826,6 +830,8 @@ type TransactionPayoutTotalsAdjusted struct {
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
+	// ExchangeRate: Currency exchange rate, including margin if applicable. `1.0` if the transaction currency matches your payout currency.
+	ExchangeRate string `json:"exchange_rate,omitempty"`
 }
 
 // TransactionLineItem: Information about line items for this transaction. Different from transaction `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
