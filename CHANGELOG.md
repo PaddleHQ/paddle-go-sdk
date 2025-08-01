@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 4.1.0 - 2025-08-01
+
+### Added
+
+- Add timestamp tolerance checks to `WebhookVerifier` to be safe against replay attacks
+- Support for ClientTokens API ([changelog](https://developer.paddle.com/changelog/2025/client-side-token-api))
+- Add event type filtering on `ListEvents` ([changelog](https://developer.paddle.com/changelog/2025/filter-events-by-type))
+- Updates to DiscountGroups API ([changelog](https://developer.paddle.com/changelog/2025/discount-groups-updates))
+  - `GetDiscountGroup` and `UpdateDiscountGroup` API support
+  - `discount_group.updated` event and notification
+- Support for `exchange_rate` and `fee_rate` fields on payout totals
+- Support for new API errors
+
 ## 4.0.0 - 2025-07-02
 
 ### Added
