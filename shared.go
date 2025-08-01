@@ -1740,7 +1740,7 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 type DiscountGroup struct {
 	// ID: Unique Paddle ID for this discount group, prefixed with `dsg_`.
 	ID string `json:"id,omitempty"`
-	// Name: Name of this discount group, typically something short and memorable for categorization. Not shown to customers.
+	// Name: Unique name of this discount group, typically something short and memorable for categorization. Not shown to customers.
 	Name string `json:"name,omitempty"`
 	// Status: Whether this entity can be used in Paddle.
 	Status Status `json:"status,omitempty"`

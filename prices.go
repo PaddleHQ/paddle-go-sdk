@@ -21,6 +21,13 @@ var ErrPriceTrialPeriodRequiresBillingCycle = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrPriceBillingCycleFrequencyGreaterThanMaximum represents a `price_billing_cycle_frequency_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/prices/price_billing_cycle_frequency_greater_than_maximum for more information.
+var ErrPriceBillingCycleFrequencyGreaterThanMaximum = &paddleerr.Error{
+	Code: "price_billing_cycle_frequency_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // ErrPriceBillingCycleFrequencyBelow1 represents a `price_billing_cycle_frequency_below_1` error.
 // See https://developer.paddle.com/errors/prices/price_billing_cycle_frequency_below_1 for more information.
 var ErrPriceBillingCycleFrequencyBelow1 = &paddleerr.Error{
