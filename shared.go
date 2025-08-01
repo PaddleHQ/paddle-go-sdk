@@ -1481,6 +1481,9 @@ const (
 	EventTypeNameBusinessCreated          EventTypeName = "business.created"
 	EventTypeNameBusinessImported         EventTypeName = "business.imported"
 	EventTypeNameBusinessUpdated          EventTypeName = "business.updated"
+	EventTypeNameClientTokenCreated       EventTypeName = "client_token.created"
+	EventTypeNameClientTokenRevoked       EventTypeName = "client_token.revoked"
+	EventTypeNameClientTokenUpdated       EventTypeName = "client_token.updated"
 	EventTypeNameCustomerCreated          EventTypeName = "customer.created"
 	EventTypeNameCustomerImported         EventTypeName = "customer.imported"
 	EventTypeNameCustomerUpdated          EventTypeName = "customer.updated"
@@ -1550,6 +1553,9 @@ const (
 	SimulationTypeNameBusinessCreated          SimulationTypeName = "business.created"
 	SimulationTypeNameBusinessImported         SimulationTypeName = "business.imported"
 	SimulationTypeNameBusinessUpdated          SimulationTypeName = "business.updated"
+	SimulationTypeNameClientTokenCreated       SimulationTypeName = "client_token.created"
+	SimulationTypeNameClientTokenRevoked       SimulationTypeName = "client_token.revoked"
+	SimulationTypeNameClientTokenUpdated       SimulationTypeName = "client_token.updated"
 	SimulationTypeNameCustomerCreated          SimulationTypeName = "customer.created"
 	SimulationTypeNameCustomerImported         SimulationTypeName = "customer.imported"
 	SimulationTypeNameCustomerUpdated          SimulationTypeName = "customer.updated"
@@ -1685,6 +1691,8 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 			t = &paddlenotification.APIKeyNotification{}
 		case "business":
 			t = &paddlenotification.BusinessNotification{}
+		case "client_token":
+			t = &paddlenotification.ClientTokenNotification{}
 		case "customer":
 			t = &paddlenotification.CustomerNotification{}
 		case "discount":

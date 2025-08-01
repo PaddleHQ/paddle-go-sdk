@@ -146,6 +146,12 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.BusinessImported{}
 	case "business.updated":
 		t = &paddlenotification.BusinessUpdated{}
+	case "client_token.created":
+		t = &paddlenotification.ClientTokenCreated{}
+	case "client_token.revoked":
+		t = &paddlenotification.ClientTokenRevoked{}
+	case "client_token.updated":
+		t = &paddlenotification.ClientTokenUpdated{}
 	case "customer.created":
 		t = &paddlenotification.CustomerCreated{}
 	case "customer.imported":

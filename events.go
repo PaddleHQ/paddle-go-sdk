@@ -102,6 +102,24 @@ type BusinessUpdatedEvent struct {
 	Data paddlenotification.BusinessNotification `json:"data"`
 }
 
+// ClientTokenCreatedEvent represents an Event implementation for client_token.created event.
+type ClientTokenCreatedEvent struct {
+	GenericEvent
+	Data paddlenotification.ClientTokenNotification `json:"data"`
+}
+
+// ClientTokenRevokedEvent represents an Event implementation for client_token.revoked event.
+type ClientTokenRevokedEvent struct {
+	GenericEvent
+	Data paddlenotification.ClientTokenNotification `json:"data"`
+}
+
+// ClientTokenUpdatedEvent represents an Event implementation for client_token.updated event.
+type ClientTokenUpdatedEvent struct {
+	GenericEvent
+	Data paddlenotification.ClientTokenNotification `json:"data"`
+}
+
 // CustomerCreatedEvent represents an Event implementation for customer.created event.
 type CustomerCreatedEvent struct {
 	GenericEvent
@@ -365,6 +383,12 @@ func unmarshalEvent(data []byte) (Event, error) {
 		t = &BusinessImportedEvent{}
 	case "business.updated":
 		t = &BusinessUpdatedEvent{}
+	case "client_token.created":
+		t = &ClientTokenCreatedEvent{}
+	case "client_token.revoked":
+		t = &ClientTokenRevokedEvent{}
+	case "client_token.updated":
+		t = &ClientTokenUpdatedEvent{}
 	case "customer.created":
 		t = &CustomerCreatedEvent{}
 	case "customer.imported":
