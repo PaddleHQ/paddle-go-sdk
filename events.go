@@ -509,6 +509,9 @@ type ListEventsRequest struct {
 	   Default: `50`; Maximum: `200`.
 	*/
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
+	// EventType is a query parameter.
+	// Return events that match the specified event type. Use a comma-separated list to specify multiple event types.
+	EventType []string `in:"query=event_type;omitempty" json:"-"`
 }
 
 // ListEvents performs the GET operation on a Events resource.
