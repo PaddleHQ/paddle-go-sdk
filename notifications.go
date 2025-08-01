@@ -166,6 +166,8 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.DiscountUpdated{}
 	case "discount_group.created":
 		t = &paddlenotification.DiscountGroupCreated{}
+	case "discount_group.updated":
+		t = &paddlenotification.DiscountGroupUpdated{}
 	case "payment_method.saved":
 		t = &paddlenotification.PaymentMethodSaved{}
 	case "payment_method.deleted":

@@ -49,6 +49,13 @@ var ErrDiscountUsageLimitLessThanTimesUsed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrDiscountGroupNameConflict represents a `discount_group_name_conflict` error.
+// See https://developer.paddle.com/errors/discounts/discount_group_name_conflict for more information.
+var ErrDiscountGroupNameConflict = &paddleerr.Error{
+	Code: "discount_group_name_conflict",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // Discount: Represents a discount entity with included entities.
 type Discount struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.

@@ -56,3 +56,38 @@ func (c *DiscountGroupsClient) CreateDiscountGroup(ctx context.Context, req *Cre
 
 	return res, nil
 }
+
+// GetDiscountGroupRequest is given as an input to GetDiscountGroup.
+type GetDiscountGroupRequest struct {
+	// URL path parameters.
+	DiscountGroupID string `in:"path=discount_group_id" json:"-"`
+}
+
+// GetDiscountGroup performs the GET operation on a Discount groups resource.
+func (c *DiscountGroupsClient) GetDiscountGroup(ctx context.Context, req *GetDiscountGroupRequest) (res *DiscountGroup, err error) {
+	if err := c.doer.Do(ctx, "GET", "/discount-groups/{discount_group_id}", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// UpdateDiscountGroupRequest is given as an input to UpdateDiscountGroup.
+type UpdateDiscountGroupRequest struct {
+	// URL path parameters.
+	DiscountGroupID string `in:"path=discount_group_id" json:"-"`
+
+	// Status: Whether this entity can be used in Paddle.
+	Status *PatchField[Status] `json:"status,omitempty"`
+	// Name: Name of this discount group, typically something short and memorable for categorization. Not shown to customers.
+	Name *PatchField[string] `json:"name,omitempty"`
+}
+
+// UpdateDiscountGroup performs the PATCH operation on a Discount groups resource.
+func (c *DiscountGroupsClient) UpdateDiscountGroup(ctx context.Context, req *UpdateDiscountGroupRequest) (res *DiscountGroup, err error) {
+	if err := c.doer.Do(ctx, "PATCH", "/discount-groups/{discount_group_id}", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
