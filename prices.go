@@ -212,7 +212,7 @@ type UpdatePriceRequest struct {
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
 	BillingCycle *PatchField[*Duration] `json:"billing_cycle,omitempty"`
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *PatchField[*Duration] `json:"trial_period,omitempty"`
+	TrialPeriod *PatchField[*Duration] `json:"trial_period"`
 	// TaxMode: How tax is calculated for this price.
 	TaxMode *PatchField[TaxMode] `json:"tax_mode,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
