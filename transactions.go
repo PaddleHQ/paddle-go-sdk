@@ -343,8 +343,10 @@ type TransactionAdjustmentTotals struct {
 	Total string `json:"total,omitempty"`
 	// Fee: Total fee taken by Paddle.
 	Fee string `json:"fee,omitempty"`
+	// RetainedFee: Total gateway fee retained by Paddle.
+	RetainedFee string `json:"retained_fee,omitempty"`
 	/*
-	   Earnings: Total earnings. This is the subtotal minus the Paddle fee.
+	   Earnings: Total earnings. This is the subtotal minus the fee.
 	   For tax adjustments, this value is negative, which means a positive effect in the transaction earnings.
 	   This is because the fee is originally calculated from the transaction total, so if a tax adjustment is made,
 	   then the fee portion of it is returned.
