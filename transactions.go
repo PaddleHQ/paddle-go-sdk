@@ -323,6 +323,13 @@ var ErrTransactionCustomDataNumericValueTooLarge = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionRequiresCurrencyCodeForCustomDiscount represents a `transaction_requires_currency_code_for_custom_discount` error.
+// See https://developer.paddle.com/errors/transactions/transaction_requires_currency_code_for_custom_discount for more information.
+var ErrTransactionRequiresCurrencyCodeForCustomDiscount = &paddleerr.Error{
+	Code: "transaction_requires_currency_code_for_custom_discount",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.
@@ -447,6 +454,28 @@ type TransactionItemCreateWithProduct struct {
 	Price TransactionPriceCreateWithProduct `json:"price,omitempty"`
 }
 
+// NonCatalogDiscount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+type NonCatalogDiscount struct {
+	// Description: Short description for this discount for your reference. Not shown to customers.
+	Description string `json:"description,omitempty"`
+	// Type: Type of discount. Determines how this discount impacts the checkout or transaction total.
+	Type DiscountType `json:"type,omitempty"`
+	// Amount: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
+	Amount string `json:"amount,omitempty"`
+	// Recur: Whether this discount applies for multiple subscription billing periods (`true`) or not (`false`). If omitted, defaults to `false`.
+	Recur bool `json:"recur,omitempty"`
+	/*
+	   MaximumRecurringIntervals: Number of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
+
+	   Subscription renewals, midcycle changes, and one-time charges billed to a subscription aren't considered a redemption. `times_used` is not incremented in these cases.
+	*/
+	MaximumRecurringIntervals *int `json:"maximum_recurring_intervals,omitempty"`
+	// CustomData: Your own structured key-value data.
+	CustomData CustomData `json:"custom_data,omitempty"`
+	// RestrictTo: Product or price IDs that this discount is for. When including a product ID, all prices for that product can be discounted. `null` if this discount applies to all products and prices.
+	RestrictTo []string `json:"restrict_to,omitempty"`
+}
+
 // TransactionPreviewItemFromCatalog: Add a catalog item to a transaction. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
 type TransactionPreviewItemFromCatalog struct {
 	// Quantity: Quantity of this item on the transaction.
@@ -536,8 +565,10 @@ type TransactionPreviewWithoutAddress struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *string `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *NonCatalogDiscount `json:"discount,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
 
@@ -609,8 +640,10 @@ type TransactionPreviewByAddress struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *string `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *NonCatalogDiscount `json:"discount,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
 
@@ -682,8 +715,10 @@ type TransactionPreviewByIP struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *string `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *NonCatalogDiscount `json:"discount,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
 
@@ -757,8 +792,10 @@ type TransactionPreviewByCustomer struct {
 	CustomerID *string `json:"customer_id,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction preview, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *string `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *NonCatalogDiscount `json:"discount,omitempty"`
 	/*
 	   IgnoreTrials: Whether trials should be ignored for transaction preview calculations.
 
@@ -1056,8 +1093,10 @@ type CreateTransactionRequest struct {
 	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices. If omitted, defaults to `automatic`.
 	CollectionMode *CollectionMode `json:"collection_mode,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *string `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *NonCatalogDiscount `json:"discount,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *BillingDetails `json:"billing_details,omitempty"`
 	// BillingPeriod: Time period that this transaction is for. Set automatically by Paddle for subscription renewals to describe the period that charges are for.
@@ -1296,8 +1335,10 @@ type UpdateTransactionRequest struct {
 	CurrencyCode *PatchField[*CurrencyCode] `json:"currency_code,omitempty"`
 	// CollectionMode: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
 	CollectionMode *PatchField[CollectionMode] `json:"collection_mode,omitempty"`
-	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`.
+	// DiscountID: Paddle ID of the discount to apply to this transaction, prefixed with `dsc_`. Send one of `discount_id` or `discount`.
 	DiscountID *PatchField[*string] `json:"discount_id,omitempty"`
+	// Discount: Apply a non-catalog discount to a transaction. Send one of `discount_id` or `discount`.
+	Discount *PatchField[*NonCatalogDiscount] `json:"discount,omitempty"`
 	// BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 	BillingDetails *PatchField[*BillingDetailsUpdate] `json:"billing_details,omitempty"`
 	// BillingPeriod: Time period that this transaction is for. Set automatically by Paddle for subscription renewals to describe the period that charges are for.
