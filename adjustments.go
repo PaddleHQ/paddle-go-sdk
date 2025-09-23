@@ -119,6 +119,13 @@ var ErrAdjustmentTaxModeNotAllowed = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrAdjustmentPayoutEarningsCannotBeZero represents a `adjustment_payout_earnings_cannot_be_zero` error.
+// See https://developer.paddle.com/errors/adjustments/adjustment_payout_earnings_cannot_be_zero for more information.
+var ErrAdjustmentPayoutEarningsCannotBeZero = &paddleerr.Error{
+	Code: "adjustment_payout_earnings_cannot_be_zero",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentActionQuery: Return entities for the specified action..
 type AdjustmentActionQuery string
 
