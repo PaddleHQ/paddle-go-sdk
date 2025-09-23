@@ -323,12 +323,16 @@ const (
 	PaymentMethodTypeAlipay       PaymentMethodType = "alipay"
 	PaymentMethodTypeApplePay     PaymentMethodType = "apple_pay"
 	PaymentMethodTypeBancontact   PaymentMethodType = "bancontact"
+	PaymentMethodTypeBlik         PaymentMethodType = "blik"
 	PaymentMethodTypeCard         PaymentMethodType = "card"
 	PaymentMethodTypeGooglePay    PaymentMethodType = "google_pay"
 	PaymentMethodTypeIdeal        PaymentMethodType = "ideal"
+	PaymentMethodTypeMbWay        PaymentMethodType = "mb_way"
 	PaymentMethodTypeOffline      PaymentMethodType = "offline"
 	PaymentMethodTypePaypal       PaymentMethodType = "paypal"
+	PaymentMethodTypePix          PaymentMethodType = "pix"
 	PaymentMethodTypeUnknown      PaymentMethodType = "unknown"
+	PaymentMethodTypeUpi          PaymentMethodType = "upi"
 	PaymentMethodTypeWireTransfer PaymentMethodType = "wire_transfer"
 )
 

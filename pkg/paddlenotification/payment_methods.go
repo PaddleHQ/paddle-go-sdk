@@ -22,9 +22,13 @@ type SavedPaymentMethodType string
 const (
 	SavedPaymentMethodTypeAlipay    SavedPaymentMethodType = "alipay"
 	SavedPaymentMethodTypeApplePay  SavedPaymentMethodType = "apple_pay"
+	SavedPaymentMethodTypeBlik      SavedPaymentMethodType = "blik"
 	SavedPaymentMethodTypeCard      SavedPaymentMethodType = "card"
 	SavedPaymentMethodTypeGooglePay SavedPaymentMethodType = "google_pay"
+	SavedPaymentMethodTypeMbWay     SavedPaymentMethodType = "mb_way"
 	SavedPaymentMethodTypePaypal    SavedPaymentMethodType = "paypal"
+	SavedPaymentMethodTypePix       SavedPaymentMethodType = "pix"
+	SavedPaymentMethodTypeUpi       SavedPaymentMethodType = "upi"
 )
 
 // Origin: Describes how this payment method was saved..
