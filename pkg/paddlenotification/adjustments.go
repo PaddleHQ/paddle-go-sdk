@@ -105,8 +105,10 @@ type AdjustmentTotals struct {
 	Total string `json:"total,omitempty"`
 	// Fee: Total fee taken by Paddle for this adjustment.
 	Fee string `json:"fee,omitempty"`
+	// RetainedFee: Paddle fees retained for this adjustment.
+	RetainedFee string `json:"retained_fee,omitempty"`
 	/*
-	   Earnings: Total earnings. This is the subtotal minus the Paddle fee.
+	   Earnings: Total earnings. This is the subtotal minus the fee.
 	   For tax adjustments, this value is negative, which means a positive effect in the transaction earnings.
 	   This is because the fee is originally calculated from the transaction total, so if a tax adjustment is made,
 	   then the fee portion of it is returned.
@@ -126,9 +128,11 @@ type PayoutTotalsAdjustment struct {
 	Total string `json:"total,omitempty"`
 	// Fee: Adjusted Paddle fee.
 	Fee string `json:"fee,omitempty"`
+	// RetainedFee: Paddle fees retained for this adjustment.
+	RetainedFee string `json:"retained_fee,omitempty"`
 	// ChargebackFee: Chargeback fees incurred for this adjustment. Only returned when the adjustment `action` is `chargeback` or `chargeback_warning`.
 	ChargebackFee ChargebackFee `json:"chargeback_fee,omitempty"`
-	// Earnings: Adjusted payout earnings. This is the adjustment total plus adjusted Paddle fees, excluding chargeback fees.
+	// Earnings: Adjusted payout earnings. This is the adjustment total plus adjusted fees.
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`

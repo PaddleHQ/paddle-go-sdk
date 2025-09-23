@@ -173,8 +173,10 @@ type TransactionTotalsAdjusted struct {
 	GrandTotal string `json:"grand_total,omitempty"`
 	// Fee: Total fee taken by Paddle for this transaction. `null` until the transaction is `completed` and the fee is processed.
 	Fee *string `json:"fee,omitempty"`
+	// RetainedFee: Total Paddle fees retained for this adjustment.
+	RetainedFee string `json:"retained_fee,omitempty"`
 	/*
-	   Earnings: Total earnings for this transaction. This is the total minus the Paddle fee.
+	   Earnings: Total earnings for this transaction. This is the total minus the fee.
 	   `null` until the transaction is `completed` and the fee is processed.
 	*/
 	Earnings *string `json:"earnings,omitempty"`
@@ -225,9 +227,11 @@ type TransactionPayoutTotalsAdjusted struct {
 	Total string `json:"total,omitempty"`
 	// Fee: Total fee taken by Paddle for this payout.
 	Fee string `json:"fee,omitempty"`
+	// RetainedFee: Paddle fees retained for this adjustment.
+	RetainedFee string `json:"retained_fee,omitempty"`
 	// ChargebackFee: Details of any chargeback fees incurred for this transaction.
 	ChargebackFee ChargebackFee `json:"chargeback_fee,omitempty"`
-	// Earnings: Total earnings for this payout. This is the subtotal minus the Paddle fee, excluding chargeback fees.
+	// Earnings: Total earnings for this payout. This is the subtotal minus the fee.
 	Earnings string `json:"earnings,omitempty"`
 	// CurrencyCode: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
 	CurrencyCode CurrencyCodePayouts `json:"currency_code,omitempty"`
