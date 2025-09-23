@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 4.2.0 - 2025-09-23
+
+### Added
+
+- Error support for adjustment_payout_earnings_cannot_be_zero, see [docs](https://developer.paddle.com/errors/adjustments/adjustment_payout_earnings_cannot_be_zero)
+- Handling new enum value of PaymentMethodOrigin for explicit consent to saved payments, see [changelog](https://developer.paddle.com/changelog/2025/spm-consent-subscriptions)
+- New payment methods, BLIK, MB Way, Pix and UPI, see [changelog](https://developer.paddle.com/changelog/2025/blik-mbway-payment-methods)
+- Non-catalog discounts on Transactions, see [changelog](https://developer.paddle.com/changelog/2025/custom-discounts)
+- Support `retained_fee` field on totals objects to show the fees retained by Paddle for the adjustment
+
 ## 4.1.0 - 2025-08-01
 
 ### Added
