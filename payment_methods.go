@@ -31,8 +31,9 @@ type PayPal struct {
 type PaymentMethodOrigin string
 
 const (
-	PaymentMethodOriginSavedDuringPurchase PaymentMethodOrigin = "saved_during_purchase"
-	PaymentMethodOriginSubscription        PaymentMethodOrigin = "subscription"
+	PaymentMethodOriginSavedDuringPurchase             PaymentMethodOrigin = "saved_during_purchase"
+	PaymentMethodOriginSubscription                    PaymentMethodOrigin = "subscription"
+	PaymentMethodOriginSubscriptionSavedDuringPurchase PaymentMethodOrigin = "subscription_saved_during_purchase"
 )
 
 // PaymentMethod: Represents a customer payment method entity.

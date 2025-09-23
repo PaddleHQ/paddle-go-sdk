@@ -35,8 +35,9 @@ const (
 type Origin string
 
 const (
-	OriginSavedDuringPurchase Origin = "saved_during_purchase"
-	OriginSubscription        Origin = "subscription"
+	OriginSavedDuringPurchase             Origin = "saved_during_purchase"
+	OriginSubscription                    Origin = "subscription"
+	OriginSubscriptionSavedDuringPurchase Origin = "subscription_saved_during_purchase"
 )
 
 // PaymentMethodSavedNotification: New or changed entity.
@@ -71,8 +72,9 @@ const (
 type PaymentMethodOrigin string
 
 const (
-	PaymentMethodOriginSavedDuringPurchase PaymentMethodOrigin = "saved_during_purchase"
-	PaymentMethodOriginSubscription        PaymentMethodOrigin = "subscription"
+	PaymentMethodOriginSavedDuringPurchase             PaymentMethodOrigin = "saved_during_purchase"
+	PaymentMethodOriginSubscription                    PaymentMethodOrigin = "subscription"
+	PaymentMethodOriginSubscriptionSavedDuringPurchase PaymentMethodOrigin = "subscription_saved_during_purchase"
 )
 
 // PaymentMethodDeletedNotification: New or changed entity.
