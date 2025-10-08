@@ -1,7 +1,7 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/ggicci/httpin v0.20.1 h1:ohLmpXxd9RTcOFAgmssWkwbgZZchDY09q+DPjsDcTCk=
-github.com/ggicci/httpin v0.20.1/go.mod h1:Ege1sUW4Ul+QF7QmwdB84XfkNeFGCUahNgXOKNokl4I=
+github.com/ggicci/httpin v0.20.2 h1:SmXSM/jg58H2W4+fIcF+6bo4JXQW/f8oeHYHYmwecmk=
+github.com/ggicci/httpin v0.20.2/go.mod h1:lQaLWTYNcs4eo8WoESBqqT4fUc9dgdIKeHweZMj17No=
 github.com/ggicci/owl v0.8.2 h1:og+lhqpzSMPDdEB+NJfzoAJARP7qCG3f8uUC3xvGukA=
 github.com/ggicci/owl v0.8.2/go.mod h1:PHRD57u41vFN5UtFz2SF79yTVoM3HlWpjMiE+ZU2dj4=
 github.com/hashicorp/go-cleanhttp v0.5.2 h1:035FKYIWjmULyFRBKPs8TBQoi0x6d9G4xc9neXJWAZQ=
