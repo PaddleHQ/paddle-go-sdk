@@ -1,6 +1,6 @@
 module github.com/PaddleHQ/paddle-go-sdk/v4
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/ggicci/httpin v0.20.2
