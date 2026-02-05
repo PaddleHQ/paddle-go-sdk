@@ -16,6 +16,7 @@ const (
 	EventTypeNameAPIKeyExpiring           EventTypeName = "api_key.expiring"
 	EventTypeNameAPIKeyRevoked            EventTypeName = "api_key.revoked"
 	EventTypeNameAPIKeyUpdated            EventTypeName = "api_key.updated"
+	EventTypeNameAPIKeyExposureCreated    EventTypeName = "api_key_exposure.created"
 	EventTypeNameBusinessCreated          EventTypeName = "business.created"
 	EventTypeNameBusinessImported         EventTypeName = "business.imported"
 	EventTypeNameBusinessUpdated          EventTypeName = "business.updated"

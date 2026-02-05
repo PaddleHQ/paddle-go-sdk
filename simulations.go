@@ -241,6 +241,8 @@ func (s *Simulation) UnmarshalJSON(data []byte) error {
 			t = &paddlenotification.AdjustmentNotification{}
 		case "api_key":
 			t = &paddlenotification.APIKeyNotification{}
+		case "api_key_exposure":
+			t = &paddlenotification.APIKeyExposureNotification{}
 		case "business":
 			t = &paddlenotification.BusinessNotification{}
 		case "client_token":

@@ -140,6 +140,8 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 		t = &paddlenotification.APIKeyExpiring{}
 	case "api_key.revoked":
 		t = &paddlenotification.APIKeyRevoked{}
+	case "api_key_exposure.created":
+		t = &paddlenotification.APIKeyExposureCreated{}
 	case "business.created":
 		t = &paddlenotification.BusinessCreated{}
 	case "business.imported":

@@ -37,6 +37,13 @@ type APIKeyRevoked struct {
 	Data APIKeyNotification `json:"data"`
 }
 
+// APIKeyExposureCreated represents the api_key_exposure.created event.
+// See https://developer.paddle.com/webhooks/overview for more information.
+type APIKeyExposureCreated struct {
+	GenericNotificationEvent
+	Data APIKeyExposureNotification `json:"data"`
+}
+
 // APIKeyStatus: Status of this API key..
 type APIKeyStatus string
 
@@ -100,6 +107,8 @@ type APIKeyNotification struct {
 	Status APIKeyStatus `json:"status"`
 	// Permissions: Permission assigned to this API key.
 	Permissions []APIKeyPermission `json:"permissions"`
+	// ExposedAt: RFC 3339 datetime string of when this API key was first exposed. `null` if never exposed.
+	ExposedAt *string `json:"exposed_at"`
 	// ExpiresAt: RFC 3339 datetime string of when this API key expires.
 	ExpiresAt *string `json:"expires_at"`
 	// LastUsedAt: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
@@ -108,4 +117,47 @@ type APIKeyNotification struct {
 	CreatedAt string `json:"created_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at"`
+}
+
+// APIKeyExposureLevel: Risk level of this exposure..
+type APIKeyExposureLevel string
+
+const (
+	APIKeyExposureLevelHigh APIKeyExposureLevel = "high"
+	APIKeyExposureLevelLow  APIKeyExposureLevel = "low"
+)
+
+// APIKeyExposureActionTaken: Action performed by Paddle as a result of this exposure..
+type APIKeyExposureActionTaken string
+
+const (
+	APIKeyExposureActionTakenRevoked APIKeyExposureActionTaken = "revoked"
+	APIKeyExposureActionTakenNone    APIKeyExposureActionTaken = "none"
+)
+
+// APIKeyExposureSource: Source of this exposure..
+type APIKeyExposureSource string
+
+const APIKeyExposureSourceGithub APIKeyExposureSource = "github"
+
+// APIKeyExposureNotification: New or changed entity.
+type APIKeyExposureNotification struct {
+	NotificationPayload `json:"-"`
+
+	// ID: Unique Paddle ID for this API key exposure entity, prefixed with `apkexp_`.
+	ID string `json:"id"`
+	// APIKeyID: Unique Paddle ID for this API key entity, prefixed with `apikey_`.
+	APIKeyID string `json:"api_key_id"`
+	// RiskLevel: Risk level of this exposure.
+	RiskLevel APIKeyExposureLevel `json:"risk_level"`
+	// ActionTaken: Action performed by Paddle as a result of this exposure.
+	ActionTaken APIKeyExposureActionTaken `json:"action_taken"`
+	// Source: Source of this exposure.
+	Source APIKeyExposureSource `json:"source"`
+	// Reference: A unique URL or reference pointing to the source of the exposure. When `source` is `github`, a URL to the location of the exposure is returned.
+	Reference string `json:"reference"`
+	// Description: Additional details about this exposure.
+	Description *string `json:"description"`
+	// CreatedAt: RFC 3339 datetime string of when this API key exposure was found. Set automatically by Paddle.
+	CreatedAt string `json:"created_at"`
 }
