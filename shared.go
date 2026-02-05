@@ -919,23 +919,28 @@ const (
 type PaymentMethodType string
 
 const (
-	PaymentMethodTypeAlipay       PaymentMethodType = "alipay"
-	PaymentMethodTypeApplePay     PaymentMethodType = "apple_pay"
-	PaymentMethodTypeBancontact   PaymentMethodType = "bancontact"
-	PaymentMethodTypeBlik         PaymentMethodType = "blik"
-	PaymentMethodTypeCard         PaymentMethodType = "card"
-	PaymentMethodTypeGooglePay    PaymentMethodType = "google_pay"
-	PaymentMethodTypeIdeal        PaymentMethodType = "ideal"
-	PaymentMethodTypeMbWay        PaymentMethodType = "mb_way"
-	PaymentMethodTypeOffline      PaymentMethodType = "offline"
-	PaymentMethodTypePaypal       PaymentMethodType = "paypal"
-	PaymentMethodTypePix          PaymentMethodType = "pix"
-	PaymentMethodTypeUnknown      PaymentMethodType = "unknown"
-	PaymentMethodTypeUpi          PaymentMethodType = "upi"
-	PaymentMethodTypeWireTransfer PaymentMethodType = "wire_transfer"
+	PaymentMethodTypeAlipay              PaymentMethodType = "alipay"
+	PaymentMethodTypeApplePay            PaymentMethodType = "apple_pay"
+	PaymentMethodTypeBancontact          PaymentMethodType = "bancontact"
+	PaymentMethodTypeBlik                PaymentMethodType = "blik"
+	PaymentMethodTypeCard                PaymentMethodType = "card"
+	PaymentMethodTypeGooglePay           PaymentMethodType = "google_pay"
+	PaymentMethodTypeIdeal               PaymentMethodType = "ideal"
+	PaymentMethodTypeKakaoPay            PaymentMethodType = "kakao_pay"
+	PaymentMethodTypeSouthKoreaLocalCard PaymentMethodType = "south_korea_local_card"
+	PaymentMethodTypeMbWay               PaymentMethodType = "mb_way"
+	PaymentMethodTypeNaverPay            PaymentMethodType = "naver_pay"
+	PaymentMethodTypeOffline             PaymentMethodType = "offline"
+	PaymentMethodTypePayco               PaymentMethodType = "payco"
+	PaymentMethodTypePaypal              PaymentMethodType = "paypal"
+	PaymentMethodTypePix                 PaymentMethodType = "pix"
+	PaymentMethodTypeSamsungPay          PaymentMethodType = "samsung_pay"
+	PaymentMethodTypeUnknown             PaymentMethodType = "unknown"
+	PaymentMethodTypeUpi                 PaymentMethodType = "upi"
+	PaymentMethodTypeWireTransfer        PaymentMethodType = "wire_transfer"
 )
 
-// KoreanMarketUnderlyingPaymentMethodType: Type of Korean payment method used to pay..
+// KoreanMarketUnderlyingPaymentMethodType: Type of Korean payment method used to pay. Deprecated - use top-level type objects instead.
 type KoreanMarketUnderlyingPaymentMethodType string
 
 const (
@@ -969,16 +974,53 @@ const (
 	KoreanMarketUnderlyingPaymentMethodTypeWoori         KoreanMarketUnderlyingPaymentMethodType = "woori"
 )
 
-// KoreanMarketUnderlyingDetails: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`.
+// KoreanMarketUnderlyingDetails: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`. Deprecated - use top-level type objects instead.
 type KoreanMarketUnderlyingDetails struct {
-	// Type: Type of Korean payment method used to pay.
+	// Type: Type of Korean payment method used to pay. Deprecated - use top-level type objects instead.
 	Type KoreanMarketUnderlyingPaymentMethodType `json:"type,omitempty"`
 }
 
-// PaymentMethodUnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+// PaymentMethodUnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`. Deprecated - use top-level type objects instead.
 type PaymentMethodUnderlyingDetails struct {
-	// KoreaLocal: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`.
+	// KoreaLocal: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`. Deprecated - use top-level type objects instead.
 	KoreaLocal *KoreanMarketUnderlyingDetails `json:"korea_local,omitempty"`
+}
+
+// SouthKoreaLocalCardType: Type of Korean credit or debit card used to pay..
+type SouthKoreaLocalCardType string
+
+const (
+	SouthKoreaLocalCardTypeBc          SouthKoreaLocalCardType = "bc"
+	SouthKoreaLocalCardTypeCiti        SouthKoreaLocalCardType = "citi"
+	SouthKoreaLocalCardTypeHana        SouthKoreaLocalCardType = "hana"
+	SouthKoreaLocalCardTypeHyundai     SouthKoreaLocalCardType = "hyundai"
+	SouthKoreaLocalCardTypeJeju        SouthKoreaLocalCardType = "jeju"
+	SouthKoreaLocalCardTypeJeonbuk     SouthKoreaLocalCardType = "jeonbuk"
+	SouthKoreaLocalCardTypeKakaobank   SouthKoreaLocalCardType = "kakaobank"
+	SouthKoreaLocalCardTypeKbank       SouthKoreaLocalCardType = "kbank"
+	SouthKoreaLocalCardTypeKdbbank     SouthKoreaLocalCardType = "kdbbank"
+	SouthKoreaLocalCardTypeKookmin     SouthKoreaLocalCardType = "kookmin"
+	SouthKoreaLocalCardTypeKwangju     SouthKoreaLocalCardType = "kwangju"
+	SouthKoreaLocalCardTypeLotte       SouthKoreaLocalCardType = "lotte"
+	SouthKoreaLocalCardTypeMg          SouthKoreaLocalCardType = "mg"
+	SouthKoreaLocalCardTypeNh          SouthKoreaLocalCardType = "nh"
+	SouthKoreaLocalCardTypePost        SouthKoreaLocalCardType = "post"
+	SouthKoreaLocalCardTypeSamsung     SouthKoreaLocalCardType = "samsung"
+	SouthKoreaLocalCardTypeSavingsbank SouthKoreaLocalCardType = "savingsbank"
+	SouthKoreaLocalCardTypeShinhan     SouthKoreaLocalCardType = "shinhan"
+	SouthKoreaLocalCardTypeShinhyup    SouthKoreaLocalCardType = "shinhyup"
+	SouthKoreaLocalCardTypeSuhyup      SouthKoreaLocalCardType = "suhyup"
+	SouthKoreaLocalCardTypeTossbank    SouthKoreaLocalCardType = "tossbank"
+	SouthKoreaLocalCardTypeUnknown     SouthKoreaLocalCardType = "unknown"
+	SouthKoreaLocalCardTypeWoori       SouthKoreaLocalCardType = "woori"
+)
+
+// SouthKoreaLocalCard: Information about the Korean credit or debit card used to pay. `null` unless `type` is `south_korea_local_card`.
+type SouthKoreaLocalCard struct {
+	// Type: Type of Korean credit or debit card used to pay.
+	Type SouthKoreaLocalCardType `json:"type,omitempty"`
+	// Last4: Last four digits of the card used to pay.
+	Last4 string `json:"last4,omitempty"`
 }
 
 // CardType: Type of credit or debit card used to pay..
@@ -1016,7 +1058,10 @@ type MethodDetails struct {
 	// Type: Type of payment method used for this payment attempt.
 	Type PaymentMethodType `json:"type,omitempty"`
 	// UnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+	// Deprecated: Use top-level type objects instead, e.g. SouthKoreaLocalCard
 	UnderlyingDetails *PaymentMethodUnderlyingDetails `json:"underlying_details,omitempty"`
+	// SouthKoreaLocalCard: Information about the Korean credit or debit card used to pay. `null` unless `type` is `south_korea_local_card`.
+	SouthKoreaLocalCard *SouthKoreaLocalCard `json:"south_korea_local_card,omitempty"`
 	// Card: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
 	Card *Card `json:"card,omitempty"`
 }
