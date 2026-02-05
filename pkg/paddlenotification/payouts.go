@@ -22,6 +22,8 @@ type PayoutNotification struct {
 
 	// ID: ID for this payout.
 	ID string `json:"id"`
+	// RemittanceReference: Reference number on the payout and remittance advice document.
+	RemittanceReference string `json:"remittance_reference"`
 	// Status: Status of this payout.
 	Status Status `json:"status"`
 	// Amount: Amount paid, or scheduled to be paid, for this payout.
