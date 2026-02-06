@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "request_error",
+    "code": "too_many_requests",
+    "detail": "IP address exceeded the allowed rate limit. Retry after the number of seconds in the Retry-After header.",
+    "documentation_url": "https://developer.paddle.com/errors/shared/too_many_requests"
+  },
+  "meta": {
+    "request_id": "9346b365-4cad-43a6-b7c1-48ff6a1c7836"
+  }
+}

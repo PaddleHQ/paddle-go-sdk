@@ -21,6 +21,7 @@ const (
 	simulations              stubPath = "testdata/simulations.json"
 	simulationRun            stubPath = "testdata/simulation_run.json"
 	simulationRunWithEvents  stubPath = "testdata/simulation_run_with_events.json"
+	tooManyRequestsError     stubPath = "testdata/too_many_requests_error.json"
 )
 
 //go:embed testdata
@@ -31,15 +32,25 @@ type stub struct {
 }
 
 type mockServerResponse struct {
-	stub *stub
-	body *[]byte
+	stub       *stub
+	body       *[]byte
+	statusCode int
+	headers    http.Header
 }
 
 func mockServerForExample(res mockServerResponse) *httptest.Server {
 	call := 0
 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+		for key, value := range res.headers {
+			w.Header().Set(key, value[0])
+		}
+
+		statusCode := res.statusCode
+		if statusCode == 0 {
+			statusCode = http.StatusOK
+		}
+		w.WriteHeader(statusCode)
 
 		var body []byte
 
