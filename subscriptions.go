@@ -1014,6 +1014,11 @@ type ListSubscriptionsRequest struct {
 	// ScheduledChangeAction is a query parameter.
 	// Return subscriptions that have a scheduled change. Use a comma-separated list to specify multiple scheduled change actions.
 	ScheduledChangeAction []string `in:"query=scheduled_change_action;omitempty" json:"-"`
+	// NextBilledAt is a query parameter.
+	/*
+	   Return entities next billed at a specific time. Pass `null` to return entities with no next billing date.
+	*/
+	NextBilledAt []string `in:"query=next_billed_at;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
 	Status []string `in:"query=status;omitempty" json:"-"`
