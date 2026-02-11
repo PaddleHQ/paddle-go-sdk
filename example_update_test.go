@@ -32,7 +32,8 @@ func Example_update() {
 
 	// Update a transaction.
 	res, err := client.UpdateTransaction(ctx, &paddle.UpdateTransactionRequest{
-		DiscountID: paddle.NewPtrPatchField("dsc_01gtgztp8fpchantd5g1wrksa3"),
+		TransactionID: "txn_01hv8m0mnx3sj85e7gxc6kga03",
+		DiscountID:    paddle.NewPtrPatchField("dsc_01gtgztp8fpchantd5g1wrksa3"),
 		Items: paddle.NewPatchField([]paddle.UpdateTransactionItems{
 			*paddle.NewUpdateTransactionItemsTransactionItemFromCatalog(&paddle.TransactionItemFromCatalog{
 				Quantity: 50,
