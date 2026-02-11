@@ -11,7 +11,7 @@ This release introduces breaking changes. Please review the following to upgrade
    - Update your environment to Go 1.25 or later.
 
 2. TrialPeriod Type Change  
-   - The `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support the new `RequiresPaymentMethod` field for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview).  
+   - The `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support the new `RequiresPaymentMethod` field for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview?utm_source=dx&utm_medium=paddle-go-sdk).  
    - Update any code that constructs trial periods for prices. Use `TrialPeriod` as a drop-in replacement, set `RequiresPaymentMethod` to take advantage of the new functionality. 
 
    ```go
@@ -252,7 +252,7 @@ This has resulted in some type changes
 
 ## v0.6.0
 
-1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview)
+1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview?utm_source=dx&utm_medium=paddle-go-sdk)
 
 When updating to this version if you're integrating with Reports you will need to refactor the code accordingly as it now closely matches the oneOf design of the API. 
 
