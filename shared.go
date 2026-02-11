@@ -1496,6 +1496,7 @@ const (
 	EventTypeNameAPIKeyExpiring           EventTypeName = "api_key.expiring"
 	EventTypeNameAPIKeyRevoked            EventTypeName = "api_key.revoked"
 	EventTypeNameAPIKeyUpdated            EventTypeName = "api_key.updated"
+	EventTypeNameAPIKeyExposureCreated    EventTypeName = "api_key_exposure.created"
 	EventTypeNameBusinessCreated          EventTypeName = "business.created"
 	EventTypeNameBusinessImported         EventTypeName = "business.imported"
 	EventTypeNameBusinessUpdated          EventTypeName = "business.updated"
@@ -1568,6 +1569,7 @@ const (
 	SimulationTypeNameAPIKeyExpiring           SimulationTypeName = "api_key.expiring"
 	SimulationTypeNameAPIKeyRevoked            SimulationTypeName = "api_key.revoked"
 	SimulationTypeNameAPIKeyUpdated            SimulationTypeName = "api_key.updated"
+	SimulationTypeNameAPIKeyExposureCreated    SimulationTypeName = "api_key_exposure.created"
 	SimulationTypeNameBusinessCreated          SimulationTypeName = "business.created"
 	SimulationTypeNameBusinessImported         SimulationTypeName = "business.imported"
 	SimulationTypeNameBusinessUpdated          SimulationTypeName = "business.updated"
@@ -1707,6 +1709,8 @@ func (s *SimulationEvent) UnmarshalJSON(data []byte) error {
 			t = &paddlenotification.AdjustmentNotification{}
 		case "api_key":
 			t = &paddlenotification.APIKeyNotification{}
+		case "api_key_exposure":
+			t = &paddlenotification.APIKeyExposureNotification{}
 		case "business":
 			t = &paddlenotification.BusinessNotification{}
 		case "client_token":

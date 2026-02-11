@@ -84,6 +84,12 @@ type APIKeyRevokedEvent struct {
 	Data paddlenotification.APIKeyNotification `json:"data"`
 }
 
+// APIKeyExposureCreatedEvent represents an Event implementation for api_key_exposure.created event.
+type APIKeyExposureCreatedEvent struct {
+	GenericEvent
+	Data paddlenotification.APIKeyExposureNotification `json:"data"`
+}
+
 // BusinessCreatedEvent represents an Event implementation for business.created event.
 type BusinessCreatedEvent struct {
 	GenericEvent
@@ -383,6 +389,8 @@ func unmarshalEvent(data []byte) (Event, error) {
 		t = &APIKeyExpiringEvent{}
 	case "api_key.revoked":
 		t = &APIKeyRevokedEvent{}
+	case "api_key_exposure.created":
+		t = &APIKeyExposureCreatedEvent{}
 	case "business.created":
 		t = &BusinessCreatedEvent{}
 	case "business.imported":
