@@ -20,15 +20,20 @@ type PaymentMethodDeleted struct {
 type SavedPaymentMethodType string
 
 const (
-	SavedPaymentMethodTypeAlipay    SavedPaymentMethodType = "alipay"
-	SavedPaymentMethodTypeApplePay  SavedPaymentMethodType = "apple_pay"
-	SavedPaymentMethodTypeBlik      SavedPaymentMethodType = "blik"
-	SavedPaymentMethodTypeCard      SavedPaymentMethodType = "card"
-	SavedPaymentMethodTypeGooglePay SavedPaymentMethodType = "google_pay"
-	SavedPaymentMethodTypeMbWay     SavedPaymentMethodType = "mb_way"
-	SavedPaymentMethodTypePaypal    SavedPaymentMethodType = "paypal"
-	SavedPaymentMethodTypePix       SavedPaymentMethodType = "pix"
-	SavedPaymentMethodTypeUpi       SavedPaymentMethodType = "upi"
+	SavedPaymentMethodTypeAlipay              SavedPaymentMethodType = "alipay"
+	SavedPaymentMethodTypeApplePay            SavedPaymentMethodType = "apple_pay"
+	SavedPaymentMethodTypeBlik                SavedPaymentMethodType = "blik"
+	SavedPaymentMethodTypeCard                SavedPaymentMethodType = "card"
+	SavedPaymentMethodTypeGooglePay           SavedPaymentMethodType = "google_pay"
+	SavedPaymentMethodTypeKakaoPay            SavedPaymentMethodType = "kakao_pay"
+	SavedPaymentMethodTypeSouthKoreaLocalCard SavedPaymentMethodType = "south_korea_local_card"
+	SavedPaymentMethodTypeMbWay               SavedPaymentMethodType = "mb_way"
+	SavedPaymentMethodTypeNaverPay            SavedPaymentMethodType = "naver_pay"
+	SavedPaymentMethodTypePayco               SavedPaymentMethodType = "payco"
+	SavedPaymentMethodTypePaypal              SavedPaymentMethodType = "paypal"
+	SavedPaymentMethodTypePix                 SavedPaymentMethodType = "pix"
+	SavedPaymentMethodTypeSamsungPay          SavedPaymentMethodType = "samsung_pay"
+	SavedPaymentMethodTypeUpi                 SavedPaymentMethodType = "upi"
 )
 
 // Origin: Describes how this payment method was saved..

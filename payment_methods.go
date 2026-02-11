@@ -8,15 +8,19 @@ import "context"
 type SavedPaymentMethodType string
 
 const (
-	SavedPaymentMethodTypeAlipay    SavedPaymentMethodType = "alipay"
-	SavedPaymentMethodTypeApplePay  SavedPaymentMethodType = "apple_pay"
-	SavedPaymentMethodTypeBlik      SavedPaymentMethodType = "blik"
-	SavedPaymentMethodTypeCard      SavedPaymentMethodType = "card"
-	SavedPaymentMethodTypeGooglePay SavedPaymentMethodType = "google_pay"
-	SavedPaymentMethodTypeMbWay     SavedPaymentMethodType = "mb_way"
-	SavedPaymentMethodTypePaypal    SavedPaymentMethodType = "paypal"
-	SavedPaymentMethodTypePix       SavedPaymentMethodType = "pix"
-	SavedPaymentMethodTypeUpi       SavedPaymentMethodType = "upi"
+	SavedPaymentMethodTypeAlipay              SavedPaymentMethodType = "alipay"
+	SavedPaymentMethodTypeApplePay            SavedPaymentMethodType = "apple_pay"
+	SavedPaymentMethodTypeBlik                SavedPaymentMethodType = "blik"
+	SavedPaymentMethodTypeCard                SavedPaymentMethodType = "card"
+	SavedPaymentMethodTypeGooglePay           SavedPaymentMethodType = "google_pay"
+	SavedPaymentMethodTypeKakaoPay            SavedPaymentMethodType = "kakao_pay"
+	SavedPaymentMethodTypeSouthKoreaLocalCard SavedPaymentMethodType = "south_korea_local_card"
+	SavedPaymentMethodTypeMbWay               SavedPaymentMethodType = "mb_way"
+	SavedPaymentMethodTypeNaverPay            SavedPaymentMethodType = "naver_pay"
+	SavedPaymentMethodTypePaypal              SavedPaymentMethodType = "paypal"
+	SavedPaymentMethodTypePix                 SavedPaymentMethodType = "pix"
+	SavedPaymentMethodTypeSamsungPay          SavedPaymentMethodType = "samsung_pay"
+	SavedPaymentMethodTypeUpi                 SavedPaymentMethodType = "upi"
 )
 
 // PayPal: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
@@ -51,7 +55,10 @@ type PaymentMethod struct {
 	// Paypal: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
 	Paypal *PayPal `json:"paypal,omitempty"`
 	// UnderlyingDetails: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+	// Deprecated: Use top-level type objects instead, e.g. SouthKoreaLocalCard
 	UnderlyingDetails *PaymentMethodUnderlyingDetails `json:"underlying_details,omitempty"`
+	// SouthKoreaLocalCard: Information about the Korean payment method used to pay. `null` unless `type` is `south_korea_local_card`.
+	SouthKoreaLocalCard *SouthKoreaLocalCard `json:"south_korea_local_card,omitempty"`
 	// Origin: Describes how this payment method was saved.
 	Origin PaymentMethodOrigin `json:"origin,omitempty"`
 	// SavedAt: RFC 3339 datetime string of when this entity was saved. Set automatically by Paddle.
