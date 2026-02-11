@@ -176,6 +176,7 @@ These testable examples use a mock server that returns predefined responses. Thi
 - [Simulations](./example_simulations_test.go)
 - [Webhook Unmarshalling](./example_webhook_unmarshal_test.go)
 - [Webhook Verification](./example_webhook_verifier_test.go)
+- [429 Error Retry Handling](./example_retry_after_test.go)
 
 These are not intended to be comprehensive for each and every operation. Instead, they cover the general flow of operations for entities as well as some useful examples. 
 

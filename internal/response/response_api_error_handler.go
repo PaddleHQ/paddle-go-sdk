@@ -54,5 +54,10 @@ func HandleError(req *http.Request, res *http.Response, requestErr error) error 
 		return NewError(ErrUnexpectedResponse, req.Method, req.URL.Path, res.StatusCode, teedBytes.Bytes())
 	}
 
+	apiResponse.Error.Status = res.StatusCode
+	if retry := parseRetry(res.Header); retry != nil {
+		apiResponse.Error.RetryAfter = retry
+	}
+
 	return apiResponse.Error
 }

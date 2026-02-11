@@ -5,12 +5,45 @@ package paddleerr
 import (
 	"fmt"
 	"strings"
+	"time"
 )
+
+// RetryAfter represents the Retry-After header of 429/503 error responses
+// from the Paddle API. This surfaces API retry expectations and allows
+// integrators to implement backoff accordingly.
+type RetryAfter struct {
+	// IssuedAt is when the 429/503 response was received
+	IssuedAt time.Time
+	// RetryAt is the specific point in time the server allows retries
+	RetryAt time.Time
+}
+
+// TotalDelay returns the static duration between issuance and the retry target.
+func (r *RetryAfter) TotalDelay() time.Duration {
+	return r.RetryAt.Sub(r.IssuedAt)
+}
+
+// WaitTime returns the duration from now until the retry target.
+// It returns 0 if the time has already passed, preventing negative durations.
+func (r *RetryAfter) WaitTime() time.Duration {
+	wait := time.Until(r.RetryAt)
+	if wait < 0 {
+		return 0
+	}
+	return wait
+}
+
+// IsExpired returns true if the current time is past the retry target.
+func (r *RetryAfter) IsExpired() bool {
+	return time.Now().After(r.RetryAt)
+}
 
 type ErrorType string
 
 type Error struct {
-	Status           int               `json:"-"`
+	Status     int         `json:"-"`
+	RetryAfter *RetryAfter `json:"-"`
+
 	Type             ErrorType         `json:"type"`
 	Code             string            `json:"code"`
 	Detail           string            `json:"detail"`
