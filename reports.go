@@ -75,25 +75,28 @@ const (
 	ReportTypeProductsPrices       ReportType = "products_prices"
 	ReportTypeDiscounts            ReportType = "discounts"
 	ReportTypeBalance              ReportType = "balance"
+	ReportTypePayoutReconciliation ReportType = "payout_reconciliation"
 )
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
 
 const (
-	ReportFiltersNameAction           ReportFiltersName = "action"
-	ReportFiltersNameCurrencyCode     ReportFiltersName = "currency_code"
-	ReportFiltersNameStatus           ReportFiltersName = "status"
-	ReportFiltersNameUpdatedAt        ReportFiltersName = "updated_at"
-	ReportFiltersNameCollectionMode   ReportFiltersName = "collection_mode"
-	ReportFiltersNameOrigin           ReportFiltersName = "origin"
-	ReportFiltersNameProductStatus    ReportFiltersName = "product_status"
-	ReportFiltersNamePriceStatus      ReportFiltersName = "price_status"
-	ReportFiltersNameProductType      ReportFiltersName = "product_type"
-	ReportFiltersNamePriceType        ReportFiltersName = "price_type"
-	ReportFiltersNameProductUpdatedAt ReportFiltersName = "product_updated_at"
-	ReportFiltersNamePriceUpdatedAt   ReportFiltersName = "price_updated_at"
-	ReportFiltersNameType             ReportFiltersName = "type"
+	ReportFiltersNameAction               ReportFiltersName = "action"
+	ReportFiltersNameCurrencyCode         ReportFiltersName = "currency_code"
+	ReportFiltersNameStatus               ReportFiltersName = "status"
+	ReportFiltersNameUpdatedAt            ReportFiltersName = "updated_at"
+	ReportFiltersNameCollectionMode       ReportFiltersName = "collection_mode"
+	ReportFiltersNameOrigin               ReportFiltersName = "origin"
+	ReportFiltersNameProductStatus        ReportFiltersName = "product_status"
+	ReportFiltersNamePriceStatus          ReportFiltersName = "price_status"
+	ReportFiltersNameProductType          ReportFiltersName = "product_type"
+	ReportFiltersNamePriceType            ReportFiltersName = "price_type"
+	ReportFiltersNameProductUpdatedAt     ReportFiltersName = "product_updated_at"
+	ReportFiltersNamePriceUpdatedAt       ReportFiltersName = "price_updated_at"
+	ReportFiltersNameType                 ReportFiltersName = "type"
+	ReportFiltersNameRemittanceReference  ReportFiltersName = "remittance_reference"
+	ReportFiltersNameTransactionUpdatedAt ReportFiltersName = "transaction_updated_at"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
@@ -298,12 +301,43 @@ type BalanceReportFilters struct {
 	Value any `json:"value,omitempty"`
 }
 
-// BalanceReport: Entity when working with a balance report.
+// BalanceReport: Entity when working with a balance report. Deprecated.
 type BalanceReport struct {
 	// Type: Type of report to create.
 	Type BalanceReportType `json:"type,omitempty"`
 	// Filters: Filter criteria for this report. If omitted when creating, reports are filtered to include Paddle Billing data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 	Filters []BalanceReportFilters `json:"filters,omitempty"`
+}
+
+// PayoutReconciliationReportType: Type of report to create..
+type PayoutReconciliationReportType string
+
+const PayoutReconciliationReportTypePayoutReconciliation PayoutReconciliationReportType = "payout_reconciliation"
+
+// PayoutReconciliationReportFilterName: Field name to filter by..
+type PayoutReconciliationReportFilterName string
+
+const (
+	PayoutReconciliationReportFilterNameRemittanceReference  PayoutReconciliationReportFilterName = "remittance_reference"
+	PayoutReconciliationReportFilterNameTransactionUpdatedAt PayoutReconciliationReportFilterName = "transaction_updated_at"
+)
+
+// PayoutReconciliationReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+type PayoutReconciliationReportFilters struct {
+	// Name: Field name to filter by.
+	Name PayoutReconciliationReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `transaction_updated_at`, must be `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value any `json:"value,omitempty"`
+}
+
+// PayoutReconciliationReport: Entity when working with a payout reconciliation report.
+type PayoutReconciliationReport struct {
+	// Type: Type of report to create.
+	Type PayoutReconciliationReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+	Filters []PayoutReconciliationReportFilters `json:"filters,omitempty"`
 }
 
 type ReportCSV struct {
@@ -379,12 +413,19 @@ func NewCreateReportRequestBalanceReport(r *BalanceReport) *CreateReportRequest 
 	return &CreateReportRequest{BalanceReport: r}
 }
 
+// NewCreateReportRequestPayoutReconciliationReport takes a PayoutReconciliationReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationReport) *CreateReportRequest {
+	return &CreateReportRequest{PayoutReconciliationReport: r}
+}
+
 // CreateReportRequest represents a union request type of the following types:
 //   - `AdjustmentsReports`
 //   - `TransactionsReports`
 //   - `ProductsAndPricesReport`
 //   - `DiscountsReport`
 //   - `BalanceReport`
+//   - `PayoutReconciliationReport`
 //
 // The following constructor functions can be used to create a new instance of this type.
 //   - `NewCreateReportRequestAdjustmentsReports()`
@@ -392,6 +433,7 @@ func NewCreateReportRequestBalanceReport(r *BalanceReport) *CreateReportRequest 
 //   - `NewCreateReportRequestProductsAndPricesReport()`
 //   - `NewCreateReportRequestDiscountsReport()`
 //   - `NewCreateReportRequestBalanceReport()`
+//   - `NewCreateReportRequestPayoutReconciliationReport()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type CreateReportRequest struct {
@@ -400,6 +442,7 @@ type CreateReportRequest struct {
 	*ProductsAndPricesReport
 	*DiscountsReport
 	*BalanceReport
+	*PayoutReconciliationReport
 }
 
 // CreateReport performs the POST operation on a Reports resource.
@@ -431,6 +474,10 @@ func (u CreateReportRequest) MarshalJSON() ([]byte, error) {
 
 	if u.BalanceReport != nil {
 		return json.Marshal(u.BalanceReport)
+	}
+
+	if u.PayoutReconciliationReport != nil {
+		return json.Marshal(u.PayoutReconciliationReport)
 	}
 
 	return nil, nil
