@@ -716,6 +716,8 @@ type TransactionTotals struct {
 	Balance string `json:"balance,omitempty"`
 	// GrandTotal: Total due on a transaction after credits but before any payments.
 	GrandTotal string `json:"grand_total,omitempty"`
+	// GrandTotalTax: Net tax amount included in `grand_total`. Equals the full `tax` amount unless credits are applied, in which case this value is proportionally reduced.
+	GrandTotalTax string `json:"grand_total_tax,omitempty"`
 	// Fee: Total fee taken by Paddle for this transaction. `null` until the transaction is `completed` and the fee is processed.
 	Fee *string `json:"fee,omitempty"`
 	// Earnings: Total earnings for this transaction. This is the total minus the Paddle fee. `null` until the transaction is `completed` and the fee is processed.
@@ -730,6 +732,8 @@ type TransactionTotalsAdjusted struct {
 	Subtotal string `json:"subtotal,omitempty"`
 	// Tax: Total tax on the subtotal.
 	Tax string `json:"tax,omitempty"`
+	// GrandTotalTax: Net tax amount included in `grand_total`. Equals the full `tax` amount unless credits are applied, in which case this value is proportionally reduced.
+	GrandTotalTax string `json:"grand_total_tax,omitempty"`
 	// Total: Total after tax.
 	Total string `json:"total,omitempty"`
 	// GrandTotal: Total due after credits but before any payments.
@@ -777,6 +781,8 @@ type TransactionPayoutTotals struct {
 	Discount string `json:"discount,omitempty"`
 	// Tax: Total tax on the subtotal.
 	Tax string `json:"tax,omitempty"`
+	// GrandTotalTax: Net tax amount included in `grand_total`. Equals the full `tax` amount unless credits are applied, in which case this value is proportionally reduced.
+	GrandTotalTax string `json:"grand_total_tax,omitempty"`
 	// Total: Total after tax.
 	Total string `json:"total,omitempty"`
 	// Credit: Total credit applied to this transaction. This includes credits applied using a customer's credit balance and adjustments to a `billed` transaction.
