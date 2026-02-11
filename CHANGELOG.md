@@ -6,14 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 5.0.0 - 2026-02-11
+
+### Added
+
+- Parse `Retry-After` header on API errors for rate limiting and retry scenarios. Exposes `RetryAfter` on `paddleerr.Error` with `TotalDelay()`, `WaitTime()`, and `IsExpired()` methods
+- Filter subscriptions by `next_billed_at` when listing (e.g. to identify cardless trials), see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for payout reconciliation reports deprecating balance reports, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `remittance_reference` on payout notifications, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for new `location` tax mode to automatically present prices as inclusive or exclusive of tax based on customer location, see [changelog](https://developer.paddle.com/changelog/2025/automatic-tax-inclusive-exclusive-prices?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `grand_total_tax` on transaction totals to see the tax amount charged after credits are applied, see [changelog](https://developer.paddle.com/changelog/2026/grand-total-tax-field?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `requires_payment_method` on price trial period for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for new Korean payment method types (KakaoPay, NaverPay, Samsung Pay, Payco, Korean local cards), see [changelog](https://developer.paddle.com/changelog/2025/improved-korean-payment-methods?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for API key exposures and `api_key_exposure.created` notifications, see [changelog](https://developer.paddle.com/changelog/2025/secret-scanning?utm_source=dx&utm_medium=paddle-go-sdk)
+
+### Changed
+
+- Minimum supported Go version is now 1.25 see [UPGRADING](./UPGRADING.md) for details
+- `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support `RequiresPaymentMethod`, see [UPGRADING](./UPGRADING.md) for details
+
+### Fixed
+
+- Added missing `discount_group.updated` event type name constant, see [changelog](https://developer.paddle.com/changelog/2025/discount-groups-new-api-operations?utm_source=dx&utm_medium=paddle-go-sdk)
+- Transaction update example in documentation
+
 ## 4.2.0 - 2025-09-23
 
 ### Added
 
-- Error support for adjustment_payout_earnings_cannot_be_zero, see [docs](https://developer.paddle.com/errors/adjustments/adjustment_payout_earnings_cannot_be_zero)
-- Handling new enum value of PaymentMethodOrigin for explicit consent to saved payments, see [changelog](https://developer.paddle.com/changelog/2025/spm-consent-subscriptions)
-- New payment methods, BLIK, MB Way, Pix and UPI, see [changelog](https://developer.paddle.com/changelog/2025/blik-mbway-payment-methods)
-- Non-catalog discounts on Transactions, see [changelog](https://developer.paddle.com/changelog/2025/custom-discounts)
+- Error support for adjustment_payout_earnings_cannot_be_zero, see [docs](https://developer.paddle.com/errors/adjustments/adjustment_payout_earnings_cannot_be_zero?utm_source=dx&utm_medium=paddle-go-sdk)
+- Handling new enum value of PaymentMethodOrigin for explicit consent to saved payments, see [changelog](https://developer.paddle.com/changelog/2025/spm-consent-subscriptions?utm_source=dx&utm_medium=paddle-go-sdk)
+- New payment methods, BLIK, MB Way, Pix and UPI, see [changelog](https://developer.paddle.com/changelog/2025/blik-mbway-payment-methods?utm_source=dx&utm_medium=paddle-go-sdk)
+- Non-catalog discounts on Transactions, see [changelog](https://developer.paddle.com/changelog/2025/custom-discounts?utm_source=dx&utm_medium=paddle-go-sdk)
 - Support `retained_fee` field on totals objects to show the fees retained by Paddle for the adjustment
 
 ## 4.1.0 - 2025-08-01
@@ -21,9 +45,9 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 ### Added
 
 - Add timestamp tolerance checks to `WebhookVerifier` to be safe against replay attacks
-- Support for ClientTokens API ([changelog](https://developer.paddle.com/changelog/2025/client-side-token-api))
-- Add event type filtering on `ListEvents` ([changelog](https://developer.paddle.com/changelog/2025/filter-events-by-type))
-- Updates to DiscountGroups API ([changelog](https://developer.paddle.com/changelog/2025/discount-groups-updates))
+- Support for ClientTokens API ([changelog](https://developer.paddle.com/changelog/2025/client-side-token-api?utm_source=dx&utm_medium=paddle-go-sdk))
+- Add event type filtering on `ListEvents` ([changelog](https://developer.paddle.com/changelog/2025/filter-events-by-type?utm_source=dx&utm_medium=paddle-go-sdk))
+- Updates to DiscountGroups API ([changelog](https://developer.paddle.com/changelog/2025/discount-groups-updates?utm_source=dx&utm_medium=paddle-go-sdk))
   - `GetDiscountGroup` and `UpdateDiscountGroup` API support
   - `discount_group.updated` event and notification
 - Support for `exchange_rate` and `fee_rate` fields on payout totals
@@ -38,7 +62,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support for Adjustment `tax_mode` ([changelog](https://developer.paddle.com/changelog/2025/tax-exclusive-refunds?utm_source=dx&utm_medium=paddle-go-sdk))
 - Support for Discount Groups ([changelog](https://developer.paddle.com/changelog/2025/discount-groups?utm_source=dx&utm_medium=paddle-go-sdk))
 - Support for local Korea payment methods ([changelog](https://developer.paddle.com/changelog/2024/korean-payment-methods?utm_source=dx&utm_medium=paddle-go-sdk))
-- Support for Discount mode for checkout recovery ([changelog](https://developer.paddle.com/changelog/2025/checkout-recovery#change-fields?utm_source=dx&utm_medium=paddle-go-sdk))
+- Support for Discount mode for checkout recovery ([changelog](https://developer.paddle.com/changelog/2025/checkout-recovery?utm_source=dx&utm_medium=paddle-go-sdk#change-fields))
 - Support for AdjustmentAction `chargeback_warning_reverse`
 - Support for API Key Events and Notifications
 

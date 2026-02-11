@@ -2,6 +2,36 @@
 
 All breaking changes will be documented in this file to assist with upgrading.
 
+## v5.0.0
+
+This release introduces breaking changes. Please review the following to upgrade:
+
+1. Minimum Go Version  
+   - The minimum supported Go version is now 1.25.  
+   - Update your environment to Go 1.25 or later.
+
+2. TrialPeriod Type Change  
+   - The `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support the new `RequiresPaymentMethod` field for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview?utm_source=dx&utm_medium=paddle-go-sdk).  
+   - Update any code that constructs trial periods for prices. Use `TrialPeriod` as a drop-in replacement, set `RequiresPaymentMethod` to take advantage of the new functionality. 
+
+   ```go
+   // Before (v4.x)
+   TrialPeriod: &paddle.Duration{
+       Interval:  paddle.IntervalMonth,
+       Frequency: 1,
+   }
+
+   // After (v5.0)
+   TrialPeriod: &paddle.TrialPeriod{
+       Interval:               paddle.IntervalMonth,
+       Frequency:              1,
+       RequiresPaymentMethod: true, // defaults to true if omitted or set to true to be explicit
+   }
+   ```
+
+   - The new `TrialPeriod` struct has the same `Interval` and `Frequency` fields as `Duration`, plus the new `RequiresPaymentMethod` boolean.  
+   - Affected types: `Price`, `PriceNotification` (paddlenotification), `CreatePriceRequest`, `UpdatePriceRequest`, `TransactionPriceCreateWithProduct`, `TransactionPriceCreateWithProductID`, and related transaction price types.
+
 ## v4.0.0
 
 This release introduces several breaking changes and improvements. Please review the following to upgrade:
@@ -222,7 +252,7 @@ This has resulted in some type changes
 
 ## v0.6.0
 
-1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview)
+1. This update makes a significant change to the way the SDK works with the [Reports API](https://developer.paddle.com/api-reference/reports/overview?utm_source=dx&utm_medium=paddle-go-sdk)
 
 When updating to this version if you're integrating with Reports you will need to refactor the code accordingly as it now closely matches the oneOf design of the API. 
 
