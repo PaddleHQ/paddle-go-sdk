@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 5.0.0 - 2026-02-11
+
+### Added
+
+- Parse `Retry-After` header on API errors for rate limiting and retry scenarios. Exposes `RetryAfter` on `paddleerr.Error` with `TotalDelay()`, `WaitTime()`, and `IsExpired()` methods
+- Filter subscriptions by `next_billed_at` when listing (e.g. to identify cardless trials), see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview)
+- Support for payout reconciliation reports deprecating balance reports, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report)
+- Support for `remittance_reference` on payout notifications, see [changelog](https://developer.paddle.com/changelog/2025/payout-reconciliation-report)
+- Support for new `location` tax mode to automatically present prices as inclusive or exclusive of tax based on customer location, see [changelog](https://developer.paddle.com/changelog/2025/automatic-tax-inclusive-exclusive-prices)
+- Support for `grand_total_tax` on transaction totals to see the tax amount charged after credits are applied, see [changelog](https://developer.paddle.com/changelog/2026/grand-total-tax-field)
+- Support for `requires_payment_method` on price trial period for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview)
+- Support for new Korean payment method types (KakaoPay, NaverPay, Samsung Pay, Payco, Korean local cards), see [changelog](https://developer.paddle.com/changelog/2025/improved-korean-payment-methods)
+- Support for API key exposures and `api_key_exposure.created` notifications, see [changelog](https://developer.paddle.com/changelog/2025/secret-scanning)
+
+### Changed
+
+- Minimum supported Go version is now 1.25 see [UPGRADING](./UPGRADING.md) for details
+- `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support `RequiresPaymentMethod`, see [UPGRADING](./UPGRADING.md) for details
+
+### Fixed
+
+- Added missing `discount_group.updated` event type name constant, see [changelog](https://developer.paddle.com/changelog/2025/discount-groups-new-api-operations)
+- Transaction update example in documentation
+
 ## 4.2.0 - 2025-09-23
 
 ### Added

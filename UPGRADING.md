@@ -2,6 +2,36 @@
 
 All breaking changes will be documented in this file to assist with upgrading.
 
+## v5.0.0
+
+This release introduces breaking changes. Please review the following to upgrade:
+
+1. Minimum Go Version  
+   - The minimum supported Go version is now 1.25.  
+   - Update your environment to Go 1.25 or later.
+
+2. TrialPeriod Type Change  
+   - The `TrialPeriod` property for Price entities has changed type from `Duration` to `TrialPeriod` to support the new `RequiresPaymentMethod` field for cardless trials, see [changelog](https://developer.paddle.com/changelog/2025/cardless-trials-developer-preview).  
+   - Update any code that constructs trial periods for prices. Use `TrialPeriod` as a drop-in replacement, set `RequiresPaymentMethod` to take advantage of the new functionality. 
+
+   ```go
+   // Before (v4.x)
+   TrialPeriod: &paddle.Duration{
+       Interval:  paddle.IntervalMonth,
+       Frequency: 1,
+   }
+
+   // After (v5.0)
+   TrialPeriod: &paddle.TrialPeriod{
+       Interval:               paddle.IntervalMonth,
+       Frequency:              1,
+       RequiresPaymentMethod: true, // defaults to true if omitted or set to true to be explicit
+   }
+   ```
+
+   - The new `TrialPeriod` struct has the same `Interval` and `Frequency` fields as `Duration`, plus the new `RequiresPaymentMethod` boolean.  
+   - Affected types: `Price`, `PriceNotification` (paddlenotification), `CreatePriceRequest`, `UpdatePriceRequest`, `TransactionPriceCreateWithProduct`, `TransactionPriceCreateWithProductID`, and related transaction price types.
+
 ## v4.0.0
 
 This release introduces several breaking changes and improvements. Please review the following to upgrade:
