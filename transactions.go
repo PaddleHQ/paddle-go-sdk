@@ -827,7 +827,7 @@ type TransactionPricePreview struct {
 	// BillingCycle: How often this price should be charged. `null` if price is non-recurring (one-time).
 	BillingCycle *Duration `json:"billing_cycle,omitempty"`
 	// TrialPeriod: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
-	TrialPeriod *Duration `json:"trial_period,omitempty"`
+	TrialPeriod *TrialPeriod `json:"trial_period,omitempty"`
 	// TaxMode: How tax is calculated for this price.
 	TaxMode TaxMode `json:"tax_mode,omitempty"`
 	// UnitPrice: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
