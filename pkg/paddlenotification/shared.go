@@ -450,6 +450,7 @@ const (
 	TaxModeAccountSetting TaxMode = "account_setting"
 	TaxModeExternal       TaxMode = "external"
 	TaxModeInternal       TaxMode = "internal"
+	TaxModeLocation       TaxMode = "location"
 )
 
 // Money: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.

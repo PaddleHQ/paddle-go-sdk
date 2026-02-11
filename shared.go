@@ -275,6 +275,7 @@ const (
 	TaxModeAccountSetting TaxMode = "account_setting"
 	TaxModeExternal       TaxMode = "external"
 	TaxModeInternal       TaxMode = "internal"
+	TaxModeLocation       TaxMode = "location"
 )
 
 // CurrencyCode: Supported three-letter ISO 4217 currency code..
