@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/internal/client"
 
 	"github.com/stretchr/testify/assert"
 )

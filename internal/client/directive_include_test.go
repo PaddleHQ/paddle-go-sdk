@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/internal/client"
 
 	"github.com/ggicci/httpin"
 	"github.com/stretchr/testify/assert"

@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddlenotification"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddlenotification"
 	"strings"
 )
 

@@ -3,7 +3,7 @@ package paddle
 import (
 	"context"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/internal/client"
 )
 
 // ContextWithTransitID returns a new context with the provided transitID.

@@ -3,7 +3,7 @@ package paddle_test
 import (
 	"context"
 	"fmt"
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
 	"os"
 )
 
