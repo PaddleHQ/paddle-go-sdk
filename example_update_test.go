@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v4"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
 )
 
 // Demonstrates how to update an existing entity.

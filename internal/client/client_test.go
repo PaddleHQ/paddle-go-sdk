@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/client"
-	"github.com/PaddleHQ/paddle-go-sdk/v4/internal/response"
-	"github.com/PaddleHQ/paddle-go-sdk/v4/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/internal/client"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/internal/response"
+	"github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
 )
 
 func ptr[V any](v V) *V {
