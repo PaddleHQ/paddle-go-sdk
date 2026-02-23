@@ -344,6 +344,7 @@ const (
 	PaymentMethodTypeSamsungPay          PaymentMethodType = "samsung_pay"
 	PaymentMethodTypeUnknown             PaymentMethodType = "unknown"
 	PaymentMethodTypeUpi                 PaymentMethodType = "upi"
+	PaymentMethodTypeWeChatPay           PaymentMethodType = "wechat_pay"
 	PaymentMethodTypeWireTransfer        PaymentMethodType = "wire_transfer"
 )
 

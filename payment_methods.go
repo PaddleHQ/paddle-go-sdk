@@ -21,6 +21,7 @@ const (
 	SavedPaymentMethodTypePix                 SavedPaymentMethodType = "pix"
 	SavedPaymentMethodTypeSamsungPay          SavedPaymentMethodType = "samsung_pay"
 	SavedPaymentMethodTypeUpi                 SavedPaymentMethodType = "upi"
+	SavedPaymentMethodTypeWeChatPay           SavedPaymentMethodType = "wechat_pay"
 )
 
 // PayPal: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
