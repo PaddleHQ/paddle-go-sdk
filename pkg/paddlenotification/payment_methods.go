@@ -34,6 +34,7 @@ const (
 	SavedPaymentMethodTypePix                 SavedPaymentMethodType = "pix"
 	SavedPaymentMethodTypeSamsungPay          SavedPaymentMethodType = "samsung_pay"
 	SavedPaymentMethodTypeUpi                 SavedPaymentMethodType = "upi"
+	SavedPaymentMethodTypeWeChatPay           SavedPaymentMethodType = "wechat_pay"
 )
 
 // Origin: Describes how this payment method was saved..
