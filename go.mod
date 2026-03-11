@@ -3,7 +3,7 @@ module github.com/PaddleHQ/paddle-go-sdk/v5
 go 1.25.0
 
 require (
-	github.com/ggicci/httpin v0.20.2
+	github.com/ggicci/httpin v0.20.3
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/stretchr/testify v1.11.1
 )
