@@ -37,17 +37,8 @@ const (
 	SavedPaymentMethodTypeWeChatPay           SavedPaymentMethodType = "wechat_pay"
 )
 
-// Origin: Describes how this payment method was saved..
-type Origin string
-
-const (
-	OriginSavedDuringPurchase             Origin = "saved_during_purchase"
-	OriginSubscription                    Origin = "subscription"
-	OriginSubscriptionSavedDuringPurchase Origin = "subscription_saved_during_purchase"
-)
-
-// PaymentMethodSavedNotification: New or changed entity.
-type PaymentMethodSavedNotification struct {
+// PaymentMethodNotification contains the fields common to all payment method notification payloads.
+type PaymentMethodNotification struct {
 	NotificationPayload `json:"-"`
 
 	// ID: Unique Paddle ID for this payment method entity, prefixed with `paymtd_`.
@@ -59,11 +50,16 @@ type PaymentMethodSavedNotification struct {
 	// Type: Type of payment method saved.
 	Type SavedPaymentMethodType `json:"type"`
 	// Origin: Describes how this payment method was saved.
-	Origin Origin `json:"origin"`
+	Origin PaymentMethodOrigin `json:"origin"`
 	// SavedAt: RFC 3339 datetime string of when this entity was saved. Set automatically by Paddle.
 	SavedAt string `json:"saved_at"`
 	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
 	UpdatedAt string `json:"updated_at"`
+}
+
+// PaymentMethodSavedNotification: New or changed entity.
+type PaymentMethodSavedNotification struct {
+	PaymentMethodNotification
 }
 
 // PaymentMethodDeletionReason: Reason why this payment method was deleted..
@@ -85,22 +81,8 @@ const (
 
 // PaymentMethodDeletedNotification: New or changed entity.
 type PaymentMethodDeletedNotification struct {
-	NotificationPayload `json:"-"`
+	PaymentMethodNotification
 
-	// ID: Unique Paddle ID for this payment method entity, prefixed with `paymtd_`.
-	ID string `json:"id"`
-	// CustomerID: Paddle ID of the customer that this payment method is saved for, prefixed with `ctm_`.
-	CustomerID string `json:"customer_id"`
-	// AddressID: Paddle ID of the address for this payment method, prefixed with `add_`.
-	AddressID string `json:"address_id"`
 	// DeletionReason: Reason why this payment method was deleted.
 	DeletionReason PaymentMethodDeletionReason `json:"deletion_reason"`
-	// Type: Type of payment method saved.
-	Type SavedPaymentMethodType `json:"type"`
-	// Origin: Describes how this payment method was saved.
-	Origin PaymentMethodOrigin `json:"origin"`
-	// SavedAt: RFC 3339 datetime string of when this entity was saved. Set automatically by Paddle.
-	SavedAt string `json:"saved_at"`
-	// UpdatedAt: RFC 3339 datetime string of when this entity was updated. Set automatically by Paddle.
-	UpdatedAt string `json:"updated_at"`
 }
