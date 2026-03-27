@@ -1,0 +1,18 @@
+{
+	"data": {
+		"timeseries": [
+			{ "timestamp": "2025-09-01T00:00:00Z", "amount": "1286023068" },
+			{ "timestamp": "2025-09-02T00:00:00Z", "amount": "1345678901" },
+			{ "timestamp": "2025-09-03T00:00:00Z", "amount": "1398765432" },
+			{ "timestamp": "2025-09-04T00:00:00Z", "amount": "1420987654" }
+		],
+		"starts_at": "2025-09-01T00:00:00Z",
+		"ends_at": "2025-09-05T00:00:00Z",
+		"interval": "day",
+		"currency_code": "USD",
+		"updated_at": "2025-09-04T20:30:00Z"
+	},
+	"meta": {
+		"request_id": "b93d9c94-c28f-4e5d-af2e-044854d7afe8"
+	}
+}
