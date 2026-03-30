@@ -4,6 +4,13 @@ package paddle
 
 import "context"
 
+// MetricsInterval represents the interval granularity for metrics timeseries. Only `day` is supported.
+type MetricsInterval string
+
+const (
+	MetricsIntervalDay MetricsInterval = "day"
+)
+
 // MetricsTimeseriesMonthlyRecurringRevenueDatapoint: A single datapoint in a monthly recurring revenue metrics timeseries. Used by both MRR and MRR change endpoints.
 type MetricsTimeseriesMonthlyRecurringRevenueDatapoint struct {
 	// Timestamp: RFC 3339 datetime string for this datapoint.
@@ -23,7 +30,7 @@ type MetricsTimeseriesMonthlyRecurringRevenue struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -45,7 +52,7 @@ type MetricsTimeseriesActiveSubscribers struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -61,7 +68,7 @@ type MetricsTimeseriesMonthlyRecurringRevenueChange struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -87,7 +94,7 @@ type MetricsTimeseriesRevenue struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -111,7 +118,7 @@ type MetricsTimeseriesRefunds struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -133,7 +140,7 @@ type MetricsTimeseriesChargebacks struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
@@ -159,7 +166,7 @@ type MetricsTimeseriesCheckoutConversion struct {
 	// EndsAt: RFC 3339 datetime string for when this timeseries ends (exclusive).
 	EndsAt string `json:"ends_at,omitempty"`
 	// Interval: Granularity for this timeseries.
-	Interval Interval `json:"interval,omitempty"`
+	Interval MetricsInterval `json:"interval,omitempty"`
 	// UpdatedAt: RFC 3339 datetime string of the last successful data refresh for this metric.
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
