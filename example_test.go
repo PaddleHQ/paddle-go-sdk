@@ -9,19 +9,20 @@ import (
 type stubPath string
 
 const (
-	event_types              stubPath = "testdata/event_types.json"
-	events                   stubPath = "testdata/events.json"
-	transaction              stubPath = "testdata/transaction.json"
-	transactions             stubPath = "testdata/transactions.json"
-	transactionsPaginatedPg1 stubPath = "testdata/transactions_paginated_pg1.json"
-	transactionsPaginatedPg2 stubPath = "testdata/transactions_paginated_pg2.json"
-	priceCreatedEvent        stubPath = "testdata/price_created.json"
-	simulation               stubPath = "testdata/simulation.json"
-	simulationScenario       stubPath = "testdata/simulation_scenario.json"
-	simulations              stubPath = "testdata/simulations.json"
-	simulationRun            stubPath = "testdata/simulation_run.json"
-	simulationRunWithEvents  stubPath = "testdata/simulation_run_with_events.json"
-	tooManyRequestsError     stubPath = "testdata/too_many_requests_error.json"
+	event_types                    stubPath = "testdata/event_types.json"
+	events                         stubPath = "testdata/events.json"
+	transaction                    stubPath = "testdata/transaction.json"
+	transactions                   stubPath = "testdata/transactions.json"
+	transactionsPaginatedPg1       stubPath = "testdata/transactions_paginated_pg1.json"
+	transactionsPaginatedPg2       stubPath = "testdata/transactions_paginated_pg2.json"
+	priceCreatedEvent              stubPath = "testdata/price_created.json"
+	simulation                     stubPath = "testdata/simulation.json"
+	simulationScenario             stubPath = "testdata/simulation_scenario.json"
+	simulations                    stubPath = "testdata/simulations.json"
+	simulationRun                  stubPath = "testdata/simulation_run.json"
+	simulationRunWithEvents        stubPath = "testdata/simulation_run_with_events.json"
+	tooManyRequestsError           stubPath = "testdata/too_many_requests_error.json"
+	metricsMonthlyRecurringRevenue stubPath = "testdata/metrics_monthly_recurring_revenue.json"
 )
 
 //go:embed testdata

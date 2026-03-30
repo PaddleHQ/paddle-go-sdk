@@ -24,6 +24,7 @@ type SDK struct {
 	*SimulationRunsClient
 	*SimulationRunEventsClient
 	*IPAddressesClient
+	*MetricsClient
 	*DiscountsClient
 	*DiscountGroupsClient
 	*SubscriptionsClient
@@ -45,6 +46,7 @@ func newSDK(d Doer) *SDK {
 		EventTypesClient:             &EventTypesClient{doer: d},
 		EventsClient:                 &EventsClient{doer: d},
 		IPAddressesClient:            &IPAddressesClient{doer: d},
+		MetricsClient:                &MetricsClient{doer: d},
 		NotificationLogsClient:       &NotificationLogsClient{doer: d},
 		NotificationSettingsClient:   &NotificationSettingsClient{doer: d},
 		NotificationsClient:          &NotificationsClient{doer: d},
