@@ -63,6 +63,8 @@ const (
 	APIKeyPermissionAdjustmentWrite             APIKeyPermission = "adjustment.write"
 	APIKeyPermissionBusinessRead                APIKeyPermission = "business.read"
 	APIKeyPermissionBusinessWrite               APIKeyPermission = "business.write"
+	APIKeyPermissionCheckoutDomainRead          APIKeyPermission = "checkout_domain.read"
+	APIKeyPermissionCheckoutDomainWrite         APIKeyPermission = "checkout_domain.write"
 	APIKeyPermissionClientTokenRead             APIKeyPermission = "client_token.read"
 	APIKeyPermissionClientTokenWrite            APIKeyPermission = "client_token.write"
 	APIKeyPermissionCustomerRead                APIKeyPermission = "customer.read"

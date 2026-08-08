@@ -23,6 +23,7 @@ const (
 	simulationRunWithEvents        stubPath = "testdata/simulation_run_with_events.json"
 	tooManyRequestsError           stubPath = "testdata/too_many_requests_error.json"
 	metricsMonthlyRecurringRevenue stubPath = "testdata/metrics_monthly_recurring_revenue.json"
+	checkoutDomain                 stubPath = "testdata/checkout_domain.json"
 )
 
 //go:embed testdata
