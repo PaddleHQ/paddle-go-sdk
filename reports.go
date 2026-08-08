@@ -76,6 +76,7 @@ const (
 	ReportTypeDiscounts            ReportType = "discounts"
 	ReportTypeBalance              ReportType = "balance"
 	ReportTypePayoutReconciliation ReportType = "payout_reconciliation"
+	ReportTypeCheckouts            ReportType = "checkouts"
 )
 
 // ReportFiltersName: Field name to filter by..
@@ -97,6 +98,8 @@ const (
 	ReportFiltersNameType                 ReportFiltersName = "type"
 	ReportFiltersNameRemittanceReference  ReportFiltersName = "remittance_reference"
 	ReportFiltersNameTransactionUpdatedAt ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameCheckoutCreatedAt    ReportFiltersName = "checkout_created_at"
+	ReportFiltersNameCustomerCountryCode  ReportFiltersName = "customer_country_code"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
@@ -340,6 +343,37 @@ type PayoutReconciliationReport struct {
 	Filters []PayoutReconciliationReportFilters `json:"filters,omitempty"`
 }
 
+// CheckoutsReportType: Type of report to create..
+type CheckoutsReportType string
+
+const CheckoutsReportTypeCheckouts CheckoutsReportType = "checkouts"
+
+// CheckoutsReportFilterName: Field name to filter by..
+type CheckoutsReportFilterName string
+
+const (
+	CheckoutsReportFilterNameCheckoutCreatedAt   CheckoutsReportFilterName = "checkout_created_at"
+	CheckoutsReportFilterNameCustomerCountryCode CheckoutsReportFilterName = "customer_country_code"
+)
+
+// CheckoutsReportFilters: Filter criteria for this report. If no `gte` filter for `checkout_created_at` is passed, reports are filtered to include checkouts created in the last month. This means `checkout_created_at` is greater than or equal to (`gte`) the same date and time one calendar month before the report was generated, so the window is between 28 and 31 days depending on the month. To filter by a specific date range, pass two `checkout_created_at` filters with `gte` and `lt` operators.
+type CheckoutsReportFilters struct {
+	// Name: Field name to filter by.
+	Name CheckoutsReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `checkout_created_at` (must be `gte` or `lt`), `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value any `json:"value,omitempty"`
+}
+
+// CheckoutsReport: Entity when working with a checkouts report.
+type CheckoutsReport struct {
+	// Type: Type of report to create.
+	Type CheckoutsReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. If no `gte` filter for `checkout_created_at` is passed, reports are filtered to include checkouts created in the last month. This means `checkout_created_at` is greater than or equal to (`gte`) the same date and time one calendar month before the report was generated, so the window is between 28 and 31 days depending on the month. To filter by a specific date range, pass two `checkout_created_at` filters with `gte` and `lt` operators.
+	Filters []CheckoutsReportFilters `json:"filters,omitempty"`
+}
+
 type ReportCSV struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -419,6 +453,12 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 	return &CreateReportRequest{PayoutReconciliationReport: r}
 }
 
+// NewCreateReportRequestCheckoutsReport takes a CheckoutsReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestCheckoutsReport(r *CheckoutsReport) *CreateReportRequest {
+	return &CreateReportRequest{CheckoutsReport: r}
+}
+
 // CreateReportRequest represents a union request type of the following types:
 //   - `AdjustmentsReports`
 //   - `TransactionsReports`
@@ -426,6 +466,7 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 //   - `DiscountsReport`
 //   - `BalanceReport`
 //   - `PayoutReconciliationReport`
+//   - `CheckoutsReport`
 //
 // The following constructor functions can be used to create a new instance of this type.
 //   - `NewCreateReportRequestAdjustmentsReports()`
@@ -434,6 +475,7 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 //   - `NewCreateReportRequestDiscountsReport()`
 //   - `NewCreateReportRequestBalanceReport()`
 //   - `NewCreateReportRequestPayoutReconciliationReport()`
+//   - `NewCreateReportRequestCheckoutsReport()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type CreateReportRequest struct {
@@ -443,6 +485,7 @@ type CreateReportRequest struct {
 	*DiscountsReport
 	*BalanceReport
 	*PayoutReconciliationReport
+	*CheckoutsReport
 }
 
 // CreateReport performs the POST operation on a Reports resource.
@@ -478,6 +521,10 @@ func (u CreateReportRequest) MarshalJSON() ([]byte, error) {
 
 	if u.PayoutReconciliationReport != nil {
 		return json.Marshal(u.PayoutReconciliationReport)
+	}
+
+	if u.CheckoutsReport != nil {
+		return json.Marshal(u.CheckoutsReport)
 	}
 
 	return nil, nil
