@@ -89,6 +89,7 @@ const (
 	APIKeyPermissionReportWrite                 APIKeyPermission = "report.write"
 	APIKeyPermissionSubscriptionRead            APIKeyPermission = "subscription.read"
 	APIKeyPermissionSubscriptionWrite           APIKeyPermission = "subscription.write"
+	APIKeyPermissionSubscriptionHistoryRead     APIKeyPermission = "subscription_history.read"
 	APIKeyPermissionTransactionRead             APIKeyPermission = "transaction.read"
 	APIKeyPermissionTransactionWrite            APIKeyPermission = "transaction.write"
 )

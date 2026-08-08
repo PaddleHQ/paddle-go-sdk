@@ -24,6 +24,7 @@ const (
 	tooManyRequestsError           stubPath = "testdata/too_many_requests_error.json"
 	metricsMonthlyRecurringRevenue stubPath = "testdata/metrics_monthly_recurring_revenue.json"
 	checkoutDomain                 stubPath = "testdata/checkout_domain.json"
+	subscriptionHistory            stubPath = "testdata/subscription_history.json"
 )
 
 //go:embed testdata
