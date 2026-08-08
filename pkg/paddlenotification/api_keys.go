@@ -114,6 +114,8 @@ type APIKeyNotification struct {
 	ExposedAt *string `json:"exposed_at"`
 	// ExpiresAt: RFC 3339 datetime string of when this API key expires.
 	ExpiresAt *string `json:"expires_at"`
+	// Rotatable: Whether this API key can be rotated. `null` for events that occurred before this field was introduced.
+	Rotatable *bool `json:"rotatable"`
 	// LastUsedAt: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
 	LastUsedAt *string `json:"last_used_at"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
