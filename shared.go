@@ -266,6 +266,18 @@ type TrialPeriod struct {
 	Frequency int `json:"frequency,omitempty"`
 	// RequiresPaymentMethod: Whether this price requires a payment method (`true`) or not (`false`) when trialing. If `false`, customers can sign up for subscription without entering their payment details, often referred to as a "cardless trial."
 	RequiresPaymentMethod bool `json:"requires_payment_method,omitempty"`
+	// UnitPrice: Trial price. Customers are billed this amount for the duration of the trial period. Applies to all customers except those in countries with `unit_price_overrides`. If `null`, customers are not charged during the trial.
+	UnitPrice *MoneyOptionalCurrency `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides for trial pricing. Use to override base trial price with a custom trial price and currency for a country or group of countries.
+	UnitPriceOverrides []PriceTrialUnitPriceOverride `json:"unit_price_overrides,omitempty"`
+}
+
+// PriceTrialUnitPriceOverride: Override price for the trial period. Customers located in the listed countries are charged the override price during the trial.
+type PriceTrialUnitPriceOverride struct {
+	// CountryCodes: Supported two-letter ISO 3166-1 alpha-2 country code. Customers located in the listed countries are charged the override price.
+	CountryCodes []CountryCode `json:"country_codes,omitempty"`
+	// UnitPrice: Override price. This price applies to customers located in the countries for this unit price override.
+	UnitPrice MoneyOptionalCurrency `json:"unit_price,omitempty"`
 }
 
 // TaxMode: How tax is calculated for this price..
@@ -321,6 +333,14 @@ type Money struct {
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+}
+
+// MoneyOptionalCurrency: A representation of monetary value unformatted in the lowest denomination with optional currency code.
+type MoneyOptionalCurrency struct {
+	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents). Although represented as a string, this value must be a valid integer.
+	Amount string `json:"amount,omitempty"`
+	// CurrencyCode: Supported three-letter ISO 4217 currency code.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 }
 
 // CountryCode: Two-letter ISO 3166-1 alpha-2 country code..
