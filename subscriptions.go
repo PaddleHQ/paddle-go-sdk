@@ -557,6 +557,39 @@ type NextTransaction struct {
 	Adjustments []AdjustmentPreview `json:"adjustments,omitempty"`
 }
 
+// SubscriptionConsentRequirementType: Type of consent required for successful renewal.
+type SubscriptionConsentRequirementType string
+
+const (
+	SubscriptionConsentRequirementTypeTrialEnding                SubscriptionConsentRequirementType = "trial_ending"
+	SubscriptionConsentRequirementTypeIntroductoryDiscountEnding SubscriptionConsentRequirementType = "introductory_discount_ending"
+)
+
+// SubscriptionConsentRequirementStatus: Status of this consent requirement.
+type SubscriptionConsentRequirementStatus string
+
+const (
+	SubscriptionConsentRequirementStatusPending SubscriptionConsentRequirementStatus = "pending"
+	SubscriptionConsentRequirementStatusGranted SubscriptionConsentRequirementStatus = "granted"
+	SubscriptionConsentRequirementStatusVoided  SubscriptionConsentRequirementStatus = "voided"
+)
+
+// SubscriptionConsentRequirement: Represents a specific condition under which explicit customer consent is, or was, mandated for a subscription renewal.
+type SubscriptionConsentRequirement struct {
+	ID string `json:"id,omitempty"`
+	// Requirement: Type of consent required for successful renewal.
+	Requirement SubscriptionConsentRequirementType `json:"requirement,omitempty"`
+	// Status: Status of this consent requirement.
+	Status    SubscriptionConsentRequirementStatus `json:"status,omitempty"`
+	CreatedAt string                               `json:"created_at,omitempty"`
+	// ConsentPeriod: Period during which consent for this subscription can be granted. `null` if there is no `next_billed_at` or the consent requirement does not apply to the current billing period.
+	ConsentPeriod *TimePeriod `json:"consent_period,omitempty"`
+	// GrantedAt: RFC 3339 datetime string of when the customer granted their consent. `null` if not yet granted.
+	GrantedAt *string `json:"granted_at,omitempty"`
+	// VoidedAt: RFC 3339 datetime string of when consent was voided or no longer required. `null` if not voided.
+	VoidedAt *string `json:"voided_at,omitempty"`
+}
+
 // Subscription: Represents a subscription entity with included entities.
 type Subscription struct {
 	// ID: Unique Paddle ID for this subscription entity, prefixed with `sub_`.
@@ -609,6 +642,8 @@ type Subscription struct {
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// ConsentRequirements: List of active consent requirements for the subscription's current billing period.
+	ConsentRequirements []SubscriptionConsentRequirement `json:"consent_requirements,omitempty"`
 	// NextTransaction: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
 	NextTransaction *NextTransaction `json:"next_transaction,omitempty"`
 	// RecurringTransactionDetails: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges. Returned when the `include` parameter is used with the `recurring_transaction_details` value.
@@ -790,6 +825,8 @@ type SubscriptionPreview struct {
 	UpdateSummary *SubscriptionPreviewUpdateSummary `json:"update_summary,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+	// ConsentRequirements: List of active consent requirements for the subscription's current billing period.
+	ConsentRequirements []SubscriptionConsentRequirement `json:"consent_requirements,omitempty"`
 }
 
 // SubscriptionChargeCreateWithPrice: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
