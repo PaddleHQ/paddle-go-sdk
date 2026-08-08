@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 5.3.0 - 2026-09-16
+
+### Added
+
+- Support for the Checkout Domains API to list, get, delete, and verify Apple Pay payment methods for checkout domains
+- Support for listing subscription history, showing the changes made to a subscription over time
+- Support for `consent_requirements` on subscriptions, showing where explicit customer consent is required for renewal
+- Support for PayPal payer details on transaction `method_details`
+- Support for `rotatable` on the api_key webhook payload
+- Support for the `checkouts` report type
+- Support for paid trials via `unit_price` and `unit_price_overrides` on price trial periods
+- Support for the Verifications API to list and get account verifications
+- Support for the Countries API to list supported countries
+- Support for the Currencies API to list supported currencies
+- Support for the Metrics Explore API to run explore queries and list metric entities
+- Support for the `subscriptions` report type and its filters, including `subscription_scheduled_change_action`
+- Support for `filter`, `to`, and `from` query parameters when listing events
+- Support for `view_subscription` on subscription management URLs and customer portal session deep links
+- Support for additional payment method, error code, API key permission, and report enum values (`korea_local`, `prepaid_card_not_supported`, `blocked_by_policy`, `metrics.read`, `subscription_history.read`, `verification.read`, `checkout_domain.read`, `checkout_domain.write`, and report filters `balance_movement_date`/`balance_movement_type` plus notification-side report types and filters including `balance` and `payout_reconciliation`)
+
 ## 5.2.0 - 2026-03-30
 
 ### Added
