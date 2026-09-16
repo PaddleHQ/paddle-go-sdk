@@ -1,0 +1,52 @@
+{
+	"data": [
+		{
+			"entity": "subscriptions",
+			"time_dimension": {
+				"intervals": ["month"],
+				"max_lookback_days": 1096
+			},
+			"dimensions": [
+				{
+					"name": "product",
+					"type": "string",
+					"filter_ops": ["in"],
+					"multi_valued": false
+				},
+				{
+					"name": "country",
+					"type": "string",
+					"filter_ops": ["in"],
+					"multi_valued": false
+				},
+				{
+					"name": "billing_cycle",
+					"type": "string",
+					"filter_ops": ["in"],
+					"multi_valued": false
+				},
+				{
+					"name": "subscription_activity",
+					"type": "string",
+					"filter_ops": ["in"],
+					"multi_valued": false
+				}
+			],
+			"measures": [
+				{
+					"name": "mrr",
+					"type": "currency",
+					"aggs": null
+				},
+				{
+					"name": "mrr_growth",
+					"type": "currency",
+					"aggs": null
+				}
+			]
+		}
+	],
+	"meta": {
+		"request_id": "ecd52aa1-a73c-43df-af3b-e87edec3b435"
+	}
+}
