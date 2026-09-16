@@ -77,31 +77,35 @@ const (
 	ReportTypeBalance              ReportType = "balance"
 	ReportTypePayoutReconciliation ReportType = "payout_reconciliation"
 	ReportTypeCheckouts            ReportType = "checkouts"
+	ReportTypeSubscriptions        ReportType = "subscriptions"
 )
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
 
 const (
-	ReportFiltersNameAction               ReportFiltersName = "action"
-	ReportFiltersNameCurrencyCode         ReportFiltersName = "currency_code"
-	ReportFiltersNameStatus               ReportFiltersName = "status"
-	ReportFiltersNameUpdatedAt            ReportFiltersName = "updated_at"
-	ReportFiltersNameCollectionMode       ReportFiltersName = "collection_mode"
-	ReportFiltersNameOrigin               ReportFiltersName = "origin"
-	ReportFiltersNameProductStatus        ReportFiltersName = "product_status"
-	ReportFiltersNamePriceStatus          ReportFiltersName = "price_status"
-	ReportFiltersNameProductType          ReportFiltersName = "product_type"
-	ReportFiltersNamePriceType            ReportFiltersName = "price_type"
-	ReportFiltersNameProductUpdatedAt     ReportFiltersName = "product_updated_at"
-	ReportFiltersNamePriceUpdatedAt       ReportFiltersName = "price_updated_at"
-	ReportFiltersNameType                 ReportFiltersName = "type"
-	ReportFiltersNameRemittanceReference  ReportFiltersName = "remittance_reference"
-	ReportFiltersNameTransactionUpdatedAt ReportFiltersName = "transaction_updated_at"
-	ReportFiltersNameBalanceMovementDate  ReportFiltersName = "balance_movement_date"
-	ReportFiltersNameBalanceMovementType  ReportFiltersName = "balance_movement_type"
-	ReportFiltersNameCheckoutCreatedAt    ReportFiltersName = "checkout_created_at"
-	ReportFiltersNameCustomerCountryCode  ReportFiltersName = "customer_country_code"
+	ReportFiltersNameAction                            ReportFiltersName = "action"
+	ReportFiltersNameCurrencyCode                      ReportFiltersName = "currency_code"
+	ReportFiltersNameStatus                            ReportFiltersName = "status"
+	ReportFiltersNameUpdatedAt                         ReportFiltersName = "updated_at"
+	ReportFiltersNameCollectionMode                    ReportFiltersName = "collection_mode"
+	ReportFiltersNameOrigin                            ReportFiltersName = "origin"
+	ReportFiltersNameProductStatus                     ReportFiltersName = "product_status"
+	ReportFiltersNamePriceStatus                       ReportFiltersName = "price_status"
+	ReportFiltersNameProductType                       ReportFiltersName = "product_type"
+	ReportFiltersNamePriceType                         ReportFiltersName = "price_type"
+	ReportFiltersNameProductUpdatedAt                  ReportFiltersName = "product_updated_at"
+	ReportFiltersNamePriceUpdatedAt                    ReportFiltersName = "price_updated_at"
+	ReportFiltersNameType                              ReportFiltersName = "type"
+	ReportFiltersNameRemittanceReference               ReportFiltersName = "remittance_reference"
+	ReportFiltersNameTransactionUpdatedAt              ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameBalanceMovementDate               ReportFiltersName = "balance_movement_date"
+	ReportFiltersNameBalanceMovementType               ReportFiltersName = "balance_movement_type"
+	ReportFiltersNameCheckoutCreatedAt                 ReportFiltersName = "checkout_created_at"
+	ReportFiltersNameCustomerCountryCode               ReportFiltersName = "customer_country_code"
+	ReportFiltersNameSubscriptionStatus                ReportFiltersName = "subscription_status"
+	ReportFiltersNameSubscriptionCreatedAt             ReportFiltersName = "subscription_created_at"
+	ReportFiltersNameSubscriptionScheduledChangeAction ReportFiltersName = "subscription_scheduled_change_action"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
@@ -378,6 +382,39 @@ type CheckoutsReport struct {
 	Filters []CheckoutsReportFilters `json:"filters,omitempty"`
 }
 
+// SubscriptionsReportType: Type of report.
+type SubscriptionsReportType string
+
+const SubscriptionsReportTypeSubscriptions SubscriptionsReportType = "subscriptions"
+
+// SubscriptionsReportFilterName: Field name to filter by.
+type SubscriptionsReportFilterName string
+
+const (
+	SubscriptionsReportFilterNameSubscriptionStatus                SubscriptionsReportFilterName = "subscription_status"
+	SubscriptionsReportFilterNameSubscriptionCreatedAt             SubscriptionsReportFilterName = "subscription_created_at"
+	SubscriptionsReportFilterNameCustomerCountryCode               SubscriptionsReportFilterName = "customer_country_code"
+	SubscriptionsReportFilterNameSubscriptionScheduledChangeAction SubscriptionsReportFilterName = "subscription_scheduled_change_action"
+)
+
+// SubscriptionsReportFilters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
+type SubscriptionsReportFilters struct {
+	// Name: Field name to filter by.
+	Name *SubscriptionsReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `subscription_created_at` (must be `gte` or `lt`), `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value []string `json:"value,omitempty"`
+}
+
+// SubscriptionsReport: Entity when working with a subscriptions report.
+type SubscriptionsReport struct {
+	// Type: Type of report to create.
+	Type SubscriptionsReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
+	Filters []SubscriptionsReportFilters `json:"filters,omitempty"`
+}
+
 type ReportCSV struct {
 	// URL: URL of the requested resource.
 	URL string `json:"url,omitempty"`
@@ -463,6 +500,12 @@ func NewCreateReportRequestCheckoutsReport(r *CheckoutsReport) *CreateReportRequ
 	return &CreateReportRequest{CheckoutsReport: r}
 }
 
+// NewCreateReportRequestSubscriptionsReport takes a SubscriptionsReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestSubscriptionsReport(r *SubscriptionsReport) *CreateReportRequest {
+	return &CreateReportRequest{SubscriptionsReport: r}
+}
+
 // CreateReportRequest represents a union request type of the following types:
 //   - `AdjustmentsReports`
 //   - `TransactionsReports`
@@ -471,6 +514,7 @@ func NewCreateReportRequestCheckoutsReport(r *CheckoutsReport) *CreateReportRequ
 //   - `BalanceReport`
 //   - `PayoutReconciliationReport`
 //   - `CheckoutsReport`
+//   - `SubscriptionsReport`
 //
 // The following constructor functions can be used to create a new instance of this type.
 //   - `NewCreateReportRequestAdjustmentsReports()`
@@ -480,6 +524,7 @@ func NewCreateReportRequestCheckoutsReport(r *CheckoutsReport) *CreateReportRequ
 //   - `NewCreateReportRequestBalanceReport()`
 //   - `NewCreateReportRequestPayoutReconciliationReport()`
 //   - `NewCreateReportRequestCheckoutsReport()`
+//   - `NewCreateReportRequestSubscriptionsReport()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type CreateReportRequest struct {
@@ -490,6 +535,7 @@ type CreateReportRequest struct {
 	*BalanceReport
 	*PayoutReconciliationReport
 	*CheckoutsReport
+	*SubscriptionsReport
 }
 
 // CreateReport performs the POST operation on a Reports resource.
@@ -529,6 +575,10 @@ func (u CreateReportRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CheckoutsReport != nil {
 		return json.Marshal(u.CheckoutsReport)
+	}
+
+	if u.SubscriptionsReport != nil {
+		return json.Marshal(u.SubscriptionsReport)
 	}
 
 	return nil, nil
