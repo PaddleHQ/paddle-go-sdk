@@ -28,6 +28,8 @@ const (
 	verification                   stubPath = "testdata/verification.json"
 	countries                      stubPath = "testdata/countries.json"
 	currencies                     stubPath = "testdata/currencies.json"
+	metricsExplore                 stubPath = "testdata/metrics_explore.json"
+	metricsExploreEntities         stubPath = "testdata/metrics_explore_entities.json"
 )
 
 //go:embed testdata
