@@ -26,6 +26,7 @@ const (
 	checkoutDomain                 stubPath = "testdata/checkout_domain.json"
 	subscriptionHistory            stubPath = "testdata/subscription_history.json"
 	verification                   stubPath = "testdata/verification.json"
+	countries                      stubPath = "testdata/countries.json"
 )
 
 //go:embed testdata
