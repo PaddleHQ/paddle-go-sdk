@@ -93,6 +93,7 @@ const (
 	APIKeyPermissionSubscriptionHistoryRead     APIKeyPermission = "subscription_history.read"
 	APIKeyPermissionTransactionRead             APIKeyPermission = "transaction.read"
 	APIKeyPermissionTransactionWrite            APIKeyPermission = "transaction.write"
+	APIKeyPermissionVerificationRead            APIKeyPermission = "verification.read"
 )
 
 // APIKeyNotification: New or changed entity.
