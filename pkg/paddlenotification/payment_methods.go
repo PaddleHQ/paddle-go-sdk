@@ -26,6 +26,7 @@ const (
 	SavedPaymentMethodTypeCard                SavedPaymentMethodType = "card"
 	SavedPaymentMethodTypeGooglePay           SavedPaymentMethodType = "google_pay"
 	SavedPaymentMethodTypeKakaoPay            SavedPaymentMethodType = "kakao_pay"
+	SavedPaymentMethodTypeKoreaLocal          SavedPaymentMethodType = "korea_local"
 	SavedPaymentMethodTypeSouthKoreaLocalCard SavedPaymentMethodType = "south_korea_local_card"
 	SavedPaymentMethodTypeMbWay               SavedPaymentMethodType = "mb_way"
 	SavedPaymentMethodTypeNaverPay            SavedPaymentMethodType = "naver_pay"
