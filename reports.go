@@ -98,6 +98,8 @@ const (
 	ReportFiltersNameType                 ReportFiltersName = "type"
 	ReportFiltersNameRemittanceReference  ReportFiltersName = "remittance_reference"
 	ReportFiltersNameTransactionUpdatedAt ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameBalanceMovementDate  ReportFiltersName = "balance_movement_date"
+	ReportFiltersNameBalanceMovementType  ReportFiltersName = "balance_movement_type"
 	ReportFiltersNameCheckoutCreatedAt    ReportFiltersName = "checkout_created_at"
 	ReportFiltersNameCustomerCountryCode  ReportFiltersName = "customer_country_code"
 )
@@ -323,13 +325,15 @@ type PayoutReconciliationReportFilterName string
 const (
 	PayoutReconciliationReportFilterNameRemittanceReference  PayoutReconciliationReportFilterName = "remittance_reference"
 	PayoutReconciliationReportFilterNameTransactionUpdatedAt PayoutReconciliationReportFilterName = "transaction_updated_at"
+	PayoutReconciliationReportFilterNameBalanceMovementDate  PayoutReconciliationReportFilterName = "balance_movement_date"
+	PayoutReconciliationReportFilterNameBalanceMovementType  PayoutReconciliationReportFilterName = "balance_movement_type"
 )
 
 // PayoutReconciliationReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type PayoutReconciliationReportFilters struct {
 	// Name: Field name to filter by.
 	Name PayoutReconciliationReportFilterName `json:"name,omitempty"`
-	// Operator: Operator to use when filtering. Valid when filtering by `transaction_updated_at`, must be `null` otherwise.
+	// Operator: Operator to use when filtering. Valid when filtering by `transaction_updated_at` or `balance_movement_date`, must be `null` otherwise.
 	Operator *FilterOperator `json:"operator,omitempty"`
 	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
 	Value any `json:"value,omitempty"`
