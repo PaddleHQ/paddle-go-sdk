@@ -28,6 +28,8 @@ type CustomerPortalSessionSubscriptionURLs struct {
 	   If a manually-collected subscription, opens the overview page for this subscription.
 	*/
 	UpdateSubscriptionPaymentMethod string `json:"update_subscription_payment_method,omitempty"`
+	// ViewSubscription: Link to the page for this subscription in the customer portal, with no form pre-opened. Use to let customers manage the subscription themselves rather than sending them into one specific action.
+	ViewSubscription string `json:"view_subscription,omitempty"`
 }
 
 // CustomerPortalSessionURLs: Authenticated customer portal deep links. For security, the `token` appended to each link is temporary. You shouldn't store these links.
