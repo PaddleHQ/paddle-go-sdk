@@ -73,6 +73,7 @@ const (
 	APIKeyPermissionCustomerPortalSessionWrite  APIKeyPermission = "customer_portal_session.write"
 	APIKeyPermissionDiscountRead                APIKeyPermission = "discount.read"
 	APIKeyPermissionDiscountWrite               APIKeyPermission = "discount.write"
+	APIKeyPermissionMetricsRead                 APIKeyPermission = "metrics.read"
 	APIKeyPermissionNotificationRead            APIKeyPermission = "notification.read"
 	APIKeyPermissionNotificationWrite           APIKeyPermission = "notification.write"
 	APIKeyPermissionNotificationSettingRead     APIKeyPermission = "notification_setting.read"
