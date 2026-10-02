@@ -25,6 +25,7 @@ const (
 	metricsMonthlyRecurringRevenue stubPath = "testdata/metrics_monthly_recurring_revenue.json"
 	checkoutDomain                 stubPath = "testdata/checkout_domain.json"
 	subscriptionHistory            stubPath = "testdata/subscription_history.json"
+	verification                   stubPath = "testdata/verification.json"
 )
 
 //go:embed testdata
