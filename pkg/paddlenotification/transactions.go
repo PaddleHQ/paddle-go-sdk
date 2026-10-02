@@ -461,6 +461,14 @@ type Card struct {
 	CardholderName string `json:"cardholder_name,omitempty"`
 }
 
+// TransactionPayPal: Information about the PayPal account used to pay for a transaction.
+type TransactionPayPal struct {
+	// Email: Email address associated with the PayPal account.
+	Email string `json:"email,omitempty"`
+	// Reference: PayPal billing agreement identifier. Only populated for subscription payments where a billing agreement was created between the customer and PayPal. `null` for one-off PayPal payments.
+	Reference *string `json:"reference,omitempty"`
+}
+
 // MethodDetails: Information about the payment method used for a payment attempt.
 type MethodDetails struct {
 	// Type: Type of payment method used for this payment attempt.
@@ -472,6 +480,8 @@ type MethodDetails struct {
 	SouthKoreaLocalCard *SouthKoreaLocalCard `json:"south_korea_local_card,omitempty"`
 	// Card: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
 	Card *Card `json:"card,omitempty"`
+	// Paypal: Information about the PayPal account used to pay. `null` unless `type` is `paypal`.
+	Paypal *TransactionPayPal `json:"paypal,omitempty"`
 }
 
 // TransactionPaymentAttempt: List of payment attempts for this transaction, including successful payments. Sorted by `created_at` in descending order, so most recent attempts are returned first.
