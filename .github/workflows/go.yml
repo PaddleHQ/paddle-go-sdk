@@ -29,7 +29,7 @@ jobs:
         id: go-version
 
       - name: Split version code
-        uses: step-security/split-strings@d2212424ae73f4709b3a56faaf96ea42d189102f # v1.0.1
+        uses: step-security/split-strings@3f98629b8f82184c8b6de3199e16f1f68067f7ab # v1.0.2
         id: split
         with:
           string: ${{ steps.go-version.outputs.go-mod-version }}
