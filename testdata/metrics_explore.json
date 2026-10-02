@@ -1,0 +1,62 @@
+{
+	"data": {
+		"entity": "transactions.completed",
+		"interval": "month",
+		"currency_code": "USD",
+		"starts_at": "2026-05-01T00:00:00Z",
+		"ends_at": "2026-08-01T00:00:00Z",
+		"updated_at": "2026-08-01T03:00:00Z",
+		"fields": {
+			"dimensions": [
+				{
+					"name": "product",
+					"type": "string"
+				}
+			],
+			"measures": [
+				{
+					"name": "sum_gross_revenue",
+					"type": "currency",
+					"field": "gross_revenue",
+					"agg": "sum"
+				}
+			]
+		},
+		"series": [
+			{
+				"dimensions": {
+					"product": "pro_01h1vjfevh5etwq3rb416a23h2"
+				},
+				"timeseries": [
+					{
+						"timestamp": "2026-05-01",
+						"measures": {
+							"sum_gross_revenue": "120000"
+						}
+					},
+					{
+						"timestamp": "2026-06-01",
+						"measures": {
+							"sum_gross_revenue": "135000"
+						}
+					},
+					{
+						"timestamp": "2026-07-01",
+						"measures": {
+							"sum_gross_revenue": "142000"
+						}
+					}
+				]
+			}
+		]
+	},
+	"meta": {
+		"request_id": "b93d9c94-c28f-4e5d-af2e-044854d7afe8",
+		"pagination": {
+			"per_page": 5,
+			"next": "https://api.paddle.com/metrics/explore?after=eyJ2IjoxLCJxaWQiOiIwMWpuOHg0azJwN3E5ciIsIm9mZiI6NSwicWgiOiJzaGEyNTY6OWYyYzRkMWUiLCJleHAiOjE3ODU1Njc2MDB9",
+			"has_more": true,
+			"estimated_total": 42
+		}
+	}
+}
