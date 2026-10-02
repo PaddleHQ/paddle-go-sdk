@@ -1,0 +1,19 @@
+{
+	"data": [
+		{
+			"iso": "US",
+			"iso3": "USA",
+			"name": "UNITED STATES",
+			"printable_name": "United States",
+			"uses_postal_code": true,
+			"transaction_currency": "USD",
+			"payout_currency": "USD",
+			"allow_sales": true,
+			"has_regions": false,
+			"tax_mode": "external"
+		}
+	],
+	"meta": {
+		"request_id": "0968f849-046a-4de6-a9c8-34d22aecd514"
+	}
+}
