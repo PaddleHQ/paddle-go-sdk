@@ -485,6 +485,8 @@ type SubscriptionManagementURLs struct {
 	UpdatePaymentMethod *string `json:"update_payment_method,omitempty"`
 	// Cancel: Link to the page for this subscription in the customer portal with the subscription cancellation form pre-opened. Use as part of cancel subscription workflows.
 	Cancel string `json:"cancel,omitempty"`
+	// ViewSubscription: Link to the page for this subscription in the customer portal, with no form pre-opened. Use to let customers manage the subscription themselves rather than sending them into one specific action.
+	ViewSubscription string `json:"view_subscription,omitempty"`
 }
 
 // SubscriptionItemStatus: Status of this subscription item. Set automatically by Paddle..
