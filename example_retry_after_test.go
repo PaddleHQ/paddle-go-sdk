@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
-	"github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
+	"github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
 )
 
 // Demonstrates how to handle rate limiting and retry scenarios using the Retry-After header.

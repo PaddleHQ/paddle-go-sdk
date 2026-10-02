@@ -15,7 +15,7 @@ For working with Paddle in your frontend, use [Paddle.js](https://developer.padd
 
 ## Requirements
 
-Go 1.21 or later
+Go 1.26 or later
 
 ## Before you begin
 
@@ -32,14 +32,14 @@ go mod init
 To install the Paddle Go SDK, use the following command:
 
 ```bash
-go get github.com/PaddleHQ/paddle-go-sdk
+go get github.com/PaddleHQ/paddle-go-sdk/v6
 ```
 
 Then, reference paddle-go-sdk in a Go program with import:
 
 ```go
 import (
-    paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
+    paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 )
 ```
 
@@ -51,7 +51,7 @@ Pass your API key while initializing a new Paddle client.
 
 ``` go
 import (
-    paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
+    paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 )
 
 client, err := paddle.New(
