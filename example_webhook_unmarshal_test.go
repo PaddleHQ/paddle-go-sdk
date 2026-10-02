@@ -9,8 +9,8 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
-	"github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddlenotification"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
+	"github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddlenotification"
 )
 
 const (
