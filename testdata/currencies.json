@@ -1,0 +1,15 @@
+{
+	"data": [
+		{
+			"code": "GBP",
+			"name": "Pound Sterling",
+			"decimal_places": 2,
+			"can_be_balance": true,
+			"applicable_countries": ["FK", "GB", "GG", "GI", "GS", "IM", "IO", "JE", "SH"],
+			"minimum_payment_amount": "55"
+		}
+	],
+	"meta": {
+		"request_id": "1e6d2e6b-3b8b-4f1e-9b0a-8e5c8a0f5c2a"
+	}
+}
