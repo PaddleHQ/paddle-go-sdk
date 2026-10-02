@@ -284,7 +284,7 @@ type ListNotificationsRequest struct {
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
 	Status []string `in:"query=status;omitempty" json:"-"`
 	// Filter is a query parameter.
-	// Return entities that contain the Paddle ID specified. Pass a transaction, customer, or subscription ID.
+	// Return entities that contain the value specified. Pass a Paddle ID or email address that appears in the event payload, or part of one. Complete Paddle IDs and email addresses match exactly; partial values match as a prefix or substring, and must be at least three characters.
 	Filter *string `in:"query=filter;omitempty" json:"-"`
 	// To is a query parameter.
 	// Return entities up to a specific time. Pass an RFC 3339 datetime string.
