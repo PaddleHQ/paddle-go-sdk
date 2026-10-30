@@ -40,7 +40,9 @@ func Example_subscription_history_list() {
 	err = res.Iter(ctx, func(v *paddle.SubscriptionHistory) (bool, error) {
 		switch d := v.Detail.(type) {
 		case *paddle.SubscriptionHistoryDetailSubscriptionCanceled:
-			fmt.Println(d.Action, *d.EffectiveFrom)
+			if d.EffectiveFrom != nil {
+				fmt.Println(d.Action, *d.EffectiveFrom)
+			}
 		case *paddle.SubscriptionHistoryDetailSubscriptionActivated:
 			fmt.Println(d.Action, d.TransactionID)
 		case map[string]any:
