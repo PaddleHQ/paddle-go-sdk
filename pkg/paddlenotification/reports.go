@@ -40,25 +40,28 @@ const (
 	ReportTypeTransactionLineItems ReportType = "transaction_line_items"
 	ReportTypeProductsPrices       ReportType = "products_prices"
 	ReportTypeDiscounts            ReportType = "discounts"
+	ReportTypeCheckouts            ReportType = "checkouts"
 )
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
 
 const (
-	ReportFiltersNameAction           ReportFiltersName = "action"
-	ReportFiltersNameCurrencyCode     ReportFiltersName = "currency_code"
-	ReportFiltersNameStatus           ReportFiltersName = "status"
-	ReportFiltersNameUpdatedAt        ReportFiltersName = "updated_at"
-	ReportFiltersNameCollectionMode   ReportFiltersName = "collection_mode"
-	ReportFiltersNameOrigin           ReportFiltersName = "origin"
-	ReportFiltersNameProductStatus    ReportFiltersName = "product_status"
-	ReportFiltersNamePriceStatus      ReportFiltersName = "price_status"
-	ReportFiltersNameProductType      ReportFiltersName = "product_type"
-	ReportFiltersNamePriceType        ReportFiltersName = "price_type"
-	ReportFiltersNameProductUpdatedAt ReportFiltersName = "product_updated_at"
-	ReportFiltersNamePriceUpdatedAt   ReportFiltersName = "price_updated_at"
-	ReportFiltersNameType             ReportFiltersName = "type"
+	ReportFiltersNameAction              ReportFiltersName = "action"
+	ReportFiltersNameCurrencyCode        ReportFiltersName = "currency_code"
+	ReportFiltersNameStatus              ReportFiltersName = "status"
+	ReportFiltersNameUpdatedAt           ReportFiltersName = "updated_at"
+	ReportFiltersNameCollectionMode      ReportFiltersName = "collection_mode"
+	ReportFiltersNameOrigin              ReportFiltersName = "origin"
+	ReportFiltersNameProductStatus       ReportFiltersName = "product_status"
+	ReportFiltersNamePriceStatus         ReportFiltersName = "price_status"
+	ReportFiltersNameProductType         ReportFiltersName = "product_type"
+	ReportFiltersNamePriceType           ReportFiltersName = "price_type"
+	ReportFiltersNameProductUpdatedAt    ReportFiltersName = "product_updated_at"
+	ReportFiltersNamePriceUpdatedAt      ReportFiltersName = "price_updated_at"
+	ReportFiltersNameType                ReportFiltersName = "type"
+	ReportFiltersNameCheckoutCreatedAt   ReportFiltersName = "checkout_created_at"
+	ReportFiltersNameCustomerCountryCode ReportFiltersName = "customer_country_code"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
