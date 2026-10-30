@@ -1832,3 +1832,39 @@ type DiscountGroup struct {
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
 }
+
+// ActionSource: Where the entry originated from.
+type ActionSource string
+
+const (
+	ActionSourceSystem           ActionSource = "system"
+	ActionSourceAPI              ActionSource = "api"
+	ActionSourceDashboard        ActionSource = "dashboard"
+	ActionSourceCustomerPortal   ActionSource = "customer_portal"
+	ActionSourceSupportBot       ActionSource = "support_bot"
+	ActionSourceRetain           ActionSource = "retain"
+	ActionSourceCheckout         ActionSource = "checkout"
+	ActionSourceExternalProvider ActionSource = "external_provider"
+	ActionSourcePaddleClassic    ActionSource = "paddle_classic"
+	ActionSourceUnknown          ActionSource = "unknown"
+)
+
+// ActorType: The type of actor that performed this action.
+type ActorType string
+
+const (
+	ActorTypeCustomer    ActorType = "customer"
+	ActorTypeUser        ActorType = "user"
+	ActorTypeAPIKey      ActorType = "api_key"
+	ActorTypePaddleStaff ActorType = "paddle_staff"
+	ActorTypePublisher   ActorType = "publisher"
+	ActorTypeSystem      ActorType = "system"
+)
+
+// Actor: Details about the actor that performed an action.
+type Actor struct {
+	// Type: The type of actor that performed this action.
+	Type ActorType `json:"type,omitempty"`
+	// ID: The ID of the actor in relation to the `type`. `null` where the type of actor doesn't have an ID.
+	ID *string `json:"id,omitempty"`
+}
