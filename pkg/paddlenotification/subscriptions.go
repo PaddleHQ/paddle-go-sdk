@@ -138,6 +138,39 @@ type SubscriptionItem struct {
 	Product Product `json:"product,omitempty"`
 }
 
+// SubscriptionConsentRequirementType: Type of consent required for successful renewal.
+type SubscriptionConsentRequirementType string
+
+const (
+	SubscriptionConsentRequirementTypeTrialEnding                SubscriptionConsentRequirementType = "trial_ending"
+	SubscriptionConsentRequirementTypeIntroductoryDiscountEnding SubscriptionConsentRequirementType = "introductory_discount_ending"
+)
+
+// SubscriptionConsentRequirementStatus: Status of this consent requirement.
+type SubscriptionConsentRequirementStatus string
+
+const (
+	SubscriptionConsentRequirementStatusPending SubscriptionConsentRequirementStatus = "pending"
+	SubscriptionConsentRequirementStatusGranted SubscriptionConsentRequirementStatus = "granted"
+	SubscriptionConsentRequirementStatusVoided  SubscriptionConsentRequirementStatus = "voided"
+)
+
+// SubscriptionConsentRequirement: Represents a specific condition under which explicit customer consent is, or was, mandated for a subscription renewal.
+type SubscriptionConsentRequirement struct {
+	ID string `json:"id,omitempty"`
+	// Requirement: Type of consent required for successful renewal.
+	Requirement SubscriptionConsentRequirementType `json:"requirement,omitempty"`
+	// Status: Status of this consent requirement.
+	Status    SubscriptionConsentRequirementStatus `json:"status,omitempty"`
+	CreatedAt string                               `json:"created_at,omitempty"`
+	// ConsentPeriod: Period during which consent for this subscription can be granted. `null` if there is no `next_billed_at` or the consent requirement does not apply to the current billing period.
+	ConsentPeriod *TimePeriod `json:"consent_period,omitempty"`
+	// GrantedAt: RFC 3339 datetime string of when the customer granted their consent. `null` if not yet granted.
+	GrantedAt *string `json:"granted_at,omitempty"`
+	// VoidedAt: RFC 3339 datetime string of when consent was voided or no longer required. `null` if not voided.
+	VoidedAt *string `json:"voided_at,omitempty"`
+}
+
 // SubscriptionNotification: New or changed entity.
 type SubscriptionNotification struct {
 	NotificationPayload `json:"-"`
@@ -182,6 +215,8 @@ type SubscriptionNotification struct {
 	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change"`
 	// Items: Represents a subscription item.
 	Items []SubscriptionItem `json:"items"`
+	// ConsentRequirements: List of active consent requirements for the subscription's current billing period.
+	ConsentRequirements []SubscriptionConsentRequirement `json:"consent_requirements"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
@@ -234,6 +269,8 @@ type SubscriptionCreatedNotification struct {
 	ScheduledChange *SubscriptionScheduledChange `json:"scheduled_change"`
 	// Items: Represents a subscription item.
 	Items []SubscriptionItem `json:"items"`
+	// ConsentRequirements: List of active consent requirements for the subscription's current billing period.
+	ConsentRequirements []SubscriptionConsentRequirement `json:"consent_requirements"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
