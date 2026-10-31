@@ -328,14 +328,15 @@ const (
 type PaymentMethodType string
 
 const (
-	PaymentMethodTypeAlipay              PaymentMethodType = "alipay"
-	PaymentMethodTypeApplePay            PaymentMethodType = "apple_pay"
-	PaymentMethodTypeBancontact          PaymentMethodType = "bancontact"
-	PaymentMethodTypeBlik                PaymentMethodType = "blik"
-	PaymentMethodTypeCard                PaymentMethodType = "card"
-	PaymentMethodTypeGooglePay           PaymentMethodType = "google_pay"
-	PaymentMethodTypeIdeal               PaymentMethodType = "ideal"
-	PaymentMethodTypeKakaoPay            PaymentMethodType = "kakao_pay"
+	PaymentMethodTypeAlipay     PaymentMethodType = "alipay"
+	PaymentMethodTypeApplePay   PaymentMethodType = "apple_pay"
+	PaymentMethodTypeBancontact PaymentMethodType = "bancontact"
+	PaymentMethodTypeBlik       PaymentMethodType = "blik"
+	PaymentMethodTypeCard       PaymentMethodType = "card"
+	PaymentMethodTypeGooglePay  PaymentMethodType = "google_pay"
+	PaymentMethodTypeIdeal      PaymentMethodType = "ideal"
+	PaymentMethodTypeKakaoPay   PaymentMethodType = "kakao_pay"
+	// Deprecated: Use south_korea_local_card instead.
 	PaymentMethodTypeKoreaLocal          PaymentMethodType = "korea_local"
 	PaymentMethodTypeSouthKoreaLocalCard PaymentMethodType = "south_korea_local_card"
 	PaymentMethodTypeMbWay               PaymentMethodType = "mb_way"
