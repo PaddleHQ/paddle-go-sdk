@@ -20,12 +20,14 @@ type PaymentMethodDeleted struct {
 type SavedPaymentMethodType string
 
 const (
-	SavedPaymentMethodTypeAlipay              SavedPaymentMethodType = "alipay"
-	SavedPaymentMethodTypeApplePay            SavedPaymentMethodType = "apple_pay"
-	SavedPaymentMethodTypeBlik                SavedPaymentMethodType = "blik"
-	SavedPaymentMethodTypeCard                SavedPaymentMethodType = "card"
-	SavedPaymentMethodTypeGooglePay           SavedPaymentMethodType = "google_pay"
-	SavedPaymentMethodTypeKakaoPay            SavedPaymentMethodType = "kakao_pay"
+	SavedPaymentMethodTypeAlipay    SavedPaymentMethodType = "alipay"
+	SavedPaymentMethodTypeApplePay  SavedPaymentMethodType = "apple_pay"
+	SavedPaymentMethodTypeBlik      SavedPaymentMethodType = "blik"
+	SavedPaymentMethodTypeCard      SavedPaymentMethodType = "card"
+	SavedPaymentMethodTypeGooglePay SavedPaymentMethodType = "google_pay"
+	SavedPaymentMethodTypeKakaoPay  SavedPaymentMethodType = "kakao_pay"
+	// Deprecated: Use south_korea_local_card instead.
+	SavedPaymentMethodTypeKoreaLocal          SavedPaymentMethodType = "korea_local"
 	SavedPaymentMethodTypeSouthKoreaLocalCard SavedPaymentMethodType = "south_korea_local_card"
 	SavedPaymentMethodTypeMbWay               SavedPaymentMethodType = "mb_way"
 	SavedPaymentMethodTypeNaverPay            SavedPaymentMethodType = "naver_pay"
