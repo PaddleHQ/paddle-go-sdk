@@ -4,7 +4,7 @@ package paddle
 
 import "context"
 
-// CountryCodeIso3: Three-letter code for a country that Paddle supports sales to. Typically an ISO 3166-1 alpha-3 code, though Paddle uses a small number of codes that ISO doesn't currently assign.
+// CountryCodeIso3: Three-letter code for the country. Typically an ISO 3166-1 alpha-3 code, though Paddle uses a small number of codes that ISO doesn't currently assign.
 type CountryCodeIso3 string
 
 const (
@@ -237,6 +237,29 @@ const (
 	CountryCodeIso3XXK CountryCodeIso3 = "XXK"
 	CountryCodeIso3ZAF CountryCodeIso3 = "ZAF"
 	CountryCodeIso3ZMB CountryCodeIso3 = "ZMB"
+	CountryCodeIso3AFG CountryCodeIso3 = "AFG"
+	CountryCodeIso3ANT CountryCodeIso3 = "ANT"
+	CountryCodeIso3ATA CountryCodeIso3 = "ATA"
+	CountryCodeIso3BLR CountryCodeIso3 = "BLR"
+	CountryCodeIso3CAF CountryCodeIso3 = "CAF"
+	CountryCodeIso3COD CountryCodeIso3 = "COD"
+	CountryCodeIso3CUB CountryCodeIso3 = "CUB"
+	CountryCodeIso3HTI CountryCodeIso3 = "HTI"
+	CountryCodeIso3IRN CountryCodeIso3 = "IRN"
+	CountryCodeIso3LBY CountryCodeIso3 = "LBY"
+	CountryCodeIso3MLI CountryCodeIso3 = "MLI"
+	CountryCodeIso3MMR CountryCodeIso3 = "MMR"
+	CountryCodeIso3NIC CountryCodeIso3 = "NIC"
+	CountryCodeIso3PRK CountryCodeIso3 = "PRK"
+	CountryCodeIso3RUS CountryCodeIso3 = "RUS"
+	CountryCodeIso3SCG CountryCodeIso3 = "SCG"
+	CountryCodeIso3SDN CountryCodeIso3 = "SDN"
+	CountryCodeIso3SOM CountryCodeIso3 = "SOM"
+	CountryCodeIso3SSD CountryCodeIso3 = "SSD"
+	CountryCodeIso3SYR CountryCodeIso3 = "SYR"
+	CountryCodeIso3VEN CountryCodeIso3 = "VEN"
+	CountryCodeIso3YEM CountryCodeIso3 = "YEM"
+	CountryCodeIso3ZWE CountryCodeIso3 = "ZWE"
 )
 
 // CountryDefinitionTaxMode: How tax is presented for prices to customers in this country by default.
