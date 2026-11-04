@@ -14,6 +14,7 @@ const (
 	VerificationStatusActionRequired VerificationStatus = "action_required"
 	VerificationStatusCompleted      VerificationStatus = "completed"
 	VerificationStatusFailed         VerificationStatus = "failed"
+	VerificationStatusCanceled       VerificationStatus = "canceled"
 )
 
 // VerificationType: Type of verification.
@@ -50,6 +51,7 @@ const (
 	VerificationStepStatusActionRequired VerificationStepStatus = "action_required"
 	VerificationStepStatusFailed         VerificationStepStatus = "failed"
 	VerificationStepStatusCompleted      VerificationStepStatus = "completed"
+	VerificationStepStatusCanceled       VerificationStepStatus = "canceled"
 )
 
 // VerificationStep: Represents a verification step entity.
@@ -99,7 +101,7 @@ type ListVerificationsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// VerificationType is a query parameter.
 	// Filter verifications by type. If omitted, verifications of all types are returned.
-	VerificationType *string `in:"query=verification_type;omitempty" json:"-"`
+	VerificationType *VerificationType `in:"query=verification_type;omitempty" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
