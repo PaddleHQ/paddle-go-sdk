@@ -27,6 +27,7 @@ const (
 	subscriptionHistory            stubPath = "testdata/subscription_history.json"
 	verification                   stubPath = "testdata/verification.json"
 	countries                      stubPath = "testdata/countries.json"
+	currencies                     stubPath = "testdata/currencies.json"
 )
 
 //go:embed testdata

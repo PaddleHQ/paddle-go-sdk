@@ -34,6 +34,7 @@ type SDK struct {
 	*SubscriptionHistoriesClient
 	*VerificationsClient
 	*CountriesClient
+	*CurrenciesClient
 }
 
 // newSDK creates a new SDK instance. This is auto-generated, modifications should be done in the generator.
@@ -45,6 +46,7 @@ func newSDK(d Doer) *SDK {
 		CheckoutDomainsClient:        &CheckoutDomainsClient{doer: d},
 		ClientTokensClient:           &ClientTokensClient{doer: d},
 		CountriesClient:              &CountriesClient{doer: d},
+		CurrenciesClient:             &CurrenciesClient{doer: d},
 		CustomerPortalSessionsClient: &CustomerPortalSessionsClient{doer: d},
 		CustomersClient:              &CustomersClient{doer: d},
 		DiscountGroupsClient:         &DiscountGroupsClient{doer: d},
