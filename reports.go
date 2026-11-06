@@ -400,11 +400,11 @@ const (
 // SubscriptionsReportFilters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
 type SubscriptionsReportFilters struct {
 	// Name: Field name to filter by.
-	Name *SubscriptionsReportFilterName `json:"name,omitempty"`
+	Name SubscriptionsReportFilterName `json:"name,omitempty"`
 	// Operator: Operator to use when filtering. Valid when filtering by `subscription_created_at` (must be `gte` or `lt`), `null` otherwise.
 	Operator *FilterOperator `json:"operator,omitempty"`
 	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
-	Value []string `json:"value,omitempty"`
+	Value any `json:"value,omitempty"`
 }
 
 // SubscriptionsReport: Entity when working with a subscriptions report.
