@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 	"os"
 )
 
