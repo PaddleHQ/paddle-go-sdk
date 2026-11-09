@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
 )
 
 // parseRetry extracts Retry-After from response headers.

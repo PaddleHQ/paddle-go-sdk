@@ -1,0 +1,68 @@
+{
+	"data": [
+		{
+			"id": "subhis_01k0w2m6p8x9y0z1a2b3c4d5e6",
+			"group_id": "subhisgrp_01k0w2m6p8x9y0z1a2b3c4d5e6",
+			"subscription_id": "sub_01hv959anj4zrw503h2acawb3p",
+			"occurred_at": "2024-05-02T11:20:31Z",
+			"source": "customer_portal",
+			"actor": {
+				"type": "customer",
+				"id": "ctm_01hv8wt8nffez4p2t6typn4a5j"
+			},
+			"reason": "customer_request",
+			"detail": {
+				"action": "subscription_canceled",
+				"effective_from": "next_billing_period"
+			}
+		},
+		{
+			"id": "subhis_01k0w1f5n7w8x9y0z1a2b3c4d5",
+			"group_id": "subhisgrp_01k0w1f5n7w8x9y0z1a2b3c4d5",
+			"subscription_id": "sub_01hv959anj4zrw503h2acawb3p",
+			"occurred_at": "2024-04-12T12:42:28Z",
+			"source": "system",
+			"actor": {
+				"type": "system",
+				"id": null
+			},
+			"reason": null,
+			"detail": {
+				"action": "subscription_activated",
+				"status": "active",
+				"first_billed_at": "2024-04-12T12:42:28Z",
+				"next_billed_at": "2024-05-12T12:42:28Z",
+				"current_billing_period": {
+					"starts_at": "2024-04-12T12:42:28Z",
+					"ends_at": "2024-05-12T12:42:28Z"
+				},
+				"transaction_id": "txn_01h89231k3a1q8mn6p4r5s7t9v"
+			}
+		},
+		{
+			"id": "subhis_01k0w0a4m6v7w8x9y0z1a2b3c4",
+			"group_id": "subhisgrp_01k0w0a4m6v7w8x9y0z1a2b3c4",
+			"subscription_id": "sub_01hv959anj4zrw503h2acawb3p",
+			"occurred_at": "2024-04-12T12:42:27Z",
+			"source": "api",
+			"actor": {
+				"type": "api_key",
+				"id": "apikey_01hv8wt8nffez4p2t6typn4a5j"
+			},
+			"reason": null,
+			"detail": {
+				"action": "subscription_shipping_address_verified",
+				"verified": true
+			}
+		}
+	],
+	"meta": {
+		"request_id": "170e71a2-ed13-4f45-b002-45693f5361b4",
+		"pagination": {
+			"per_page": 50,
+			"next": "https://api.paddle.com/subscriptions/sub_01hv959anj4zrw503h2acawb3p/history?after=subhis_01k0w0a4m6v7w8x9y0z1a2b3c4",
+			"has_more": false,
+			"estimated_total": 3
+		}
+	}
+}
