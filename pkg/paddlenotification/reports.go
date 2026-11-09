@@ -40,25 +40,39 @@ const (
 	ReportTypeTransactionLineItems ReportType = "transaction_line_items"
 	ReportTypeProductsPrices       ReportType = "products_prices"
 	ReportTypeDiscounts            ReportType = "discounts"
+	// Deprecated: Use payout_reconciliation reports instead.
+	ReportTypeBalance              ReportType = "balance"
+	ReportTypePayoutReconciliation ReportType = "payout_reconciliation"
+	ReportTypeCheckouts            ReportType = "checkouts"
+	ReportTypeSubscriptions        ReportType = "subscriptions"
 )
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
 
 const (
-	ReportFiltersNameAction           ReportFiltersName = "action"
-	ReportFiltersNameCurrencyCode     ReportFiltersName = "currency_code"
-	ReportFiltersNameStatus           ReportFiltersName = "status"
-	ReportFiltersNameUpdatedAt        ReportFiltersName = "updated_at"
-	ReportFiltersNameCollectionMode   ReportFiltersName = "collection_mode"
-	ReportFiltersNameOrigin           ReportFiltersName = "origin"
-	ReportFiltersNameProductStatus    ReportFiltersName = "product_status"
-	ReportFiltersNamePriceStatus      ReportFiltersName = "price_status"
-	ReportFiltersNameProductType      ReportFiltersName = "product_type"
-	ReportFiltersNamePriceType        ReportFiltersName = "price_type"
-	ReportFiltersNameProductUpdatedAt ReportFiltersName = "product_updated_at"
-	ReportFiltersNamePriceUpdatedAt   ReportFiltersName = "price_updated_at"
-	ReportFiltersNameType             ReportFiltersName = "type"
+	ReportFiltersNameAction                            ReportFiltersName = "action"
+	ReportFiltersNameCurrencyCode                      ReportFiltersName = "currency_code"
+	ReportFiltersNameStatus                            ReportFiltersName = "status"
+	ReportFiltersNameUpdatedAt                         ReportFiltersName = "updated_at"
+	ReportFiltersNameCollectionMode                    ReportFiltersName = "collection_mode"
+	ReportFiltersNameOrigin                            ReportFiltersName = "origin"
+	ReportFiltersNameProductStatus                     ReportFiltersName = "product_status"
+	ReportFiltersNamePriceStatus                       ReportFiltersName = "price_status"
+	ReportFiltersNameProductType                       ReportFiltersName = "product_type"
+	ReportFiltersNamePriceType                         ReportFiltersName = "price_type"
+	ReportFiltersNameProductUpdatedAt                  ReportFiltersName = "product_updated_at"
+	ReportFiltersNamePriceUpdatedAt                    ReportFiltersName = "price_updated_at"
+	ReportFiltersNameType                              ReportFiltersName = "type"
+	ReportFiltersNameRemittanceReference               ReportFiltersName = "remittance_reference"
+	ReportFiltersNameTransactionUpdatedAt              ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameBalanceMovementDate               ReportFiltersName = "balance_movement_date"
+	ReportFiltersNameBalanceMovementType               ReportFiltersName = "balance_movement_type"
+	ReportFiltersNameCheckoutCreatedAt                 ReportFiltersName = "checkout_created_at"
+	ReportFiltersNameCustomerCountryCode               ReportFiltersName = "customer_country_code"
+	ReportFiltersNameSubscriptionStatus                ReportFiltersName = "subscription_status"
+	ReportFiltersNameSubscriptionCreatedAt             ReportFiltersName = "subscription_created_at"
+	ReportFiltersNameSubscriptionScheduledChangeAction ReportFiltersName = "subscription_scheduled_change_action"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..

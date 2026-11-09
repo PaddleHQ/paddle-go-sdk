@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
+	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 )
 
 // Demonstrates how to fetch a list and iterate over the provided results.

@@ -32,7 +32,7 @@ jobs:
           filter_mode: nofilter
 
       - name: Install editorconfig-checker
-        uses: editorconfig-checker/action-editorconfig-checker@d2ed4fd072ae6f887e9407c909af0f585d2ad9f4 # v2
+        uses: editorconfig-checker/action-editorconfig-checker@51f63319f592f97930c73d9c46184d20bd206393 # v3.0.0
 
       - name: eclint
         run: editorconfig-checker

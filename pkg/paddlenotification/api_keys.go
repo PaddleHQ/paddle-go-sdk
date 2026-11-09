@@ -63,6 +63,8 @@ const (
 	APIKeyPermissionAdjustmentWrite             APIKeyPermission = "adjustment.write"
 	APIKeyPermissionBusinessRead                APIKeyPermission = "business.read"
 	APIKeyPermissionBusinessWrite               APIKeyPermission = "business.write"
+	APIKeyPermissionCheckoutDomainRead          APIKeyPermission = "checkout_domain.read"
+	APIKeyPermissionCheckoutDomainWrite         APIKeyPermission = "checkout_domain.write"
 	APIKeyPermissionClientTokenRead             APIKeyPermission = "client_token.read"
 	APIKeyPermissionClientTokenWrite            APIKeyPermission = "client_token.write"
 	APIKeyPermissionCustomerRead                APIKeyPermission = "customer.read"
@@ -71,6 +73,7 @@ const (
 	APIKeyPermissionCustomerPortalSessionWrite  APIKeyPermission = "customer_portal_session.write"
 	APIKeyPermissionDiscountRead                APIKeyPermission = "discount.read"
 	APIKeyPermissionDiscountWrite               APIKeyPermission = "discount.write"
+	APIKeyPermissionMetricsRead                 APIKeyPermission = "metrics.read"
 	APIKeyPermissionNotificationRead            APIKeyPermission = "notification.read"
 	APIKeyPermissionNotificationWrite           APIKeyPermission = "notification.write"
 	APIKeyPermissionNotificationSettingRead     APIKeyPermission = "notification_setting.read"
@@ -87,8 +90,10 @@ const (
 	APIKeyPermissionReportWrite                 APIKeyPermission = "report.write"
 	APIKeyPermissionSubscriptionRead            APIKeyPermission = "subscription.read"
 	APIKeyPermissionSubscriptionWrite           APIKeyPermission = "subscription.write"
+	APIKeyPermissionSubscriptionHistoryRead     APIKeyPermission = "subscription_history.read"
 	APIKeyPermissionTransactionRead             APIKeyPermission = "transaction.read"
 	APIKeyPermissionTransactionWrite            APIKeyPermission = "transaction.write"
+	APIKeyPermissionVerificationRead            APIKeyPermission = "verification.read"
 )
 
 // APIKeyNotification: New or changed entity.
@@ -111,6 +116,8 @@ type APIKeyNotification struct {
 	ExposedAt *string `json:"exposed_at"`
 	// ExpiresAt: RFC 3339 datetime string of when this API key expires.
 	ExpiresAt *string `json:"expires_at"`
+	// Rotatable: Whether this API key can be rotated. `null` for events that occurred before this field was introduced.
+	Rotatable *bool `json:"rotatable"`
 	// LastUsedAt: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
 	LastUsedAt *string `json:"last_used_at"`
 	// CreatedAt: RFC 3339 datetime string of when this entity was created. Set automatically by Paddle.
