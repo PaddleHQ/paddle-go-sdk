@@ -1,0 +1,46 @@
+{
+	"data": {
+		"id": "slrvrf_01jjr5d4c14h4y3lqlk9bedkw7",
+		"status": "action_required",
+		"verification_type": "onboarding",
+		"created_at": "2025-03-10T10:30:00.00Z",
+		"updated_at": "2025-03-10T10:30:00.00Z",
+		"steps": [
+			{
+				"id": "slrvrfstp_01jjr5d4c14h4y3lqlk9bedkw8",
+				"key": "account_setup",
+				"status": "completed",
+				"expires_at": null,
+				"created_at": "2025-03-10T10:30:00.00Z",
+				"updated_at": "2025-03-10T10:30:00.00Z"
+			},
+			{
+				"id": "slrvrfstp_01jjr5d4c14h4y3lqlk9bedkw9",
+				"key": "domain_review",
+				"status": "completed",
+				"expires_at": null,
+				"created_at": "2025-03-10T10:30:00.00Z",
+				"updated_at": "2025-03-10T10:30:00.00Z"
+			},
+			{
+				"id": "slrvrfstp_01jjr5d4c14h4y3lqlk9bedkwa",
+				"key": "business_identification",
+				"status": "action_required",
+				"expires_at": null,
+				"created_at": "2025-03-10T10:30:00.00Z",
+				"updated_at": "2025-03-10T10:30:00.00Z"
+			},
+			{
+				"id": "slrvrfstp_01jjr5d4c14h4y3lqlk9bedkwb",
+				"key": "identity_verification",
+				"status": "action_required",
+				"expires_at": null,
+				"created_at": "2025-03-10T10:30:00.00Z",
+				"updated_at": "2025-03-10T10:30:00.00Z"
+			}
+		]
+	},
+	"meta": {
+		"request_id": "f2c1a7e6-9b34-4d05-8a71-3e5c0d9b64af"
+	}
+}

@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
+	"github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
 )
 
 // ErrUnexpectedResponse is returned when an paddle.Error was expected, but instead received nil.
