@@ -4,8 +4,8 @@ package paddle
 
 import (
 	"encoding/json"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
-	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddlenotification"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
+	paddlenotification "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddlenotification"
 	"strings"
 )
 
@@ -266,6 +266,18 @@ type TrialPeriod struct {
 	Frequency int `json:"frequency,omitempty"`
 	// RequiresPaymentMethod: Whether this price requires a payment method (`true`) or not (`false`) when trialing. If `false`, customers can sign up for subscription without entering their payment details, often referred to as a "cardless trial."
 	RequiresPaymentMethod bool `json:"requires_payment_method,omitempty"`
+	// UnitPrice: Trial price. Customers are billed this amount for the duration of the trial period. Applies to all customers except those in countries with `unit_price_overrides`. If `null`, customers are not charged during the trial.
+	UnitPrice *MoneyOptionalCurrency `json:"unit_price,omitempty"`
+	// UnitPriceOverrides: List of unit price overrides for trial pricing. Use to override base trial price with a custom trial price and currency for a country or group of countries.
+	UnitPriceOverrides []PriceTrialUnitPriceOverride `json:"unit_price_overrides,omitempty"`
+}
+
+// PriceTrialUnitPriceOverride: Override price for the trial period. Customers located in the listed countries are charged the override price during the trial.
+type PriceTrialUnitPriceOverride struct {
+	// CountryCodes: Supported two-letter ISO 3166-1 alpha-2 country code. Customers located in the listed countries are charged the override price.
+	CountryCodes []CountryCode `json:"country_codes,omitempty"`
+	// UnitPrice: Override price. This price applies to customers located in the countries for this unit price override.
+	UnitPrice MoneyOptionalCurrency `json:"unit_price,omitempty"`
 }
 
 // TaxMode: How tax is calculated for this price..
@@ -294,6 +306,7 @@ const (
 	CurrencyCodeSEK CurrencyCode = "SEK"
 	CurrencyCodeARS CurrencyCode = "ARS"
 	CurrencyCodeBRL CurrencyCode = "BRL"
+	CurrencyCodeCLP CurrencyCode = "CLP"
 	CurrencyCodeCNY CurrencyCode = "CNY"
 	CurrencyCodeCOP CurrencyCode = "COP"
 	CurrencyCodeCZK CurrencyCode = "CZK"
@@ -305,6 +318,7 @@ const (
 	CurrencyCodeMXN CurrencyCode = "MXN"
 	CurrencyCodeNOK CurrencyCode = "NOK"
 	CurrencyCodeNZD CurrencyCode = "NZD"
+	CurrencyCodePEN CurrencyCode = "PEN"
 	CurrencyCodePLN CurrencyCode = "PLN"
 	CurrencyCodeRUB CurrencyCode = "RUB"
 	CurrencyCodeTHB CurrencyCode = "THB"
@@ -321,6 +335,14 @@ type Money struct {
 	Amount string `json:"amount,omitempty"`
 	// CurrencyCode: Supported three-letter ISO 4217 currency code.
 	CurrencyCode CurrencyCode `json:"currency_code,omitempty"`
+}
+
+// MoneyOptionalCurrency: A representation of monetary value unformatted in the lowest denomination with optional currency code.
+type MoneyOptionalCurrency struct {
+	// Amount: Amount in the lowest denomination for the currency, e.g. 10 USD = 1000 (cents). Although represented as a string, this value must be a valid integer.
+	Amount string `json:"amount,omitempty"`
+	// CurrencyCode: Supported three-letter ISO 4217 currency code.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
 }
 
 // CountryCode: Two-letter ISO 3166-1 alpha-2 country code..
@@ -914,6 +936,7 @@ const (
 	ErrorCodeAlreadyCanceled              ErrorCode = "already_canceled"
 	ErrorCodeAlreadyRefunded              ErrorCode = "already_refunded"
 	ErrorCodeAuthenticationFailed         ErrorCode = "authentication_failed"
+	ErrorCodeBlockedByPolicy              ErrorCode = "blocked_by_policy"
 	ErrorCodeBlockedCard                  ErrorCode = "blocked_card"
 	ErrorCodeCanceled                     ErrorCode = "canceled"
 	ErrorCodeDeclined                     ErrorCode = "declined"
@@ -925,6 +948,7 @@ const (
 	ErrorCodeIssuerUnavailable            ErrorCode = "issuer_unavailable"
 	ErrorCodeNotEnoughBalance             ErrorCode = "not_enough_balance"
 	ErrorCodePreferredNetworkNotSupported ErrorCode = "preferred_network_not_supported"
+	ErrorCodePrepaidCardNotSupported      ErrorCode = "prepaid_card_not_supported"
 	ErrorCodePspError                     ErrorCode = "psp_error"
 	ErrorCodeRedactedPaymentMethod        ErrorCode = "redacted_payment_method"
 	ErrorCodeSystemError                  ErrorCode = "system_error"
@@ -936,14 +960,16 @@ const (
 type PaymentMethodType string
 
 const (
-	PaymentMethodTypeAlipay              PaymentMethodType = "alipay"
-	PaymentMethodTypeApplePay            PaymentMethodType = "apple_pay"
-	PaymentMethodTypeBancontact          PaymentMethodType = "bancontact"
-	PaymentMethodTypeBlik                PaymentMethodType = "blik"
-	PaymentMethodTypeCard                PaymentMethodType = "card"
-	PaymentMethodTypeGooglePay           PaymentMethodType = "google_pay"
-	PaymentMethodTypeIdeal               PaymentMethodType = "ideal"
-	PaymentMethodTypeKakaoPay            PaymentMethodType = "kakao_pay"
+	PaymentMethodTypeAlipay     PaymentMethodType = "alipay"
+	PaymentMethodTypeApplePay   PaymentMethodType = "apple_pay"
+	PaymentMethodTypeBancontact PaymentMethodType = "bancontact"
+	PaymentMethodTypeBlik       PaymentMethodType = "blik"
+	PaymentMethodTypeCard       PaymentMethodType = "card"
+	PaymentMethodTypeGooglePay  PaymentMethodType = "google_pay"
+	PaymentMethodTypeIdeal      PaymentMethodType = "ideal"
+	PaymentMethodTypeKakaoPay   PaymentMethodType = "kakao_pay"
+	// Deprecated: Use south_korea_local_card instead.
+	PaymentMethodTypeKoreaLocal          PaymentMethodType = "korea_local"
 	PaymentMethodTypeSouthKoreaLocalCard PaymentMethodType = "south_korea_local_card"
 	PaymentMethodTypeMbWay               PaymentMethodType = "mb_way"
 	PaymentMethodTypeNaverPay            PaymentMethodType = "naver_pay"
@@ -1071,6 +1097,14 @@ type Card struct {
 	CardholderName string `json:"cardholder_name,omitempty"`
 }
 
+// TransactionPayPal: Information about the PayPal account used to pay for a transaction.
+type TransactionPayPal struct {
+	// Email: Email address associated with the PayPal account.
+	Email string `json:"email,omitempty"`
+	// Reference: PayPal billing agreement identifier. Only populated for subscription payments where a billing agreement was created between the customer and PayPal. `null` for one-off PayPal payments.
+	Reference *string `json:"reference,omitempty"`
+}
+
 // MethodDetails: Information about the payment method used for a payment attempt.
 type MethodDetails struct {
 	// Type: Type of payment method used for this payment attempt.
@@ -1082,6 +1116,8 @@ type MethodDetails struct {
 	SouthKoreaLocalCard *SouthKoreaLocalCard `json:"south_korea_local_card,omitempty"`
 	// Card: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
 	Card *Card `json:"card,omitempty"`
+	// Paypal: Information about the PayPal account used to pay. `null` unless `type` is `paypal`.
+	Paypal *TransactionPayPal `json:"paypal,omitempty"`
 }
 
 // TransactionPaymentAttempt: List of payment attempts for this transaction, including successful payments. Sorted by `created_at` in descending order, so most recent attempts are returned first.
@@ -1831,4 +1867,40 @@ type DiscountGroup struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// ImportMeta: Import information for this entity. `null` if this entity is not imported.
 	ImportMeta *ImportMeta `json:"import_meta,omitempty"`
+}
+
+// ActionSource: Where the entry originated from.
+type ActionSource string
+
+const (
+	ActionSourceSystem           ActionSource = "system"
+	ActionSourceAPI              ActionSource = "api"
+	ActionSourceDashboard        ActionSource = "dashboard"
+	ActionSourceCustomerPortal   ActionSource = "customer_portal"
+	ActionSourceSupportBot       ActionSource = "support_bot"
+	ActionSourceRetain           ActionSource = "retain"
+	ActionSourceCheckout         ActionSource = "checkout"
+	ActionSourceExternalProvider ActionSource = "external_provider"
+	ActionSourcePaddleClassic    ActionSource = "paddle_classic"
+	ActionSourceUnknown          ActionSource = "unknown"
+)
+
+// ActorType: The type of actor that performed this action.
+type ActorType string
+
+const (
+	ActorTypeCustomer    ActorType = "customer"
+	ActorTypeUser        ActorType = "user"
+	ActorTypeAPIKey      ActorType = "api_key"
+	ActorTypePaddleStaff ActorType = "paddle_staff"
+	ActorTypePublisher   ActorType = "publisher"
+	ActorTypeSystem      ActorType = "system"
+)
+
+// Actor: Details about the actor that performed an action.
+type Actor struct {
+	// Type: The type of actor that performed this action.
+	Type ActorType `json:"type,omitempty"`
+	// ID: The ID of the actor in relation to the `type`. `null` where the type of actor doesn't have an ID.
+	ID *string `json:"id,omitempty"`
 }

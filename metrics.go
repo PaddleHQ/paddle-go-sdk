@@ -308,3 +308,250 @@ func (c *MetricsClient) GetMetricsCheckoutConversion(ctx context.Context, req *G
 
 	return res, nil
 }
+
+/*
+MetricEntity: Entity name for a queryable Explore metric. Pass it as the `entity` when you query.
+
+`subscriptions` isn't available in sandbox, where it's treated as `unknown_entity`.
+*/
+type MetricEntity string
+
+const (
+	MetricEntityTransactionsCompleted  MetricEntity = "transactions.completed"
+	MetricEntityAdjustmentsRefunds     MetricEntity = "adjustments.refunds"
+	MetricEntityAdjustmentsChargebacks MetricEntity = "adjustments.chargebacks"
+	MetricEntityCheckouts              MetricEntity = "checkouts"
+	MetricEntitySubscriptions          MetricEntity = "subscriptions"
+)
+
+// MetricsBucketInterval: Interval that a metric query is bucketed by. Buckets are UTC, and weeks start on Monday.
+type MetricsBucketInterval string
+
+const (
+	MetricsBucketIntervalDay   MetricsBucketInterval = "day"
+	MetricsBucketIntervalWeek  MetricsBucketInterval = "week"
+	MetricsBucketIntervalMonth MetricsBucketInterval = "month"
+)
+
+// MetricsAggregation: Aggregation applied to a measure field. Each entity defines which aggregations are allowed for each field. An aggregation that isn't allowed returns `invalid_aggregation`.
+type MetricsAggregation string
+
+const (
+	MetricsAggregationCount         MetricsAggregation = "count"
+	MetricsAggregationCountDistinct MetricsAggregation = "count_distinct"
+	MetricsAggregationSum           MetricsAggregation = "sum"
+)
+
+// MetricsFieldType: Value type of a metrics field, whether a dimension or a measure. Numeric values are returned as strings to preserve precision.
+type MetricsFieldType string
+
+const (
+	MetricsFieldTypeString   MetricsFieldType = "string"
+	MetricsFieldTypeInteger  MetricsFieldType = "integer"
+	MetricsFieldTypeDecimal  MetricsFieldType = "decimal"
+	MetricsFieldTypeCurrency MetricsFieldType = "currency"
+)
+
+// MetricsFilterOperator: Filter operator for a metric query. Each entity lists the operators valid for each dimension, and an operator that isn't valid for a field returns `invalid_operator`. Only `in` is supported.
+type MetricsFilterOperator string
+
+const (
+	MetricsFilterOperatorIn MetricsFilterOperator = "in"
+)
+
+// MetricsSortDirection: Sort direction for a metric ordering.
+type MetricsSortDirection string
+
+const (
+	MetricsSortDirectionAsc  MetricsSortDirection = "asc"
+	MetricsSortDirectionDesc MetricsSortDirection = "desc"
+)
+
+// MetricsExploreFilter: A filter applied to a dimensional field. With the `in` operator, `value` is the array of values to match.
+type MetricsExploreFilter struct {
+	// Field: Dimension field to filter on. An unknown field returns `unknown_field`.
+	Field string `json:"field,omitempty"`
+	// Op: Comparison operator. Must be valid for the field, otherwise `invalid_operator`. Only `in` is supported for now.
+	Op MetricsFilterOperator `json:"op,omitempty"`
+	// Value: The array of values to match for the `in` operator.
+	Value []string `json:"value,omitempty"`
+}
+
+// MetricsExploreMeasure: A measure to compute: a measure `field`, optionally with the `agg` to apply. Each entity defines which aggregations are allowed for each field. Derived measures (`aggs: null` in the entity's metadata) omit `agg`. Paddle names the returned measure `{agg}_{field}`, or `{field}` for derived measures.
+type MetricsExploreMeasure struct {
+	// Field: Measure field. An unknown field returns `unknown_field`.
+	Field string `json:"field,omitempty"`
+	// Agg: Aggregation to apply. Must be allowed for this field, otherwise `invalid_aggregation`. Omit for derived measures.
+	Agg *MetricsAggregation `json:"agg,omitempty"`
+}
+
+// MetricsExploreOrderBy: An `order_by` entry. Sorts by a measure or a dimension. No field may be repeated.
+type MetricsExploreOrderBy struct {
+	// Field: Measure or dimension to order by.
+	Field string `json:"field,omitempty"`
+	// Dir: Sort direction.
+	Dir MetricsSortDirection `json:"dir,omitempty"`
+}
+
+// MetricsExploreFieldDimension: Describes one dimension field, in the same order as the request `dimensions`.
+type MetricsExploreFieldDimension struct {
+	// Name: Dimension identifier. Matches the keys in each series' `dimensions` map.
+	Name string `json:"name,omitempty"`
+	// Type: Value type for the dimension.
+	Type MetricsFieldType `json:"type,omitempty"`
+}
+
+// MetricsExploreFieldMeasure: Describes one measure field.
+type MetricsExploreFieldMeasure struct {
+	// Name: Generated measure name: `{agg}_{field}` (e.g. `sum_gross_revenue`), or just `{field}` for derived measures (e.g. `mrr`, `checkout_conversion`). Matches the keys in each datapoint's `measures` map.
+	Name string `json:"name,omitempty"`
+	// Type: Value type for the measure.
+	Type MetricsFieldType `json:"type,omitempty"`
+	// Field: Measure field this column was computed from. Omitted for derived measures.
+	Field *string `json:"field,omitempty"`
+	// Agg: Aggregation applied. Omitted for derived measures (`aggs: null` in the entity's metadata).
+	Agg *MetricsAggregation `json:"agg,omitempty"`
+}
+
+// MetricsExploreFields: Describes the dimension and measure fields in this result, so you can format and parse values without knowing the entity in advance.
+type MetricsExploreFields struct {
+	// Dimensions: One entry per requested dimension.
+	Dimensions []MetricsExploreFieldDimension `json:"dimensions,omitempty"`
+	// Measures: One entry per requested measure.
+	Measures []MetricsExploreFieldMeasure `json:"measures,omitempty"`
+}
+
+// MetricsExploreDataPoint: A single point in a time series: one time bucket and its measure values.
+type MetricsExploreDataPoint struct {
+	// Timestamp: RFC 3339 datetime string or `YYYY-MM-DD` date for the start of this time bucket, in UTC. The Monday for weekly intervals, and the 1st for monthly intervals.
+	Timestamp string `json:"timestamp,omitempty"`
+	// Measures: Measure values for this bucket, keyed by the measure `name` from `fields.measures`. Numeric values are strings to preserve precision.
+	Measures map[string]string `json:"measures,omitempty"`
+}
+
+// MetricsExploreSeries: One segment (dimension combination) and its full time series. `per_page` caps the number of series, never the number of datapoints within a series.
+type MetricsExploreSeries struct {
+	// Dimensions: Dimension values for this segment, keyed by a subset of the requested dimensions. Empty for a result with no breakdown applied.
+	Dimensions map[string]string `json:"dimensions,omitempty"`
+	// Timeseries: Time series for this segment. One entry per time bucket, ordered chronologically.
+	Timeseries []MetricsExploreDataPoint `json:"timeseries,omitempty"`
+}
+
+// MetricsExplore: Result set for an Explore query: a self-describing schema plus one timeseries per segment, with optional totals.
+type MetricsExplore struct {
+	// Entity: Entity name for the metric that was queried.
+	Entity MetricEntity `json:"entity,omitempty"`
+	// Interval: Time bucketing applied to the result.
+	Interval MetricsBucketInterval `json:"interval,omitempty"`
+	// CurrencyCode: Three-letter ISO 4217 currency code for values in the response. Derived from your balance currency. Omitted when the response has no currency values.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+	// StartsAt: RFC 3339 datetime string of the start of the queried range, in UTC. Matches the `from` in your request.
+	StartsAt string `json:"starts_at,omitempty"`
+	// EndsAt: RFC 3339 datetime string of the end of the queried range, in UTC. Matches the `to` in your request, clamped to the current time if it's in the future.
+	EndsAt string `json:"ends_at,omitempty"`
+	// UpdatedAt: RFC 3339 datetime string of when the data behind this metric was last refreshed, in UTC. Set automatically by Paddle.
+	UpdatedAt string `json:"updated_at,omitempty"`
+	// Fields: Describes the dimension and measure fields in this result.
+	Fields MetricsExploreFields `json:"fields,omitempty"`
+	// Series: One entry per segment (dimension combination), each carrying its full time series. Capped by `per_page`.
+	Series []MetricsExploreSeries `json:"series,omitempty"`
+	// Pagination: Pagination state for the series in this result. Explore paginates with POST, so follow it by re-sending the same request with `After` set to `Pagination.After`.
+	Pagination MetricsExplorePagination `json:"-"`
+}
+
+// ExploreMetricsRequest is given as an input to ExploreMetrics.
+type ExploreMetricsRequest struct {
+	// Entity: Entity name for the metric to query. One metric per request. An unknown value, including `subscriptions` in sandbox, returns `unknown_entity`.
+	Entity MetricEntity `json:"entity,omitempty"`
+	// From: RFC 3339 datetime string or `YYYY-MM-DD` date for the start of the range, interpreted at 00:00 UTC. Inclusive. Must be within the metric's `max_lookback_days`, otherwise Paddle returns `max_lookback_exceeded`.
+	From string `json:"from,omitempty"`
+	// To: RFC 3339 datetime string or `YYYY-MM-DD` date for the end of the range, interpreted at 00:00 UTC. Exclusive. Clamped to the current time if in the future.
+	To string `json:"to,omitempty"`
+	// Measures: One or more measures to compute.
+	Measures []MetricsExploreMeasure `json:"measures,omitempty"`
+	// Interval: Interval that results are bucketed by. Every query is bucketed, so each entry in `timeseries` carries a `timestamp`.
+	Interval *MetricsBucketInterval `json:"interval,omitempty"`
+	// Dimensions: Dimensions to group results by. Each combination of values returns as a segment. `timestamp` is implied by `interval`, so don't include it here.
+	Dimensions []string `json:"dimensions,omitempty"`
+	// Filters: Filters to narrow results by dimension. Multiple filters are combined, so results must match all of them.
+	Filters []MetricsExploreFilter `json:"filters,omitempty"`
+	// OrderBy: Ordering. Required when you pass `dimensions`, because it decides which segments land on the page. Omitting it on a query with dimensions returns `invalid_field`.
+	OrderBy []MetricsExploreOrderBy `json:"order_by,omitempty"`
+	/*
+	   PerPage: Number of segments returned per page, not datapoints. Each segment carries its complete timeseries. Paddle returns the maximum if you request more, so check `meta.pagination.per_page` to see how many came back. A page can hold at most 10,000 datapoints (`per_page` multiplied by the time buckets in your range), otherwise Paddle returns `too_many_datapoints`.
+
+	   Default: `5`; Maximum: `50`.
+	*/
+	PerPage *int `json:"per_page,omitempty"`
+
+	// After is a query parameter.
+	// After: Pagination cursor from the previous response's `meta.pagination.next`. Omit for the first page. Send the same request body with it: a cursor that doesn't match the body you send is rejected with `invalid_cursor`.
+	After *string `in:"query=after;omitempty" json:"-"`
+}
+
+// ExploreMetrics performs the POST operation on a Metrics explores resource.
+func (c *MetricsClient) ExploreMetrics(ctx context.Context, req *ExploreMetricsRequest) (res *MetricsExplore, err error) {
+	if err := c.doer.Do(ctx, "POST", "/metrics/explore", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// MetricEntityDimension: A dimension field available to group and filter a metric by.
+type MetricEntityDimension struct {
+	// Name: Dimension identifier.
+	Name string `json:"name,omitempty"`
+	// Type: Value type for the dimension.
+	Type MetricsFieldType `json:"type,omitempty"`
+	// FilterOps: Filter operators supported for this dimension.
+	FilterOps []MetricsFilterOperator `json:"filter_ops,omitempty"`
+	// MultiValued: Whether the dimension can hold more than one value per record. When `true`, a single record can appear under more than one value, so a breakdown on this dimension can total more than the figure with no breakdown applied. `false` if omitted.
+	MultiValued *bool `json:"multi_valued,omitempty"`
+}
+
+// MetricEntityMeasure: A measure field you can select and aggregate when querying this entity.
+type MetricEntityMeasure struct {
+	// Name: Measure identifier.
+	Name string `json:"name,omitempty"`
+	// Type: Value type for the measure.
+	Type MetricsFieldType `json:"type,omitempty"`
+	// Aggs: Allowed aggregations for this measure. `null` means the field is returned as-is and cannot be aggregated.
+	Aggs []MetricsAggregation `json:"aggs,omitempty"`
+}
+
+// MetricEntityTimeDimension: The metric's time axis and the bucketing it allows when querying.
+type MetricEntityTimeDimension struct {
+	// Intervals: Allowed grouping intervals for the metric's time dimension.
+	Intervals []MetricsBucketInterval `json:"intervals,omitempty"`
+	// MaxLookbackDays: Maximum supported look-back window, in days, when querying this metric.
+	MaxLookbackDays int `json:"max_lookback_days,omitempty"`
+}
+
+// MetricEntityDefinition: Metadata describing a single queryable metric entity.
+type MetricEntityDefinition struct {
+	// Entity: Entity name for this metric. Pass it as the `entity` when you query.
+	Entity MetricEntity `json:"entity,omitempty"`
+	// TimeDimension: The metric's time axis and allowed bucketing.
+	TimeDimension MetricEntityTimeDimension `json:"time_dimension,omitempty"`
+	// Dimensions: Dimensions available to group and filter this metric by.
+	Dimensions []MetricEntityDimension `json:"dimensions,omitempty"`
+	// Measures: Measures available to select and aggregate.
+	Measures []MetricEntityMeasure `json:"measures,omitempty"`
+}
+
+// ListExploreEntitiesRequest is given as an input to ListExploreEntities.
+type ListExploreEntitiesRequest struct {
+	// Entity is a query parameter.
+	// Entity: Return the metric that matches the specified entity name. Omit to return all metrics that are available. An unknown value, including `subscriptions` in sandbox, returns `unknown_entity`.
+	Entity *MetricEntity `in:"query=entity;omitempty" json:"-"`
+}
+
+// ListExploreEntities performs the GET operation on a Metrics explore entities resource.
+func (c *MetricsClient) ListExploreEntities(ctx context.Context, req *ListExploreEntitiesRequest) (res *Collection[*MetricEntityDefinition], err error) {
+	if err := c.doer.Do(ctx, "GET", "/metrics/explore/entities", req, &res); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}

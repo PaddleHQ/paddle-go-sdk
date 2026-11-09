@@ -5,7 +5,7 @@ package paddle
 import (
 	"context"
 	"encoding/json"
-	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v5/pkg/paddleerr"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
 )
 
 // ErrReportCreationLimitExceeded represents a `report_creation_limit_exceeded` error.
@@ -76,27 +76,36 @@ const (
 	ReportTypeDiscounts            ReportType = "discounts"
 	ReportTypeBalance              ReportType = "balance"
 	ReportTypePayoutReconciliation ReportType = "payout_reconciliation"
+	ReportTypeCheckouts            ReportType = "checkouts"
+	ReportTypeSubscriptions        ReportType = "subscriptions"
 )
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
 
 const (
-	ReportFiltersNameAction               ReportFiltersName = "action"
-	ReportFiltersNameCurrencyCode         ReportFiltersName = "currency_code"
-	ReportFiltersNameStatus               ReportFiltersName = "status"
-	ReportFiltersNameUpdatedAt            ReportFiltersName = "updated_at"
-	ReportFiltersNameCollectionMode       ReportFiltersName = "collection_mode"
-	ReportFiltersNameOrigin               ReportFiltersName = "origin"
-	ReportFiltersNameProductStatus        ReportFiltersName = "product_status"
-	ReportFiltersNamePriceStatus          ReportFiltersName = "price_status"
-	ReportFiltersNameProductType          ReportFiltersName = "product_type"
-	ReportFiltersNamePriceType            ReportFiltersName = "price_type"
-	ReportFiltersNameProductUpdatedAt     ReportFiltersName = "product_updated_at"
-	ReportFiltersNamePriceUpdatedAt       ReportFiltersName = "price_updated_at"
-	ReportFiltersNameType                 ReportFiltersName = "type"
-	ReportFiltersNameRemittanceReference  ReportFiltersName = "remittance_reference"
-	ReportFiltersNameTransactionUpdatedAt ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameAction                            ReportFiltersName = "action"
+	ReportFiltersNameCurrencyCode                      ReportFiltersName = "currency_code"
+	ReportFiltersNameStatus                            ReportFiltersName = "status"
+	ReportFiltersNameUpdatedAt                         ReportFiltersName = "updated_at"
+	ReportFiltersNameCollectionMode                    ReportFiltersName = "collection_mode"
+	ReportFiltersNameOrigin                            ReportFiltersName = "origin"
+	ReportFiltersNameProductStatus                     ReportFiltersName = "product_status"
+	ReportFiltersNamePriceStatus                       ReportFiltersName = "price_status"
+	ReportFiltersNameProductType                       ReportFiltersName = "product_type"
+	ReportFiltersNamePriceType                         ReportFiltersName = "price_type"
+	ReportFiltersNameProductUpdatedAt                  ReportFiltersName = "product_updated_at"
+	ReportFiltersNamePriceUpdatedAt                    ReportFiltersName = "price_updated_at"
+	ReportFiltersNameType                              ReportFiltersName = "type"
+	ReportFiltersNameRemittanceReference               ReportFiltersName = "remittance_reference"
+	ReportFiltersNameTransactionUpdatedAt              ReportFiltersName = "transaction_updated_at"
+	ReportFiltersNameBalanceMovementDate               ReportFiltersName = "balance_movement_date"
+	ReportFiltersNameBalanceMovementType               ReportFiltersName = "balance_movement_type"
+	ReportFiltersNameCheckoutCreatedAt                 ReportFiltersName = "checkout_created_at"
+	ReportFiltersNameCustomerCountryCode               ReportFiltersName = "customer_country_code"
+	ReportFiltersNameSubscriptionStatus                ReportFiltersName = "subscription_status"
+	ReportFiltersNameSubscriptionCreatedAt             ReportFiltersName = "subscription_created_at"
+	ReportFiltersNameSubscriptionScheduledChangeAction ReportFiltersName = "subscription_scheduled_change_action"
 )
 
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
@@ -320,13 +329,15 @@ type PayoutReconciliationReportFilterName string
 const (
 	PayoutReconciliationReportFilterNameRemittanceReference  PayoutReconciliationReportFilterName = "remittance_reference"
 	PayoutReconciliationReportFilterNameTransactionUpdatedAt PayoutReconciliationReportFilterName = "transaction_updated_at"
+	PayoutReconciliationReportFilterNameBalanceMovementDate  PayoutReconciliationReportFilterName = "balance_movement_date"
+	PayoutReconciliationReportFilterNameBalanceMovementType  PayoutReconciliationReportFilterName = "balance_movement_type"
 )
 
 // PayoutReconciliationReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type PayoutReconciliationReportFilters struct {
 	// Name: Field name to filter by.
 	Name PayoutReconciliationReportFilterName `json:"name,omitempty"`
-	// Operator: Operator to use when filtering. Valid when filtering by `transaction_updated_at`, must be `null` otherwise.
+	// Operator: Operator to use when filtering. Valid when filtering by `transaction_updated_at` or `balance_movement_date`, must be `null` otherwise.
 	Operator *FilterOperator `json:"operator,omitempty"`
 	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
 	Value any `json:"value,omitempty"`
@@ -338,6 +349,70 @@ type PayoutReconciliationReport struct {
 	Type PayoutReconciliationReportType `json:"type,omitempty"`
 	// Filters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 	Filters []PayoutReconciliationReportFilters `json:"filters,omitempty"`
+}
+
+// CheckoutsReportType: Type of report to create..
+type CheckoutsReportType string
+
+const CheckoutsReportTypeCheckouts CheckoutsReportType = "checkouts"
+
+// CheckoutsReportFilterName: Field name to filter by..
+type CheckoutsReportFilterName string
+
+const (
+	CheckoutsReportFilterNameCheckoutCreatedAt   CheckoutsReportFilterName = "checkout_created_at"
+	CheckoutsReportFilterNameCustomerCountryCode CheckoutsReportFilterName = "customer_country_code"
+)
+
+// CheckoutsReportFilters: Filter criteria for this report. If no `gte` filter for `checkout_created_at` is passed, reports are filtered to include checkouts created in the last month. This means `checkout_created_at` is greater than or equal to (`gte`) the same date and time one calendar month before the report was generated, so the window is between 28 and 31 days depending on the month. To filter by a specific date range, pass two `checkout_created_at` filters with `gte` and `lt` operators.
+type CheckoutsReportFilters struct {
+	// Name: Field name to filter by.
+	Name CheckoutsReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `checkout_created_at` (must be `gte` or `lt`), `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value any `json:"value,omitempty"`
+}
+
+// CheckoutsReport: Entity when working with a checkouts report.
+type CheckoutsReport struct {
+	// Type: Type of report to create.
+	Type CheckoutsReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. If no `gte` filter for `checkout_created_at` is passed, reports are filtered to include checkouts created in the last month. This means `checkout_created_at` is greater than or equal to (`gte`) the same date and time one calendar month before the report was generated, so the window is between 28 and 31 days depending on the month. To filter by a specific date range, pass two `checkout_created_at` filters with `gte` and `lt` operators.
+	Filters []CheckoutsReportFilters `json:"filters,omitempty"`
+}
+
+// SubscriptionsReportType: Type of report.
+type SubscriptionsReportType string
+
+const SubscriptionsReportTypeSubscriptions SubscriptionsReportType = "subscriptions"
+
+// SubscriptionsReportFilterName: Field name to filter by.
+type SubscriptionsReportFilterName string
+
+const (
+	SubscriptionsReportFilterNameSubscriptionStatus                SubscriptionsReportFilterName = "subscription_status"
+	SubscriptionsReportFilterNameSubscriptionCreatedAt             SubscriptionsReportFilterName = "subscription_created_at"
+	SubscriptionsReportFilterNameCustomerCountryCode               SubscriptionsReportFilterName = "customer_country_code"
+	SubscriptionsReportFilterNameSubscriptionScheduledChangeAction SubscriptionsReportFilterName = "subscription_scheduled_change_action"
+)
+
+// SubscriptionsReportFilters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
+type SubscriptionsReportFilters struct {
+	// Name: Field name to filter by.
+	Name SubscriptionsReportFilterName `json:"name,omitempty"`
+	// Operator: Operator to use when filtering. Valid when filtering by `subscription_created_at` (must be `gte` or `lt`), `null` otherwise.
+	Operator *FilterOperator `json:"operator,omitempty"`
+	// Value: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+	Value any `json:"value,omitempty"`
+}
+
+// SubscriptionsReport: Entity when working with a subscriptions report.
+type SubscriptionsReport struct {
+	// Type: Type of report to create.
+	Type SubscriptionsReportType `json:"type,omitempty"`
+	// Filters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
+	Filters []SubscriptionsReportFilters `json:"filters,omitempty"`
 }
 
 type ReportCSV struct {
@@ -419,6 +494,18 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 	return &CreateReportRequest{PayoutReconciliationReport: r}
 }
 
+// NewCreateReportRequestCheckoutsReport takes a CheckoutsReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestCheckoutsReport(r *CheckoutsReport) *CreateReportRequest {
+	return &CreateReportRequest{CheckoutsReport: r}
+}
+
+// NewCreateReportRequestSubscriptionsReport takes a SubscriptionsReport type
+// and creates a CreateReportRequest for use in a request.
+func NewCreateReportRequestSubscriptionsReport(r *SubscriptionsReport) *CreateReportRequest {
+	return &CreateReportRequest{SubscriptionsReport: r}
+}
+
 // CreateReportRequest represents a union request type of the following types:
 //   - `AdjustmentsReports`
 //   - `TransactionsReports`
@@ -426,6 +513,8 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 //   - `DiscountsReport`
 //   - `BalanceReport`
 //   - `PayoutReconciliationReport`
+//   - `CheckoutsReport`
+//   - `SubscriptionsReport`
 //
 // The following constructor functions can be used to create a new instance of this type.
 //   - `NewCreateReportRequestAdjustmentsReports()`
@@ -434,6 +523,8 @@ func NewCreateReportRequestPayoutReconciliationReport(r *PayoutReconciliationRep
 //   - `NewCreateReportRequestDiscountsReport()`
 //   - `NewCreateReportRequestBalanceReport()`
 //   - `NewCreateReportRequestPayoutReconciliationReport()`
+//   - `NewCreateReportRequestCheckoutsReport()`
+//   - `NewCreateReportRequestSubscriptionsReport()`
 //
 // Only one of the values can be set at a time, the first non-nil value will be used in the request.
 type CreateReportRequest struct {
@@ -443,6 +534,8 @@ type CreateReportRequest struct {
 	*DiscountsReport
 	*BalanceReport
 	*PayoutReconciliationReport
+	*CheckoutsReport
+	*SubscriptionsReport
 }
 
 // CreateReport performs the POST operation on a Reports resource.
@@ -478,6 +571,14 @@ func (u CreateReportRequest) MarshalJSON() ([]byte, error) {
 
 	if u.PayoutReconciliationReport != nil {
 		return json.Marshal(u.PayoutReconciliationReport)
+	}
+
+	if u.CheckoutsReport != nil {
+		return json.Marshal(u.CheckoutsReport)
+	}
+
+	if u.SubscriptionsReport != nil {
+		return json.Marshal(u.SubscriptionsReport)
 	}
 
 	return nil, nil
