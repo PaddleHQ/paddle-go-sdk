@@ -6,6 +6,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 
@@ -26,17 +27,20 @@ func TestVerifier_Verify(t *testing.T) {
 		payload   string
 		signature string
 		secretKey string
+		opts      []paddle.VerifierOption
 
 		expectedResult bool
 		expectedError  error
 	}
+
+	now := time.Now()
 
 	cases := []args{
 		{
 			name: "valid signature",
 
 			payload:   testPayload,
-			signature: testSignature,
+			signature: signWebhookForExample(testSecretKey, testPayload, now),
 			secretKey: testSecretKey,
 
 			expectedResult: true,
@@ -54,7 +58,7 @@ func TestVerifier_Verify(t *testing.T) {
 			name: "invalid payload",
 
 			payload:   `{}`,
-			signature: testSignature,
+			signature: signWebhookForExample(testSecretKey, testPayload, now),
 			secretKey: testSecretKey,
 
 			expectedResult: false,
@@ -73,10 +77,50 @@ func TestVerifier_Verify(t *testing.T) {
 			name: "invalid secret key",
 
 			payload:   testPayload,
-			signature: testSignature,
+			signature: signWebhookForExample(testSecretKey, testPayload, now),
 			secretKey: `abc`,
 
 			expectedResult: false,
+		},
+		{
+			name: "timestamp too old",
+
+			payload:   testPayload,
+			signature: testSignature,
+			secretKey: testSecretKey,
+
+			expectedResult: false,
+			expectedError:  paddle.ErrReplayAttack,
+		},
+		{
+			name: "timestamp in the future",
+
+			payload:   testPayload,
+			signature: signWebhookForExample(testSecretKey, testPayload, now.Add(time.Minute)),
+			secretKey: testSecretKey,
+
+			expectedResult: false,
+			expectedError:  paddle.ErrReplayAttack,
+		},
+		{
+			name: "timestamp within custom tolerance",
+
+			payload:   testPayload,
+			signature: signWebhookForExample(testSecretKey, testPayload, now.Add(-time.Minute)),
+			secretKey: testSecretKey,
+			opts:      []paddle.VerifierOption{paddle.VerifierWithTimestampTolerance(2 * time.Minute)},
+
+			expectedResult: true,
+		},
+		{
+			name: "timestamp check disabled",
+
+			payload:   testPayload,
+			signature: testSignature,
+			secretKey: testSecretKey,
+			opts:      []paddle.VerifierOption{paddle.VerifierWithoutTimestampVerification()},
+
+			expectedResult: true,
 		},
 	}
 
@@ -85,7 +129,7 @@ func TestVerifier_Verify(t *testing.T) {
 			req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(c.payload))
 			req.Header.Set("Paddle-Signature", c.signature)
 
-			ok, err := paddle.NewWebhookVerifier(c.secretKey).Verify(req)
+			ok, err := paddle.NewWebhookVerifier(c.secretKey, c.opts...).Verify(req)
 
 			assert.Equal(t, c.expectedResult, ok)
 
@@ -121,7 +165,7 @@ func TestVerifier_Middleware(t *testing.T) {
 			name: "valid signature",
 
 			payload:   testPayload,
-			signature: testSignature,
+			signature: signWebhookForExample(testSecretKey, testPayload, time.Now()),
 			secretKey: testSecretKey,
 
 			expectedStatus: http.StatusOK,
@@ -139,11 +183,21 @@ func TestVerifier_Middleware(t *testing.T) {
 			name: "invalid payload",
 
 			payload:   `{}`,
-			signature: testSignature,
+			signature: signWebhookForExample(testSecretKey, testPayload, time.Now()),
 			secretKey: testSecretKey,
 
 			expectedStatus: http.StatusForbidden,
 			expectedBody:   "signature mismatch\n",
+		},
+		{
+			name: "timestamp too old",
+
+			payload:   testPayload,
+			signature: testSignature,
+			secretKey: testSecretKey,
+
+			expectedStatus: http.StatusBadRequest,
+			expectedBody:   "timestamp is too old or too far in the future\n",
 		},
 	}
 

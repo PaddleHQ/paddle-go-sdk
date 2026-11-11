@@ -1,9 +1,14 @@
 package paddle_test
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
 	"embed"
+	"encoding/hex"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
+	"time"
 )
 
 type stubPath string
@@ -86,4 +91,14 @@ func mockServerForExample(res mockServerResponse) *httptest.Server {
 	}))
 
 	return s
+}
+
+// signWebhookForExample signs a payload the way Paddle does, so examples pass verification.
+func signWebhookForExample(secretKey, payload string, ts time.Time) string {
+	t := strconv.FormatInt(ts.Unix(), 10)
+
+	mac := hmac.New(sha256.New, []byte(secretKey))
+	mac.Write([]byte(t + ":" + payload))
+
+	return "ts=" + t + ";h1=" + hex.EncodeToString(mac.Sum(nil))
 }

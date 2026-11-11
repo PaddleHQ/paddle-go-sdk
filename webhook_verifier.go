@@ -33,6 +33,10 @@ var (
 // More information can be found here: https://developer.paddle.com/webhooks/signature-verification.
 var signatureRegexp = regexp.MustCompile(`^ts=(\d+);h1=([a-f0-9]{64})$`)
 
+// DefaultTimestampTolerance is how far the webhook timestamp may be from the current time before
+// the webhook is rejected as a replay.
+const DefaultTimestampTolerance = 5 * time.Second
+
 // WebhookVerifier is used to verify webhook requests from Paddle.
 type WebhookVerifier struct {
 	secretKey          []byte
@@ -44,22 +48,32 @@ type VerifierOption func(*WebhookVerifier)
 
 // NewWebhookVerifier creates a new WebhookVerifier with the given secret key and optional config.
 func NewWebhookVerifier(secretKey string, opts ...VerifierOption) *WebhookVerifier {
-	wv := &WebhookVerifier{secretKey: []byte(secretKey)}
+	tolerance := DefaultTimestampTolerance
+
+	wv := &WebhookVerifier{secretKey: []byte(secretKey), timestampTolerance: &tolerance}
 	for _, opt := range opts {
 		opt(wv)
 	}
 	return wv
 }
 
-// VerifierWithTimestampTolerance optionally enables replay prevention by enforcing timestamp validity.
-// If set, it rejects signatures outside the given time skew.
+// VerifierWithTimestampTolerance sets how far the webhook timestamp may be from the current time,
+// in either direction. Defaults to DefaultTimestampTolerance.
 func VerifierWithTimestampTolerance(d time.Duration) VerifierOption {
 	return func(wv *WebhookVerifier) {
 		wv.timestampTolerance = &d
 	}
 }
 
-// Verify verifies the signature and (optionally) the timestamp of a webhook request.
+// VerifierWithoutTimestampVerification disables timestamp verification, removing replay protection.
+// Not recommended outside of testing.
+func VerifierWithoutTimestampVerification() VerifierOption {
+	return func(wv *WebhookVerifier) {
+		wv.timestampTolerance = nil
+	}
+}
+
+// Verify verifies the signature and timestamp of a webhook request.
 func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 	sig := strings.TrimSpace(req.Header.Get("Paddle-Signature"))
 	if sig == "" {
@@ -74,7 +88,6 @@ func (wv *WebhookVerifier) Verify(req *http.Request) (bool, error) {
 	tsStr := matches[1]
 	h1 := matches[2]
 
-	// Optional: validate timestamp for replay protection if tolerance is configured
 	if wv.timestampTolerance != nil {
 		tsInt, err := strconv.ParseInt(tsStr, 10, 64)
 		if err != nil {

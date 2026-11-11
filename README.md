@@ -162,6 +162,8 @@ webhookVerifier := paddle.NewWebhookVerifier(os.Getenv("WEBHOOK_SECRET_KEY"))
 ok, err := webhookVerifier.Verify(req)
 ```
 
+Webhooks with a timestamp more than 5 seconds from the current time are rejected with `paddle.ErrReplayAttack`. Use `paddle.VerifierWithTimestampTolerance` to change the tolerance.
+
 ### Testable examples
 
 The SDK uses [testable examples](https://go.dev/blog/examples) in Go, which are compiled and executed as part of testing the package.
