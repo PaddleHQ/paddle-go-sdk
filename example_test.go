@@ -30,6 +30,7 @@ const (
 	currencies                     stubPath = "testdata/currencies.json"
 	metricsExplore                 stubPath = "testdata/metrics_explore.json"
 	metricsExploreEntities         stubPath = "testdata/metrics_explore_entities.json"
+	notificationReplay             stubPath = "testdata/notification_replay.json"
 )
 
 //go:embed testdata

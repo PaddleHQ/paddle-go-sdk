@@ -250,6 +250,12 @@ func (n *Notification) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// NotificationReplay: Represents a notification replay entity.
+type NotificationReplay struct {
+	// NotificationID: Unique Paddle ID for this notification, prefixed with `ntf_`.
+	NotificationID string `json:"notification_id"`
+}
+
 // NotificationsClient is a client for the Notifications resource.
 type NotificationsClient struct {
 	doer Doer
@@ -325,10 +331,10 @@ type ReplayNotificationRequest struct {
 }
 
 // ReplayNotification performs the POST operation on a Notifications resource.
-func (c *NotificationsClient) ReplayNotification(ctx context.Context, req *ReplayNotificationRequest) (err error) {
-	if err := c.doer.Do(ctx, "POST", "/notifications/{notification_id}/replay", req, nil); err != nil {
-		return err
+func (c *NotificationsClient) ReplayNotification(ctx context.Context, req *ReplayNotificationRequest) (res *NotificationReplay, err error) {
+	if err := c.doer.Do(ctx, "POST", "/notifications/{notification_id}/replay", req, &res); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return res, nil
 }
