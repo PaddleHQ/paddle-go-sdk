@@ -6,13 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## 6.0.0 - 2026-09-16
+## 6.0.0 - 2026-11-12
 
 ### Added
 
 - Support for the Checkout Domains API to list, get, delete, and verify Apple Pay payment methods for checkout domains
 - Support for listing subscription history, showing the changes made to a subscription over time
-- Support for `consent_requirements` on subscriptions, showing where explicit customer consent is required for renewal
+- Support for `consent_requirements` on subscriptions, subscription previews and subscription notifications, showing where explicit customer consent is required for renewal
 - Support for PayPal payer details on transaction `method_details`
 - Support for `rotatable` on the api_key webhook payload
 - Support for the `checkouts` report type
@@ -24,7 +24,18 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support for the `subscriptions` report type and its filters, including `subscription_scheduled_change_action`
 - Support for `filter`, `to`, and `from` query parameters when listing events
 - Support for `view_subscription` on subscription management URLs and customer portal session deep links
+- Support for `CLP` and `PEN` currency codes
 - Support for additional payment method, error code, API key permission, and report enum values (`korea_local`, `prepaid_card_not_supported`, `blocked_by_policy`, `metrics.read`, `subscription_history.read`, `verification.read`, `checkout_domain.read`, `checkout_domain.write`, and report filters `balance_movement_date`/`balance_movement_type` plus notification-side report types and filters including `balance` and `payout_reconciliation`)
+
+### Changed
+
+- Module path is now `github.com/PaddleHQ/paddle-go-sdk/v6`, see [UPGRADING](./UPGRADING.md) for details
+- Minimum supported Go version is now 1.26, see [UPGRADING](./UPGRADING.md) for details
+- `ReplayNotification` now returns the `NotificationReplay` response, with the ID of the notification created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `ReplaySimulationRunEvent` now returns the `SimulationEvent` created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `WebhookVerifier` now verifies webhook timestamps by default, rejecting webhooks more than 5 seconds from the current time with `ErrReplayAttack`. Use `VerifierWithTimestampTolerance` to change the tolerance or `VerifierWithoutTimestampVerification` to disable, see [UPGRADING](./UPGRADING.md) for details
+- `SubscriptionCreatedNotification` now embeds `SubscriptionNotification` rather than duplicating its fields, see [UPGRADING](./UPGRADING.md) for details
+- `PaymentMethodSavedNotification` and `PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`, and the duplicate `Origin` type is removed in favour of `PaymentMethodOrigin`, see [UPGRADING](./UPGRADING.md) for details
 
 ## 5.2.0 - 2026-03-30
 

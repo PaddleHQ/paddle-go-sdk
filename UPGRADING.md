@@ -2,6 +2,100 @@
 
 All breaking changes will be documented in this file to assist with upgrading.
 
+## v6.0.0
+
+This release introduces breaking changes. Please review the following to upgrade:
+
+1. Module Path  
+   - The module path is now `github.com/PaddleHQ/paddle-go-sdk/v6`.  
+   - Update your imports and run `go get github.com/PaddleHQ/paddle-go-sdk/v6`.
+
+   ```go
+   // Before (v5.x)
+   import paddle "github.com/PaddleHQ/paddle-go-sdk/v5"
+
+   // After (v6.0)
+   import paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
+   ```
+
+2. Minimum Go Version  
+   - The minimum supported Go version is now 1.26.  
+   - Update your environment to Go 1.26 or later.
+
+3. Replay Operations Return Their Response  
+   - `ReplayNotification` now returns `(*NotificationReplay, error)` instead of `error`. `NotificationID` is the ID of the new notification created by the replay.  
+   - `ReplaySimulationRunEvent` now returns `(*SimulationEvent, error)` instead of `error`.  
+   - Update calls to accept the response, or discard it with `_` if you don't need it.
+
+   ```go
+   // Before (v5.x)
+   err := client.ReplayNotification(ctx, &paddle.ReplayNotificationRequest{
+       NotificationID: "ntf_01h46h1s2zabpkdks7yt4vkgkc",
+   })
+
+   // After (v6.0)
+   replay, err := client.ReplayNotification(ctx, &paddle.ReplayNotificationRequest{
+       NotificationID: "ntf_01h46h1s2zabpkdks7yt4vkgkc",
+   })
+   // replay.NotificationID is the ID of the new notification
+   ```
+
+4. Webhook Timestamp Verification On By Default  
+   - `WebhookVerifier` now rejects webhooks with a timestamp more than 5 seconds from the current time, in either direction. `Verify` returns `ErrReplayAttack` and `Middleware` responds with `400 Bad Request`. Previously this check only ran when `VerifierWithTimestampTolerance` was passed.  
+   - No change is needed if you verify webhooks as they arrive, on a server with an accurate clock.  
+   - Review your integration if you:  
+     - verify webhooks after queueing or storing them. Verify on receipt instead, then queue.  
+     - run on hosts where clock drift may exceed 5 seconds. Keep the clock in sync (for example with NTP), or increase the tolerance.  
+     - test with recorded webhooks and signatures. Disable timestamp verification in those tests.  
+     - only handle `ErrMissingSignature` and `ErrInvalidSignatureFormat` when calling `Verify`. Handle `ErrReplayAttack` as a client error too.
+
+   ```go
+   // Default: 5 second tolerance (paddle.DefaultTimestampTolerance)
+   verifier := paddle.NewWebhookVerifier(os.Getenv("WEBHOOK_SECRET_KEY"))
+
+   // Custom tolerance
+   verifier := paddle.NewWebhookVerifier(
+       os.Getenv("WEBHOOK_SECRET_KEY"),
+       paddle.VerifierWithTimestampTolerance(30*time.Second),
+   )
+
+   // Disable timestamp verification, not recommended outside of tests
+   verifier := paddle.NewWebhookVerifier(
+       os.Getenv("WEBHOOK_SECRET_KEY"),
+       paddle.VerifierWithoutTimestampVerification(),
+   )
+   ```
+
+5. Subscription Created Notification Embeds SubscriptionNotification  
+   - `paddlenotification.SubscriptionCreatedNotification` now embeds `SubscriptionNotification` and only declares `TransactionID` itself. You can handle subscription created notifications with the same code as other subscription notifications.  
+   - Reading fields is unchanged, as fields are promoted from the embedded struct. Update struct literals, for example in tests, to set the shared fields on the embedded `SubscriptionNotification`.
+
+   ```go
+   // Before (v5.x)
+   n := paddlenotification.SubscriptionCreatedNotification{
+       ID:            "sub_01h04vsc0qhwtsbsxh3422wjs4",
+       Status:        paddlenotification.SubscriptionStatusActive,
+       TransactionID: "txn_01h04vsbhqc62t8hmd4z3b578c",
+   }
+
+   // After (v6.0)
+   n := paddlenotification.SubscriptionCreatedNotification{
+       SubscriptionNotification: paddlenotification.SubscriptionNotification{
+           ID:     "sub_01h04vsc0qhwtsbsxh3422wjs4",
+           Status: paddlenotification.SubscriptionStatusActive,
+       },
+       TransactionID: "txn_01h04vsbhqc62t8hmd4z3b578c",
+   }
+   ```
+
+6. Payment Method Notifications Share a Base Type  
+   - `paddlenotification.PaymentMethodSavedNotification` and `paddlenotification.PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`. `PaymentMethodDeletedNotification` only declares `DeletionReason` itself.  
+   - Reading fields is unchanged. Update struct literals to set the shared fields on the embedded `PaymentMethodNotification`, as in the example above.  
+   - The `paddlenotification.Origin` type and its constants are removed. Use `PaymentMethodOrigin` instead:  
+     - `OriginSavedDuringPurchase` → `PaymentMethodOriginSavedDuringPurchase`  
+     - `OriginSubscription` → `PaymentMethodOriginSubscription`  
+     - `OriginSubscriptionSavedDuringPurchase` → `PaymentMethodOriginSubscriptionSavedDuringPurchase`
+
 ## v5.0.0
 
 This release introduces breaking changes. Please review the following to upgrade:
