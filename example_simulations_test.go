@@ -3,6 +3,7 @@ package paddle_test
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"time"
 
@@ -352,4 +353,42 @@ func Example_simulation_run_get() {
 	//ctm_01j870snka0xdp6szgyxze6d6d
 	//200
 	//ntfsimrun_01j9yq3yspewy5r8zr05vkeekd
+}
+
+// Demonstrates how to replay a SimulationRunEvent
+func Example_simulation_run_event_replay() {
+	// Create a mock HTTP server for this example - skip over this bit!
+	s := mockServerForExample(mockServerResponse{
+		stub:       &stub{paths: []stubPath{simulationRunEventReplay}},
+		statusCode: http.StatusAccepted,
+	})
+
+	// Create a new Paddle client.
+	client, err := paddle.New(
+		os.Getenv("PADDLE_API_KEY"),
+		paddle.WithBaseURL(s.URL), // Uses the mock server, you will not need this in your integration.
+	)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	ctx := context.Background()
+
+	event, err := client.ReplaySimulationRunEvent(ctx, &paddle.ReplaySimulationRunEventRequest{
+		SimulationID:      "ntfsim_01j9y0jwekrcyezscgkehvdmd6",
+		SimulationRunID:   "ntfsimrun_01j9yq3yspewy5r8zr05vkeekd",
+		SimulationEventID: "ntfsimevt_01j82j3tr93j99gfv26tsngc27",
+	})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(event.ID)
+	fmt.Println(event.Status)
+	// Output:
+	//ntfsimevt_01j82j3tr93j99gfv26tsngc27
+	//pending
 }

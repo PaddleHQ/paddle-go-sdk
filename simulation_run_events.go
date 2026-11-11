@@ -72,10 +72,10 @@ type ReplaySimulationRunEventRequest struct {
 }
 
 // ReplaySimulationRunEvent performs the POST operation on a Simulation run events resource.
-func (c *SimulationRunEventsClient) ReplaySimulationRunEvent(ctx context.Context, req *ReplaySimulationRunEventRequest) (err error) {
-	if err := c.doer.Do(ctx, "POST", "/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_event_id}/replay", req, nil); err != nil {
-		return err
+func (c *SimulationRunEventsClient) ReplaySimulationRunEvent(ctx context.Context, req *ReplaySimulationRunEventRequest) (res *SimulationEvent, err error) {
+	if err := c.doer.Do(ctx, "POST", "/simulations/{simulation_id}/runs/{simulation_run_id}/events/{simulation_event_id}/replay", req, &res); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return res, nil
 }

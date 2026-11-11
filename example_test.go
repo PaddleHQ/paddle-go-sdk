@@ -31,6 +31,7 @@ const (
 	metricsExplore                 stubPath = "testdata/metrics_explore.json"
 	metricsExploreEntities         stubPath = "testdata/metrics_explore_entities.json"
 	notificationReplay             stubPath = "testdata/notification_replay.json"
+	simulationRunEventReplay       stubPath = "testdata/simulation_run_event_replay.json"
 )
 
 //go:embed testdata
