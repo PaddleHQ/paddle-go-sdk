@@ -8,13 +8,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"time"
 
 	paddle "github.com/PaddleHQ/paddle-go-sdk/v6"
 	"github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddlenotification"
 )
 
 const (
-	exampleWebhookSignature = `ts=1710929255;h1=6c05ef8fa83c44d751be6d259ec955ce5638e2c54095bf128e408e2fce1589c8`
 	exampleWebhookPayload   = `{"data":{"id":"pri_01hsdn96k2hxjzsq5yerecdj9j","name":null,"status":"active","quantity":{"maximum":999999,"minimum":1},"tax_mode":"account_setting","product_id":"pro_01hsdn8qp7yydry3x1yeg6a9rv","unit_price":{"amount":"1000","currency_code":"USD"},"custom_data":null,"description":"testing","import_meta":null,"trial_period":null,"billing_cycle":{"interval":"month","frequency":1},"unit_price_overrides":[]},"event_id":"evt_01hsdn97563968dy0szkmgjwh3","event_type":"price.created","occurred_at":"2024-03-20T10:07:35.590857Z","notification_id":"ntf_01hsdn977e920kbgzt6r6c9rqc"}`
 	exampleWebhookSecretKey = `pdl_ntfset_01hsdn8d43dt7mezr1ef2jtbaw_hKkRiCGyyRhbFwIUuqiTBgI7gnWoV0Gr`
 )
@@ -105,7 +105,7 @@ func Example_webhookUnmarshal() {
 		fmt.Println(err)
 		return
 	}
-	req.Header.Set("Paddle-Signature", exampleWebhookSignature)
+	req.Header.Set("Paddle-Signature", signWebhookForExample(exampleWebhookSecretKey, exampleWebhookPayload, time.Now()))
 
 	rr := httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
