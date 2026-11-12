@@ -1444,7 +1444,7 @@ type TransactionPriceCreateWithProductID struct {
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
+	Quantity *PriceQuantity `json:"quantity,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// ProductID: Paddle ID for the product that this price is for, prefixed with `pro_`.
@@ -1482,7 +1482,7 @@ type TransactionPriceCreateWithProduct struct {
 	// UnitPriceOverrides: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 	UnitPriceOverrides []UnitPriceOverride `json:"unit_price_overrides,omitempty"`
 	// Quantity: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
-	Quantity PriceQuantity `json:"quantity,omitempty"`
+	Quantity *PriceQuantity `json:"quantity,omitempty"`
 	// CustomData: Your own structured key-value data.
 	CustomData CustomData `json:"custom_data,omitempty"`
 	// Product: Product object for a non-catalog item to charge for.
