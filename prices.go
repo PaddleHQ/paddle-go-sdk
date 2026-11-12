@@ -123,6 +123,12 @@ type ListPricesRequest struct {
 	// Recurring is a query parameter.
 	// Determine whether returned entities are for recurring prices (`true`) or one-time prices (`false`).
 	Recurring *bool `in:"query=recurring;omitempty" json:"-"`
+	// BillingCycleInterval is a query parameter.
+	// Return entities where the price billing cycle interval matches this value.
+	BillingCycleInterval *Interval `in:"query=billing_cycle.interval;omitempty" json:"-"`
+	// BillingCycleFrequency is a query parameter.
+	// Return entities where the price billing cycle frequency matches this value.
+	BillingCycleFrequency *int `in:"query=billing_cycle.frequency;omitempty" json:"-"`
 	// Type is a query parameter.
 	// Return items that match the specified type.
 	Type *CatalogType `in:"query=type;omitempty" json:"-"`
