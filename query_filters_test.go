@@ -61,6 +61,17 @@ func TestQueryFilters(t *testing.T) {
 			},
 			want: "action=credit%2Crefund",
 		},
+		{
+			name: "price billing cycle",
+			call: func(ctx context.Context, c *paddle.SDK) error {
+				_, err := c.ListPrices(ctx, &paddle.ListPricesRequest{
+					BillingCycleInterval:  paddle.PtrTo(paddle.IntervalMonth),
+					BillingCycleFrequency: paddle.PtrTo(3),
+				})
+				return err
+			},
+			want: "billing_cycle.frequency=3&billing_cycle.interval=month",
+		},
 	}
 
 	for _, tt := range tests {
