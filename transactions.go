@@ -330,6 +330,34 @@ var ErrTransactionRequiresCurrencyCodeForCustomDiscount = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrTransactionInvalidCombinationOfRequiresPaymentMethodPrices represents a `transaction_invalid_combination_of_requires_payment_method_prices` error.
+// See https://developer.paddle.com/errors/transactions/transaction_invalid_combination_of_requires_payment_method_prices for more information.
+var ErrTransactionInvalidCombinationOfRequiresPaymentMethodPrices = &paddleerr.Error{
+	Code: "transaction_invalid_combination_of_requires_payment_method_prices",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionManualAllowanceNotAllowed represents a `transaction_manual_allowance_not_allowed` error.
+// See https://developer.paddle.com/errors/transactions/transaction_manual_allowance_not_allowed for more information.
+var ErrTransactionManualAllowanceNotAllowed = &paddleerr.Error{
+	Code: "transaction_manual_allowance_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionManualMustRequirePaymentMethod represents a `transaction_manual_must_require_payment_method` error.
+// See https://developer.paddle.com/errors/transactions/transaction_manual_must_require_payment_method for more information.
+var ErrTransactionManualMustRequirePaymentMethod = &paddleerr.Error{
+	Code: "transaction_manual_must_require_payment_method",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTransactionPaymentTermsFrequencyGreaterThanMaximum represents a `transaction_payment_terms_frequency_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/transactions/transaction_payment_terms_frequency_greater_than_maximum for more information.
+var ErrTransactionPaymentTermsFrequencyGreaterThanMaximum = &paddleerr.Error{
+	Code: "transaction_payment_terms_frequency_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // AdjustmentTotalsBreakdown: Breakdown of the total adjustments by adjustment action.
 type AdjustmentTotalsBreakdown struct {
 	// Credit: Total amount of credit adjustments.

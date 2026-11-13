@@ -198,6 +198,13 @@ var ErrRequestBodyTooLarge = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrNotAvailableInSandbox represents a `not_available_in_sandbox` error.
+// See https://developer.paddle.com/errors/shared/not_available_in_sandbox for more information.
+var ErrNotAvailableInSandbox = &paddleerr.Error{
+	Code: "not_available_in_sandbox",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // CatalogType: Return items that match the specified type..
 type CatalogType string
 

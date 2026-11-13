@@ -65,6 +65,13 @@ var ErrNotificationSimulationRunConfigurationConflict = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrNotificationSettingCannotBeDuplicate represents a `notification_setting_cannot_be_duplicate` error.
+// See https://developer.paddle.com/errors/notifications/notification_setting_cannot_be_duplicate for more information.
+var ErrNotificationSettingCannotBeDuplicate = &paddleerr.Error{
+	Code: "notification_setting_cannot_be_duplicate",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // NotificationStatus: Status of this notification..
 type NotificationStatus string
 

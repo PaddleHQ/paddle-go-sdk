@@ -435,6 +435,104 @@ var ErrSubscriptionLockedConsentReviewPeriod = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrSubscriptionChangeNotAllowedForPaymentMethod represents a `subscription_change_not_allowed_for_payment_method` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_change_not_allowed_for_payment_method for more information.
+var ErrSubscriptionChangeNotAllowedForPaymentMethod = &paddleerr.Error{
+	Code: "subscription_change_not_allowed_for_payment_method",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionConsentRequirementCannotActivate represents a `subscription_consent_requirement_cannot_activate` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_consent_requirement_cannot_activate for more information.
+var ErrSubscriptionConsentRequirementCannotActivate = &paddleerr.Error{
+	Code: "subscription_consent_requirement_cannot_activate",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionContinuingExistingBillingPeriodNotAllowedNoBillingPeriod represents a `subscription_continuing_existing_billing_period_not_allowed_no_billing_period` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_continuing_existing_billing_period_not_allowed_no_billing_period for more information.
+var ErrSubscriptionContinuingExistingBillingPeriodNotAllowedNoBillingPeriod = &paddleerr.Error{
+	Code: "subscription_continuing_existing_billing_period_not_allowed_no_billing_period",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionManualAllowanceNotAllowed represents a `subscription_manual_allowance_not_allowed` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_manual_allowance_not_allowed for more information.
+var ErrSubscriptionManualAllowanceNotAllowed = &paddleerr.Error{
+	Code: "subscription_manual_allowance_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionManualRetryPaymentNotAllowed represents a `subscription_manual_retry_payment_not_allowed` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_manual_retry_payment_not_allowed for more information.
+var ErrSubscriptionManualRetryPaymentNotAllowed = &paddleerr.Error{
+	Code: "subscription_manual_retry_payment_not_allowed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionOneOffChargesNotAllowedOnCardlessTrial represents a `subscription_one_off_charges_not_allowed_on_cardless_trial` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_one_off_charges_not_allowed_on_cardless_trial for more information.
+var ErrSubscriptionOneOffChargesNotAllowedOnCardlessTrial = &paddleerr.Error{
+	Code: "subscription_one_off_charges_not_allowed_on_cardless_trial",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionPausingNotAllowedForCardlessTrial represents a `subscription_pausing_not_allowed_for_cardless_trial` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_pausing_not_allowed_for_cardless_trial for more information.
+var ErrSubscriptionPausingNotAllowedForCardlessTrial = &paddleerr.Error{
+	Code: "subscription_pausing_not_allowed_for_cardless_trial",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionPaymentAttemptPending represents a `subscription_payment_attempt_pending` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_payment_attempt_pending for more information.
+var ErrSubscriptionPaymentAttemptPending = &paddleerr.Error{
+	Code: "subscription_payment_attempt_pending",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionPaymentProviderUnavailable represents a `subscription_payment_provider_unavailable` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_payment_provider_unavailable for more information.
+var ErrSubscriptionPaymentProviderUnavailable = &paddleerr.Error{
+	Code: "subscription_payment_provider_unavailable",
+	Type: paddleerr.ErrorTypeAPIError,
+}
+
+// ErrSubscriptionPaymentRetryAttemptsExceeded represents a `subscription_payment_retry_attempts_exceeded` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_payment_retry_attempts_exceeded for more information.
+var ErrSubscriptionPaymentRetryAttemptsExceeded = &paddleerr.Error{
+	Code: "subscription_payment_retry_attempts_exceeded",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionPriceNotFound represents a `subscription_price_not_found` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_price_not_found for more information.
+var ErrSubscriptionPriceNotFound = &paddleerr.Error{
+	Code: "subscription_price_not_found",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionPriceRequiresPaymentMethodOnCardlessTrial represents a `subscription_price_requires_payment_method_on_cardless_trial` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_price_requires_payment_method_on_cardless_trial for more information.
+var ErrSubscriptionPriceRequiresPaymentMethodOnCardlessTrial = &paddleerr.Error{
+	Code: "subscription_price_requires_payment_method_on_cardless_trial",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionProratedBillingNotAllowedForAllowance represents a `subscription_prorated_billing_not_allowed_for_allowance` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_prorated_billing_not_allowed_for_allowance for more information.
+var ErrSubscriptionProratedBillingNotAllowedForAllowance = &paddleerr.Error{
+	Code: "subscription_prorated_billing_not_allowed_for_allowance",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrSubscriptionScheduledChangeNotAllowedForCardlessTrial represents a `subscription_scheduled_change_not_allowed_for_cardless_trial` error.
+// See https://developer.paddle.com/errors/subscriptions/subscription_scheduled_change_not_allowed_for_cardless_trial for more information.
+var ErrSubscriptionScheduledChangeNotAllowedForCardlessTrial = &paddleerr.Error{
+	Code: "subscription_scheduled_change_not_allowed_for_cardless_trial",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // SubscriptionStatus: Status of this subscription. Set automatically by Paddle. Use the pause subscription or cancel subscription operations to change..
 type SubscriptionStatus string
 

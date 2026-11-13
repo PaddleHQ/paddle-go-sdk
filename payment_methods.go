@@ -2,7 +2,17 @@
 
 package paddle
 
-import "context"
+import (
+	"context"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
+)
+
+// ErrPaymentMethodInUse represents a `payment_method_in_use` error.
+// See https://developer.paddle.com/errors/payment_methods/payment_method_in_use for more information.
+var ErrPaymentMethodInUse = &paddleerr.Error{
+	Code: "payment_method_in_use",
+	Type: paddleerr.ErrorTypeRequestError,
+}
 
 // SavedPaymentMethodType: Type of payment method saved..
 type SavedPaymentMethodType string

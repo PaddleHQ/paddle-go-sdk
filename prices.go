@@ -49,6 +49,62 @@ var ErrPriceDuplicateCurrencyOverrideForCountry = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrPriceAllowanceDuplicateUsageBalanceUnit represents a `price_allowance_duplicate_usage_balance_unit` error.
+// See https://developer.paddle.com/errors/prices/price_allowance_duplicate_usage_balance_unit for more information.
+var ErrPriceAllowanceDuplicateUsageBalanceUnit = &paddleerr.Error{
+	Code: "price_allowance_duplicate_usage_balance_unit",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrPriceAllowanceNotAllowedForOneOffPrice represents a `price_allowance_not_allowed_for_one_off_price` error.
+// See https://developer.paddle.com/errors/prices/price_allowance_not_allowed_for_one_off_price for more information.
+var ErrPriceAllowanceNotAllowedForOneOffPrice = &paddleerr.Error{
+	Code: "price_allowance_not_allowed_for_one_off_price",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrPriceAllowanceNotAllowedForTrialPrice represents a `price_allowance_not_allowed_for_trial_price` error.
+// See https://developer.paddle.com/errors/prices/price_allowance_not_allowed_for_trial_price for more information.
+var ErrPriceAllowanceNotAllowedForTrialPrice = &paddleerr.Error{
+	Code: "price_allowance_not_allowed_for_trial_price",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrPriceQuantityMaximumGreaterThanMaximum represents a `price_quantity_maximum_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/prices/price_quantity_maximum_greater_than_maximum for more information.
+var ErrPriceQuantityMaximumGreaterThanMaximum = &paddleerr.Error{
+	Code: "price_quantity_maximum_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrPriceQuantityMinimumGreaterThanMaximum represents a `price_quantity_minimum_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/prices/price_quantity_minimum_greater_than_maximum for more information.
+var ErrPriceQuantityMinimumGreaterThanMaximum = &paddleerr.Error{
+	Code: "price_quantity_minimum_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrPriceTrialPeriodFrequencyGreaterThanMaximum represents a `price_trial_period_frequency_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/prices/price_trial_period_frequency_greater_than_maximum for more information.
+var ErrPriceTrialPeriodFrequencyGreaterThanMaximum = &paddleerr.Error{
+	Code: "price_trial_period_frequency_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTrialCurrencyMismatch represents a `trial_currency_mismatch` error.
+// See https://developer.paddle.com/errors/prices/trial_currency_mismatch for more information.
+var ErrTrialCurrencyMismatch = &paddleerr.Error{
+	Code: "trial_currency_mismatch",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrTrialIsEitherPaidOrCardless represents a `trial_is_either_paid_or_cardless` error.
+// See https://developer.paddle.com/errors/prices/trial_is_either_paid_or_cardless for more information.
+var ErrTrialIsEitherPaidOrCardless = &paddleerr.Error{
+	Code: "trial_is_either_paid_or_cardless",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // Price: Represents a price entity with included entities.
 type Price struct {
 	// ID: Unique Paddle ID for this price, prefixed with `pri_`.
