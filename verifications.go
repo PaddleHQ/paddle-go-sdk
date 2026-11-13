@@ -17,6 +17,17 @@ const (
 	VerificationStatusCanceled       VerificationStatus = "canceled"
 )
 
+// MarshalText encodes VerificationStatus as its wire value, for use in query parameters.
+func (v VerificationStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes VerificationStatus from its wire value.
+func (v *VerificationStatus) UnmarshalText(b []byte) error {
+	*v = VerificationStatus(b)
+	return nil
+}
+
 // VerificationType: Type of verification.
 type VerificationType string
 
@@ -24,6 +35,17 @@ const (
 	VerificationTypeOnboarding VerificationType = "onboarding"
 	VerificationTypeDomain     VerificationType = "domain"
 )
+
+// MarshalText encodes VerificationType as its wire value, for use in query parameters.
+func (v VerificationType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes VerificationType from its wire value.
+func (v *VerificationType) UnmarshalText(b []byte) error {
+	*v = VerificationType(b)
+	return nil
+}
 
 // VerificationStepKey: Key of the verification step.
 type VerificationStepKey string
@@ -36,6 +58,17 @@ const (
 	VerificationStepKeyFinalReview            VerificationStepKey = "final_review"
 	VerificationStepKeyAutomatedReview        VerificationStepKey = "automated_review"
 )
+
+// MarshalText encodes VerificationStepKey as its wire value, for use in query parameters.
+func (v VerificationStepKey) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes VerificationStepKey from its wire value.
+func (v *VerificationStepKey) UnmarshalText(b []byte) error {
+	*v = VerificationStepKey(b)
+	return nil
+}
 
 /*
 VerificationStepStatus: Status of the verification step.
@@ -53,6 +86,17 @@ const (
 	VerificationStepStatusCompleted      VerificationStepStatus = "completed"
 	VerificationStepStatusCanceled       VerificationStepStatus = "canceled"
 )
+
+// MarshalText encodes VerificationStepStatus as its wire value, for use in query parameters.
+func (v VerificationStepStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes VerificationStepStatus from its wire value.
+func (v *VerificationStepStatus) UnmarshalText(b []byte) error {
+	*v = VerificationStepStatus(b)
+	return nil
+}
 
 // VerificationStep: Represents a verification step entity.
 type VerificationStep struct {
@@ -88,7 +132,7 @@ type VerificationsClient struct {
 type ListVerificationsRequest struct {
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
@@ -108,7 +152,7 @@ type ListVerificationsRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 }
 
 // ListVerifications performs the GET operation on a Verifications resource.

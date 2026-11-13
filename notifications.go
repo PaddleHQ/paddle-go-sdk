@@ -75,6 +75,17 @@ const (
 	NotificationStatusFailed       NotificationStatus = "failed"
 )
 
+// MarshalText encodes NotificationStatus as its wire value, for use in query parameters.
+func (v NotificationStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes NotificationStatus from its wire value.
+func (v *NotificationStatus) UnmarshalText(b []byte) error {
+	*v = NotificationStatus(b)
+	return nil
+}
+
 // NotificationOrigin: Describes how this notification was created..
 type NotificationOrigin string
 
@@ -82,6 +93,17 @@ const (
 	NotificationOriginEvent  NotificationOrigin = "event"
 	NotificationOriginReplay NotificationOrigin = "replay"
 )
+
+// MarshalText encodes NotificationOrigin as its wire value, for use in query parameters.
+func (v NotificationOrigin) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes NotificationOrigin from its wire value.
+func (v *NotificationOrigin) UnmarshalText(b []byte) error {
+	*v = NotificationOrigin(b)
+	return nil
+}
 
 // Notification: Represents a notification entity.
 type Notification struct {
@@ -268,14 +290,14 @@ type ListNotificationsRequest struct {
 	After *string `in:"query=after;omitempty" json:"-"`
 	// NotificationSettingID is a query parameter.
 	// Return entities related to the specified notification destination. Use a comma-separated list to specify multiple notification destination IDs.
-	NotificationSettingID []string `in:"query=notification_setting_id;omitempty" json:"-"`
+	NotificationSettingID []string `in:"paddle_list=notification_setting_id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -288,7 +310,7 @@ type ListNotificationsRequest struct {
 	Search *string `in:"query=search;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []NotificationStatus `in:"paddle_list=status" json:"-"`
 	// Filter is a query parameter.
 	// Return entities that contain the value specified. Pass a Paddle ID or email address that appears in the event payload, or part of one. Complete Paddle IDs and email addresses match exactly; partial values match as a prefix or substring, and must be at least three characters.
 	Filter *string `in:"query=filter;omitempty" json:"-"`

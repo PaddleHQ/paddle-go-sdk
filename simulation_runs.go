@@ -13,6 +13,17 @@ const (
 	SimulationRunStatusCanceled  SimulationRunStatus = "canceled"
 )
 
+// MarshalText encodes SimulationRunStatus as its wire value, for use in query parameters.
+func (v SimulationRunStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationRunStatus from its wire value.
+func (v *SimulationRunStatus) UnmarshalText(b []byte) error {
+	*v = SimulationRunStatus(b)
+	return nil
+}
+
 // SimulationRun: Represents a simulation run entity.
 type SimulationRun struct {
 	// ID: Unique Paddle ID for this simulation run, prefixed with `ntfsimrun_`.
@@ -51,7 +62,7 @@ type ListSimulationRunsRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -61,7 +72,7 @@ type ListSimulationRunsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 
 	// IncludeEvents allows requesting the events sub-resource as part of this request.
 	// If set to true, will be included on the response.

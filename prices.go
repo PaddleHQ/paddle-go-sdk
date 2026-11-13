@@ -99,14 +99,14 @@ type ListPricesRequest struct {
 	After *string `in:"query=after;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `billing_cycle.frequency`, `billing_cycle.interval`, `id`, `product_id`, `quantity.maximum`, `quantity.minimum`, `status`, `tax_mode`, `unit_price.amount`, and `unit_price.currency_code`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *PriceOrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -116,16 +116,22 @@ type ListPricesRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// ProductID is a query parameter.
 	// Return entities related to the specified product. Use a comma-separated list to specify multiple product IDs.
-	ProductID []string `in:"query=product_id;omitempty" json:"-"`
+	ProductID []string `in:"paddle_list=product_id" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []Status `in:"paddle_list=status" json:"-"`
 	// Recurring is a query parameter.
 	// Determine whether returned entities are for recurring prices (`true`) or one-time prices (`false`).
 	Recurring *bool `in:"query=recurring;omitempty" json:"-"`
+	// BillingCycleInterval is a query parameter.
+	// Return entities where the price billing cycle interval matches this value.
+	BillingCycleInterval *Interval `in:"query=billing_cycle.interval;omitempty" json:"-"`
+	// BillingCycleFrequency is a query parameter.
+	// Return entities where the price billing cycle frequency matches this value.
+	BillingCycleFrequency *int `in:"query=billing_cycle.frequency;omitempty" json:"-"`
 	// Type is a query parameter.
 	// Return items that match the specified type.
-	Type *string `in:"query=type;omitempty" json:"-"`
+	Type *CatalogType `in:"query=type;omitempty" json:"-"`
 
 	// IncludeProduct allows requesting the product sub-resource as part of this request.
 	// If set to true, will be included on the response.
@@ -234,4 +240,40 @@ func (c *PricesClient) UpdatePrice(ctx context.Context, req *UpdatePriceRequest)
 	}
 
 	return res, nil
+}
+
+type PriceOrderBy string
+
+const (
+	PriceOrderByBillingCycleFrequencyAsc  PriceOrderBy = "billing_cycle.frequency[ASC]"
+	PriceOrderByBillingCycleFrequencyDesc PriceOrderBy = "billing_cycle.frequency[DESC]"
+	PriceOrderByBillingCycleIntervalAsc   PriceOrderBy = "billing_cycle.interval[ASC]"
+	PriceOrderByBillingCycleIntervalDesc  PriceOrderBy = "billing_cycle.interval[DESC]"
+	PriceOrderByIDAsc                     PriceOrderBy = "id[ASC]"
+	PriceOrderByIDDesc                    PriceOrderBy = "id[DESC]"
+	PriceOrderByProductIDAsc              PriceOrderBy = "product_id[ASC]"
+	PriceOrderByProductIDDesc             PriceOrderBy = "product_id[DESC]"
+	PriceOrderByQuantityMaximumAsc        PriceOrderBy = "quantity.maximum[ASC]"
+	PriceOrderByQuantityMaximumDesc       PriceOrderBy = "quantity.maximum[DESC]"
+	PriceOrderByQuantityMinimumAsc        PriceOrderBy = "quantity.minimum[ASC]"
+	PriceOrderByQuantityMinimumDesc       PriceOrderBy = "quantity.minimum[DESC]"
+	PriceOrderByStatusAsc                 PriceOrderBy = "status[ASC]"
+	PriceOrderByStatusDesc                PriceOrderBy = "status[DESC]"
+	PriceOrderByTaxModeAsc                PriceOrderBy = "tax_mode[ASC]"
+	PriceOrderByTaxModeDesc               PriceOrderBy = "tax_mode[DESC]"
+	PriceOrderByUnitPriceAmountAsc        PriceOrderBy = "unit_price.amount[ASC]"
+	PriceOrderByUnitPriceAmountDesc       PriceOrderBy = "unit_price.amount[DESC]"
+	PriceOrderByUnitPriceCurrencyCodeAsc  PriceOrderBy = "unit_price.currency_code[ASC]"
+	PriceOrderByUnitPriceCurrencyCodeDesc PriceOrderBy = "unit_price.currency_code[DESC]"
+)
+
+// MarshalText encodes PriceOrderBy as its wire value, for use in query parameters.
+func (v PriceOrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PriceOrderBy from its wire value.
+func (v *PriceOrderBy) UnmarshalText(b []byte) error {
+	*v = PriceOrderBy(b)
+	return nil
 }

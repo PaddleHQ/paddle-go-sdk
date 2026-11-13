@@ -12,6 +12,17 @@ const (
 	ClientTokenStatusRevoked ClientTokenStatus = "revoked"
 )
 
+// MarshalText encodes ClientTokenStatus as its wire value, for use in query parameters.
+func (v ClientTokenStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ClientTokenStatus from its wire value.
+func (v *ClientTokenStatus) UnmarshalText(b []byte) error {
+	*v = ClientTokenStatus(b)
+	return nil
+}
+
 // ClientSideToken: Represents a client-side token entity.
 type ClientSideToken struct {
 	// ID: Unique Paddle ID for this client-side token entity, prefixed with `ctkn_`. Not used for Paddle.js authentication; use `token` for authentication.
@@ -48,7 +59,7 @@ type ListClientTokensRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -58,7 +69,7 @@ type ListClientTokensRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []ClientTokenStatus `in:"paddle_list=status" json:"-"`
 }
 
 // ListClientTokens performs the GET operation on a Client tokens resource.
