@@ -2,15 +2,17 @@ package client
 
 import (
 	"errors"
+	"iter"
 	"reflect"
 
 	"github.com/ggicci/httpin/core"
 )
 
-// Operand is implemented by query values that can carry an operator, such as
-// paddle.DateComparison.
+// Operand is implemented by query values that carry operators, such as
+// paddle.DateFilter. QueryOperators yields each operator and value in the
+// order they're encoded; an empty operator is an exact match.
 type Operand interface {
-	QueryOperator() (operator, value string)
+	QueryOperators() iter.Seq2[string, string]
 }
 
 // DirectiveOperator is a directive that adds a query parameter keyed by the
@@ -28,16 +30,17 @@ func (*DirectiveOperator) Decode(_ *core.DirectiveRuntime) error {
 // does not implement Operand.
 var ErrDirectiveRequiresOperand = errors.New("operator directive requires an Operand value")
 
-// Encode sets the query parameter `name[OPERATOR]=value`, or `name=value`
-// when the value has no operator. A nil or empty value sets nothing, like omitempty.
+// Encode sets a query parameter `name[OPERATOR]=value` for each operator the
+// value yields, or `name=value` for an empty operator. A nil value sets
+// nothing, like omitempty.
 // e.g.
 //
 //	type Request struct {
-//	 BilledAt *paddle.DateComparison `in:"paddle_operator=billed_at"`
+//	 BilledAt *paddle.DateFilter `in:"paddle_operator=billed_at"`
 //	}
 //
-//	Req{BilledAt: &paddle.DateComparison{Date: "2024-01-01T00:00:00Z", Operator: "LT"}}
-//	// ?billed_at[LT]=2024-01-01T00:00:00Z
+//	Req{BilledAt: &paddle.DateFilter{GTE: paddle.PtrTo("2024-01-01T00:00:00Z"), LT: paddle.PtrTo("2024-02-01T00:00:00Z")}}
+//	// ?billed_at[GTE]=2024-01-01T00:00:00Z&billed_at[LT]=2024-02-01T00:00:00Z
 func (*DirectiveOperator) Encode(rtm *core.DirectiveRuntime) error {
 	if len(rtm.Directive.Argv) == 0 {
 		return nil
@@ -52,17 +55,15 @@ func (*DirectiveOperator) Encode(rtm *core.DirectiveRuntime) error {
 		return ErrDirectiveRequiresOperand
 	}
 
-	operator, value := operand.QueryOperator()
-	if value == "" {
-		return nil
-	}
+	name := rtm.Directive.Argv[0]
+	for operator, value := range operand.QueryOperators() {
+		key := name
+		if operator != "" {
+			key += "[" + operator + "]"
+		}
 
-	key := rtm.Directive.Argv[0]
-	if operator != "" {
-		key += "[" + operator + "]"
+		rtm.GetRequestBuilder().SetQuery(key, []string{value})
 	}
-
-	rtm.GetRequestBuilder().SetQuery(key, []string{value})
 
 	return nil
 }

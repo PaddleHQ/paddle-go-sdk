@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"iter"
 	"net/http"
 	"testing"
 
@@ -30,23 +31,31 @@ func TestDirectiveOperator(t *testing.T) {
 		{
 			name: "with operator",
 			req: &OperatorRequest{
-				BilledAt: &operand{operator: "LT", value: "2024-01-01T00:00:00Z"},
+				BilledAt: &operand{{"LT", "2024-01-01T00:00:00Z"}},
 			},
 
 			expectedURL: "/?billed_at%5BLT%5D=2024-01-01T00%3A00%3A00Z",
 		},
 		{
+			name: "multiple operators",
+			req: &OperatorRequest{
+				BilledAt: &operand{{"GTE", "2024-01-01T00:00:00Z"}, {"LT", "2024-02-01T00:00:00Z"}},
+			},
+
+			expectedURL: "/?billed_at%5BGTE%5D=2024-01-01T00%3A00%3A00Z&billed_at%5BLT%5D=2024-02-01T00%3A00%3A00Z",
+		},
+		{
 			name: "exact match",
 			req: &OperatorRequest{
-				BilledAt: &operand{value: "2024-01-01T00:00:00Z"},
+				BilledAt: &operand{{"", "2024-01-01T00:00:00Z"}},
 			},
 
 			expectedURL: "/?billed_at=2024-01-01T00%3A00%3A00Z",
 		},
 		{
-			name: "empty value",
+			name: "no operators",
 			req: &OperatorRequest{
-				BilledAt: &operand{operator: "GTE"},
+				BilledAt: &operand{},
 			},
 
 			expectedURL: "/",
@@ -77,13 +86,16 @@ func TestDirectiveOperator(t *testing.T) {
 	}
 }
 
-type operand struct {
-	operator string
-	value    string
-}
+type operand [][2]string
 
-func (c operand) QueryOperator() (string, string) {
-	return c.operator, c.value
+func (o operand) QueryOperators() iter.Seq2[string, string] {
+	return func(yield func(string, string) bool) {
+		for _, pair := range o {
+			if !yield(pair[0], pair[1]) {
+				return
+			}
+		}
+	}
 }
 
 type OperatorRequest struct {
