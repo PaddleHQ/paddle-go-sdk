@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 6.0.0 - 2026-11-12
+
+### Added
+
+- Support for the Checkout Domains API to list, get, delete, and verify Apple Pay payment methods for checkout domains, see [changelog](https://developer.paddle.com/changelog/2026/checkout-domains-api?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for listing subscription history, showing the changes made to a subscription over time, see [changelog](https://developer.paddle.com/changelog/2026/subscription-history?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `consent_requirements` on subscriptions, subscription previews and subscription notifications, showing where explicit customer consent is required for renewal, see [changelog](https://developer.paddle.com/changelog/2026/subscription-consent-requirements?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for PayPal payer details on transaction `method_details`, see [changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `rotatable` on the api_key webhook payload, see [changelog](https://developer.paddle.com/changelog/2026/aws-secrets-manager-rotation?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for the `checkouts` report type, see [changelog](https://developer.paddle.com/changelog/2026/checkouts-report?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for paid trials via `unit_price` and `unit_price_overrides` on price trial periods, see [changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for the Verifications API to list and get account verifications
+- Support for the Countries API to list supported countries
+- Support for the Currencies API to list supported currencies
+- Support for the Metrics Explore API to run explore queries and list metric entities, see [changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for the `subscriptions` report type and its filters, including `subscription_scheduled_change_action`, see [changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-go-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `filter`, `to`, and `from` query parameters when listing events, see [changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `view_subscription` on subscription management URLs and customer portal session deep links, see [changelog](https://developer.paddle.com/changelog/2026/view-subscription-customer-portal-link?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `CLP` and `PEN` currency codes, see [changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for `balance_movement_date` and `balance_movement_type` filters on payout reconciliation reports, see [changelog](https://developer.paddle.com/changelog/2026/payout-reconciliation-report-filters?utm_source=dx&utm_medium=paddle-go-sdk)
+- Support for additional payment method, error code, API key permission, and report enum values (`korea_local`, `prepaid_card_not_supported`, `blocked_by_policy`, `metrics.read`, `subscription_history.read`, `verification.read`, `checkout_domain.read`, `checkout_domain.write`, plus notification-side report types and filters including `balance` and `payout_reconciliation`)
+
+### Changed
+
+- Module path is now `github.com/PaddleHQ/paddle-go-sdk/v6`, see [UPGRADING](./UPGRADING.md) for details
+- Minimum supported Go version is now 1.26, see [UPGRADING](./UPGRADING.md) for details
+- `ReplayNotification` now returns the `NotificationReplay` response, with the ID of the notification created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `ReplaySimulationRunEvent` now returns the `SimulationEvent` created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `WebhookVerifier` now verifies webhook timestamps by default, rejecting webhooks more than 5 seconds from the current time with `ErrReplayAttack`. Use `VerifierWithTimestampTolerance` to change the tolerance or `VerifierWithoutTimestampVerification` to disable, see [UPGRADING](./UPGRADING.md) for details
+- `SubscriptionCreatedNotification` now embeds `SubscriptionNotification` rather than duplicating its fields, see [UPGRADING](./UPGRADING.md) for details
+- `PaymentMethodSavedNotification` and `PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`, and the duplicate `Origin` type is removed in favour of `PaymentMethodOrigin`, see [UPGRADING](./UPGRADING.md) for details
+
 ## 5.2.0 - 2026-03-30
 
 ### Added
