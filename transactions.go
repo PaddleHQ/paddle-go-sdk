@@ -936,35 +936,35 @@ type ListTransactionsRequest struct {
 	BilledAt *string `in:"query=billed_at;omitempty" json:"-"`
 	// CollectionMode is a query parameter.
 	// Return entities that match the specified collection mode.
-	CollectionMode *string `in:"query=collection_mode;omitempty" json:"-"`
+	CollectionMode *CollectionMode `in:"query=collection_mode;omitempty" json:"-"`
 	// CreatedAt is a query parameter.
 	// Return entities created at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `created_at=2023-04-18T17:03:26` or `created_at[LT]=2023-04-18T17:03:26`.
 	CreatedAt *string `in:"query=created_at;omitempty" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
-	CustomerID []string `in:"query=customer_id;omitempty" json:"-"`
+	CustomerID []string `in:"paddle_list=customer_id" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// InvoiceNumber is a query parameter.
 	// Return entities that match the invoice number. Use a comma-separated list to specify multiple invoice numbers.
-	InvoiceNumber []string `in:"query=invoice_number;omitempty" json:"-"`
+	InvoiceNumber []string `in:"paddle_list=invoice_number" json:"-"`
 	// Origin is a query parameter.
 	// Return entities related to the specified origin. Use a comma-separated list to specify multiple origins.
-	Origin []string `in:"query=origin;omitempty" json:"-"`
+	Origin []TransactionOriginQuery `in:"paddle_list=origin" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `billed_at`, `created_at`, `id`, and `updated_at`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *TransactionOrderBy `in:"query=order_by;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []TransactionStatus `in:"paddle_list=status" json:"-"`
 	// SubscriptionID is a query parameter.
 	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that aren't related to any subscription.
-	SubscriptionID []string `in:"query=subscription_id;omitempty" json:"-"`
+	SubscriptionID []string `in:"paddle_list=subscription_id" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -1419,7 +1419,7 @@ type GetTransactionInvoiceRequest struct {
 
 	   Default: `attachment`.
 	*/
-	Disposition *string `in:"query=disposition;omitempty" json:"-"`
+	Disposition *Disposition `in:"query=disposition;omitempty" json:"-"`
 }
 
 // GetTransactionInvoice performs the GET operation on a Transactions resource.
@@ -1429,4 +1429,51 @@ func (c *TransactionsClient) GetTransactionInvoice(ctx context.Context, req *Get
 	}
 
 	return res, nil
+}
+
+type TransactionOrderBy string
+
+const (
+	TransactionOrderByBilledAtAsc   TransactionOrderBy = "billed_at[ASC]"
+	TransactionOrderByBilledAtDesc  TransactionOrderBy = "billed_at[DESC]"
+	TransactionOrderByCreatedAtAsc  TransactionOrderBy = "created_at[ASC]"
+	TransactionOrderByCreatedAtDesc TransactionOrderBy = "created_at[DESC]"
+	TransactionOrderByIDAsc         TransactionOrderBy = "id[ASC]"
+	TransactionOrderByIDDesc        TransactionOrderBy = "id[DESC]"
+	TransactionOrderByUpdatedAtAsc  TransactionOrderBy = "updated_at[ASC]"
+	TransactionOrderByUpdatedAtDesc TransactionOrderBy = "updated_at[DESC]"
+)
+
+// MarshalText encodes TransactionOrderBy as its wire value, for use in query parameters.
+func (v TransactionOrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionOrderBy from its wire value.
+func (v *TransactionOrderBy) UnmarshalText(b []byte) error {
+	*v = TransactionOrderBy(b)
+	return nil
+}
+
+type TransactionOriginQuery string
+
+const (
+	TransactionOriginQueryAPI                             TransactionOriginQuery = "api"
+	TransactionOriginQuerySubscriptionCharge              TransactionOriginQuery = "subscription_charge"
+	TransactionOriginQuerySubscriptionPaymentMethodChange TransactionOriginQuery = "subscription_payment_method_change"
+	TransactionOriginQuerySubscriptionRecurring           TransactionOriginQuery = "subscription_recurring"
+	TransactionOriginQuerySubscriptionUpdate              TransactionOriginQuery = "subscription_update"
+	TransactionOriginQuerySubscriptionImport              TransactionOriginQuery = "subscription_import"
+	TransactionOriginQueryWeb                             TransactionOriginQuery = "web"
+)
+
+// MarshalText encodes TransactionOriginQuery as its wire value, for use in query parameters.
+func (v TransactionOriginQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionOriginQuery from its wire value.
+func (v *TransactionOriginQuery) UnmarshalText(b []byte) error {
+	*v = TransactionOriginQuery(b)
+	return nil
 }

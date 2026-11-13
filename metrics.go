@@ -11,6 +11,17 @@ const (
 	MetricsIntervalDay MetricsInterval = "day"
 )
 
+// MarshalText encodes MetricsInterval as its wire value, for use in query parameters.
+func (v MetricsInterval) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsInterval from its wire value.
+func (v *MetricsInterval) UnmarshalText(b []byte) error {
+	*v = MetricsInterval(b)
+	return nil
+}
+
 // MetricsTimeseriesMonthlyRecurringRevenueDatapoint: A single datapoint in a monthly recurring revenue metrics timeseries. Used by both MRR and MRR change endpoints.
 type MetricsTimeseriesMonthlyRecurringRevenueDatapoint struct {
 	// Timestamp: RFC 3339 datetime string for this datapoint.
@@ -324,6 +335,17 @@ const (
 	MetricEntitySubscriptions          MetricEntity = "subscriptions"
 )
 
+// MarshalText encodes MetricEntity as its wire value, for use in query parameters.
+func (v MetricEntity) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricEntity from its wire value.
+func (v *MetricEntity) UnmarshalText(b []byte) error {
+	*v = MetricEntity(b)
+	return nil
+}
+
 // MetricsBucketInterval: Interval that a metric query is bucketed by. Buckets are UTC, and weeks start on Monday.
 type MetricsBucketInterval string
 
@@ -333,6 +355,17 @@ const (
 	MetricsBucketIntervalMonth MetricsBucketInterval = "month"
 )
 
+// MarshalText encodes MetricsBucketInterval as its wire value, for use in query parameters.
+func (v MetricsBucketInterval) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsBucketInterval from its wire value.
+func (v *MetricsBucketInterval) UnmarshalText(b []byte) error {
+	*v = MetricsBucketInterval(b)
+	return nil
+}
+
 // MetricsAggregation: Aggregation applied to a measure field. Each entity defines which aggregations are allowed for each field. An aggregation that isn't allowed returns `invalid_aggregation`.
 type MetricsAggregation string
 
@@ -341,6 +374,17 @@ const (
 	MetricsAggregationCountDistinct MetricsAggregation = "count_distinct"
 	MetricsAggregationSum           MetricsAggregation = "sum"
 )
+
+// MarshalText encodes MetricsAggregation as its wire value, for use in query parameters.
+func (v MetricsAggregation) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsAggregation from its wire value.
+func (v *MetricsAggregation) UnmarshalText(b []byte) error {
+	*v = MetricsAggregation(b)
+	return nil
+}
 
 // MetricsFieldType: Value type of a metrics field, whether a dimension or a measure. Numeric values are returned as strings to preserve precision.
 type MetricsFieldType string
@@ -352,12 +396,34 @@ const (
 	MetricsFieldTypeCurrency MetricsFieldType = "currency"
 )
 
+// MarshalText encodes MetricsFieldType as its wire value, for use in query parameters.
+func (v MetricsFieldType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsFieldType from its wire value.
+func (v *MetricsFieldType) UnmarshalText(b []byte) error {
+	*v = MetricsFieldType(b)
+	return nil
+}
+
 // MetricsFilterOperator: Filter operator for a metric query. Each entity lists the operators valid for each dimension, and an operator that isn't valid for a field returns `invalid_operator`. Only `in` is supported.
 type MetricsFilterOperator string
 
 const (
 	MetricsFilterOperatorIn MetricsFilterOperator = "in"
 )
+
+// MarshalText encodes MetricsFilterOperator as its wire value, for use in query parameters.
+func (v MetricsFilterOperator) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsFilterOperator from its wire value.
+func (v *MetricsFilterOperator) UnmarshalText(b []byte) error {
+	*v = MetricsFilterOperator(b)
+	return nil
+}
 
 // MetricsSortDirection: Sort direction for a metric ordering.
 type MetricsSortDirection string
@@ -366,6 +432,17 @@ const (
 	MetricsSortDirectionAsc  MetricsSortDirection = "asc"
 	MetricsSortDirectionDesc MetricsSortDirection = "desc"
 )
+
+// MarshalText encodes MetricsSortDirection as its wire value, for use in query parameters.
+func (v MetricsSortDirection) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes MetricsSortDirection from its wire value.
+func (v *MetricsSortDirection) UnmarshalText(b []byte) error {
+	*v = MetricsSortDirection(b)
+	return nil
+}
 
 // MetricsExploreFilter: A filter applied to a dimensional field. With the `in` operator, `value` is the array of values to match.
 type MetricsExploreFilter struct {

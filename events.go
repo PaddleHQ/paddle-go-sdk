@@ -509,7 +509,7 @@ type ListEventsRequest struct {
 
 	   Valid fields for ordering: `id` (for `event_id`).
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -519,7 +519,7 @@ type ListEventsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// EventType is a query parameter.
 	// Return events that match the specified event type. Use a comma-separated list to specify multiple event types.
-	EventType []string `in:"query=event_type;omitempty" json:"-"`
+	EventType []EventTypeName `in:"paddle_list=event_type" json:"-"`
 	// Filter is a query parameter.
 	// Return entities that contain the value specified. Pass a Paddle ID or email address that appears in the event payload, or part of one. Complete Paddle IDs and email addresses match exactly; partial values match as a prefix or substring, and must be at least three characters.
 	Filter *string `in:"query=filter;omitempty" json:"-"`

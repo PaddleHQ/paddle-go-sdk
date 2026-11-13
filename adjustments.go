@@ -126,19 +126,6 @@ var ErrAdjustmentPayoutEarningsCannotBeZero = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
-// AdjustmentActionQuery: Return entities for the specified action..
-type AdjustmentActionQuery string
-
-const (
-	AdjustmentActionQueryChargeback               AdjustmentActionQuery = "chargeback"
-	AdjustmentActionQueryChargebackReverse        AdjustmentActionQuery = "chargeback_reverse"
-	AdjustmentActionQueryChargebackWarning        AdjustmentActionQuery = "chargeback_warning"
-	AdjustmentActionQueryChargebackWarningReverse AdjustmentActionQuery = "chargeback_warning_reverse"
-	AdjustmentActionQueryCredit                   AdjustmentActionQuery = "credit"
-	AdjustmentActionQueryCreditReverse            AdjustmentActionQuery = "credit_reverse"
-	AdjustmentActionQueryRefund                   AdjustmentActionQuery = "refund"
-)
-
 /*
 AdjustmentTaxMode: Whether the amounts to be adjusted are inclusive or exclusive of tax. If `internal`, adjusted amounts are considered to be inclusive of tax. If `external`, Paddle calculates the tax and adds it to the amounts provided.
 
@@ -153,6 +140,17 @@ const (
 	AdjustmentTaxModeInternal AdjustmentTaxMode = "internal"
 )
 
+// MarshalText encodes AdjustmentTaxMode as its wire value, for use in query parameters.
+func (v AdjustmentTaxMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentTaxMode from its wire value.
+func (v *AdjustmentTaxMode) UnmarshalText(b []byte) error {
+	*v = AdjustmentTaxMode(b)
+	return nil
+}
+
 /*
 AdjustmentItemCreateType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 Include `amount` when creating a `partial` adjustment..
@@ -163,6 +161,17 @@ const (
 	AdjustmentItemCreateTypeFull    AdjustmentItemCreateType = "full"
 	AdjustmentItemCreateTypePartial AdjustmentItemCreateType = "partial"
 )
+
+// MarshalText encodes AdjustmentItemCreateType as its wire value, for use in query parameters.
+func (v AdjustmentItemCreateType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentItemCreateType from its wire value.
+func (v *AdjustmentItemCreateType) UnmarshalText(b []byte) error {
+	*v = AdjustmentItemCreateType(b)
+	return nil
+}
 
 // AdjustmentItemCreate: List of transaction items to adjust. Required if `type` is not populated or set to `partial`.
 type AdjustmentItemCreate struct {
@@ -191,20 +200,20 @@ type AdjustmentsClient struct {
 type ListAdjustmentsRequest struct {
 	// Action is a query parameter.
 	// Return entities for the specified action.
-	Action *string `in:"query=action;omitempty" json:"-"`
+	Action []AdjustmentAction `in:"paddle_list=action" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
-	CustomerID []string `in:"query=customer_id;omitempty" json:"-"`
+	CustomerID []string `in:"paddle_list=customer_id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -214,16 +223,16 @@ type ListAdjustmentsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []AdjustmentStatus `in:"paddle_list=status" json:"-"`
 	// SubscriptionID is a query parameter.
 	// Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs.
-	SubscriptionID []string `in:"query=subscription_id;omitempty" json:"-"`
+	SubscriptionID []string `in:"paddle_list=subscription_id" json:"-"`
 	// TransactionID is a query parameter.
 	// Return entities related to the specified transaction. Use a comma-separated list to specify multiple transaction IDs.
-	TransactionID []string `in:"query=transaction_id;omitempty" json:"-"`
+	TransactionID []string `in:"paddle_list=transaction_id" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 }
 
 // ListAdjustments performs the GET operation on a Adjustments resource.
@@ -283,7 +292,7 @@ type GetAdjustmentCreditNoteRequest struct {
 
 	   Default: `attachment`.
 	*/
-	Disposition *string `in:"query=disposition;omitempty" json:"-"`
+	Disposition *Disposition `in:"query=disposition;omitempty" json:"-"`
 }
 
 // GetAdjustmentCreditNote performs the GET operation on a Adjustments resource.

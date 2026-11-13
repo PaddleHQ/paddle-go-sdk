@@ -64,6 +64,17 @@ const (
 	ReportStatusExpired ReportStatus = "expired"
 )
 
+// MarshalText encodes ReportStatus as its wire value, for use in query parameters.
+func (v ReportStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ReportStatus from its wire value.
+func (v *ReportStatus) UnmarshalText(b []byte) error {
+	*v = ReportStatus(b)
+	return nil
+}
+
 // ReportType: Type of report to create..
 type ReportType string
 
@@ -79,6 +90,17 @@ const (
 	ReportTypeCheckouts            ReportType = "checkouts"
 	ReportTypeSubscriptions        ReportType = "subscriptions"
 )
+
+// MarshalText encodes ReportType as its wire value, for use in query parameters.
+func (v ReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ReportType from its wire value.
+func (v *ReportType) UnmarshalText(b []byte) error {
+	*v = ReportType(b)
+	return nil
+}
 
 // ReportFiltersName: Field name to filter by..
 type ReportFiltersName string
@@ -108,6 +130,17 @@ const (
 	ReportFiltersNameSubscriptionScheduledChangeAction ReportFiltersName = "subscription_scheduled_change_action"
 )
 
+// MarshalText encodes ReportFiltersName as its wire value, for use in query parameters.
+func (v ReportFiltersName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ReportFiltersName from its wire value.
+func (v *ReportFiltersName) UnmarshalText(b []byte) error {
+	*v = ReportFiltersName(b)
+	return nil
+}
+
 // FilterOperator: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise..
 type FilterOperator string
 
@@ -115,6 +148,17 @@ const (
 	FilterOperatorLt  FilterOperator = "lt"
 	FilterOperatorGte FilterOperator = "gte"
 )
+
+// MarshalText encodes FilterOperator as its wire value, for use in query parameters.
+func (v FilterOperator) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes FilterOperator from its wire value.
+func (v *FilterOperator) UnmarshalText(b []byte) error {
+	*v = FilterOperator(b)
+	return nil
+}
 
 // ReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type ReportFilters struct {
@@ -158,6 +202,17 @@ const (
 	AdjustmentsReportTypeAdjustmentLineItems AdjustmentsReportType = "adjustment_line_items"
 )
 
+// MarshalText encodes AdjustmentsReportType as its wire value, for use in query parameters.
+func (v AdjustmentsReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentsReportType from its wire value.
+func (v *AdjustmentsReportType) UnmarshalText(b []byte) error {
+	*v = AdjustmentsReportType(b)
+	return nil
+}
+
 // AdjustmentsReportFilterName: Field name to filter by..
 type AdjustmentsReportFilterName string
 
@@ -167,6 +222,17 @@ const (
 	AdjustmentsReportFilterNameStatus       AdjustmentsReportFilterName = "status"
 	AdjustmentsReportFilterNameUpdatedAt    AdjustmentsReportFilterName = "updated_at"
 )
+
+// MarshalText encodes AdjustmentsReportFilterName as its wire value, for use in query parameters.
+func (v AdjustmentsReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentsReportFilterName from its wire value.
+func (v *AdjustmentsReportFilterName) UnmarshalText(b []byte) error {
+	*v = AdjustmentsReportFilterName(b)
+	return nil
+}
 
 // AdjustmentsReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type AdjustmentsReportFilters struct {
@@ -194,6 +260,17 @@ const (
 	TransactionsReportTypeTransactionLineItems TransactionsReportType = "transaction_line_items"
 )
 
+// MarshalText encodes TransactionsReportType as its wire value, for use in query parameters.
+func (v TransactionsReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionsReportType from its wire value.
+func (v *TransactionsReportType) UnmarshalText(b []byte) error {
+	*v = TransactionsReportType(b)
+	return nil
+}
+
 // TransactionsReportFilterName: Field name to filter by..
 type TransactionsReportFilterName string
 
@@ -204,6 +281,17 @@ const (
 	TransactionsReportFilterNameStatus         TransactionsReportFilterName = "status"
 	TransactionsReportFilterNameUpdatedAt      TransactionsReportFilterName = "updated_at"
 )
+
+// MarshalText encodes TransactionsReportFilterName as its wire value, for use in query parameters.
+func (v TransactionsReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionsReportFilterName from its wire value.
+func (v *TransactionsReportFilterName) UnmarshalText(b []byte) error {
+	*v = TransactionsReportFilterName(b)
+	return nil
+}
 
 // TransactionsReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type TransactionsReportFilters struct {
@@ -228,6 +316,17 @@ type ProductsPricesReportType string
 
 const ProductsPricesReportTypeProductsPrices ProductsPricesReportType = "products_prices"
 
+// MarshalText encodes ProductsPricesReportType as its wire value, for use in query parameters.
+func (v ProductsPricesReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ProductsPricesReportType from its wire value.
+func (v *ProductsPricesReportType) UnmarshalText(b []byte) error {
+	*v = ProductsPricesReportType(b)
+	return nil
+}
+
 // ProductPricesReportFilterName: Field name to filter by..
 type ProductPricesReportFilterName string
 
@@ -239,6 +338,17 @@ const (
 	ProductPricesReportFilterNameProductUpdatedAt ProductPricesReportFilterName = "product_updated_at"
 	ProductPricesReportFilterNamePriceUpdatedAt   ProductPricesReportFilterName = "price_updated_at"
 )
+
+// MarshalText encodes ProductPricesReportFilterName as its wire value, for use in query parameters.
+func (v ProductPricesReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ProductPricesReportFilterName from its wire value.
+func (v *ProductPricesReportFilterName) UnmarshalText(b []byte) error {
+	*v = ProductPricesReportFilterName(b)
+	return nil
+}
 
 // ProductPricesReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type ProductPricesReportFilters struct {
@@ -263,6 +373,17 @@ type DiscountsReportType string
 
 const DiscountsReportTypeDiscounts DiscountsReportType = "discounts"
 
+// MarshalText encodes DiscountsReportType as its wire value, for use in query parameters.
+func (v DiscountsReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountsReportType from its wire value.
+func (v *DiscountsReportType) UnmarshalText(b []byte) error {
+	*v = DiscountsReportType(b)
+	return nil
+}
+
 // DiscountsReportFilterName: Field name to filter by..
 type DiscountsReportFilterName string
 
@@ -271,6 +392,17 @@ const (
 	DiscountsReportFilterNameStatus    DiscountsReportFilterName = "status"
 	DiscountsReportFilterNameUpdatedAt DiscountsReportFilterName = "updated_at"
 )
+
+// MarshalText encodes DiscountsReportFilterName as its wire value, for use in query parameters.
+func (v DiscountsReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountsReportFilterName from its wire value.
+func (v *DiscountsReportFilterName) UnmarshalText(b []byte) error {
+	*v = DiscountsReportFilterName(b)
+	return nil
+}
 
 // DiscountsReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type DiscountsReportFilters struct {
@@ -295,10 +427,32 @@ type BalanceReportType string
 
 const BalanceReportTypeBalance BalanceReportType = "balance"
 
+// MarshalText encodes BalanceReportType as its wire value, for use in query parameters.
+func (v BalanceReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes BalanceReportType from its wire value.
+func (v *BalanceReportType) UnmarshalText(b []byte) error {
+	*v = BalanceReportType(b)
+	return nil
+}
+
 // BalanceReportFilterName: Field name to filter by..
 type BalanceReportFilterName string
 
 const BalanceReportFilterNameUpdatedAt BalanceReportFilterName = "updated_at"
+
+// MarshalText encodes BalanceReportFilterName as its wire value, for use in query parameters.
+func (v BalanceReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes BalanceReportFilterName from its wire value.
+func (v *BalanceReportFilterName) UnmarshalText(b []byte) error {
+	*v = BalanceReportFilterName(b)
+	return nil
+}
 
 // BalanceReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include Paddle Billing data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type BalanceReportFilters struct {
@@ -323,6 +477,17 @@ type PayoutReconciliationReportType string
 
 const PayoutReconciliationReportTypePayoutReconciliation PayoutReconciliationReportType = "payout_reconciliation"
 
+// MarshalText encodes PayoutReconciliationReportType as its wire value, for use in query parameters.
+func (v PayoutReconciliationReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PayoutReconciliationReportType from its wire value.
+func (v *PayoutReconciliationReportType) UnmarshalText(b []byte) error {
+	*v = PayoutReconciliationReportType(b)
+	return nil
+}
+
 // PayoutReconciliationReportFilterName: Field name to filter by..
 type PayoutReconciliationReportFilterName string
 
@@ -332,6 +497,17 @@ const (
 	PayoutReconciliationReportFilterNameBalanceMovementDate  PayoutReconciliationReportFilterName = "balance_movement_date"
 	PayoutReconciliationReportFilterNameBalanceMovementType  PayoutReconciliationReportFilterName = "balance_movement_type"
 )
+
+// MarshalText encodes PayoutReconciliationReportFilterName as its wire value, for use in query parameters.
+func (v PayoutReconciliationReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PayoutReconciliationReportFilterName from its wire value.
+func (v *PayoutReconciliationReportFilterName) UnmarshalText(b []byte) error {
+	*v = PayoutReconciliationReportFilterName(b)
+	return nil
+}
 
 // PayoutReconciliationReportFilters: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `transaction_updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
 type PayoutReconciliationReportFilters struct {
@@ -356,6 +532,17 @@ type CheckoutsReportType string
 
 const CheckoutsReportTypeCheckouts CheckoutsReportType = "checkouts"
 
+// MarshalText encodes CheckoutsReportType as its wire value, for use in query parameters.
+func (v CheckoutsReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutsReportType from its wire value.
+func (v *CheckoutsReportType) UnmarshalText(b []byte) error {
+	*v = CheckoutsReportType(b)
+	return nil
+}
+
 // CheckoutsReportFilterName: Field name to filter by..
 type CheckoutsReportFilterName string
 
@@ -363,6 +550,17 @@ const (
 	CheckoutsReportFilterNameCheckoutCreatedAt   CheckoutsReportFilterName = "checkout_created_at"
 	CheckoutsReportFilterNameCustomerCountryCode CheckoutsReportFilterName = "customer_country_code"
 )
+
+// MarshalText encodes CheckoutsReportFilterName as its wire value, for use in query parameters.
+func (v CheckoutsReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutsReportFilterName from its wire value.
+func (v *CheckoutsReportFilterName) UnmarshalText(b []byte) error {
+	*v = CheckoutsReportFilterName(b)
+	return nil
+}
 
 // CheckoutsReportFilters: Filter criteria for this report. If no `gte` filter for `checkout_created_at` is passed, reports are filtered to include checkouts created in the last month. This means `checkout_created_at` is greater than or equal to (`gte`) the same date and time one calendar month before the report was generated, so the window is between 28 and 31 days depending on the month. To filter by a specific date range, pass two `checkout_created_at` filters with `gte` and `lt` operators.
 type CheckoutsReportFilters struct {
@@ -387,6 +585,17 @@ type SubscriptionsReportType string
 
 const SubscriptionsReportTypeSubscriptions SubscriptionsReportType = "subscriptions"
 
+// MarshalText encodes SubscriptionsReportType as its wire value, for use in query parameters.
+func (v SubscriptionsReportType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionsReportType from its wire value.
+func (v *SubscriptionsReportType) UnmarshalText(b []byte) error {
+	*v = SubscriptionsReportType(b)
+	return nil
+}
+
 // SubscriptionsReportFilterName: Field name to filter by.
 type SubscriptionsReportFilterName string
 
@@ -396,6 +605,17 @@ const (
 	SubscriptionsReportFilterNameCustomerCountryCode               SubscriptionsReportFilterName = "customer_country_code"
 	SubscriptionsReportFilterNameSubscriptionScheduledChangeAction SubscriptionsReportFilterName = "subscription_scheduled_change_action"
 )
+
+// MarshalText encodes SubscriptionsReportFilterName as its wire value, for use in query parameters.
+func (v SubscriptionsReportFilterName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionsReportFilterName from its wire value.
+func (v *SubscriptionsReportFilterName) UnmarshalText(b []byte) error {
+	*v = SubscriptionsReportFilterName(b)
+	return nil
+}
 
 // SubscriptionsReportFilters: Filter criteria for this report. Subscriptions reports have no default date range. If you don't pass a `subscription_created_at` filter, reports include all your subscriptions. To filter by a specific date range, pass two `subscription_created_at` filters with `gte` and `lt` operators.
 type SubscriptionsReportFilters struct {
@@ -436,7 +656,7 @@ type ListReportsRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -446,7 +666,7 @@ type ListReportsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []ReportStatus `in:"paddle_list=status" json:"-"`
 }
 
 // ListReports performs the GET operation on a Reports resource.

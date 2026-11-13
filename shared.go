@@ -206,6 +206,17 @@ const (
 	CatalogTypeStandard CatalogType = "standard"
 )
 
+// MarshalText encodes CatalogType as its wire value, for use in query parameters.
+func (v CatalogType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CatalogType from its wire value.
+func (v *CatalogType) UnmarshalText(b []byte) error {
+	*v = CatalogType(b)
+	return nil
+}
+
 // TaxCategory: Tax category for this product. Used for charging the correct rate of tax. Selected tax category must be enabled on your Paddle account..
 type TaxCategory string
 
@@ -221,6 +232,17 @@ const (
 	TaxCategoryWebsiteHosting              TaxCategory = "website-hosting"
 )
 
+// MarshalText encodes TaxCategory as its wire value, for use in query parameters.
+func (v TaxCategory) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TaxCategory from its wire value.
+func (v *TaxCategory) UnmarshalText(b []byte) error {
+	*v = TaxCategory(b)
+	return nil
+}
+
 // CustomData: Your own structured key-value data.
 type CustomData map[string]any
 
@@ -231,6 +253,17 @@ const (
 	StatusActive   Status = "active"
 	StatusArchived Status = "archived"
 )
+
+// MarshalText encodes Status as its wire value, for use in query parameters.
+func (v Status) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes Status from its wire value.
+func (v *Status) UnmarshalText(b []byte) error {
+	*v = Status(b)
+	return nil
+}
 
 // ImportMeta: Import information for this entity. `null` if this entity is not imported.
 type ImportMeta struct {
@@ -249,6 +282,17 @@ const (
 	IntervalMonth Interval = "month"
 	IntervalYear  Interval = "year"
 )
+
+// MarshalText encodes Interval as its wire value, for use in query parameters.
+func (v Interval) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes Interval from its wire value.
+func (v *Interval) UnmarshalText(b []byte) error {
+	*v = Interval(b)
+	return nil
+}
 
 // Duration: How often this price should be charged. `null` if price is non-recurring (one-time).
 type Duration struct {
@@ -290,6 +334,17 @@ const (
 	TaxModeLocation       TaxMode = "location"
 )
 
+// MarshalText encodes TaxMode as its wire value, for use in query parameters.
+func (v TaxMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TaxMode from its wire value.
+func (v *TaxMode) UnmarshalText(b []byte) error {
+	*v = TaxMode(b)
+	return nil
+}
+
 // CurrencyCode: Supported three-letter ISO 4217 currency code..
 type CurrencyCode string
 
@@ -328,6 +383,17 @@ const (
 	CurrencyCodeVND CurrencyCode = "VND"
 	CurrencyCodeZAR CurrencyCode = "ZAR"
 )
+
+// MarshalText encodes CurrencyCode as its wire value, for use in query parameters.
+func (v CurrencyCode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CurrencyCode from its wire value.
+func (v *CurrencyCode) UnmarshalText(b []byte) error {
+	*v = CurrencyCode(b)
+	return nil
+}
 
 // Money: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
 type Money struct {
@@ -580,6 +646,17 @@ const (
 	CountryCodeZM CountryCode = "ZM"
 )
 
+// MarshalText encodes CountryCode as its wire value, for use in query parameters.
+func (v CountryCode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CountryCode from its wire value.
+func (v *CountryCode) UnmarshalText(b []byte) error {
+	*v = CountryCode(b)
+	return nil
+}
+
 // UnitPriceOverride: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
 type UnitPriceOverride struct {
 	// CountryCodes: Two-letter ISO 3166-1 alpha-2 country code.
@@ -596,32 +673,6 @@ type PriceQuantity struct {
 	Maximum int `json:"maximum,omitempty"`
 }
 
-// Pagination: Keys used for working with paginated results.
-type Pagination struct {
-	// PerPage: Number of entities per page for this response. May differ from the number requested if the requested number is greater than the maximum.
-	PerPage int `json:"per_page,omitempty"`
-	// Next: URL containing the query parameters of the original request, along with the `after` parameter that marks the starting point of the next page. Always returned, even if `has_more` is `false`.
-	Next string `json:"next,omitempty"`
-	// HasMore: Whether this response has another page.
-	HasMore bool `json:"has_more,omitempty"`
-	// EstimatedTotal: Estimated number of entities for this response.
-	EstimatedTotal int `json:"estimated_total,omitempty"`
-}
-
-// MetaPaginated: Information about this response.
-type MetaPaginated struct {
-	// RequestID: Unique ID for the request relating to this response. Provide this when contacting Paddle support about a specific request.
-	RequestID string `json:"request_id,omitempty"`
-	// Pagination: Keys used for working with paginated results.
-	Pagination Pagination `json:"pagination,omitempty"`
-}
-
-// Meta: Information about this response.
-type Meta struct {
-	// RequestID: Unique ID for the request relating to this response. Provide this when contacting Paddle support about a specific request.
-	RequestID string `json:"request_id,omitempty"`
-}
-
 // CollectionMode: Return entities that match the specified collection mode..
 type CollectionMode string
 
@@ -629,6 +680,17 @@ const (
 	CollectionModeAutomatic CollectionMode = "automatic"
 	CollectionModeManual    CollectionMode = "manual"
 )
+
+// MarshalText encodes CollectionMode as its wire value, for use in query parameters.
+func (v CollectionMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CollectionMode from its wire value.
+func (v *CollectionMode) UnmarshalText(b []byte) error {
+	*v = CollectionMode(b)
+	return nil
+}
 
 // TransactionStatus: Status of this transaction. You may set a transaction to `billed` or `canceled`, other statuses are set automatically by Paddle. Automatically-collected transactions may return `completed` if payment is captured successfully, or `past_due` if payment failed..
 type TransactionStatus string
@@ -643,6 +705,17 @@ const (
 	TransactionStatusPastDue   TransactionStatus = "past_due"
 )
 
+// MarshalText encodes TransactionStatus as its wire value, for use in query parameters.
+func (v TransactionStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionStatus from its wire value.
+func (v *TransactionStatus) UnmarshalText(b []byte) error {
+	*v = TransactionStatus(b)
+	return nil
+}
+
 // TransactionOrigin: Describes how this transaction was created..
 type TransactionOrigin string
 
@@ -654,6 +727,17 @@ const (
 	TransactionOriginSubscriptionUpdate              TransactionOrigin = "subscription_update"
 	TransactionOriginWeb                             TransactionOrigin = "web"
 )
+
+// MarshalText encodes TransactionOrigin as its wire value, for use in query parameters.
+func (v TransactionOrigin) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TransactionOrigin from its wire value.
+func (v *TransactionOrigin) UnmarshalText(b []byte) error {
+	*v = TransactionOrigin(b)
+	return nil
+}
 
 // BillingDetails: Details for invoicing. Required if `collection_mode` is `manual`.
 type BillingDetails struct {
@@ -793,6 +877,17 @@ const (
 	CurrencyCodePayoutsZAR CurrencyCodePayouts = "ZAR"
 )
 
+// MarshalText encodes CurrencyCodePayouts as its wire value, for use in query parameters.
+func (v CurrencyCodePayouts) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CurrencyCodePayouts from its wire value.
+func (v *CurrencyCodePayouts) UnmarshalText(b []byte) error {
+	*v = CurrencyCodePayouts(b)
+	return nil
+}
+
 // TransactionPayoutTotals: Breakdown of the payout total for a transaction. `null` until the transaction is `completed`. Returned in your payout currency.
 type TransactionPayoutTotals struct {
 	// Subtotal: Total before tax and fees.
@@ -838,6 +933,17 @@ const (
 	CurrencyCodeChargebacksGBP CurrencyCodeChargebacks = "GBP"
 	CurrencyCodeChargebacksUSD CurrencyCodeChargebacks = "USD"
 )
+
+// MarshalText encodes CurrencyCodeChargebacks as its wire value, for use in query parameters.
+func (v CurrencyCodeChargebacks) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CurrencyCodeChargebacks from its wire value.
+func (v *CurrencyCodeChargebacks) UnmarshalText(b []byte) error {
+	*v = CurrencyCodeChargebacks(b)
+	return nil
+}
 
 // Original: Chargeback fee before conversion to the payout currency. `null` when the chargeback fee is the same as the payout currency.
 type Original struct {
@@ -929,6 +1035,17 @@ const (
 	PaymentAttemptStatusDropped                 PaymentAttemptStatus = "dropped"
 )
 
+// MarshalText encodes PaymentAttemptStatus as its wire value, for use in query parameters.
+func (v PaymentAttemptStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PaymentAttemptStatus from its wire value.
+func (v *PaymentAttemptStatus) UnmarshalText(b []byte) error {
+	*v = PaymentAttemptStatus(b)
+	return nil
+}
+
 // ErrorCode: Reason why a payment attempt failed. Returns `null` if payment captured successfully..
 type ErrorCode string
 
@@ -955,6 +1072,17 @@ const (
 	ErrorCodeTransactionNotPermitted      ErrorCode = "transaction_not_permitted"
 	ErrorCodeUnknown                      ErrorCode = "unknown"
 )
+
+// MarshalText encodes ErrorCode as its wire value, for use in query parameters.
+func (v ErrorCode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ErrorCode from its wire value.
+func (v *ErrorCode) UnmarshalText(b []byte) error {
+	*v = ErrorCode(b)
+	return nil
+}
 
 // PaymentMethodType: Type of payment method used for this payment attempt..
 type PaymentMethodType string
@@ -983,6 +1111,17 @@ const (
 	PaymentMethodTypeWeChatPay           PaymentMethodType = "wechat_pay"
 	PaymentMethodTypeWireTransfer        PaymentMethodType = "wire_transfer"
 )
+
+// MarshalText encodes PaymentMethodType as its wire value, for use in query parameters.
+func (v PaymentMethodType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PaymentMethodType from its wire value.
+func (v *PaymentMethodType) UnmarshalText(b []byte) error {
+	*v = PaymentMethodType(b)
+	return nil
+}
 
 // KoreanMarketUnderlyingPaymentMethodType: Type of Korean payment method used to pay. Deprecated - use top-level type objects instead.
 type KoreanMarketUnderlyingPaymentMethodType string
@@ -1017,6 +1156,17 @@ const (
 	KoreanMarketUnderlyingPaymentMethodTypeUnknown       KoreanMarketUnderlyingPaymentMethodType = "unknown"
 	KoreanMarketUnderlyingPaymentMethodTypeWoori         KoreanMarketUnderlyingPaymentMethodType = "woori"
 )
+
+// MarshalText encodes KoreanMarketUnderlyingPaymentMethodType as its wire value, for use in query parameters.
+func (v KoreanMarketUnderlyingPaymentMethodType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes KoreanMarketUnderlyingPaymentMethodType from its wire value.
+func (v *KoreanMarketUnderlyingPaymentMethodType) UnmarshalText(b []byte) error {
+	*v = KoreanMarketUnderlyingPaymentMethodType(b)
+	return nil
+}
 
 // KoreanMarketUnderlyingDetails: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`. Deprecated - use top-level type objects instead.
 type KoreanMarketUnderlyingDetails struct {
@@ -1059,6 +1209,17 @@ const (
 	SouthKoreaLocalCardTypeWoori       SouthKoreaLocalCardType = "woori"
 )
 
+// MarshalText encodes SouthKoreaLocalCardType as its wire value, for use in query parameters.
+func (v SouthKoreaLocalCardType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SouthKoreaLocalCardType from its wire value.
+func (v *SouthKoreaLocalCardType) UnmarshalText(b []byte) error {
+	*v = SouthKoreaLocalCardType(b)
+	return nil
+}
+
 // SouthKoreaLocalCard: Information about the Korean credit or debit card used to pay. `null` unless `type` is `south_korea_local_card`.
 type SouthKoreaLocalCard struct {
 	// Type: Type of Korean credit or debit card used to pay.
@@ -1082,6 +1243,17 @@ const (
 	CardTypeUnknown         CardType = "unknown"
 	CardTypeVisa            CardType = "visa"
 )
+
+// MarshalText encodes CardType as its wire value, for use in query parameters.
+func (v CardType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CardType from its wire value.
+func (v *CardType) UnmarshalText(b []byte) error {
+	*v = CardType(b)
+	return nil
+}
 
 // Card: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
 type Card struct {
@@ -1193,6 +1365,17 @@ const (
 	AdjustmentActionCreditReverse            AdjustmentAction = "credit_reverse"
 )
 
+// MarshalText encodes AdjustmentAction as its wire value, for use in query parameters.
+func (v AdjustmentAction) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentAction from its wire value.
+func (v *AdjustmentAction) UnmarshalText(b []byte) error {
+	*v = AdjustmentAction(b)
+	return nil
+}
+
 // AdjustmentType: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`..
 type AdjustmentType string
 
@@ -1200,6 +1383,17 @@ const (
 	AdjustmentTypeFull    AdjustmentType = "full"
 	AdjustmentTypePartial AdjustmentType = "partial"
 )
+
+// MarshalText encodes AdjustmentType as its wire value, for use in query parameters.
+func (v AdjustmentType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentType from its wire value.
+func (v *AdjustmentType) UnmarshalText(b []byte) error {
+	*v = AdjustmentType(b)
+	return nil
+}
 
 /*
 AdjustmentStatus: Status of this adjustment. Set automatically by Paddle.
@@ -1217,6 +1411,17 @@ const (
 	AdjustmentStatusReversed        AdjustmentStatus = "reversed"
 )
 
+// MarshalText encodes AdjustmentStatus as its wire value, for use in query parameters.
+func (v AdjustmentStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentStatus from its wire value.
+func (v *AdjustmentStatus) UnmarshalText(b []byte) error {
+	*v = AdjustmentStatus(b)
+	return nil
+}
+
 /*
 AdjustmentItemType: Type of adjustment for this transaction item. `tax` adjustments are automatically created by Paddle.
 Include `amount` when creating a `partial` adjustment..
@@ -1229,6 +1434,17 @@ const (
 	AdjustmentItemTypeTax       AdjustmentItemType = "tax"
 	AdjustmentItemTypeProration AdjustmentItemType = "proration"
 )
+
+// MarshalText encodes AdjustmentItemType as its wire value, for use in query parameters.
+func (v AdjustmentItemType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes AdjustmentItemType from its wire value.
+func (v *AdjustmentItemType) UnmarshalText(b []byte) error {
+	*v = AdjustmentItemType(b)
+	return nil
+}
 
 // AdjustmentItemTotals: Breakdown of the total for an adjustment item.
 type AdjustmentItemTotals struct {
@@ -1410,6 +1626,17 @@ const (
 	DiscountStatusArchived DiscountStatus = "archived"
 )
 
+// MarshalText encodes DiscountStatus as its wire value, for use in query parameters.
+func (v DiscountStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountStatus from its wire value.
+func (v *DiscountStatus) UnmarshalText(b []byte) error {
+	*v = DiscountStatus(b)
+	return nil
+}
+
 // DiscountType: Type of discount. Determines how this discount impacts the checkout or transaction total..
 type DiscountType string
 
@@ -1419,6 +1646,17 @@ const (
 	DiscountTypePercentage  DiscountType = "percentage"
 )
 
+// MarshalText encodes DiscountType as its wire value, for use in query parameters.
+func (v DiscountType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountType from its wire value.
+func (v *DiscountType) UnmarshalText(b []byte) error {
+	*v = DiscountType(b)
+	return nil
+}
+
 // DiscountMode: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard..
 type DiscountMode string
 
@@ -1426,6 +1664,17 @@ const (
 	DiscountModeStandard DiscountMode = "standard"
 	DiscountModeCustom   DiscountMode = "custom"
 )
+
+// MarshalText encodes DiscountMode as its wire value, for use in query parameters.
+func (v DiscountMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountMode from its wire value.
+func (v *DiscountMode) UnmarshalText(b []byte) error {
+	*v = DiscountMode(b)
+	return nil
+}
 
 // TransactionPriceCreateWithProductID: Price object for a non-catalog item to charge for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
 type TransactionPriceCreateWithProductID struct {
@@ -1581,6 +1830,17 @@ const (
 	DispositionInline     Disposition = "inline"
 )
 
+// MarshalText encodes Disposition as its wire value, for use in query parameters.
+func (v Disposition) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes Disposition from its wire value.
+func (v *Disposition) UnmarshalText(b []byte) error {
+	*v = Disposition(b)
+	return nil
+}
+
 // EventTypeName: Type of event sent by Paddle, in the format `entity.event_type`..
 type EventTypeName string
 
@@ -1642,6 +1902,17 @@ const (
 	EventTypeNameTransactionRevised       EventTypeName = "transaction.revised"
 	EventTypeNameTransactionUpdated       EventTypeName = "transaction.updated"
 )
+
+// MarshalText encodes EventTypeName as its wire value, for use in query parameters.
+func (v EventTypeName) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes EventTypeName from its wire value.
+func (v *EventTypeName) UnmarshalText(b []byte) error {
+	*v = EventTypeName(b)
+	return nil
+}
 
 // EventType: Represents an event type.
 type EventType struct {
@@ -1730,6 +2001,17 @@ const (
 	EffectiveFromImmediately       EffectiveFrom = "immediately"
 )
 
+// MarshalText encodes EffectiveFrom as its wire value, for use in query parameters.
+func (v EffectiveFrom) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes EffectiveFrom from its wire value.
+func (v *EffectiveFrom) UnmarshalText(b []byte) error {
+	*v = EffectiveFrom(b)
+	return nil
+}
+
 // SubscriptionChargeItemFromCatalog: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
 type SubscriptionChargeItemFromCatalog struct {
 	// Quantity: Quantity to bill for.
@@ -1747,6 +2029,17 @@ const (
 	SimulationEventStatusFailed  SimulationEventStatus = "failed"
 	SimulationEventStatusAborted SimulationEventStatus = "aborted"
 )
+
+// MarshalText encodes SimulationEventStatus as its wire value, for use in query parameters.
+func (v SimulationEventStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationEventStatus from its wire value.
+func (v *SimulationEventStatus) UnmarshalText(b []byte) error {
+	*v = SimulationEventStatus(b)
+	return nil
+}
 
 // SimulationEventRequest: Information about the request. Sent by Paddle as part of the simulation.
 type SimulationEventRequest struct {
@@ -1885,6 +2178,17 @@ const (
 	ActionSourceUnknown          ActionSource = "unknown"
 )
 
+// MarshalText encodes ActionSource as its wire value, for use in query parameters.
+func (v ActionSource) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ActionSource from its wire value.
+func (v *ActionSource) UnmarshalText(b []byte) error {
+	*v = ActionSource(b)
+	return nil
+}
+
 // ActorType: The type of actor that performed this action.
 type ActorType string
 
@@ -1897,10 +2201,59 @@ const (
 	ActorTypeSystem      ActorType = "system"
 )
 
+// MarshalText encodes ActorType as its wire value, for use in query parameters.
+func (v ActorType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ActorType from its wire value.
+func (v *ActorType) UnmarshalText(b []byte) error {
+	*v = ActorType(b)
+	return nil
+}
+
 // Actor: Details about the actor that performed an action.
 type Actor struct {
 	// Type: The type of actor that performed this action.
 	Type ActorType `json:"type,omitempty"`
 	// ID: The ID of the actor in relation to the `type`. `null` where the type of actor doesn't have an ID.
 	ID *string `json:"id,omitempty"`
+}
+
+type CreationOrderBy string
+
+const (
+	CreationOrderByCreatedAtAsc  CreationOrderBy = "created_at[ASC]"
+	CreationOrderByCreatedAtDesc CreationOrderBy = "created_at[DESC]"
+	CreationOrderByIDAsc         CreationOrderBy = "id[ASC]"
+	CreationOrderByIDDesc        CreationOrderBy = "id[DESC]"
+)
+
+// MarshalText encodes CreationOrderBy as its wire value, for use in query parameters.
+func (v CreationOrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CreationOrderBy from its wire value.
+func (v *CreationOrderBy) UnmarshalText(b []byte) error {
+	*v = CreationOrderBy(b)
+	return nil
+}
+
+type OrderBy string
+
+const (
+	OrderByIDAsc  OrderBy = "id[ASC]"
+	OrderByIDDesc OrderBy = "id[DESC]"
+)
+
+// MarshalText encodes OrderBy as its wire value, for use in query parameters.
+func (v OrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes OrderBy from its wire value.
+func (v *OrderBy) UnmarshalText(b []byte) error {
+	*v = OrderBy(b)
+	return nil
 }

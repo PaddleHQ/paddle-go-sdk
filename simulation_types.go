@@ -12,6 +12,17 @@ const (
 	SimulationKindScenario    SimulationKind = "scenario"
 )
 
+// MarshalText encodes SimulationKind as its wire value, for use in query parameters.
+func (v SimulationKind) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationKind from its wire value.
+func (v *SimulationKind) UnmarshalText(b []byte) error {
+	*v = SimulationKind(b)
+	return nil
+}
+
 // SimulationType: Represents a simulation type.
 type SimulationType struct {
 	// Name: Type of simulation sent by Paddle. Single event simulations are in the format `entity.event_type`; scenario simulations are in `snake_case`.

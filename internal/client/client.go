@@ -38,6 +38,7 @@ var versionFs embed.FS
 
 func init() {
 	core.RegisterDirective("paddle_include", &DirectiveInclude{})
+	core.RegisterDirective("paddle_list", &DirectiveList{})
 }
 
 // New returns a new Client with the provided http.Client, apiKey, and baseURL.

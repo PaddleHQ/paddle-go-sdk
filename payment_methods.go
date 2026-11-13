@@ -24,6 +24,17 @@ const (
 	SavedPaymentMethodTypeWeChatPay           SavedPaymentMethodType = "wechat_pay"
 )
 
+// MarshalText encodes SavedPaymentMethodType as its wire value, for use in query parameters.
+func (v SavedPaymentMethodType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SavedPaymentMethodType from its wire value.
+func (v *SavedPaymentMethodType) UnmarshalText(b []byte) error {
+	*v = SavedPaymentMethodType(b)
+	return nil
+}
+
 // PayPal: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
 type PayPal struct {
 	// Email: Email address associated with the PayPal account.
@@ -40,6 +51,17 @@ const (
 	PaymentMethodOriginSubscription                    PaymentMethodOrigin = "subscription"
 	PaymentMethodOriginSubscriptionSavedDuringPurchase PaymentMethodOrigin = "subscription_saved_during_purchase"
 )
+
+// MarshalText encodes PaymentMethodOrigin as its wire value, for use in query parameters.
+func (v PaymentMethodOrigin) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes PaymentMethodOrigin from its wire value.
+func (v *PaymentMethodOrigin) UnmarshalText(b []byte) error {
+	*v = PaymentMethodOrigin(b)
+	return nil
+}
 
 // PaymentMethod: Represents a customer payment method entity.
 type PaymentMethod struct {
@@ -80,7 +102,7 @@ type ListCustomerPaymentMethodsRequest struct {
 
 	// AddressID is a query parameter.
 	// Return entities related to the specified address. Use a comma-separated list to specify multiple address IDs.
-	AddressID []string `in:"query=address_id;omitempty" json:"-"`
+	AddressID []string `in:"paddle_list=address_id" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
@@ -90,7 +112,7 @@ type ListCustomerPaymentMethodsRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
