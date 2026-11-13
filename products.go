@@ -54,14 +54,14 @@ type ListProductsRequest struct {
 	After *string `in:"query=after;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `created_at`, `custom_data`, `description`, `id`, `image_url`, `name`, `status`, `tax_category`, and `updated_at`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *ProductOrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -71,13 +71,13 @@ type ListProductsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []Status `in:"paddle_list=status" json:"-"`
 	// TaxCategory is a query parameter.
 	// Return entities that match the specified tax category. Use a comma-separated list to specify multiple tax categories.
-	TaxCategory []string `in:"query=tax_category;omitempty" json:"-"`
+	TaxCategory []TaxCategory `in:"paddle_list=tax_category" json:"-"`
 	// Type is a query parameter.
 	// Return items that match the specified type.
-	Type *string `in:"query=type;omitempty" json:"-"`
+	Type *CatalogType `in:"query=type;omitempty" json:"-"`
 
 	// IncludePrices allows requesting the prices sub-resource as part of this request.
 	// If set to true, will be included on the response.
@@ -165,4 +165,38 @@ func (c *ProductsClient) UpdateProduct(ctx context.Context, req *UpdateProductRe
 	}
 
 	return res, nil
+}
+
+type ProductOrderBy string
+
+const (
+	ProductOrderByCreatedAtAsc    ProductOrderBy = "created_at[ASC]"
+	ProductOrderByCreatedAtDesc   ProductOrderBy = "created_at[DESC]"
+	ProductOrderByCustomDataAsc   ProductOrderBy = "custom_data[ASC]"
+	ProductOrderByCustomDataDesc  ProductOrderBy = "custom_data[DESC]"
+	ProductOrderByDescriptionAsc  ProductOrderBy = "description[ASC]"
+	ProductOrderByDescriptionDesc ProductOrderBy = "description[DESC]"
+	ProductOrderByIDAsc           ProductOrderBy = "id[ASC]"
+	ProductOrderByIDDesc          ProductOrderBy = "id[DESC]"
+	ProductOrderByImageURLAsc     ProductOrderBy = "image_url[ASC]"
+	ProductOrderByImageURLDesc    ProductOrderBy = "image_url[DESC]"
+	ProductOrderByNameAsc         ProductOrderBy = "name[ASC]"
+	ProductOrderByNameDesc        ProductOrderBy = "name[DESC]"
+	ProductOrderByStatusAsc       ProductOrderBy = "status[ASC]"
+	ProductOrderByStatusDesc      ProductOrderBy = "status[DESC]"
+	ProductOrderByTaxCategoryAsc  ProductOrderBy = "tax_category[ASC]"
+	ProductOrderByTaxCategoryDesc ProductOrderBy = "tax_category[DESC]"
+	ProductOrderByUpdatedAtAsc    ProductOrderBy = "updated_at[ASC]"
+	ProductOrderByUpdatedAtDesc   ProductOrderBy = "updated_at[DESC]"
+)
+
+// MarshalText encodes ProductOrderBy as its wire value, for use in query parameters.
+func (v ProductOrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ProductOrderBy from its wire value.
+func (v *ProductOrderBy) UnmarshalText(b []byte) error {
+	*v = ProductOrderBy(b)
+	return nil
 }

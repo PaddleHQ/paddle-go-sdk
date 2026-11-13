@@ -13,6 +13,17 @@ const (
 	TrafficSourceAll        TrafficSource = "all"
 )
 
+// MarshalText encodes TrafficSource as its wire value, for use in query parameters.
+func (v TrafficSource) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes TrafficSource from its wire value.
+func (v *TrafficSource) UnmarshalText(b []byte) error {
+	*v = TrafficSource(b)
+	return nil
+}
+
 // NotificationSettingType: Where notifications should be sent for this destination..
 type NotificationSettingType string
 
@@ -20,6 +31,17 @@ const (
 	NotificationSettingTypeEmail NotificationSettingType = "email"
 	NotificationSettingTypeURL   NotificationSettingType = "url"
 )
+
+// MarshalText encodes NotificationSettingType as its wire value, for use in query parameters.
+func (v NotificationSettingType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes NotificationSettingType from its wire value.
+func (v *NotificationSettingType) UnmarshalText(b []byte) error {
+	*v = NotificationSettingType(b)
+	return nil
+}
 
 // NotificationSetting: Represents a notification destination.
 type NotificationSetting struct {
@@ -68,13 +90,13 @@ type ListNotificationSettingsRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// Active is a query parameter.
 	// Determine whether returned entities are active (`true`) or not (`false`).
 	Active *bool `in:"query=active;omitempty" json:"-"`
 	// TrafficSource is a query parameter.
 	// Return entities that match the specified traffic source.
-	TrafficSource *string `in:"query=traffic_source;omitempty" json:"-"`
+	TrafficSource *TrafficSource `in:"query=traffic_source;omitempty" json:"-"`
 }
 
 // ListNotificationSettings performs the GET operation on a Notification settings resource.

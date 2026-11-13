@@ -130,17 +130,17 @@ type ListDiscountsRequest struct {
 	After *string `in:"query=after;omitempty" json:"-"`
 	// Code is a query parameter.
 	// Return entities that match the discount code. Use a comma-separated list to specify multiple discount codes.
-	Code []string `in:"query=code;omitempty" json:"-"`
+	Code []string `in:"paddle_list=code" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `created_at` and `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *CreationOrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -150,13 +150,13 @@ type ListDiscountsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []Status `in:"paddle_list=status" json:"-"`
 	// Mode is a query parameter.
 	// Return entities that match the specified mode.
-	Mode *string `in:"query=mode;omitempty" json:"-"`
+	Mode *DiscountMode `in:"query=mode;omitempty" json:"-"`
 	// DiscountGroupID is a query parameter.
 	// Return entities related to the specified discount group. Use a comma-separated list to specify multiple discount group IDs.
-	DiscountGroupID []string `in:"query=discount_group_id;omitempty" json:"-"`
+	DiscountGroupID []string `in:"paddle_list=discount_group_id" json:"-"`
 
 	// IncludeDiscountGroup allows requesting the discount_group sub-resource as part of this request.
 	// If set to true, will be included on the response.

@@ -446,6 +446,17 @@ const (
 	SubscriptionStatusTrialing SubscriptionStatus = "trialing"
 )
 
+// MarshalText encodes SubscriptionStatus as its wire value, for use in query parameters.
+func (v SubscriptionStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionStatus from its wire value.
+func (v *SubscriptionStatus) UnmarshalText(b []byte) error {
+	*v = SubscriptionStatus(b)
+	return nil
+}
+
 // SubscriptionDiscountTimePeriod: Details of the discount applied to this subscription.
 type SubscriptionDiscountTimePeriod struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
@@ -464,6 +475,17 @@ const (
 	ScheduledChangeActionPause  ScheduledChangeAction = "pause"
 	ScheduledChangeActionResume ScheduledChangeAction = "resume"
 )
+
+// MarshalText encodes ScheduledChangeAction as its wire value, for use in query parameters.
+func (v ScheduledChangeAction) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ScheduledChangeAction from its wire value.
+func (v *ScheduledChangeAction) UnmarshalText(b []byte) error {
+	*v = ScheduledChangeAction(b)
+	return nil
+}
 
 // SubscriptionScheduledChange: Change that's scheduled to be applied to a subscription. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes. `null` if no scheduled changes.
 type SubscriptionScheduledChange struct {
@@ -497,6 +519,17 @@ const (
 	SubscriptionItemStatusInactive SubscriptionItemStatus = "inactive"
 	SubscriptionItemStatusTrialing SubscriptionItemStatus = "trialing"
 )
+
+// MarshalText encodes SubscriptionItemStatus as its wire value, for use in query parameters.
+func (v SubscriptionItemStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionItemStatus from its wire value.
+func (v *SubscriptionItemStatus) UnmarshalText(b []byte) error {
+	*v = SubscriptionItemStatus(b)
+	return nil
+}
 
 // SubscriptionItem: Represents a subscription item.
 type SubscriptionItem struct {
@@ -567,6 +600,17 @@ const (
 	SubscriptionConsentRequirementTypeIntroductoryDiscountEnding SubscriptionConsentRequirementType = "introductory_discount_ending"
 )
 
+// MarshalText encodes SubscriptionConsentRequirementType as its wire value, for use in query parameters.
+func (v SubscriptionConsentRequirementType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionConsentRequirementType from its wire value.
+func (v *SubscriptionConsentRequirementType) UnmarshalText(b []byte) error {
+	*v = SubscriptionConsentRequirementType(b)
+	return nil
+}
+
 // SubscriptionConsentRequirementStatus: Status of this consent requirement.
 type SubscriptionConsentRequirementStatus string
 
@@ -575,6 +619,17 @@ const (
 	SubscriptionConsentRequirementStatusGranted SubscriptionConsentRequirementStatus = "granted"
 	SubscriptionConsentRequirementStatusVoided  SubscriptionConsentRequirementStatus = "voided"
 )
+
+// MarshalText encodes SubscriptionConsentRequirementStatus as its wire value, for use in query parameters.
+func (v SubscriptionConsentRequirementStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionConsentRequirementStatus from its wire value.
+func (v *SubscriptionConsentRequirementStatus) UnmarshalText(b []byte) error {
+	*v = SubscriptionConsentRequirementStatus(b)
+	return nil
+}
 
 // SubscriptionConsentRequirement: Represents a specific condition under which explicit customer consent is, or was, mandated for a subscription renewal.
 type SubscriptionConsentRequirement struct {
@@ -701,6 +756,17 @@ const (
 	ProrationBillingModeDoNotBill                 ProrationBillingMode = "do_not_bill"
 )
 
+// MarshalText encodes ProrationBillingMode as its wire value, for use in query parameters.
+func (v ProrationBillingMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ProrationBillingMode from its wire value.
+func (v *ProrationBillingMode) UnmarshalText(b []byte) error {
+	*v = ProrationBillingMode(b)
+	return nil
+}
+
 // SubscriptionOnPaymentFailure: How Paddle should handle changes made to a subscription or its items if the payment fails during update. If omitted, defaults to `prevent_change`..
 type SubscriptionOnPaymentFailure string
 
@@ -709,6 +775,17 @@ const (
 	SubscriptionOnPaymentFailureApplyChange   SubscriptionOnPaymentFailure = "apply_change"
 )
 
+// MarshalText encodes SubscriptionOnPaymentFailure as its wire value, for use in query parameters.
+func (v SubscriptionOnPaymentFailure) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionOnPaymentFailure from its wire value.
+func (v *SubscriptionOnPaymentFailure) UnmarshalText(b []byte) error {
+	*v = SubscriptionOnPaymentFailure(b)
+	return nil
+}
+
 // SubscriptionOnResume: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`..
 type SubscriptionOnResume string
 
@@ -716,6 +793,17 @@ const (
 	SubscriptionOnResumeContinueExistingBillingPeriod SubscriptionOnResume = "continue_existing_billing_period"
 	SubscriptionOnResumeStartNewBillingPeriod         SubscriptionOnResume = "start_new_billing_period"
 )
+
+// MarshalText encodes SubscriptionOnResume as its wire value, for use in query parameters.
+func (v SubscriptionOnResume) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionOnResume from its wire value.
+func (v *SubscriptionOnResume) UnmarshalText(b []byte) error {
+	*v = SubscriptionOnResume(b)
+	return nil
+}
 
 type ResumeOnASpecificDate struct {
 	/*
@@ -748,6 +836,17 @@ const (
 	UpdateSummaryResultActionCredit UpdateSummaryResultAction = "credit"
 	UpdateSummaryResultActionCharge UpdateSummaryResultAction = "charge"
 )
+
+// MarshalText encodes UpdateSummaryResultAction as its wire value, for use in query parameters.
+func (v UpdateSummaryResultAction) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes UpdateSummaryResultAction from its wire value.
+func (v *UpdateSummaryResultAction) UnmarshalText(b []byte) error {
+	*v = UpdateSummaryResultAction(b)
+	return nil
+}
 
 // UpdateSummaryResult: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
 type UpdateSummaryResult struct {
@@ -1020,26 +1119,26 @@ func (c *SubscriptionsClient) UpdateSubscription(ctx context.Context, req *Updat
 type ListSubscriptionsRequest struct {
 	// AddressID is a query parameter.
 	// Return entities related to the specified address. Use a comma-separated list to specify multiple address IDs.
-	AddressID []string `in:"query=address_id;omitempty" json:"-"`
+	AddressID []string `in:"paddle_list=address_id" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
 	// CollectionMode is a query parameter.
 	// Return entities that match the specified collection mode.
-	CollectionMode *string `in:"query=collection_mode;omitempty" json:"-"`
+	CollectionMode *CollectionMode `in:"query=collection_mode;omitempty" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
-	CustomerID []string `in:"query=customer_id;omitempty" json:"-"`
+	CustomerID []string `in:"paddle_list=customer_id" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -1049,18 +1148,18 @@ type ListSubscriptionsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// PriceID is a query parameter.
 	// Return entities related to the specified price. Use a comma-separated list to specify multiple price IDs.
-	PriceID []string `in:"query=price_id;omitempty" json:"-"`
+	PriceID []string `in:"paddle_list=price_id" json:"-"`
 	// ScheduledChangeAction is a query parameter.
 	// Return subscriptions that have a scheduled change. Use a comma-separated list to specify multiple scheduled change actions.
-	ScheduledChangeAction []string `in:"query=scheduled_change_action;omitempty" json:"-"`
+	ScheduledChangeAction []ScheduledChangeActionQuery `in:"paddle_list=scheduled_change_action" json:"-"`
 	// NextBilledAt is a query parameter.
 	/*
 	   Return entities next billed at a specific time. Pass `null` to return entities with no next billing date.
 	*/
-	NextBilledAt []string `in:"query=next_billed_at;omitempty" json:"-"`
+	NextBilledAt []string `in:"paddle_list=next_billed_at" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []SubscriptionStatus `in:"paddle_list=status" json:"-"`
 }
 
 // ListSubscriptions performs the GET operation on a Subscriptions resource.
@@ -1448,4 +1547,24 @@ func (c *SubscriptionsClient) PreviewSubscriptionCharge(ctx context.Context, req
 	}
 
 	return res, nil
+}
+
+type ScheduledChangeActionQuery string
+
+const (
+	ScheduledChangeActionQueryCancel ScheduledChangeActionQuery = "cancel"
+	ScheduledChangeActionQueryPause  ScheduledChangeActionQuery = "pause"
+	ScheduledChangeActionQueryResume ScheduledChangeActionQuery = "resume"
+	ScheduledChangeActionQueryNone   ScheduledChangeActionQuery = "none"
+)
+
+// MarshalText encodes ScheduledChangeActionQuery as its wire value, for use in query parameters.
+func (v ScheduledChangeActionQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes ScheduledChangeActionQuery from its wire value.
+func (v *ScheduledChangeActionQuery) UnmarshalText(b []byte) error {
+	*v = ScheduledChangeActionQuery(b)
+	return nil
 }

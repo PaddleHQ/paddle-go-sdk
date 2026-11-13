@@ -15,6 +15,17 @@ const (
 	SubscriptionHistoryCanceledEffectiveFromNextBillingPeriod SubscriptionHistoryCanceledEffectiveFrom = "next_billing_period"
 )
 
+// MarshalText encodes SubscriptionHistoryCanceledEffectiveFrom as its wire value, for use in query parameters.
+func (v SubscriptionHistoryCanceledEffectiveFrom) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryCanceledEffectiveFrom from its wire value.
+func (v *SubscriptionHistoryCanceledEffectiveFrom) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryCanceledEffectiveFrom(b)
+	return nil
+}
+
 // SubscriptionHistoryOneOffChargeAppliedEffectiveFrom: When the customer was or will be billed for the one-off charge.
 type SubscriptionHistoryOneOffChargeAppliedEffectiveFrom string
 
@@ -22,6 +33,17 @@ const (
 	SubscriptionHistoryOneOffChargeAppliedEffectiveFromImmediately       SubscriptionHistoryOneOffChargeAppliedEffectiveFrom = "immediately"
 	SubscriptionHistoryOneOffChargeAppliedEffectiveFromNextBillingPeriod SubscriptionHistoryOneOffChargeAppliedEffectiveFrom = "next_billing_period"
 )
+
+// MarshalText encodes SubscriptionHistoryOneOffChargeAppliedEffectiveFrom as its wire value, for use in query parameters.
+func (v SubscriptionHistoryOneOffChargeAppliedEffectiveFrom) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryOneOffChargeAppliedEffectiveFrom from its wire value.
+func (v *SubscriptionHistoryOneOffChargeAppliedEffectiveFrom) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryOneOffChargeAppliedEffectiveFrom(b)
+	return nil
+}
 
 // SubscriptionHistoryPausedEffectiveFrom: When the subscription pause took effect.
 type SubscriptionHistoryPausedEffectiveFrom string
@@ -31,6 +53,17 @@ const (
 	SubscriptionHistoryPausedEffectiveFromNextBillingPeriod SubscriptionHistoryPausedEffectiveFrom = "next_billing_period"
 )
 
+// MarshalText encodes SubscriptionHistoryPausedEffectiveFrom as its wire value, for use in query parameters.
+func (v SubscriptionHistoryPausedEffectiveFrom) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryPausedEffectiveFrom from its wire value.
+func (v *SubscriptionHistoryPausedEffectiveFrom) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryPausedEffectiveFrom(b)
+	return nil
+}
+
 // SubscriptionHistoryPaymentAttemptedOperation: The operation that triggered the failed payment attempt.
 type SubscriptionHistoryPaymentAttemptedOperation string
 
@@ -39,6 +72,17 @@ const (
 	SubscriptionHistoryPaymentAttemptedOperationSubscriptionOneOffCharge SubscriptionHistoryPaymentAttemptedOperation = "subscription_one_off_charge"
 	SubscriptionHistoryPaymentAttemptedOperationSubscriptionActivate     SubscriptionHistoryPaymentAttemptedOperation = "subscription_activate"
 )
+
+// MarshalText encodes SubscriptionHistoryPaymentAttemptedOperation as its wire value, for use in query parameters.
+func (v SubscriptionHistoryPaymentAttemptedOperation) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryPaymentAttemptedOperation from its wire value.
+func (v *SubscriptionHistoryPaymentAttemptedOperation) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryPaymentAttemptedOperation(b)
+	return nil
+}
 
 // SubscriptionHistoryReasonEnum: Why the entry was created. Only applicable to certain actions.
 type SubscriptionHistoryReasonEnum string
@@ -53,6 +97,17 @@ const (
 	SubscriptionHistoryReasonEnumEuWithdrawal       SubscriptionHistoryReasonEnum = "eu_withdrawal"
 )
 
+// MarshalText encodes SubscriptionHistoryReasonEnum as its wire value, for use in query parameters.
+func (v SubscriptionHistoryReasonEnum) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryReasonEnum from its wire value.
+func (v *SubscriptionHistoryReasonEnum) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryReasonEnum(b)
+	return nil
+}
+
 // SubscriptionHistoryDiscountType: The type of discount.
 type SubscriptionHistoryDiscountType string
 
@@ -60,6 +115,17 @@ const (
 	SubscriptionHistoryDiscountTypeRecurring SubscriptionHistoryDiscountType = "recurring"
 	SubscriptionHistoryDiscountTypeOneOff    SubscriptionHistoryDiscountType = "one-off"
 )
+
+// MarshalText encodes SubscriptionHistoryDiscountType as its wire value, for use in query parameters.
+func (v SubscriptionHistoryDiscountType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryDiscountType from its wire value.
+func (v *SubscriptionHistoryDiscountType) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryDiscountType(b)
+	return nil
+}
 
 // SubscriptionHistoryDiscount: Details of a discount on a subscription at the time of a history entry.
 type SubscriptionHistoryDiscount struct {
@@ -583,19 +649,19 @@ type ListSubscriptionHistoryRequest struct {
 
 	// Action is a query parameter.
 	// Return history entries that match the specified action. Use a comma-separated list to specify multiple action values.
-	Action []string `in:"query=action;omitempty" json:"-"`
+	Action []SubscriptionHistoryActionQuery `in:"paddle_list=action" json:"-"`
 	// Source is a query parameter.
 	// Return history entries that match the specified source. Use a comma-separated list to specify multiple source values.
-	Source []string `in:"query=source;omitempty" json:"-"`
+	Source []SubscriptionHistorySourceQuery `in:"paddle_list=source" json:"-"`
 	// ActorType is a query parameter.
 	// Return history entries that match the specified actor type. Use a comma-separated list to specify multiple actor type values.
-	ActorType []string `in:"query=actor_type;omitempty" json:"-"`
+	ActorType []SubscriptionHistoryActorTypeQuery `in:"paddle_list=actor_type" json:"-"`
 	// ActorID is a query parameter.
 	// Return history entries that match the specified actor ID. Use a comma-separated list to specify multiple actor ID values. Only applicable if `actor_type` is also selected.
-	ActorID []string `in:"query=actor_id;omitempty" json:"-"`
+	ActorID []string `in:"paddle_list=actor_id" json:"-"`
 	// Reason is a query parameter.
 	// Return history entries that match the specified reason. Use a comma-separated list to specify multiple reason values.
-	Reason []string `in:"query=reason;omitempty" json:"-"`
+	Reason []SubscriptionHistoryReasonQuery `in:"paddle_list=reason" json:"-"`
 	// OccurredAt is a query parameter.
 	// Return entities that occurred at a specific time. Use `[LTE]` (less than or equal to) or `[GTE]` (greater than or equal to) operators with an RFC 3339 datetime string. For example, `occurred_at[LTE]=2023-04-18T17:03:26` or `occurred_at[GTE]=2023-04-18T17:03:26`.
 	OccurredAt *string `in:"query=occurred_at;omitempty" json:"-"`
@@ -615,7 +681,7 @@ type ListSubscriptionHistoryRequest struct {
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 }
 
 // ListSubscriptionHistory performs the GET operation on a Subscription history resource.
@@ -625,4 +691,125 @@ func (c *SubscriptionHistoriesClient) ListSubscriptionHistory(ctx context.Contex
 	}
 
 	return res, nil
+}
+
+// SubscriptionHistoryActionQuery: Used to filter subscription history entries by action type.
+type SubscriptionHistoryActionQuery string
+
+const (
+	SubscriptionHistoryActionQuerySubscriptionActivated                 SubscriptionHistoryActionQuery = "subscription_activated"
+	SubscriptionHistoryActionQuerySubscriptionAddressUpdated            SubscriptionHistoryActionQuery = "subscription_address_updated"
+	SubscriptionHistoryActionQuerySubscriptionBillingCycleUpdated       SubscriptionHistoryActionQuery = "subscription_billing_cycle_updated"
+	SubscriptionHistoryActionQuerySubscriptionBillingDateUpdated        SubscriptionHistoryActionQuery = "subscription_billing_date_updated"
+	SubscriptionHistoryActionQuerySubscriptionBillingDetailsUpdated     SubscriptionHistoryActionQuery = "subscription_billing_details_updated"
+	SubscriptionHistoryActionQuerySubscriptionBusinessAdded             SubscriptionHistoryActionQuery = "subscription_business_added"
+	SubscriptionHistoryActionQuerySubscriptionBusinessRemoved           SubscriptionHistoryActionQuery = "subscription_business_removed"
+	SubscriptionHistoryActionQuerySubscriptionBusinessUpdated           SubscriptionHistoryActionQuery = "subscription_business_updated"
+	SubscriptionHistoryActionQuerySubscriptionCanceled                  SubscriptionHistoryActionQuery = "subscription_canceled"
+	SubscriptionHistoryActionQuerySubscriptionCollectionModeUpdated     SubscriptionHistoryActionQuery = "subscription_collection_mode_updated"
+	SubscriptionHistoryActionQuerySubscriptionConsentRequirementGranted SubscriptionHistoryActionQuery = "subscription_consent_requirement_granted"
+	SubscriptionHistoryActionQuerySubscriptionCreated                   SubscriptionHistoryActionQuery = "subscription_created"
+	SubscriptionHistoryActionQuerySubscriptionCurrencyUpdated           SubscriptionHistoryActionQuery = "subscription_currency_updated"
+	SubscriptionHistoryActionQuerySubscriptionCustomDataUpdated         SubscriptionHistoryActionQuery = "subscription_custom_data_updated"
+	SubscriptionHistoryActionQuerySubscriptionCustomerUpdated           SubscriptionHistoryActionQuery = "subscription_customer_updated"
+	SubscriptionHistoryActionQuerySubscriptionDiscountAdded             SubscriptionHistoryActionQuery = "subscription_discount_added"
+	SubscriptionHistoryActionQuerySubscriptionDiscountExpired           SubscriptionHistoryActionQuery = "subscription_discount_expired"
+	SubscriptionHistoryActionQuerySubscriptionDiscountRemoved           SubscriptionHistoryActionQuery = "subscription_discount_removed"
+	SubscriptionHistoryActionQuerySubscriptionItemAdded                 SubscriptionHistoryActionQuery = "subscription_item_added"
+	SubscriptionHistoryActionQuerySubscriptionItemQuantityUpdated       SubscriptionHistoryActionQuery = "subscription_item_quantity_updated"
+	SubscriptionHistoryActionQuerySubscriptionItemRemoved               SubscriptionHistoryActionQuery = "subscription_item_removed"
+	SubscriptionHistoryActionQuerySubscriptionOneOffChargeApplied       SubscriptionHistoryActionQuery = "subscription_one_off_charge_applied"
+	SubscriptionHistoryActionQuerySubscriptionPastDue                   SubscriptionHistoryActionQuery = "subscription_past_due"
+	SubscriptionHistoryActionQuerySubscriptionPaused                    SubscriptionHistoryActionQuery = "subscription_paused"
+	SubscriptionHistoryActionQuerySubscriptionPaymentAttempted          SubscriptionHistoryActionQuery = "subscription_payment_attempted"
+	SubscriptionHistoryActionQuerySubscriptionPaymentMethodAdded        SubscriptionHistoryActionQuery = "subscription_payment_method_added"
+	SubscriptionHistoryActionQuerySubscriptionPaymentMethodRemoved      SubscriptionHistoryActionQuery = "subscription_payment_method_removed"
+	SubscriptionHistoryActionQuerySubscriptionPaymentMethodUpdated      SubscriptionHistoryActionQuery = "subscription_payment_method_updated"
+	SubscriptionHistoryActionQuerySubscriptionRenewed                   SubscriptionHistoryActionQuery = "subscription_renewed"
+	SubscriptionHistoryActionQuerySubscriptionResumed                   SubscriptionHistoryActionQuery = "subscription_resumed"
+	SubscriptionHistoryActionQuerySubscriptionScheduledChangeAdded      SubscriptionHistoryActionQuery = "subscription_scheduled_change_added"
+	SubscriptionHistoryActionQuerySubscriptionScheduledChangeRemoved    SubscriptionHistoryActionQuery = "subscription_scheduled_change_removed"
+	SubscriptionHistoryActionQuerySubscriptionScheduledChangeUpdated    SubscriptionHistoryActionQuery = "subscription_scheduled_change_updated"
+)
+
+// MarshalText encodes SubscriptionHistoryActionQuery as its wire value, for use in query parameters.
+func (v SubscriptionHistoryActionQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryActionQuery from its wire value.
+func (v *SubscriptionHistoryActionQuery) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryActionQuery(b)
+	return nil
+}
+
+type SubscriptionHistoryActorTypeQuery string
+
+const (
+	SubscriptionHistoryActorTypeQueryCustomer    SubscriptionHistoryActorTypeQuery = "customer"
+	SubscriptionHistoryActorTypeQueryUser        SubscriptionHistoryActorTypeQuery = "user"
+	SubscriptionHistoryActorTypeQueryAPIKey      SubscriptionHistoryActorTypeQuery = "api_key"
+	SubscriptionHistoryActorTypeQueryPaddleStaff SubscriptionHistoryActorTypeQuery = "paddle_staff"
+	SubscriptionHistoryActorTypeQueryPublisher   SubscriptionHistoryActorTypeQuery = "publisher"
+	SubscriptionHistoryActorTypeQuerySystem      SubscriptionHistoryActorTypeQuery = "system"
+)
+
+// MarshalText encodes SubscriptionHistoryActorTypeQuery as its wire value, for use in query parameters.
+func (v SubscriptionHistoryActorTypeQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryActorTypeQuery from its wire value.
+func (v *SubscriptionHistoryActorTypeQuery) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryActorTypeQuery(b)
+	return nil
+}
+
+type SubscriptionHistoryReasonQuery string
+
+const (
+	SubscriptionHistoryReasonQueryCardlessTrialEnded SubscriptionHistoryReasonQuery = "cardless_trial_ended"
+	SubscriptionHistoryReasonQueryImportIssue        SubscriptionHistoryReasonQuery = "import_issue"
+	SubscriptionHistoryReasonQueryMissingConsent     SubscriptionHistoryReasonQuery = "missing_consent"
+	SubscriptionHistoryReasonQuerySellerRequest      SubscriptionHistoryReasonQuery = "seller_request"
+	SubscriptionHistoryReasonQueryCustomerRequest    SubscriptionHistoryReasonQuery = "customer_request"
+	SubscriptionHistoryReasonQueryChargeback         SubscriptionHistoryReasonQuery = "chargeback"
+	SubscriptionHistoryReasonQueryEuWithdrawal       SubscriptionHistoryReasonQuery = "eu_withdrawal"
+)
+
+// MarshalText encodes SubscriptionHistoryReasonQuery as its wire value, for use in query parameters.
+func (v SubscriptionHistoryReasonQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistoryReasonQuery from its wire value.
+func (v *SubscriptionHistoryReasonQuery) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistoryReasonQuery(b)
+	return nil
+}
+
+type SubscriptionHistorySourceQuery string
+
+const (
+	SubscriptionHistorySourceQuerySystem           SubscriptionHistorySourceQuery = "system"
+	SubscriptionHistorySourceQueryAPI              SubscriptionHistorySourceQuery = "api"
+	SubscriptionHistorySourceQueryDashboard        SubscriptionHistorySourceQuery = "dashboard"
+	SubscriptionHistorySourceQueryCustomerPortal   SubscriptionHistorySourceQuery = "customer_portal"
+	SubscriptionHistorySourceQuerySupportBot       SubscriptionHistorySourceQuery = "support_bot"
+	SubscriptionHistorySourceQueryRetain           SubscriptionHistorySourceQuery = "retain"
+	SubscriptionHistorySourceQueryCheckout         SubscriptionHistorySourceQuery = "checkout"
+	SubscriptionHistorySourceQueryExternalProvider SubscriptionHistorySourceQuery = "external_provider"
+	SubscriptionHistorySourceQueryPaddleClassic    SubscriptionHistorySourceQuery = "paddle_classic"
+	SubscriptionHistorySourceQueryUnknown          SubscriptionHistorySourceQuery = "unknown"
+)
+
+// MarshalText encodes SubscriptionHistorySourceQuery as its wire value, for use in query parameters.
+func (v SubscriptionHistorySourceQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionHistorySourceQuery from its wire value.
+func (v *SubscriptionHistorySourceQuery) UnmarshalText(b []byte) error {
+	*v = SubscriptionHistorySourceQuery(b)
+	return nil
 }

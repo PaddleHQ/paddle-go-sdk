@@ -43,7 +43,7 @@ func TestDirectiveInclude(t *testing.T) {
 				IncludeCustomer: true,
 			},
 
-			expectedURL: "/?include=business&include=customer",
+			expectedURL: "/?include=business%2Ccustomer",
 		},
 		{
 			name: "wrong field type",

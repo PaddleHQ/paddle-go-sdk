@@ -2,7 +2,6 @@ package client
 
 import (
 	"errors"
-	"net/url"
 	"reflect"
 
 	"github.com/ggicci/httpin/core"
@@ -23,7 +22,8 @@ func (*DirectiveInclude) Decode(_ *core.DirectiveRuntime) error {
 // a boolean.
 var ErrDirectiveRequiresBool = errors.New("include directive requires a boolean value")
 
-// Encode adds/appends the custom 'include' query parameter to the request.
+// Encode adds the directive's value to the comma-separated 'include' query
+// parameter.
 // The value of the directive's struct field is expected to be a boolean.
 // If the value is true, the directive's value query parameter 'include'.
 // e.g.
@@ -46,11 +46,16 @@ func (*DirectiveInclude) Encode(rtm *core.DirectiveRuntime) error {
 		return nil
 	}
 
+	// One comma-separated `include`, like every other list param, rather than
+	// a repeated key some services may not read.
 	encoder := &core.FormEncoder{
 		Setter: func(_ string, _ []string) {
-			rtm.GetRequestBuilder().Query["include"] = append(
-				rtm.GetRequestBuilder().Query["include"], url.QueryEscape(rtm.Directive.Argv[0]),
-			)
+			query := rtm.GetRequestBuilder().Query
+			if existing := query.Get("include"); existing != "" {
+				query.Set("include", existing+","+rtm.Directive.Argv[0])
+			} else {
+				query.Set("include", rtm.Directive.Argv[0])
+			}
 		},
 	}
 

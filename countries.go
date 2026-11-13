@@ -262,6 +262,17 @@ const (
 	CountryCodeIso3ZWE CountryCodeIso3 = "ZWE"
 )
 
+// MarshalText encodes CountryCodeIso3 as its wire value, for use in query parameters.
+func (v CountryCodeIso3) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CountryCodeIso3 from its wire value.
+func (v *CountryCodeIso3) UnmarshalText(b []byte) error {
+	*v = CountryCodeIso3(b)
+	return nil
+}
+
 // CountryDefinitionTaxMode: How tax is presented for prices to customers in this country by default.
 type CountryDefinitionTaxMode string
 
@@ -269,6 +280,17 @@ const (
 	CountryDefinitionTaxModeInternal CountryDefinitionTaxMode = "internal"
 	CountryDefinitionTaxModeExternal CountryDefinitionTaxMode = "external"
 )
+
+// MarshalText encodes CountryDefinitionTaxMode as its wire value, for use in query parameters.
+func (v CountryDefinitionTaxMode) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CountryDefinitionTaxMode from its wire value.
+func (v *CountryDefinitionTaxMode) UnmarshalText(b []byte) error {
+	*v = CountryDefinitionTaxMode(b)
+	return nil
+}
 
 // CountryDefinition: Metadata about a country that Paddle knows about.
 type CountryDefinition struct {

@@ -15,12 +15,34 @@ const (
 	CheckoutDomainApprovalStatusActionRequired CheckoutDomainApprovalStatus = "action_required"
 )
 
+// MarshalText encodes CheckoutDomainApprovalStatus as its wire value, for use in query parameters.
+func (v CheckoutDomainApprovalStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutDomainApprovalStatus from its wire value.
+func (v *CheckoutDomainApprovalStatus) UnmarshalText(b []byte) error {
+	*v = CheckoutDomainApprovalStatus(b)
+	return nil
+}
+
 // CheckoutDomainPaymentMethod: Payment method to verify. Currently only apple_pay is supported.
 type CheckoutDomainPaymentMethod string
 
 const (
 	CheckoutDomainPaymentMethodApplePay CheckoutDomainPaymentMethod = "apple_pay"
 )
+
+// MarshalText encodes CheckoutDomainPaymentMethod as its wire value, for use in query parameters.
+func (v CheckoutDomainPaymentMethod) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutDomainPaymentMethod from its wire value.
+func (v *CheckoutDomainPaymentMethod) UnmarshalText(b []byte) error {
+	*v = CheckoutDomainPaymentMethod(b)
+	return nil
+}
 
 // CheckoutDomainPaymentMethodVerificationStatus: Payment method verification status for this checkout domain.
 type CheckoutDomainPaymentMethodVerificationStatus string
@@ -29,6 +51,17 @@ const (
 	CheckoutDomainPaymentMethodVerificationStatusVerified   CheckoutDomainPaymentMethodVerificationStatus = "verified"
 	CheckoutDomainPaymentMethodVerificationStatusUnverified CheckoutDomainPaymentMethodVerificationStatus = "unverified"
 )
+
+// MarshalText encodes CheckoutDomainPaymentMethodVerificationStatus as its wire value, for use in query parameters.
+func (v CheckoutDomainPaymentMethodVerificationStatus) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutDomainPaymentMethodVerificationStatus from its wire value.
+func (v *CheckoutDomainPaymentMethodVerificationStatus) UnmarshalText(b []byte) error {
+	*v = CheckoutDomainPaymentMethodVerificationStatus(b)
+	return nil
+}
 
 // CheckoutDomainApplePayVerification: Apple Pay verification status for this checkout domain.
 type CheckoutDomainApplePayVerification struct {
@@ -59,7 +92,7 @@ type CheckoutDomainsClient struct {
 type ListCheckoutDomainsRequest struct {
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
@@ -79,10 +112,10 @@ type ListCheckoutDomainsRequest struct {
 
 	   Valid fields for ordering: `id`, `created_at`, and `updated_at`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *LifecycleOrderBy `in:"query=order_by;omitempty" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []CheckoutDomainApprovalStatusQuery `in:"paddle_list=status" json:"-"`
 }
 
 // ListCheckoutDomains performs the GET operation on a Checkout domains resource.
@@ -135,4 +168,49 @@ func (c *CheckoutDomainsClient) VerifyCheckoutDomainPaymentMethod(ctx context.Co
 	}
 
 	return res, nil
+}
+
+// CheckoutDomainApprovalStatusQuery: Status filter for listing checkout domains.
+type CheckoutDomainApprovalStatusQuery string
+
+const (
+	CheckoutDomainApprovalStatusQueryPendingReview  CheckoutDomainApprovalStatusQuery = "pending_review"
+	CheckoutDomainApprovalStatusQueryApproved       CheckoutDomainApprovalStatusQuery = "approved"
+	CheckoutDomainApprovalStatusQueryRejected       CheckoutDomainApprovalStatusQuery = "rejected"
+	CheckoutDomainApprovalStatusQueryInReview       CheckoutDomainApprovalStatusQuery = "in_review"
+	CheckoutDomainApprovalStatusQueryActionRequired CheckoutDomainApprovalStatusQuery = "action_required"
+	CheckoutDomainApprovalStatusQueryArchived       CheckoutDomainApprovalStatusQuery = "archived"
+)
+
+// MarshalText encodes CheckoutDomainApprovalStatusQuery as its wire value, for use in query parameters.
+func (v CheckoutDomainApprovalStatusQuery) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CheckoutDomainApprovalStatusQuery from its wire value.
+func (v *CheckoutDomainApprovalStatusQuery) UnmarshalText(b []byte) error {
+	*v = CheckoutDomainApprovalStatusQuery(b)
+	return nil
+}
+
+type LifecycleOrderBy string
+
+const (
+	LifecycleOrderByCreatedAtAsc  LifecycleOrderBy = "created_at[ASC]"
+	LifecycleOrderByCreatedAtDesc LifecycleOrderBy = "created_at[DESC]"
+	LifecycleOrderByIDAsc         LifecycleOrderBy = "id[ASC]"
+	LifecycleOrderByIDDesc        LifecycleOrderBy = "id[DESC]"
+	LifecycleOrderByUpdatedAtAsc  LifecycleOrderBy = "updated_at[ASC]"
+	LifecycleOrderByUpdatedAtDesc LifecycleOrderBy = "updated_at[DESC]"
+)
+
+// MarshalText encodes LifecycleOrderBy as its wire value, for use in query parameters.
+func (v LifecycleOrderBy) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes LifecycleOrderBy from its wire value.
+func (v *LifecycleOrderBy) UnmarshalText(b []byte) error {
+	*v = LifecycleOrderBy(b)
+	return nil
 }

@@ -58,6 +58,17 @@ const (
 	CustomerSimulatedAsExistingDetailsPrefilled CustomerSimulatedAs = "existing_details_prefilled"
 )
 
+// MarshalText encodes CustomerSimulatedAs as its wire value, for use in query parameters.
+func (v CustomerSimulatedAs) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes CustomerSimulatedAs from its wire value.
+func (v *CustomerSimulatedAs) UnmarshalText(b []byte) error {
+	*v = CustomerSimulatedAs(b)
+	return nil
+}
+
 // BusinessSimulatedAs: Determines which webhooks are sent based on whether a new, existing, or no business was provided. If omitted, defaults to `not_provided`..
 type BusinessSimulatedAs string
 
@@ -67,6 +78,17 @@ const (
 	BusinessSimulatedAsExistingDetailsPrefilled BusinessSimulatedAs = "existing_details_prefilled"
 )
 
+// MarshalText encodes BusinessSimulatedAs as its wire value, for use in query parameters.
+func (v BusinessSimulatedAs) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes BusinessSimulatedAs from its wire value.
+func (v *BusinessSimulatedAs) UnmarshalText(b []byte) error {
+	*v = BusinessSimulatedAs(b)
+	return nil
+}
+
 // DiscountSimulatedAs: Determines which webhooks are sent based on whether a discount is used and how it's entered. If omitted, defaults to `not_provided`..
 type DiscountSimulatedAs string
 
@@ -75,6 +97,17 @@ const (
 	DiscountSimulatedAsPrefilled         DiscountSimulatedAs = "prefilled"
 	DiscountSimulatedAsEnteredByCustomer DiscountSimulatedAs = "entered_by_customer"
 )
+
+// MarshalText encodes DiscountSimulatedAs as its wire value, for use in query parameters.
+func (v DiscountSimulatedAs) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes DiscountSimulatedAs from its wire value.
+func (v *DiscountSimulatedAs) UnmarshalText(b []byte) error {
+	*v = DiscountSimulatedAs(b)
+	return nil
+}
 
 // SimulationSubscriptionCreationConfigOptions: Options that determine which webhooks are sent as part of a simulation.
 type SimulationSubscriptionCreationConfigOptions struct {
@@ -132,6 +165,17 @@ const (
 	SimulationConfigOptionPaymentOutcomeFailed                         SimulationConfigOptionPaymentOutcome = "failed"
 )
 
+// MarshalText encodes SimulationConfigOptionPaymentOutcome as its wire value, for use in query parameters.
+func (v SimulationConfigOptionPaymentOutcome) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionPaymentOutcome from its wire value.
+func (v *SimulationConfigOptionPaymentOutcome) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionPaymentOutcome(b)
+	return nil
+}
+
 // SimulationConfigOptionDunningExhaustedAction: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`..
 type SimulationConfigOptionDunningExhaustedAction string
 
@@ -139,6 +183,17 @@ const (
 	SimulationConfigOptionDunningExhaustedActionSubscriptionPaused   SimulationConfigOptionDunningExhaustedAction = "subscription_paused"
 	SimulationConfigOptionDunningExhaustedActionSubscriptionCanceled SimulationConfigOptionDunningExhaustedAction = "subscription_canceled"
 )
+
+// MarshalText encodes SimulationConfigOptionDunningExhaustedAction as its wire value, for use in query parameters.
+func (v SimulationConfigOptionDunningExhaustedAction) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionDunningExhaustedAction from its wire value.
+func (v *SimulationConfigOptionDunningExhaustedAction) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionDunningExhaustedAction(b)
+	return nil
+}
 
 // SimulationSubscriptionRenewalConfigOptions: Options that determine which webhooks are sent as part of a simulation.
 type SimulationSubscriptionRenewalConfigOptions struct {
@@ -307,6 +362,17 @@ const (
 	SimulationScenarioTypeSubscriptionCancellation SimulationScenarioType = "subscription_cancellation"
 )
 
+// MarshalText encodes SimulationScenarioType as its wire value, for use in query parameters.
+func (v SimulationScenarioType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationScenarioType from its wire value.
+func (v *SimulationScenarioType) UnmarshalText(b []byte) error {
+	*v = SimulationScenarioType(b)
+	return nil
+}
+
 // SimulationSubscriptionCancellation: Configuration for subscription canceled simulations.
 type SimulationSubscriptionCancellation struct {
 	// SubscriptionCancellation: Configuration for subscription canceled simulations.
@@ -443,6 +509,17 @@ type SimulationConfigOptionSuccessfulPaymentOutcome string
 
 const SimulationConfigOptionSuccessfulPaymentOutcomeSuccess SimulationConfigOptionSuccessfulPaymentOutcome = "success"
 
+// MarshalText encodes SimulationConfigOptionSuccessfulPaymentOutcome as its wire value, for use in query parameters.
+func (v SimulationConfigOptionSuccessfulPaymentOutcome) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionSuccessfulPaymentOutcome from its wire value.
+func (v *SimulationConfigOptionSuccessfulPaymentOutcome) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionSuccessfulPaymentOutcome(b)
+	return nil
+}
+
 // SimulationConfigSuccessfulPaymentOutcomeOptions: Options for when the payment outcome is successful.
 type SimulationConfigSuccessfulPaymentOutcomeOptions struct {
 	// PaymentOutcome: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
@@ -454,6 +531,17 @@ type SimulationConfigOptionFailedPaymentOutcome string
 
 const SimulationConfigOptionFailedPaymentOutcomeFailed SimulationConfigOptionFailedPaymentOutcome = "failed"
 
+// MarshalText encodes SimulationConfigOptionFailedPaymentOutcome as its wire value, for use in query parameters.
+func (v SimulationConfigOptionFailedPaymentOutcome) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionFailedPaymentOutcome from its wire value.
+func (v *SimulationConfigOptionFailedPaymentOutcome) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionFailedPaymentOutcome(b)
+	return nil
+}
+
 // SimulationConfigOptionFailedDunningExhaustedAction: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. If omitted, defaults to `subscription_canceled`..
 type SimulationConfigOptionFailedDunningExhaustedAction string
 
@@ -461,6 +549,17 @@ const (
 	SimulationConfigOptionFailedDunningExhaustedActionSubscriptionPaused   SimulationConfigOptionFailedDunningExhaustedAction = "subscription_paused"
 	SimulationConfigOptionFailedDunningExhaustedActionSubscriptionCanceled SimulationConfigOptionFailedDunningExhaustedAction = "subscription_canceled"
 )
+
+// MarshalText encodes SimulationConfigOptionFailedDunningExhaustedAction as its wire value, for use in query parameters.
+func (v SimulationConfigOptionFailedDunningExhaustedAction) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionFailedDunningExhaustedAction from its wire value.
+func (v *SimulationConfigOptionFailedDunningExhaustedAction) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionFailedDunningExhaustedAction(b)
+	return nil
+}
 
 // SimulationConfigFailedPaymentOutcomeOptions: Options for when the payment outcome is failed.
 type SimulationConfigFailedPaymentOutcomeOptions struct {
@@ -475,6 +574,17 @@ type SimulationConfigOptionRecoveredPaymentOutcome string
 
 const SimulationConfigOptionRecoveredPaymentOutcomeRecoveredExistingPaymentMethod SimulationConfigOptionRecoveredPaymentOutcome = "recovered_existing_payment_method"
 
+// MarshalText encodes SimulationConfigOptionRecoveredPaymentOutcome as its wire value, for use in query parameters.
+func (v SimulationConfigOptionRecoveredPaymentOutcome) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionRecoveredPaymentOutcome from its wire value.
+func (v *SimulationConfigOptionRecoveredPaymentOutcome) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionRecoveredPaymentOutcome(b)
+	return nil
+}
+
 // SimulationConfigRecoveredPaymentOutcomeOptions: Options for when the payment is recovered from an existing payment method.
 type SimulationConfigRecoveredPaymentOutcomeOptions struct {
 	// PaymentOutcome: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
@@ -485,6 +595,17 @@ type SimulationConfigRecoveredPaymentOutcomeOptions struct {
 type SimulationConfigOptionRecoveredUpdatedPaymentOutcome string
 
 const SimulationConfigOptionRecoveredUpdatedPaymentOutcomeRecoveredUpdatedPaymentMethod SimulationConfigOptionRecoveredUpdatedPaymentOutcome = "recovered_updated_payment_method"
+
+// MarshalText encodes SimulationConfigOptionRecoveredUpdatedPaymentOutcome as its wire value, for use in query parameters.
+func (v SimulationConfigOptionRecoveredUpdatedPaymentOutcome) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SimulationConfigOptionRecoveredUpdatedPaymentOutcome from its wire value.
+func (v *SimulationConfigOptionRecoveredUpdatedPaymentOutcome) UnmarshalText(b []byte) error {
+	*v = SimulationConfigOptionRecoveredUpdatedPaymentOutcome(b)
+	return nil
+}
 
 // SimulationConfigRecoveredUpdatedPaymentOutcomeOptions: Options for when the payment is recovered from an updated payment method.
 type SimulationConfigRecoveredUpdatedPaymentOutcomeOptions struct {
@@ -868,14 +989,14 @@ type ListSimulationsRequest struct {
 	After *string `in:"query=after;omitempty" json:"-"`
 	// NotificationSettingID is a query parameter.
 	// Return entities related to the specified notification destination. Use a comma-separated list to specify multiple notification destination IDs.
-	NotificationSettingID []string `in:"query=notification_setting_id;omitempty" json:"-"`
+	NotificationSettingID []string `in:"paddle_list=notification_setting_id" json:"-"`
 	// OrderBy is a query parameter.
 	/*
 	   Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
 
 	   Valid fields for ordering: `id`.
 	*/
-	OrderBy *string `in:"query=order_by;omitempty" json:"-"`
+	OrderBy *OrderBy `in:"query=order_by;omitempty" json:"-"`
 	// PerPage is a query parameter.
 	/*
 	   Set how many entities are returned per page. Paddle returns the maximum number of results if a number greater than the maximum is requested. Check `meta.pagination.per_page` in the response to see how many were returned.
@@ -885,10 +1006,10 @@ type ListSimulationsRequest struct {
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// ID is a query parameter.
 	// Return only the IDs specified. Use a comma-separated list to get multiple entities.
-	ID []string `in:"query=id;omitempty" json:"-"`
+	ID []string `in:"paddle_list=id" json:"-"`
 	// Status is a query parameter.
 	// Return entities that match the specified status. Use a comma-separated list to specify multiple status values.
-	Status []string `in:"query=status;omitempty" json:"-"`
+	Status []Status `in:"paddle_list=status" json:"-"`
 }
 
 // ListSimulations performs the GET operation on a Simulations resource.
