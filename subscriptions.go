@@ -464,7 +464,27 @@ type SubscriptionDiscountTimePeriod struct {
 	// StartsAt: RFC 3339 datetime string of when this discount was first applied. `null` for canceled subscriptions where a discount was redeemed but never applied to a transaction.
 	StartsAt *string `json:"starts_at,omitempty"`
 	// EndsAt: RFC 3339 datetime string of when this discount no longer applies. Where a discount has `maximum_recurring_intervals`, this is the date of the last billing period where this discount applies. `null` where a discount recurs forever.
-	EndsAt *string `json:"ends_at,omitempty"`
+	EndsAt *string                  `json:"ends_at,omitempty"`
+	Type   SubscriptionDiscountType `json:"type,omitempty"`
+}
+
+// SubscriptionDiscountType: Whether this discount applies for multiple billing periods.
+type SubscriptionDiscountType string
+
+const (
+	SubscriptionDiscountTypeRecurring SubscriptionDiscountType = "recurring"
+	SubscriptionDiscountTypeOneOff    SubscriptionDiscountType = "one-off"
+)
+
+// MarshalText encodes SubscriptionDiscountType as its wire value, for use in query parameters.
+func (v SubscriptionDiscountType) MarshalText() ([]byte, error) {
+	return []byte(v), nil
+}
+
+// UnmarshalText decodes SubscriptionDiscountType from its wire value.
+func (v *SubscriptionDiscountType) UnmarshalText(b []byte) error {
+	*v = SubscriptionDiscountType(b)
+	return nil
 }
 
 // ScheduledChangeAction: Kind of change that's scheduled to be applied to this subscription..
