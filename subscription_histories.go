@@ -663,8 +663,8 @@ type ListSubscriptionHistoryRequest struct {
 	// Return history entries that match the specified reason. Use a comma-separated list to specify multiple reason values.
 	Reason []SubscriptionHistoryReasonQuery `in:"paddle_list=reason" json:"-"`
 	// OccurredAt is a query parameter.
-	// Return entities that occurred at a specific time. Use `[LTE]` (less than or equal to) or `[GTE]` (greater than or equal to) operators with an RFC 3339 datetime string. For example, `occurred_at[LTE]=2023-04-18T17:03:26` or `occurred_at[GTE]=2023-04-18T17:03:26`.
-	OccurredAt *string `in:"query=occurred_at;omitempty" json:"-"`
+	// Return entities that occurred at a specific time. Use `[LTE]` (less than or equal to) or `[GTE]` (greater than or equal to) operators with an RFC 3339 datetime string. For example, `occurred_at[LTE]=2023-04-18T17:03:26Z` or `occurred_at[GTE]=2023-04-18T17:03:26Z`.
+	OccurredAt *DateRange `in:"paddle_operator=occurred_at" json:"-"`
 	// After is a query parameter.
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
