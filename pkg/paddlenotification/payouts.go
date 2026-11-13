@@ -25,9 +25,17 @@ type PayoutNotification struct {
 	// RemittanceReference: Reference number on the payout and remittance advice document.
 	RemittanceReference string `json:"remittance_reference"`
 	// Status: Status of this payout.
-	Status Status `json:"status"`
+	Status PayoutStatus `json:"status"`
 	// Amount: Amount paid, or scheduled to be paid, for this payout.
 	Amount string `json:"amount"`
 	// CurrencyCode: Three-letter ISO 4217 currency code for this payout.
 	CurrencyCode CurrencyCodePayouts `json:"currency_code"`
 }
+
+// PayoutStatus: The current status of a payout
+type PayoutStatus string
+
+const (
+	PayoutStatusUnpaid PayoutStatus = "unpaid"
+	PayoutStatusPaid   PayoutStatus = "paid"
+)
