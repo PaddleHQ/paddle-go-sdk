@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## 6.0.0 - 2026-11-12
+## 6.0.0 - 2026-11-16
 
 ### Added
 
@@ -27,6 +27,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Support for `CLP` and `PEN` currency codes, see [changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-go-sdk)
 - Support for `balance_movement_date` and `balance_movement_type` filters on payout reconciliation reports, see [changelog](https://developer.paddle.com/changelog/2026/payout-reconciliation-report-filters?utm_source=dx&utm_medium=paddle-go-sdk)
 - Support for additional payment method, error code, API key permission, and report enum values (`korea_local`, `prepaid_card_not_supported`, `blocked_by_policy`, `metrics.read`, `subscription_history.read`, `verification.read`, `checkout_domain.read`, `checkout_domain.write`, plus notification-side report types and filters including `balance` and `payout_reconciliation`)
+- Support for `type` on subscription discounts (`recurring` or `one-off`), on `SubscriptionDiscountTimePeriod` in API responses and subscription notifications
+- `BillingCycleInterval` and `BillingCycleFrequency` filters on `ListPricesRequest`
+- `DateFilter` and `DateRange` for filtering lists by date with `LT`, `LTE`, `GT` and `GTE` operators
+- Error sentinels for 45 more API error codes across subscriptions, prices, metrics, checkout domains, transactions, adjustments, discounts, notifications, payment methods and shared errors, for use with `errors.Is`
 
 ### Changed
 
@@ -37,6 +41,23 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `WebhookVerifier` now verifies webhook timestamps by default, rejecting webhooks more than 5 seconds from the current time with `ErrReplayAttack`. Use `VerifierWithTimestampTolerance` to change the tolerance or `VerifierWithoutTimestampVerification` to disable, see [UPGRADING](./UPGRADING.md) for details
 - `SubscriptionCreatedNotification` now embeds `SubscriptionNotification` rather than duplicating its fields, see [UPGRADING](./UPGRADING.md) for details
 - `PaymentMethodSavedNotification` and `PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`, and the duplicate `Origin` type is removed in favour of `PaymentMethodOrigin`, see [UPGRADING](./UPGRADING.md) for details
+- `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*DateFilter`, and `OccurredAt` on `ListSubscriptionHistoryRequest` is now `*DateRange`, see [UPGRADING](./UPGRADING.md) for details
+- List request filters backed by an enum now take that enum type, for example `Status []paddle.SubscriptionStatus` and `OrderBy *paddle.OrderBy`, see [UPGRADING](./UPGRADING.md) for details
+- `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, so you can filter by more than one action
+- Array filters are sent as one comma-separated value (`status=active,paused`) rather than repeated keys
+- Includes are sent as one comma-separated `include` value (`include=customer,address`) rather than repeated keys
+- `Quantity` on `TransactionPriceCreateWithProductID`, `TransactionPriceCreateWithProduct`, `SubscriptionChargeCreateWithPrice` and `SubscriptionChargeCreateWithProduct` is now `*PriceQuantity`, see [UPGRADING](./UPGRADING.md) for details
+- `PayoutNotification.Status` is now `PayoutStatus` (`unpaid` or `paid`) rather than the generic `Status`, see [UPGRADING](./UPGRADING.md) for details
+
+### Removed
+
+- Removed `AdjustmentActionQuery`; use `AdjustmentAction` to filter adjustments by action
+- Removed `Meta`, `MetaPaginated` and `Pagination`, which no SDK method accepted or returned
+
+### Fixed
+
+- Filtering `ListVerifications` by `VerificationType` and `ListExploreEntities` by `Entity` no longer fails with `unsupported type`
+- Non-catalog prices without a quantity no longer send an empty `quantity` object, which Paddle rejected
 
 ## 5.2.0 - 2026-03-30
 

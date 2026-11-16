@@ -96,6 +96,60 @@ This release introduces breaking changes. Please review the following to upgrade
      - `OriginSubscription` → `PaymentMethodOriginSubscription`  
      - `OriginSubscriptionSavedDuringPurchase` → `PaymentMethodOriginSubscriptionSavedDuringPurchase`
 
+7. List Filters Use Enum Types  
+   - List request filters backed by an enum take the enum type instead of strings, so only values the API accepts compile.  
+   - Some filters accept a subset of an entity's values and have their own type, such as `TransactionOriginQuery` and `ScheduledChangeActionQuery`.  
+   - `order_by` takes `OrderBy` (sort by `id`), `CreationOrderBy` (also `created_at`), `LifecycleOrderBy` (also `created_at` and `updated_at`), or a resource-specific type such as `PriceOrderBy`.  
+   - `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, and `AdjustmentActionQuery` is removed.  
+   - The unused `Meta`, `MetaPaginated` and `Pagination` types are removed. No SDK method accepted or returned them.
+
+   ```go
+   // Before (v5.x)
+   client.ListSubscriptions(ctx, &paddle.ListSubscriptionsRequest{
+       Status:  []string{"active"},
+       OrderBy: paddle.PtrTo("id[DESC]"),
+   })
+
+   // After (v6.0)
+   client.ListSubscriptions(ctx, &paddle.ListSubscriptionsRequest{
+       Status:  []paddle.SubscriptionStatus{paddle.SubscriptionStatusActive},
+       OrderBy: paddle.PtrTo(paddle.OrderByIDDesc),
+   })
+   ```
+
+8. Date Filters Take DateFilter and DateRange  
+   - `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*paddle.DateFilter`. Set `Equals` for an exact match, or any of `LT`, `LTE`, `GT` and `GTE`, combining them for a range.  
+   - `OccurredAt` on `ListSubscriptionHistoryRequest` is now `*paddle.DateRange`, with only `GTE` and `LTE`.  
+   - Dates are RFC 3339 datetime strings, including a timezone.
+
+   ```go
+   // Before (v5.x)
+   client.ListTransactions(ctx, &paddle.ListTransactionsRequest{
+       BilledAt: paddle.PtrTo("2026-01-01T00:00:00Z"),
+   })
+
+   // After (v6.0): exact match
+   client.ListTransactions(ctx, &paddle.ListTransactionsRequest{
+       BilledAt: &paddle.DateFilter{Equals: paddle.PtrTo("2026-01-01T00:00:00Z")},
+   })
+
+   // After (v6.0): billed in January 2026
+   client.ListTransactions(ctx, &paddle.ListTransactionsRequest{
+       BilledAt: &paddle.DateFilter{
+           GTE: paddle.PtrTo("2026-01-01T00:00:00Z"),
+           LT:  paddle.PtrTo("2026-02-01T00:00:00Z"),
+       },
+   })
+   ```
+
+9. Non-Catalog Price Quantity Is a Pointer  
+   - `Quantity` on `TransactionPriceCreateWithProductID`, `TransactionPriceCreateWithProduct`, `SubscriptionChargeCreateWithPrice` and `SubscriptionChargeCreateWithProduct` is now `*PriceQuantity`.  
+   - Set `Quantity: &paddle.PriceQuantity{Minimum: 1, Maximum: 10}`, or leave it out. Previously an unset quantity sent `"quantity":{}`, which Paddle rejected.
+
+10. Payout Notification Status Is PayoutStatus  
+    - `Status` on `paddlenotification.PayoutNotification`, the payload of `payout.created` and `payout.paid`, is now `paddlenotification.PayoutStatus`.  
+    - Compare it with `PayoutStatusUnpaid` or `PayoutStatusPaid` instead of `Status` values, which never matched a payout.
+
 ## v5.0.0
 
 This release introduces breaking changes. Please review the following to upgrade:
