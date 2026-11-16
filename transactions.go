@@ -932,14 +932,14 @@ type ListTransactionsRequest struct {
 	// Return entities after the specified Paddle ID when working with paginated endpoints. Used in the `meta.pagination.next` URL in responses for list operations.
 	After *string `in:"query=after;omitempty" json:"-"`
 	// BilledAt is a query parameter.
-	// Return entities billed at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `billed_at=2023-04-18T17:03:26` or `billed_at[LT]=2023-04-18T17:03:26`.
-	BilledAt *string `in:"query=billed_at;omitempty" json:"-"`
+	// Return entities billed at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `billed_at=2023-04-18T17:03:26Z` or `billed_at[LT]=2023-04-18T17:03:26Z`.
+	BilledAt *DateFilter `in:"paddle_operator=billed_at" json:"-"`
 	// CollectionMode is a query parameter.
 	// Return entities that match the specified collection mode.
 	CollectionMode *CollectionMode `in:"query=collection_mode;omitempty" json:"-"`
 	// CreatedAt is a query parameter.
-	// Return entities created at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `created_at=2023-04-18T17:03:26` or `created_at[LT]=2023-04-18T17:03:26`.
-	CreatedAt *string `in:"query=created_at;omitempty" json:"-"`
+	// Return entities created at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `created_at=2023-04-18T17:03:26Z` or `created_at[LT]=2023-04-18T17:03:26Z`.
+	CreatedAt *DateFilter `in:"paddle_operator=created_at" json:"-"`
 	// CustomerID is a query parameter.
 	// Return entities related to the specified customer. Use a comma-separated list to specify multiple customer IDs.
 	CustomerID []string `in:"paddle_list=customer_id" json:"-"`
@@ -973,8 +973,8 @@ type ListTransactionsRequest struct {
 	*/
 	PerPage *int `in:"query=per_page;omitempty" json:"-"`
 	// UpdatedAt is a query parameter.
-	// Return entities updated at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `updated_at=2023-04-18T17:03:26` or `updated_at[LT]=2023-04-18T17:03:26`.
-	UpdatedAt *string `in:"query=updated_at;omitempty" json:"-"`
+	// Return entities updated at a specific time. Pass an RFC 3339 datetime string, or use `[LT]` (less than), `[LTE]` (less than or equal to), `[GT]` (greater than), or `[GTE]` (greater than or equal to) operators. For example, `updated_at=2023-04-18T17:03:26Z` or `updated_at[LT]=2023-04-18T17:03:26Z`.
+	UpdatedAt *DateFilter `in:"paddle_operator=updated_at" json:"-"`
 
 	// IncludeAddress allows requesting the address sub-resource as part of this request.
 	// If set to true, will be included on the response.
