@@ -2,7 +2,66 @@
 
 package paddle
 
-import "context"
+import (
+	"context"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
+)
+
+// ErrInvalidAggregation represents a `invalid_aggregation` error.
+// See https://developer.paddle.com/errors/metrics/invalid_aggregation for more information.
+var ErrInvalidAggregation = &paddleerr.Error{
+	Code: "invalid_aggregation",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrInvalidCursor represents a `invalid_cursor` error.
+// See https://developer.paddle.com/errors/metrics/invalid_cursor for more information.
+var ErrInvalidCursor = &paddleerr.Error{
+	Code: "invalid_cursor",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrInvalidOperator represents a `invalid_operator` error.
+// See https://developer.paddle.com/errors/metrics/invalid_operator for more information.
+var ErrInvalidOperator = &paddleerr.Error{
+	Code: "invalid_operator",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrMaxLookbackExceeded represents a `max_lookback_exceeded` error.
+// See https://developer.paddle.com/errors/metrics/max_lookback_exceeded for more information.
+var ErrMaxLookbackExceeded = &paddleerr.Error{
+	Code: "max_lookback_exceeded",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrQueryTimeout represents a `query_timeout` error.
+// See https://developer.paddle.com/errors/metrics/query_timeout for more information.
+var ErrQueryTimeout = &paddleerr.Error{
+	Code: "query_timeout",
+	Type: paddleerr.ErrorTypeAPIError,
+}
+
+// ErrTooManyDatapoints represents a `too_many_datapoints` error.
+// See https://developer.paddle.com/errors/metrics/too_many_datapoints for more information.
+var ErrTooManyDatapoints = &paddleerr.Error{
+	Code: "too_many_datapoints",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrUnknownEntity represents a `unknown_entity` error.
+// See https://developer.paddle.com/errors/metrics/unknown_entity for more information.
+var ErrUnknownEntity = &paddleerr.Error{
+	Code: "unknown_entity",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrUnknownField represents a `unknown_field` error.
+// See https://developer.paddle.com/errors/metrics/unknown_field for more information.
+var ErrUnknownField = &paddleerr.Error{
+	Code: "unknown_field",
+	Type: paddleerr.ErrorTypeRequestError,
+}
 
 // MetricsInterval represents the interval granularity for metrics timeseries. Only `day` is supported.
 type MetricsInterval string

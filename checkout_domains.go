@@ -2,7 +2,45 @@
 
 package paddle
 
-import "context"
+import (
+	"context"
+	paddleerr "github.com/PaddleHQ/paddle-go-sdk/v6/pkg/paddleerr"
+)
+
+// ErrCheckoutDomainAlreadyExists represents a `checkout_domain_already_exists` error.
+// See https://developer.paddle.com/errors/checkout_domains/checkout_domain_already_exists for more information.
+var ErrCheckoutDomainAlreadyExists = &paddleerr.Error{
+	Code: "checkout_domain_already_exists",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrCheckoutDomainApplePayDomainVerificationFailed represents a `checkout_domain_apple_pay_domain_verification_failed` error.
+// See https://developer.paddle.com/errors/checkout_domains/checkout_domain_apple_pay_domain_verification_failed for more information.
+var ErrCheckoutDomainApplePayDomainVerificationFailed = &paddleerr.Error{
+	Code: "checkout_domain_apple_pay_domain_verification_failed",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrCheckoutDomainDomainNotApproved represents a `checkout_domain_domain_not_approved` error.
+// See https://developer.paddle.com/errors/checkout_domains/checkout_domain_domain_not_approved for more information.
+var ErrCheckoutDomainDomainNotApproved = &paddleerr.Error{
+	Code: "checkout_domain_domain_not_approved",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrCheckoutDomainNotAwaitingResubmission represents a `checkout_domain_not_awaiting_resubmission` error.
+// See https://developer.paddle.com/errors/checkout_domains/checkout_domain_not_awaiting_resubmission for more information.
+var ErrCheckoutDomainNotAwaitingResubmission = &paddleerr.Error{
+	Code: "checkout_domain_not_awaiting_resubmission",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrCheckoutDomainPaymentMethodVerificationServiceUnavailable represents a `checkout_domain_payment_method_verification_service_unavailable` error.
+// See https://developer.paddle.com/errors/checkout_domains/checkout_domain_payment_method_verification_service_unavailable for more information.
+var ErrCheckoutDomainPaymentMethodVerificationServiceUnavailable = &paddleerr.Error{
+	Code: "checkout_domain_payment_method_verification_service_unavailable",
+	Type: paddleerr.ErrorTypeAPIError,
+}
 
 // CheckoutDomainApprovalStatus: Approval status of this checkout domain. Checkout domains are created as `pending_review`. It can be `pending_review`, `approved`, `rejected`, `in_review`, or `action_required`.
 type CheckoutDomainApprovalStatus string

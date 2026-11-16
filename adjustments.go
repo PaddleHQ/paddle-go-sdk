@@ -126,6 +126,20 @@ var ErrAdjustmentPayoutEarningsCannotBeZero = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrAdjustmentCannotAdjustImportedTransaction represents a `adjustment_cannot_adjust_imported_transaction` error.
+// See https://developer.paddle.com/errors/adjustments/adjustment_cannot_adjust_imported_transaction for more information.
+var ErrAdjustmentCannotAdjustImportedTransaction = &paddleerr.Error{
+	Code: "adjustment_cannot_adjust_imported_transaction",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
+// ErrAdjustmentTransactionWithoutCapturedPayment represents a `adjustment_transaction_without_captured_payment` error.
+// See https://developer.paddle.com/errors/adjustments/adjustment_transaction_without_captured_payment for more information.
+var ErrAdjustmentTransactionWithoutCapturedPayment = &paddleerr.Error{
+	Code: "adjustment_transaction_without_captured_payment",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 /*
 AdjustmentTaxMode: Whether the amounts to be adjusted are inclusive or exclusive of tax. If `internal`, adjusted amounts are considered to be inclusive of tax. If `external`, Paddle calculates the tax and adds it to the amounts provided.
 

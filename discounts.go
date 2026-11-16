@@ -56,6 +56,13 @@ var ErrDiscountGroupNameConflict = &paddleerr.Error{
 	Type: paddleerr.ErrorTypeRequestError,
 }
 
+// ErrDiscountMaximumRecurringIntervalsGreaterThanMaximum represents a `discount_maximum_recurring_intervals_greater_than_maximum` error.
+// See https://developer.paddle.com/errors/discounts/discount_maximum_recurring_intervals_greater_than_maximum for more information.
+var ErrDiscountMaximumRecurringIntervalsGreaterThanMaximum = &paddleerr.Error{
+	Code: "discount_maximum_recurring_intervals_greater_than_maximum",
+	Type: paddleerr.ErrorTypeRequestError,
+}
+
 // Discount: Represents a discount entity with included entities.
 type Discount struct {
 	// ID: Unique Paddle ID for this discount, prefixed with `dsc_`.
