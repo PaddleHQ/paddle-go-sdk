@@ -98,11 +98,12 @@ This release introduces breaking changes. Please review the following to upgrade
 
 7. Request Filters Use Enum Types  
    - Query parameters backed by an enum, on list requests and the invoice and credit note requests, take the enum type instead of strings, so only values the API accepts compile.  
-   - Some filters accept a subset of an entity's values and have their own type, such as `TransactionOriginQuery` and `ScheduledChangeActionQuery`.  
+   - Some filters accept different values from the entity's own enum, so they have their own type: `TransactionOriginQuery` adds `subscription_import`, and `ScheduledChangeActionQuery` adds `none`.  
    - `order_by` takes `OrderBy` (sort by `id`), `CreationOrderBy` (also `created_at`), `LifecycleOrderBy` (also `created_at` and `updated_at`), or a resource-specific type such as `PriceOrderBy`.  
-   - `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, and `AdjustmentActionQuery` is removed.  
+   - `ListAdjustmentsRequest.Action` was a single `*string` and is now `[]AdjustmentAction`, so you can filter by more than one action. For example, `paddle.PtrTo("refund")` becomes `[]paddle.AdjustmentAction{paddle.AdjustmentActionRefund}`. `AdjustmentActionQuery` is removed.  
    - `Disposition` on `GetTransactionInvoiceRequest` and `GetAdjustmentCreditNoteRequest` is now `*Disposition`. Use `DispositionAttachment` or `DispositionInline`.  
-   - The unused `Meta`, `MetaPaginated` and `Pagination` types are removed. No SDK method accepted or returned them.
+   - The unused `Meta`, `MetaPaginated` and `Pagination` types are removed. No SDK method accepted or returned them.  
+   - Multiple values are sent as one comma-separated parameter (`status=active,paused`), as are includes (`include=customer,address`), instead of repeated keys. Update request mocks or proxies that match on the query string.
 
    ```go
    // Before (v5.x)
@@ -118,9 +119,8 @@ This release introduces breaking changes. Please review the following to upgrade
    })
    ```
 
-8. Date Filters Take DateFilter and DateRange  
+8. Transaction Date Filters Take DateFilter  
    - `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*paddle.DateFilter`. Set `Equals` for an exact match, or any of `LT`, `LTE`, `GT` and `GTE`, combining them for a range.  
-   - `OccurredAt` on `ListSubscriptionHistoryRequest` is now `*paddle.DateRange`, with only `GTE` and `LTE`.  
    - Dates are RFC 3339 datetime strings, including a timezone.
 
    ```go

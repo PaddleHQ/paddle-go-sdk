@@ -40,7 +40,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `WebhookVerifier` now verifies webhook timestamps by default, rejecting webhooks more than 5 seconds from the current time with `ErrReplayAttack`. Use `VerifierWithTimestampTolerance` to change the tolerance or `VerifierWithoutTimestampVerification` to disable, see [UPGRADING](./UPGRADING.md) for details
 - `SubscriptionCreatedNotification` now embeds `SubscriptionNotification` rather than duplicating its fields, see [UPGRADING](./UPGRADING.md) for details
 - `PaymentMethodSavedNotification` and `PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`, and the duplicate `Origin` type is removed in favour of `PaymentMethodOrigin`, see [UPGRADING](./UPGRADING.md) for details
-- `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*DateFilter`, and `OccurredAt` on `ListSubscriptionHistoryRequest` is now `*DateRange`, see [UPGRADING](./UPGRADING.md) for details
+- `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*DateFilter`, see [UPGRADING](./UPGRADING.md) for details
 - List request filters backed by an enum now take that enum type, for example `Status []paddle.SubscriptionStatus` and `OrderBy *paddle.OrderBy`, see [UPGRADING](./UPGRADING.md) for details
 - `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, so you can filter by more than one action
 - `Disposition` on `GetTransactionInvoiceRequest` and `GetAdjustmentCreditNoteRequest` is now `*Disposition`, see [UPGRADING](./UPGRADING.md) for details
