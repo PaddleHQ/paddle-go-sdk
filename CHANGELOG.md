@@ -6,6 +6,59 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## 6.0.0 - 2026-11-17
+
+### Added
+
+- Checkout Domains API to list, get and delete checkout domains, and verify them for Apple Pay, see [changelog](https://developer.paddle.com/changelog/2026/checkout-domains-api?utm_source=dx&utm_medium=paddle-go-sdk)
+- Subscription history, listing the changes made to a subscription over time, see [changelog](https://developer.paddle.com/changelog/2026/subscription-history?utm_source=dx&utm_medium=paddle-go-sdk)
+- Metrics Explore API to run explore queries and list metric entities, see [changelog](https://developer.paddle.com/changelog/2026/explore-metrics-api?utm_source=dx&utm_medium=paddle-go-sdk)
+- Verifications API to list and get account verifications
+- Countries and Currencies APIs to list supported countries and currencies
+- `consent_requirements` on subscriptions and subscription notifications, see [changelog](https://developer.paddle.com/changelog/2026/subscription-consent-requirements?utm_source=dx&utm_medium=paddle-go-sdk)
+- PayPal payer details on transaction `method_details`, see [changelog](https://developer.paddle.com/changelog/2026/paypal-transaction-payments?utm_source=dx&utm_medium=paddle-go-sdk)
+- Paid trials, with `unit_price` and `unit_price_overrides` on trial periods, see [changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-go-sdk)
+- `view_subscription` customer portal links, see [changelog](https://developer.paddle.com/changelog/2026/view-subscription-customer-portal-link?utm_source=dx&utm_medium=paddle-go-sdk)
+- `rotatable` on the `api_key` webhook payload, see [changelog](https://developer.paddle.com/changelog/2026/aws-secrets-manager-rotation?utm_source=dx&utm_medium=paddle-go-sdk)
+- `type` on subscription discounts (`recurring` or `one-off`)
+- `checkouts` report type, see [changelog](https://developer.paddle.com/changelog/2026/checkouts-report?utm_source=dx&utm_medium=paddle-go-sdk)
+- `subscriptions` report type and filters, see [changelog](https://developer.paddle.com/changelog/2026/subscriptions-report?utm_source=dx&utm_medium=paddle-go-sdk) and [scheduled change filter changelog](https://developer.paddle.com/changelog/2026/subscriptions-report-scheduled-change-filter?utm_source=dx&utm_medium=paddle-go-sdk)
+- Balance movement filters on payout reconciliation reports, see [changelog](https://developer.paddle.com/changelog/2026/payout-reconciliation-report-filters?utm_source=dx&utm_medium=paddle-go-sdk)
+- `filter`, `to` and `from` when listing events, see [changelog](https://developer.paddle.com/changelog/2026/event-notification-log-filtering?utm_source=dx&utm_medium=paddle-go-sdk)
+- Billing cycle filters on `ListPricesRequest`
+- `DateFilter` and `DateRange` for date filters with comparison operators
+- `CLP` and `PEN` currency codes, see [changelog](https://developer.paddle.com/changelog/2026/clp-pen-currencies?utm_source=dx&utm_medium=paddle-go-sdk)
+- New payment method, error code, API key permission and report enum values
+- Error sentinels for 45 more API error codes, for use with `errors.Is`
+
+### Changed
+
+- Module path is now `github.com/PaddleHQ/paddle-go-sdk/v6`, see [UPGRADING](./UPGRADING.md) for details
+- Minimum supported Go version is now 1.26, see [UPGRADING](./UPGRADING.md) for details
+- `ReplayNotification` now returns the `NotificationReplay` response, with the ID of the notification created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `ReplaySimulationRunEvent` now returns the `SimulationEvent` created by the replay, see [UPGRADING](./UPGRADING.md) for details
+- `WebhookVerifier` now verifies webhook timestamps by default, rejecting webhooks more than 5 seconds from the current time with `ErrReplayAttack`. Use `VerifierWithTimestampTolerance` to change the tolerance or `VerifierWithoutTimestampVerification` to disable, see [UPGRADING](./UPGRADING.md) for details
+- `SubscriptionCreatedNotification` now embeds `SubscriptionNotification` rather than duplicating its fields, see [UPGRADING](./UPGRADING.md) for details
+- `PaymentMethodSavedNotification` and `PaymentMethodDeletedNotification` now embed a shared `PaymentMethodNotification`, and the duplicate `Origin` type is removed in favour of `PaymentMethodOrigin`, see [UPGRADING](./UPGRADING.md) for details
+- `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*DateFilter`, see [UPGRADING](./UPGRADING.md) for details
+- List request filters backed by an enum now take that enum type, for example `Status []paddle.SubscriptionStatus` and `OrderBy *paddle.OrderBy`, see [UPGRADING](./UPGRADING.md) for details
+- `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, so you can filter by more than one action
+- `Disposition` on `GetTransactionInvoiceRequest` and `GetAdjustmentCreditNoteRequest` is now `*Disposition`, see [UPGRADING](./UPGRADING.md) for details
+- Array filters are sent as one comma-separated value (`status=active,paused`) rather than repeated keys
+- Includes are sent as one comma-separated `include` value (`include=customer,address`) rather than repeated keys
+- `Quantity` on `TransactionPriceCreateWithProductID`, `TransactionPriceCreateWithProduct`, `SubscriptionChargeCreateWithPrice` and `SubscriptionChargeCreateWithProduct` is now `*PriceQuantity`, see [UPGRADING](./UPGRADING.md) for details
+- `PayoutNotification.Status` is now `PayoutStatus` (`unpaid` or `paid`) rather than the generic `Status`, see [UPGRADING](./UPGRADING.md) for details
+
+### Removed
+
+- Removed `AdjustmentActionQuery`; use `AdjustmentAction` to filter adjustments by action
+- Removed `Meta`, `MetaPaginated` and `Pagination`, which no SDK method accepted or returned
+
+### Fixed
+
+- Filtering `ListVerifications` by `VerificationType` and `ListExploreEntities` by `Entity` no longer fails with `unsupported type`
+- Non-catalog prices without a quantity no longer send an empty `quantity` object, which Paddle rejected
+
 ## 5.2.0 - 2026-03-30
 
 ### Added
