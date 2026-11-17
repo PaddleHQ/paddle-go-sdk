@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-go-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
-## 6.0.0 - 2026-11-16
+## 6.0.0 - 2026-11-17
 
 ### Added
 
@@ -44,6 +44,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - `BilledAt`, `CreatedAt` and `UpdatedAt` on `ListTransactionsRequest` are now `*DateFilter`, and `OccurredAt` on `ListSubscriptionHistoryRequest` is now `*DateRange`, see [UPGRADING](./UPGRADING.md) for details
 - List request filters backed by an enum now take that enum type, for example `Status []paddle.SubscriptionStatus` and `OrderBy *paddle.OrderBy`, see [UPGRADING](./UPGRADING.md) for details
 - `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, so you can filter by more than one action
+- `Disposition` on `GetTransactionInvoiceRequest` and `GetAdjustmentCreditNoteRequest` is now `*Disposition`, see [UPGRADING](./UPGRADING.md) for details
 - Array filters are sent as one comma-separated value (`status=active,paused`) rather than repeated keys
 - Includes are sent as one comma-separated `include` value (`include=customer,address`) rather than repeated keys
 - `Quantity` on `TransactionPriceCreateWithProductID`, `TransactionPriceCreateWithProduct`, `SubscriptionChargeCreateWithPrice` and `SubscriptionChargeCreateWithProduct` is now `*PriceQuantity`, see [UPGRADING](./UPGRADING.md) for details

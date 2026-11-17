@@ -96,11 +96,12 @@ This release introduces breaking changes. Please review the following to upgrade
      - `OriginSubscription` → `PaymentMethodOriginSubscription`  
      - `OriginSubscriptionSavedDuringPurchase` → `PaymentMethodOriginSubscriptionSavedDuringPurchase`
 
-7. List Filters Use Enum Types  
-   - List request filters backed by an enum take the enum type instead of strings, so only values the API accepts compile.  
+7. Request Filters Use Enum Types  
+   - Query parameters backed by an enum, on list requests and the invoice and credit note requests, take the enum type instead of strings, so only values the API accepts compile.  
    - Some filters accept a subset of an entity's values and have their own type, such as `TransactionOriginQuery` and `ScheduledChangeActionQuery`.  
    - `order_by` takes `OrderBy` (sort by `id`), `CreationOrderBy` (also `created_at`), `LifecycleOrderBy` (also `created_at` and `updated_at`), or a resource-specific type such as `PriceOrderBy`.  
    - `ListAdjustmentsRequest.Action` is now `[]AdjustmentAction`, and `AdjustmentActionQuery` is removed.  
+   - `Disposition` on `GetTransactionInvoiceRequest` and `GetAdjustmentCreditNoteRequest` is now `*Disposition`. Use `DispositionAttachment` or `DispositionInline`.  
    - The unused `Meta`, `MetaPaginated` and `Pagination` types are removed. No SDK method accepted or returned them.
 
    ```go
